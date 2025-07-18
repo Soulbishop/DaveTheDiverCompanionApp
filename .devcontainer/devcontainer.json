@@ -1,0 +1,24 @@
+{
+    "name": "DaveTheDiverApp Development",
+    "image": "mcr.microsoft.com/devcontainers/universal:latest",
+    "features": {
+        "ghcr.io/devcontainers/features/android:1": {
+            "version": "latest",
+            "buildTools": "latest",
+            "platforms": "latest"
+        }
+    },
+    "postCreateCommand": "cd DaveTheDiverApp && npm install",
+    "remoteUser": "codespace",
+    "containerEnv": {
+        "ANDROID_HOME": "/usr/local/sdk",
+        "ANDROID_SDK_ROOT": "/usr/local/sdk"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.vscode-android"
+            ]
+        }
+    }
+}
