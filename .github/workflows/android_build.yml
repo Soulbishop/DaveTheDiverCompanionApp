@@ -1,0 +1,48 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20' # or your preferred Node.js version, '20' is a good recent LTS
+
+    - name: Install npm dependencies
+      run: |
+        cd DaveTheDiverApp # Navigate into your React Native project folder
+        npm install
+
+    - name: Set up Java and Android SDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17' # Java 17 is standard for modern Android/React Native
+    - uses: android-actions/setup-android@v2
+      with:
+        api-level: 34 # Target Android API level
+        build-tools: 34.0.0 # Specific build tools version
+        # sdk-tools: 'latest' # Not explicitly needed with recent android-actions/setup-android
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./DaveTheDiverApp/android/gradlew
+
+    - name: Build Android Debug APK
+      run: |
+        cd DaveTheDiverApp/android # Navigate into the Android project directory
+        ./gradlew assembleDebug # Build the debug APK
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-debug-apk
+        path: DaveTheDiverApp/android/app/build/outputs/apk/debug/app-debug.apk
