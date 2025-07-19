@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.soulbishop.davethedivercompanion"  // <--- THIS IS THE CRUCIAL LINE TO ADD
     },
     "web": {
       "favicon": "./assets/favicon.png"
