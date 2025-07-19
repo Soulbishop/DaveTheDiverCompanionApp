@@ -37,28 +37,34 @@ jobs:
       - name: Initialize EAS project
         run: eas init --non-interactive --force
           
-      - name: Build APK
-        run: eas build --platform android --profile preview --non-interactive
-        
-      - name: Download APK
-        # This step is corrected to download the APK using the build URL.
-        # It extracts the URL from the previous 'Build APK' step's output.
+      - name: Build APK # Modified to output JSON and save to a job output
+        id: build_apk_step # Assign an ID to this step to reference its outputs
         run: |
-          # Use grep to find the line containing the build URL from the summary of the previous step.
-          # The $GITHUB_STEP_SUMMARY environment variable holds this information.
-          # Then, use awk to extract just the URL, which is the last field ($NF) on that line.
-          BUILD_URL=$(grep "See logs: https://expo.dev/" $GITHUB_STEP_SUMMARY | awk '{print $NF}')
+          BUILD_OUTPUT=$(eas build --platform android --profile preview --non-interactive --json)
+          echo "EAS Build JSON Output: $BUILD_OUTPUT" # For debugging
           
-          # Check if the BUILD_URL was successfully extracted.
+          # Extract the Android APK URL using jq from the JSON output
+          # .[] iterates over the array if there are multiple builds (e.g., android and ios)
+          # select(.platform=="ANDROID") filters for the Android build object
+          # .artifacts.applicationArchiveUrl gets the download URL
+          APK_URL=$(echo "$BUILD_OUTPUT" | jq -r '.[] | select(.platform=="ANDROID") | .artifacts.applicationArchiveUrl')
+          
+          # Set the extracted URL as a step output, so subsequent steps can access it.
+          echo "apk_url=$APK_URL" >> $GITHUB_OUTPUT
+        
+      - name: Download APK # Modified to use the URL from the previous step's output
+        run: |
+          BUILD_URL="${{ steps.build_apk_step.outputs.apk_url }}"
+          
+          # Basic error checking: if the URL wasn't found, print an error and exit.
           if [ -z "$BUILD_URL" ]; then
-            echo "Error: Could not find the build URL in the previous step's logs."
+            echo "Error: Could not find the build URL from the previous build step's output."
             exit 1
           fi
           
-          echo "Discovered build URL: $BUILD_URL"
+          echo "Discovered build URL for download: $BUILD_URL"
           
           # Use the extracted URL with 'eas build:download' to fetch the APK.
-          # The --platform android flag ensures we target the correct platform.
           eas build:download --url "$BUILD_URL" --platform android
           
       - name: Upload APK as artifact
