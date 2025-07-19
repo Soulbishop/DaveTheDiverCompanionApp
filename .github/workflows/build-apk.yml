@@ -37,39 +37,48 @@ jobs:
       - name: Initialize EAS project
         run: eas init --non-interactive --force
           
-      - name: Build APK # Modified to output JSON and save to a job output
+      - name: Build APK & Extract URL # Modified to output JSON and extract the APK URL
         id: build_apk_step # Assign an ID to this step to reference its outputs
         run: |
+          # Run eas build with --json to get structured output
           BUILD_OUTPUT=$(eas build --platform android --profile preview --non-interactive --json)
-          echo "EAS Build JSON Output: $BUILD_OUTPUT" # For debugging
+          echo "EAS Build JSON Output: $BUILD_OUTPUT" # For debugging purposes in logs
           
-          # Extract the Android APK URL using jq from the JSON output
-          # .[] iterates over the array if there are multiple builds (e.g., android and ios)
-          # select(.platform=="ANDROID") filters for the Android build object
-          # .artifacts.applicationArchiveUrl gets the download URL
-          APK_URL=$(echo "$BUILD_OUTPUT" | jq -r '.[] | select(.platform=="ANDROID") | .artifacts.applicationArchiveUrl')
+          # Use jq to parse the JSON and extract the direct application archive URL for the Android build.
+          # We check for .artifacts.applicationArchiveUrl which is the direct APK link.
+          APK_URL=$(echo "$BUILD_OUTPUT" | jq -r '.[0].artifacts.applicationArchiveUrl') # Assuming it's the first element in the array
           
-          # Set the extracted URL as a step output, so subsequent steps can access it.
+          # Set the extracted URL as a step output, so the next step can access it.
           echo "apk_url=$APK_URL" >> $GITHUB_OUTPUT
         
-      - name: Download APK # Modified to use the URL from the previous step's output
+      - name: Download APK # Now uses curl to directly download the APK from the URL
         run: |
-          BUILD_URL="${{ steps.build_apk_step.outputs.apk_url }}"
+          # Retrieve the APK URL from the output of the previous step.
+          DOWNLOAD_URL="${{ steps.build_apk_step.outputs.apk_url }}"
           
           # Basic error checking: if the URL wasn't found, print an error and exit.
-          if [ -z "$BUILD_URL" ]; then
-            echo "Error: Could not find the build URL from the previous build step's output."
+          if [ -z "$DOWNLOAD_URL" ]; then
+            echo "Error: Could not find the APK download URL from the previous build step."
             exit 1
           fi
           
-          echo "Discovered build URL for download: $BUILD_URL"
+          echo "Attempting to download APK from: $DOWNLOAD_URL"
           
-          # Use the extracted URL with 'eas build:download' to fetch the APK.
-          eas build:download --url "$BUILD_URL" --platform android
+          # Use curl to download the APK.
+          # -L: Follow redirects (important as Expo URLs might redirect)
+          # -o app.apk: Save the downloaded file as 'app.apk'
+          curl -L "$DOWNLOAD_URL" -o app.apk
+          
+          # Verify that the file was downloaded (optional, but good practice)
+          if [ ! -f "app.apk" ]; then
+            echo "Error: app.apk was not downloaded successfully."
+            exit 1
+          fi
+          echo "APK downloaded as app.apk"
           
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
         with:
           name: dave-diver-companion-apk
-          path: '**/*.apk'
+          path: '**/*.apk' # This will now find the 'app.apk' we downloaded
           retention-days: 30
