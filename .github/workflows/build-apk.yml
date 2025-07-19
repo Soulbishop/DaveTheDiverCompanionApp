@@ -1,4 +1,4 @@
-name: Build Dave Diver Companion APK
+Name: Build Dave Diver Companion APK
 
 on:
   push:
@@ -41,8 +41,26 @@ jobs:
         run: eas build --platform android --profile preview --non-interactive
         
       - name: Download APK
-        run: eas build:download --platform android --profile preview
-        
+        # This step is corrected to download the APK using the build URL.
+        # It extracts the URL from the previous 'Build APK' step's output.
+        run: |
+          # Use grep to find the line containing the build URL from the summary of the previous step.
+          # The $GITHUB_STEP_SUMMARY environment variable holds this information.
+          # Then, use awk to extract just the URL, which is the last field ($NF) on that line.
+          BUILD_URL=$(grep "See logs: https://expo.dev/" $GITHUB_STEP_SUMMARY | awk '{print $NF}')
+          
+          # Check if the BUILD_URL was successfully extracted.
+          if [ -z "$BUILD_URL" ]; then
+            echo "Error: Could not find the build URL in the previous step's logs."
+            exit 1
+          fi
+          
+          echo "Discovered build URL: $BUILD_URL"
+          
+          # Use the extracted URL with 'eas build:download' to fetch the APK.
+          # The --platform android flag ensures we target the correct platform.
+          eas build:download --url "$BUILD_URL" --platform android
+          
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
         with:
