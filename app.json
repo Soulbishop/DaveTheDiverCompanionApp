@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",  // <--- Changed to "automatic"
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
@@ -21,7 +21,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.soulbishop.davethedivercompanion"  // <--- THIS IS THE CRUCIAL LINE TO ADD
+      "package": "com.soulbishop.davethedivercompanion"  // <--- Ensured this is present
     },
     "web": {
       "favicon": "./assets/favicon.png"
