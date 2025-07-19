@@ -15,7 +15,7 @@
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease",
-        "resourceClass": "m5.medium"
+        "resourceClass": "medium" // <-- Corrected resourceClass
       },
       "withoutCredentials": true
     },
@@ -23,7 +23,7 @@
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease",
-        "resourceClass": "m5.medium"
+        "resourceClass": "medium" // <-- Corrected resourceClass
       },
       "withoutCredentials": true
     }
