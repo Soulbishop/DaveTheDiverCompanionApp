@@ -1,4 +1,4 @@
-Name: Build Dave Diver Companion APK
+name: Build Dave Diver Companion APK
 
 on:
   push:
