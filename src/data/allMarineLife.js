@@ -1482,190 +1482,6 @@ const allMarineLife = [
     "local_thumbnail": require('../assets/marine_life_thumbs/Bluehead_Tilefish.png')
   }
   {
-    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/2/23/California_Spiny_Lobster_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20240612162206",
-    "name": "California Spiny Lobster",
-    "wiki_url": "https://dave-the-diver.fandom.com/wiki/California_Spiny_Lobster",
-    "image_filename": "California_Spiny_Lobster.png",
-    "difficulty": 5,
-    "active_time": "Day",
-    "weight": null,
-    "meat_stars": 3,
-    "drops": [],
-    "recipes": [
-      "California Spiny Lobster Sushi",
-      "Ebirah Chasing Sashimi"
-    ],
-    "zone": "Blue Hole Medium Depth (50-130m)[]",
-    "caught": false,
-    "breeding_pair": false,
-    "is_dlc": false,
-    "is_event_locked": false,
-    "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('../assets/marine_life_thumbs/California_Spiny_Lobster.png')
-  },
-  {
-    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/0/0d/Warty_Frogfish_Thumbnail.png/revision/latest?cb=20230728045547",
-    "name": "Clown Frogfish",
-    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Clown_Frogfish",
-    "image_filename": "Clown_Frogfish.png",
-    "difficulty": 1,
-    "active_time": "Day",
-    "weight": "0.3kg",
-    "meat_stars": 3,
-    "drops": [],
-    "recipes": [
-      "Clown Frogfish Sushi",
-      "Crimson Fish Roll"
-    ],
-    "zone": "Blue Hole Medium Depth (50-130m)[]",
-    "caught": false,
-    "breeding_pair": false,
-    "is_dlc": false,
-    "is_event_locked": false,
-    "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('../assets/marine_life_thumbs/Clown_Frogfish.png')
-  },
-  {
-    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/6/6f/Coral_Trout_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040631",
-    "name": "Coral Trout",
-    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Coral_Trout",
-    "image_filename": "Coral_Trout.png",
-    "difficulty": 2,
-    "active_time": "Day",
-    "weight": "3kg",
-    "meat_stars": 5,
-    "drops": [],
-    "recipes": [
-      "Coral Trout Sushi",
-      "Tropical Fish Sushi Set",
-      "Trout Sea Grapes Ricebowl"
-    ],
-    "zone": "Blue Hole Medium Depth (50-130m)[]",
-    "caught": false,
-    "breeding_pair": false,
-    "is_dlc": false,
-    "is_event_locked": false,
-    "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('../assets/marine_life_thumbs/Coral_Trout.png')
-  },
-  {
-    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/8/84/Crystal_Lobster_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20240612163858",
-    "name": "Crystal Lobster",
-    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Crystal_Lobster",
-    "image_filename": "Crystal_Lobster.png",
-    "difficulty": 8,
-    "active_time": "Night",
-    "weight": "1.5kg",
-    "meat_stars": 3,
-    "drops": [],
-    "recipes": [
-      "Crystal Lobster Roll",
-      "Crystal Lobster Sushi"
-    ],
-    "zone": "Blue Hole Medium Depth (50-130m)[]",
-    "caught": false,
-    "breeding_pair": false,
-    "is_dlc": false,
-    "is_event_locked": false,
-    "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('../assets/marine_life_thumbs/Crystal_Lobster.png')
-  },
-  {
-    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/c/c4/CuttleFish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040634",
-    "name": "Cuttlefish",
-    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Cuttlefish",
-    "image_filename": "Cuttlefish.png",
-    "difficulty": 2,
-    "active_time": "Day",
-    "weight": "4kg",
-    "meat_stars": 3,
-    "drops": [
-      "Cuttlefish Skin Fragment"
-    ],
-    "recipes": [
-      "Chirashi Sushi",
-      "Cuttlefish Sushi",
-      "Fried Onion Cuttlefish",
-      "Three-Colored Squid Roast"
-    ],
-    "zone": "Blue Hole Medium Depth (50-130m)[]",
-    "caught": false,
-    "breeding_pair": false,
-    "is_dlc": false,
-    "is_event_locked": false,
-    "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('../assets/marine_life_thumbs/Cuttlefish.png')
-  },
-  {
-    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/9/9c/Devil_ScorpionFish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040637",
-    "name": "Devil Scorpionfish",
-    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Devil_Scorpionfish",
-    "image_filename": "Devil_Scorpionfish.png",
-    "difficulty": 8,
-    "active_time": "Night",
-    "weight": "3kg",
-    "meat_stars": 3,
-    "drops": [
-      "Devil Scorpion Fish Thorn"
-    ],
-    "recipes": [
-      "Devil Scorpionfish Sushi"
-    ],
-    "zone": "Blue Hole Medium Depth (50-130m)[]",
-    "caught": false,
-    "breeding_pair": false,
-    "is_dlc": false,
-    "is_event_locked": false,
-    "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('../assets/marine_life_thumbs/Devil_Scorpionfish.png')
-  },
-  {
-    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/6/6a/Dusky_Grouper_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050110",
-    "name": "Dusky Grouper",
-    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Dusky_Grouper",
-    "image_filename": "Dusky_Grouper.png",
-    "difficulty": 3,
-    "active_time": "Day",
-    "weight": "9kg",
-    "meat_stars": 5,
-    "drops": [],
-    "recipes": [
-      "Dusky Grouper Steak",
-      "Dusky Grouper Sushi"
-    ],
-    "zone": "Blue Hole Medium Depth (50-130m)[]",
-    "caught": false,
-    "breeding_pair": false,
-    "is_dlc": false,
-    "is_event_locked": false,
-    "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('../assets/marine_life_thumbs/Dusky_Grouper.png')
-  },
-  {
-    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/a/af/Seahorse_09_Thumbnail.png/revision/latest/scale-to-width-down/23?cb=20230728052731",
-    "name": "Dwarf Seahorse",
-    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Dwarf_Seahorse",
-    "image_filename": "Dwarf_Seahorse.png",
-    "difficulty": 1,
-    "active_time": "Day",
-    "weight": "0.5kg",
-    "meat_stars": 5,
-    "drops": [],
-    "recipes": [
-      "Fried Seahorses",
-      "Seahorse Salad",
-      "Seahorse Skewers",
-      "Seahorse Udon"
-    ],
-    "zone": "Blue Hole Medium Depth (50-130m)[]",
-    "caught": false,
-    "breeding_pair": false,
-    "is_dlc": false,
-    "is_event_locked": false,
-    "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('../assets/marine_life_thumbs/Dwarf_Seahorse.png')
-  }
-  {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/3/3b/Fan_Lobster_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20240612161527",
     "name": "Fan Lobster",
     "wiki_url": "https://dave-the-diver.fandom.com/wiki/Fan_Lobster",
@@ -2031,6 +1847,197 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Sally_Lightfoot_Crab.png')
+  }
+];
+
+// IMPORTANT: After consolidating all blocks into one file (allMarineLife.js),
+// make sure this line is at the very end of the file:
+// export default allMarineLife;
+  {
+    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/9/9c/Smooth_Hammershark_Thumbnail.png/revision/latest/scale-to-width-down/45?cb=20230728051519",
+    "name": "Smooth Hammerhead",
+    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Smooth_Hammerhead",
+    "image_filename": "Smooth_Hammerhead.png",
+    "difficulty": 9,
+    "active_time": "Day",
+    "weight": "13kg",
+    "meat_stars": 9,
+    "drops": [
+      "Hammerhead Meat",
+      "Hammerhead Shark Skull"
+    ],
+    "recipes": [
+      "Smooth Hammerhead Sushi"
+    ],
+    "zone": "Blue Hole Medium Depth (50-130m)[]",
+    "caught": false,
+    "breeding_pair": false,
+    "is_dlc": false,
+    "is_event_locked": false,
+    "best_capture_method": "Tranquilizer/Net (3-star)",
+    "local_thumbnail": require('../assets/marine_life_thumbs/Smooth_Hammerhead.png')
+  },
+  {
+    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/2/2c/Spear_Squid_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20231225190513",
+    "name": "Spear Squid",
+    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Spear_Squid",
+    "image_filename": "Spear_Squid.png",
+    "difficulty": 5,
+    "active_time": "Night",
+    "weight": "4.6kg",
+    "meat_stars": 3,
+    "drops": [],
+    "recipes": [
+      "Spear Squid Sushi",
+      "Spear Squid Soba Futomaki"
+    ],
+    "zone": "Blue Hole Medium Depth (50-130m)[]",
+    "caught": false,
+    "breeding_pair": false,
+    "is_dlc": false,
+    "is_event_locked": false,
+    "best_capture_method": "Harpoon (2-star)",
+    "local_thumbnail": require('../assets/marine_life_thumbs/Spear_Squid.png')
+  },
+  {
+    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/e/ea/Seahorse_20_Thumbnail.png/revision/latest/scale-to-width-down/26?cb=20230728052746",
+    "name": "Spiny Seahorse",
+    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Spiny_Seahorse",
+    "image_filename": "Spiny_Seahorse.png",
+    "difficulty": 4,
+    "active_time": "Day",
+    "weight": "0.5kg",
+    "meat_stars": 5,
+    "drops": [],
+    "recipes": [
+      "Fried Seahorses",
+      "Seahorse Salad",
+      "Seahorse Skewers",
+      "Seahorse Udon"
+    ],
+    "zone": "Blue Hole Medium Depth (50-130m)[]",
+    "caught": false,
+    "breeding_pair": false,
+    "is_dlc": false,
+    "is_event_locked": false,
+    "best_capture_method": "Bug Net (3-star)",
+    "local_thumbnail": require('../assets/marine_life_thumbs/Spiny_Seahorse.png')
+  },
+  {
+    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/6/62/Red_Mullet_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728051207",
+    "name": "Striped Red Mullet",
+    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Striped_Red_Mullet",
+    "image_filename": "Striped_Red_Mullet.png",
+    "difficulty": 1,
+    "active_time": "Day",
+    "weight": "0.7kg",
+    "meat_stars": 3,
+    "drops": [],
+    "recipes": [
+      "Striped Red Mullet Sushi",
+      "Striped Red Mullet Tangle Roll"
+    ],
+    "zone": "Blue Hole Medium Depth (50-130m)[]",
+    "caught": false,
+    "breeding_pair": false,
+    "is_dlc": false,
+    "is_event_locked": false,
+    "best_capture_method": "Harpoon (2-star)",
+    "local_thumbnail": require('../assets/marine_life_thumbs/Striped_Red_Mullet.png')
+  },
+  {
+    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/6/6a/Tiger_Shark_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230725190109",
+    "name": "Tiger Shark",
+    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Tiger_Shark",
+    "image_filename": "Tiger_Shark.png",
+    "difficulty": 6,
+    "active_time": "Both",
+    "weight": "15kg",
+    "meat_stars": 9,
+    "drops": [
+      "Tiger Shark Meat",
+      "Tiger Shark Tooth"
+    ],
+    "recipes": [
+      "Tiger shark Sushi"
+    ],
+    "zone": "Blue Hole Medium Depth (50-130m)[]",
+    "caught": false,
+    "breeding_pair": false,
+    "is_dlc": false,
+    "is_event_locked": false,
+    "best_capture_method": "Harpoon (2-star)",
+    "local_thumbnail": require('../assets/marine_life_thumbs/Tiger_Shark.png')
+  },
+  {
+    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/0/06/Seahorse_18_Thumbnail.png/revision/latest/scale-to-width-down/27?cb=20230728052745",
+    "name": "Tiger-Tail Seahorse",
+    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Tiger-Tail_Seahorse",
+    "image_filename": "Tiger_Tail_Seahorse.png",
+    "difficulty": 5,
+    "active_time": "Day",
+    "weight": "0.5kg",
+    "meat_stars": 5,
+    "drops": [],
+    "recipes": [
+      "Fried Seahorses",
+      "Seahorse Salad",
+      "Seahorse Skewers",
+      "Seahorse Udon"
+    ],
+    "zone": "Blue Hole Medium Depth (50-130m)[]",
+    "caught": false,
+    "breeding_pair": false,
+    "is_dlc": false,
+    "is_event_locked": false,
+    "best_capture_method": "Bug Net (3-star)",
+    "local_thumbnail": require('../assets/marine_life_thumbs/Tiger_Tail_Seahorse.png')
+  },
+  {
+    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/f9/Tropical_Rock_Lobster_Thumbnail.png/revision/latest/scale-to-width-down/44?cb=20240612163913",
+    "name": "Tropical Rock Lobster",
+    "wiki_url": "https://dave-the-diver.fandom.com/wiki/Tropical_Rock_Lobster",
+    "image_filename": "Tropical_Rock_Lobster.png",
+    "difficulty": 8,
+    "active_time": "Day",
+    "weight": null,
+    "meat_stars": 3,
+    "drops": [],
+    "recipes": [
+      "Tropical Rock Lobster Sushi",
+      "Lobster Platter"
+    ],
+    "zone": "Blue Hole Medium Depth (50-130m)[]",
+    "caught": false,
+    "breeding_pair": false,
+    "is_dlc": false,
+    "is_event_locked": false,
+    "best_capture_method": "Tranquilizer/Net (3-star)",
+    "local_thumbnail": require('../assets/marine_life_thumbs/Tropical_Rock_Lobster.png')
+  },
+  {
+    "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/3/3f/White_Shrimp_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728045549",
+    "name": "White Shrimp",
+    "wiki_url": "https://dave-the-diver.fandom.com/wiki/White_Shrimp",
+    "image_filename": "White_Shrimp.png",
+    "difficulty": 7,
+    "active_time": "Both",
+    "weight": "0.1kg",
+    "meat_stars": 5,
+    "drops": [],
+    "recipes": [
+      "Boiled and Deep-Fried White Shrimp",
+      "Humboldt Ink Pasta",
+      "Rice with White Shrimp Meat",
+      "White Shrimp Sushi"
+    ],
+    "zone": "Blue Hole Medium Depth (50-130m)[]",
+    "caught": false,
+    "breeding_pair": false,
+    "is_dlc": false,
+    "is_event_locked": false,
+    "best_capture_method": "Harpoon (2-star)",
+    "local_thumbnail": require('../assets/marine_life_thumbs/White_Shrimp.png')
   }
 ];
 
