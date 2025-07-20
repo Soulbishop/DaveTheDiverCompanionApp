@@ -351,7 +351,7 @@ const allMarineLife = [
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/4/4c/Daggertooth_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230727181729",
     "name": "Daggertooth",
     "wiki_url": "https://dave-the-diver.fandom.com/wiki/Daggertooth",
-    "image_filename": "Daggertooth.png",
+    ""image_filename": "Daggertooth.png",
     "difficulty": 7,
     "active_time": "Night",
     "weight": "5kg",
