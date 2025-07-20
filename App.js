@@ -1,86 +1,100 @@
-import React, { useEffect, useState } from 'react'; // Import useEffect and useState
+// FILE LOCATION: App.js (ROOT DIRECTORY)
+// REPLACE THE ENTIRE EXISTING App.js FILE WITH THIS CODE
+
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'; // Import View, ActivityIndicator
-
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
+// Import screens
 import MarineLifeScreen from './src/screens/MarineLifeScreen';
 import RecipesScreen from './src/screens/RecipesScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 
-// Import the database functions
+// Import database functions
 import { initializeMarineLifeDatabase, getAllMarineLife } from './src/utils/marineLifeDatabase';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const insets = useSafeAreaInsets();
-  const [isLoading, setIsLoading] = useState(true); // State to track data loading
-  const [marineLifeList, setMarineLifeList] = useState([]); // State to hold marine life data
+  const [isLoading, setIsLoading] = useState(true);
+  const [marineLifeList, setMarineLifeList] = useState([]);
 
   // Initialize the database and load data when the component mounts
   useEffect(() => {
     const loadData = async () => {
       try {
         await initializeMarineLifeDatabase(); // Initialize the database
-        const data = getAllMarineLife();      // Get all loaded marine life data
-        setMarineLifeList(data);              // Set it to state
+        const data = await getAllMarineLife();   // Get all loaded marine life data
+        setMarineLifeList(data);                 // Set it to state
       } catch (error) {
-        console.error("Failed to load marine life data:", error);
-        // Implement error handling UI here if needed
+        console.error('Error loading marine life data:', error);
       } finally {
-        setIsLoading(false); // Set loading to false regardless of success or failure
+        setIsLoading(false);
       }
     };
 
     loadData();
-  }, []); // Empty dependency array means this effect runs once after initial render
+  }, []);
 
-  // Show a loading indicator while data is being fetched
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#2196F3" />
-        <Text style={styles.loadingText}>Loading Marine Life Data...</Text>
-      </View>
+      <SafeAreaProvider>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#2c5aa0" />
+          <Text style={styles.loadingText}>Loading Marine Life Database...</Text>
+        </View>
+      </SafeAreaProvider>
     );
   }
 
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <StatusBar style="auto" />
+        <StatusBar style="light" backgroundColor="#2c5aa0" />
         <Tab.Navigator
           screenOptions={{
-            headerShown: false,
-            tabBarActiveTintColor: '#2196F3',
-            tabBarInactiveTintColor: '#757575',
+            tabBarActiveTintColor: '#2c5aa0',
+            tabBarInactiveTintColor: '#666',
             tabBarStyle: {
-              ...styles.tabBar,
-              paddingBottom: styles.tabBar.paddingBottom + insets.bottom,
-              height: styles.tabBar.height + insets.bottom,
+              backgroundColor: 'white',
+              borderTopWidth: 1,
+              borderTopColor: '#e0e0e0',
+              height: 60,
+              paddingBottom: 8,
+              paddingTop: 8,
             },
-            tabBarLabelStyle: styles.tabBarLabel,
+            tabBarLabelStyle: {
+              fontSize: 12,
+              fontWeight: '600',
+            },
+            headerStyle: {
+              backgroundColor: '#2c5aa0',
+            },
+            headerTintColor: 'white',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
           }}
         >
           <Tab.Screen 
             name="Marine Life" 
-            // Pass the marineLifeList as an initial parameter to MarineLifeScreen
-            children={() => <MarineLifeScreen marineLifeList={marineLifeList} />}
+            component={MarineLifeScreen}
             options={{
-              tabBarIcon: ({ color }) => (
-                <Text style={[styles.tabIcon, { color }]}>🐟</Text>
+              tabBarIcon: ({ color, size }) => (
+                <Text style={{ color, fontSize: size }}>🐟</Text>
               ),
+              headerTitle: 'Dave the Diver Companion',
             }}
           />
           <Tab.Screen 
             name="Recipes" 
             component={RecipesScreen}
             options={{
-              tabBarIcon: ({ color }) => (
-                <Text style={[styles.tabIcon, { color }]}>🍣</Text>
+              tabBarIcon: ({ color, size }) => (
+                <Text style={{ color, fontSize: size }}>🍣</Text>
               ),
             }}
           />
@@ -88,8 +102,8 @@ export default function App() {
             name="Settings" 
             component={SettingsScreen}
             options={{
-              tabBarIcon: ({ color }) => (
-                <Text style={[styles.tabIcon, { color }]}>⚙️</Text>
+              tabBarIcon: ({ color, size }) => (
+                <Text style={{ color, fontSize: size }}>⚙️</Text>
               ),
             }}
           />
@@ -100,30 +114,16 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  tabBar: {
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
-    height: 60,
-    paddingBottom: 8,
-    paddingTop: 8,
-  },
-  tabBarLabel: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  tabIcon: {
-    fontSize: 24,
-  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff', // Or your desired loading screen background
+    backgroundColor: '#f5f5f5',
   },
   loadingText: {
-    marginTop: 10,
+    marginTop: 16,
     fontSize: 16,
-    color: '#333',
+    color: '#666',
   },
 });
+
