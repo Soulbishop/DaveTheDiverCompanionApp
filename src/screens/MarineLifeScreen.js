@@ -35,7 +35,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     applyFilters();
   }, [marineLifeList, searchText, filterType]);
 
-  // 🔧 FIX: Update selectedFish when marineLifeList changes
+  // Update selectedFish when marineLifeList changes (modal bug fix)
   useEffect(() => {
     if (selectedFish && marineLifeList) {
       const updatedFish = marineLifeList.find(fish => fish.name === selectedFish.name);
@@ -137,10 +137,12 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
       onPress={() => openFishCard(item)}
     >
       <View style={styles.fishImageContainer}>
-        {item.local_thumbnail ? (
+        {/* 🖼️ CHANGE: Show local thumbnails in grid for ALL marine life */}
+        {item.image_filename ? (
           <Image
-            source={{ uri: `file://${item.local_thumbnail}` }}
+            source={require(`../assets/marine_life_thumbs/${item.image_filename}`)}
             style={styles.fishImage}
+            resizeMode="contain"
           />
         ) : (
           <View style={styles.placeholderImage}>
@@ -199,18 +201,12 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           </TouchableOpacity>
         </View>
 
-        {/* Fish Image */}
+        {/* 🖼️ CHANGE: Show placeholder in modal for ALL marine life until better images found */}
         <View style={styles.modalImageContainer}>
-          {selectedFish.image_url ? (
-            <Image
-              source={{ uri: selectedFish.image_url }}
-              style={styles.modalImage}
-            />
-          ) : (
-            <View style={styles.modalPlaceholderImage}>
-              <Text style={styles.modalPlaceholderText}>🐟</Text>
-            </View>
-          )}
+          <View style={styles.modalPlaceholderImage}>
+            <Text style={styles.modalPlaceholderText}>🐟</Text>
+            <Text style={styles.comingSoonText}>Image Coming Soon</Text>
+          </View>
         </View>
 
         {/* Fish Details */}
@@ -435,10 +431,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 8,
   },
+  // 🖼️ UPDATED: Grid image styling with proper sizing for ALL thumbnails
   fishImage: {
     width: 80,
     height: 80,
     borderRadius: 8,
+    backgroundColor: '#f8f8f8', // Light background for padding
   },
   placeholderImage: {
     width: 80,
@@ -541,21 +539,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
   },
-  modalImage: {
-    width: 200,
-    height: 200,
-    borderRadius: 12,
-  },
+  // 🖼️ UPDATED: Modal placeholder styling for ALL marine life
   modalPlaceholderImage: {
     width: 200,
     height: 200,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#f0f0f0',
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#e0e0e0',
+    borderStyle: 'dashed',
   },
   modalPlaceholderText: {
     fontSize: 64,
+    marginBottom: 8,
+  },
+  comingSoonText: {
+    fontSize: 14,
+    color: '#666',
+    fontStyle: 'italic',
   },
   detailsContainer: {
     padding: 16,
