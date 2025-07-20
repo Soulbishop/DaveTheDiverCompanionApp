@@ -1,144 +1,251 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+// FILE LOCATION: src/components/MarineLifeCard.js
+// CREATE THIS NEW FILE (it may not exist yet)
 
-const MarineLifeCard = ({ marineLife, onToggleCaught, onToggleBreeding }) => {
-  const getRarityColor = (rarity) => {
-    switch (rarity) {
-      case 'common': return '#4CAF50';
-      case 'uncommon': return '#FF9800';
-      case 'rare': return '#9C27B0';
-      case 'legendary': return '#F44336';
-      default: return '#757575';
-    }
-  };
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  Switch,
+} from 'react-native';
+
+const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding }) => {
+  if (!fish) return null;
 
   return (
-    <View style={styles.card}>
-      <View style={styles.imageContainer}>
-        <View style={[styles.placeholder, { backgroundColor: getRarityColor(marineLife.rarity) }]}>
-          <Text style={styles.placeholderText}>{marineLife.name.charAt(0)}</Text>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>{fish.name}</Text>
+        <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+          <Text style={styles.closeButtonText}>✕</Text>
+        </TouchableOpacity>
       </View>
-      
-      <View style={styles.content}>
-        <Text style={styles.name}>{marineLife.name}</Text>
-        <Text style={styles.zone}>{marineLife.zone}</Text>
-        <Text style={styles.details}>
-          {marineLife.timeOfDay} • {marineLife.captureMethod}
-        </Text>
-        
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={[styles.button, marineLife.caught ? styles.caughtButton : styles.notCaughtButton]}
-            onPress={() => onToggleCaught(marineLife.id)}
-          >
-            <Text style={[styles.buttonText, marineLife.caught ? styles.caughtText : styles.notCaughtText]}>
-              {marineLife.caught ? '✓ Caught' : 'Not Caught'}
-            </Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            style={[styles.button, marineLife.breedingPair ? styles.breedingButton : styles.noBreedingButton]}
-            onPress={() => onToggleBreeding(marineLife.id)}
-          >
-            <Text style={[styles.buttonText, marineLife.breedingPair ? styles.breedingText : styles.noBreedingText]}>
-              {marineLife.breedingPair ? '♥ Pair' : 'No Pair'}
-            </Text>
-          </TouchableOpacity>
+
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        <View style={styles.imageContainer}>
+          {fish.sprite ? (
+            <Image 
+              source={{ uri: fish.sprite }} 
+              style={styles.fishImage}
+              resizeMode="contain"
+            />
+          ) : (
+            <View style={styles.placeholderImage}>
+              <Text style={styles.placeholderText}>🐟</Text>
+            </View>
+          )}
         </View>
-      </View>
+
+        <View style={styles.infoSection}>
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Zone:</Text>
+            <Text style={styles.value}>{fish.zone}</Text>
+          </View>
+
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Time of Day:</Text>
+            <Text style={styles.value}>{fish.timeOfDay}</Text>
+          </View>
+
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Capture Method:</Text>
+            <Text style={styles.value}>{fish.captureMethod}</Text>
+          </View>
+
+          {fish.rarity && (
+            <View style={styles.infoRow}>
+              <Text style={styles.label}>Rarity:</Text>
+              <Text style={[styles.value, styles.rarityText]}>{fish.rarity}</Text>
+            </View>
+          )}
+
+          {fish.weight && (
+            <View style={styles.infoRow}>
+              <Text style={styles.label}>Weight:</Text>
+              <Text style={styles.value}>{fish.weight}</Text>
+            </View>
+          )}
+
+          {fish.difficulty && (
+            <View style={styles.infoRow}>
+              <Text style={styles.label}>Difficulty:</Text>
+              <Text style={styles.value}>{fish.difficulty}</Text>
+            </View>
+          )}
+        </View>
+
+        {fish.recipes && fish.recipes.length > 0 && (
+          <View style={styles.recipesSection}>
+            <Text style={styles.sectionTitle}>Used in Recipes:</Text>
+            {fish.recipes.map((recipe, index) => (
+              <View key={index} style={styles.recipeItem}>
+                <Text style={styles.recipeText}>• {recipe}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+
+        <View style={styles.toggleSection}>
+          <View style={styles.toggleRow}>
+            <Text style={styles.toggleLabel}>Caught</Text>
+            <Switch
+              value={fish.caught}
+              onValueChange={onToggleCaught}
+              trackColor={{ false: '#767577', true: '#4CAF50' }}
+              thumbColor={fish.caught ? '#ffffff' : '#f4f3f4'}
+            />
+          </View>
+
+          <View style={styles.toggleRow}>
+            <Text style={styles.toggleLabel}>Breeding Pair</Text>
+            <Switch
+              value={fish.breedingPair}
+              onValueChange={onToggleBreeding}
+              trackColor={{ false: '#767577', true: '#2196F3' }}
+              thumbColor={fish.breedingPair ? '#ffffff' : '#f4f3f4'}
+            />
+          </View>
+        </View>
+
+        {fish.description && (
+          <View style={styles.descriptionSection}>
+            <Text style={styles.sectionTitle}>Description:</Text>
+            <Text style={styles.description}>{fish.description}</Text>
+          </View>
+        )}
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 16,
-    margin: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    backgroundColor: '#2c5aa0',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    flex: 1,
+  },
+  closeButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  content: {
+    flex: 1,
+    padding: 16,
   },
   imageContainer: {
+    height: 150,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 20,
+    backgroundColor: '#f8f8f8',
+    borderRadius: 12,
   },
-  placeholder: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+  fishImage: {
+    width: 120,
+    height: 120,
+  },
+  placeholderImage: {
+    width: 120,
+    height: 120,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
   },
   placeholderText: {
-    color: '#fff',
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 48,
   },
-  content: {
+  infoSection: {
+    marginBottom: 20,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
   },
-  name: {
+  label: {
     fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    flex: 1,
+  },
+  value: {
+    fontSize: 16,
+    color: '#666',
+    flex: 2,
+    textAlign: 'right',
+  },
+  rarityText: {
+    fontWeight: 'bold',
+    color: '#ff6b35',
+  },
+  recipesSection: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 4,
-  },
-  zone: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 4,
-  },
-  details: {
-    fontSize: 12,
-    color: '#888',
     marginBottom: 12,
   },
-  buttonContainer: {
+  recipeItem: {
+    paddingVertical: 4,
+  },
+  recipeText: {
+    fontSize: 14,
+    color: '#666',
+  },
+  toggleSection: {
+    marginBottom: 20,
+    backgroundColor: '#f8f8f8',
+    borderRadius: 12,
+    padding: 16,
+  },
+  toggleRow: {
     flexDirection: 'row',
-    gap: 8,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 8,
   },
-  button: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-    borderWidth: 1,
+  toggleLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
   },
-  caughtButton: {
-    backgroundColor: '#E8F5E8',
-    borderColor: '#4CAF50',
+  descriptionSection: {
+    marginBottom: 20,
   },
-  notCaughtButton: {
-    backgroundColor: '#FFF',
-    borderColor: '#DDD',
-  },
-  breedingButton: {
-    backgroundColor: '#FCE4EC',
-    borderColor: '#E91E63',
-  },
-  noBreedingButton: {
-    backgroundColor: '#FFF',
-    borderColor: '#DDD',
-  },
-  buttonText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  caughtText: {
-    color: '#4CAF50',
-  },
-  notCaughtText: {
+  description: {
+    fontSize: 14,
     color: '#666',
-  },
-  breedingText: {
-    color: '#E91E63',
-  },
-  noBreedingText: {
-    color: '#666',
+    lineHeight: 20,
   },
 });
 
