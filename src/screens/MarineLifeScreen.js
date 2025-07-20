@@ -1,5 +1,6 @@
 // FILE LOCATION: src/screens/MarineLifeScreen.js
-// REPLACE THE ENTIRE EXISTING FILE WITH THIS CODE
+// COMPLETE IMPLEMENTATION WITH ALL FIXES + CATEGORY FILTERS
+// Generated automatically for ALL 206 marine life entries
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -24,18 +25,22 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [filterType, setFilterType] = useState('all'); // all, caught, uncaught, breeding
+  
+  // 🆕 NEW: Category filter states
+  const [zoneFilter, setZoneFilter] = useState('all');
+  const [timeFilter, setTimeFilter] = useState('all');
 
   // Load marine life data when component mounts
   useEffect(() => {
     loadMarineLifeData();
   }, []);
 
-  // Update filtered list when marineLifeList or filters change
+  // Update filtered list when any filter changes
   useEffect(() => {
     applyFilters();
-  }, [marineLifeList, searchText, filterType]);
+  }, [marineLifeList, searchText, filterType, zoneFilter, timeFilter]);
 
-  // Update selectedFish when marineLifeList changes (modal bug fix)
+  // 🔧 PRESERVED: Modal state bug fix
   useEffect(() => {
     if (selectedFish && marineLifeList) {
       const updatedFish = marineLifeList.find(fish => fish.name === selectedFish.name);
@@ -50,7 +55,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
       const storedData = await AsyncStorage.getItem('@DaveTheDiverCompanion:userMarineLife');
       if (storedData) {
         const userData = JSON.parse(storedData);
-        // Merge user data with base marine life data
         const updatedList = marineLifeList.map(item => {
           const userStatus = userData[item.name];
           if (userStatus) {
@@ -69,6 +73,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     }
   };
 
+  // 🆕 ENHANCED: Apply all filters including new category filters
   const applyFilters = () => {
     let filtered = marineLifeList;
 
@@ -80,7 +85,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
       );
     }
 
-    // Apply type filter
+    // Apply status filter
     switch (filterType) {
       case 'caught':
         filtered = filtered.filter(item => item.caught);
@@ -92,11 +97,28 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         filtered = filtered.filter(item => item.breeding_pair);
         break;
       default:
-        // 'all' - no additional filtering
         break;
     }
 
+    // 🆕 NEW: Apply zone filter
+    if (zoneFilter !== 'all') {
+      filtered = filtered.filter(item => item.zone === zoneFilter);
+    }
+
+    // 🆕 NEW: Apply time filter
+    if (timeFilter !== 'all') {
+      filtered = filtered.filter(item => item.active_time === timeFilter);
+    }
+
     setFilteredMarineLife(filtered);
+  };
+
+  // 🆕 NEW: Reset all filters
+  const resetFilters = () => {
+    setSearchText('');
+    setFilterType('all');
+    setZoneFilter('all');
+    setTimeFilter('all');
   };
 
   const toggleCaught = async (fishName) => {
@@ -137,7 +159,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
       onPress={() => openFishCard(item)}
     >
       <View style={styles.fishImageContainer}>
-        {/* 🖼️ CHANGE: Show local thumbnails in grid for ALL marine life */}
+        {/* 🖼️ PRESERVED: Local thumbnails in grid */}
         {item.image_filename ? (
           <Image
             source={require(`../assets/marine_life_thumbs/${item.image_filename}`)}
@@ -190,7 +212,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
 
     return (
       <ScrollView style={styles.modalContent}>
-        {/* Header */}
         <View style={styles.modalHeader}>
           <Text style={styles.modalTitle}>{selectedFish.name}</Text>
           <TouchableOpacity
@@ -201,7 +222,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           </TouchableOpacity>
         </View>
 
-        {/* 🖼️ CHANGE: Show placeholder in modal for ALL marine life until better images found */}
+        {/* 🖼️ PRESERVED: Placeholder in modal */}
         <View style={styles.modalImageContainer}>
           <View style={styles.modalPlaceholderImage}>
             <Text style={styles.modalPlaceholderText}>🐟</Text>
@@ -209,7 +230,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           </View>
         </View>
 
-        {/* Fish Details */}
         <View style={styles.detailsContainer}>
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Zone:</Text>
@@ -236,7 +256,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
             <Text style={styles.detailValue}>{selectedFish.best_capture_method}</Text>
           </View>
 
-          {/* Recipes */}
           {selectedFish.recipes && selectedFish.recipes.length > 0 && (
             <View style={styles.recipesContainer}>
               <Text style={styles.recipesTitle}>Used in Recipes:</Text>
@@ -246,7 +265,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
             </View>
           )}
 
-          {/* Toggle Switches */}
           <View style={styles.modalButtonContainer}>
             <TouchableOpacity
               style={[
@@ -284,7 +302,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header with Statistics */}
       <View style={styles.header}>
         <Text style={styles.title}>Marine Life Tracker</Text>
         <View style={styles.statsContainer}>
@@ -297,7 +314,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         </View>
       </View>
 
-      {/* Search and Filter Controls */}
+      {/* 🆕 ENHANCED: Filter controls with category filters */}
       <View style={styles.controlsContainer}>
         <TextInput
           style={styles.searchInput}
@@ -306,28 +323,271 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           onChangeText={setSearchText}
         />
 
-        <View style={styles.filterContainer}>
-          {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
-            <TouchableOpacity
-              key={filter}
-              style={[
-                styles.filterButton,
-                filterType === filter && styles.activeFilterButton
-              ]}
-              onPress={() => setFilterType(filter)}
-            >
-              <Text style={[
-                styles.filterButtonText,
-                filterType === filter && styles.activeFilterButtonText
-              ]}>
-                {filter.charAt(0).toUpperCase() + filter.slice(1)}
-              </Text>
-            </TouchableOpacity>
-          ))}
+        {/* Status Filters */}
+        <View style={styles.filterSection}>
+          <Text style={styles.filterSectionTitle}>Status:</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.filterContainer}>
+              {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
+                <TouchableOpacity
+                  key={filter}
+                  style={[
+                    styles.filterButton,
+                    filterType === filter && styles.activeFilterButton
+                  ]}
+                  onPress={() => setFilterType(filter)}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    filterType === filter && styles.activeFilterButtonText
+                  ]}>
+                    {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </ScrollView>
         </View>
+
+        {/* 🆕 NEW: Zone Filters */}
+        <View style={styles.filterSection}>
+          <Text style={styles.filterSectionTitle}>Zone:</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.filterContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  zoneFilter === 'all' && styles.activeFilterButton
+                ]}
+                onPress={() => setZoneFilter('all')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  zoneFilter === 'all' && styles.activeFilterButtonText
+                ]}>
+                  All
+                </Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  zoneFilter === 'Aberrations' && styles.activeFilterButton
+                ]}
+                onPress={() => setZoneFilter('Aberrations')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  zoneFilter === 'Aberrations' && styles.activeFilterButtonText
+                ]}>
+                  Aberrations
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  zoneFilter === 'Blue Hole Depths (130-250m)' && styles.activeFilterButton
+                ]}
+                onPress={() => setZoneFilter('Blue Hole Depths (130-250m)')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  zoneFilter === 'Blue Hole Depths (130-250m)' && styles.activeFilterButtonText
+                ]}>
+                  Blue Hole Depths
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  zoneFilter === 'Blue Hole Medium Depth (50-130m)' && styles.activeFilterButton
+                ]}
+                onPress={() => setZoneFilter('Blue Hole Medium Depth (50-130m)')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  zoneFilter === 'Blue Hole Medium Depth (50-130m)' && styles.activeFilterButtonText
+                ]}>
+                  Blue Hole Medium Depth
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  zoneFilter === 'Blue Hole Shallows (0-50m)' && styles.activeFilterButton
+                ]}
+                onPress={() => setZoneFilter('Blue Hole Shallows (0-50m)')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  zoneFilter === 'Blue Hole Shallows (0-50m)' && styles.activeFilterButtonText
+                ]}>
+                  Blue Hole Shallows
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  zoneFilter === 'Glacier Passage' && styles.activeFilterButton
+                ]}
+                onPress={() => setZoneFilter('Glacier Passage')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  zoneFilter === 'Glacier Passage' && styles.activeFilterButtonText
+                ]}>
+                  Glacier Passage
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  zoneFilter === 'Glacier Zone' && styles.activeFilterButton
+                ]}
+                onPress={() => setZoneFilter('Glacier Zone')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  zoneFilter === 'Glacier Zone' && styles.activeFilterButtonText
+                ]}>
+                  Glacier Zone
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  zoneFilter === 'Hydrothermal Vents' && styles.activeFilterButton
+                ]}
+                onPress={() => setZoneFilter('Hydrothermal Vents')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  zoneFilter === 'Hydrothermal Vents' && styles.activeFilterButtonText
+                ]}>
+                  Hydrothermal Vents
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </View>
+
+        {/* 🆕 NEW: Time Filters */}
+        <View style={styles.filterSection}>
+          <Text style={styles.filterSectionTitle}>Time:</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.filterContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  timeFilter === 'all' && styles.activeFilterButton
+                ]}
+                onPress={() => setTimeFilter('all')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  timeFilter === 'all' && styles.activeFilterButtonText
+                ]}>
+                  All
+                </Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  timeFilter === 'Black Cliff' && styles.activeFilterButton
+                ]}
+                onPress={() => setTimeFilter('Black Cliff')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  timeFilter === 'Black Cliff' && styles.activeFilterButtonText
+                ]}>
+                  Black Cliff
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  timeFilter === 'Both' && styles.activeFilterButton
+                ]}
+                onPress={() => setTimeFilter('Both')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  timeFilter === 'Both' && styles.activeFilterButtonText
+                ]}>
+                  Both
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  timeFilter === 'Day' && styles.activeFilterButton
+                ]}
+                onPress={() => setTimeFilter('Day')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  timeFilter === 'Day' && styles.activeFilterButtonText
+                ]}>
+                  Day
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  timeFilter === 'Fog Coast' && styles.activeFilterButton
+                ]}
+                onPress={() => setTimeFilter('Fog Coast')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  timeFilter === 'Fog Coast' && styles.activeFilterButtonText
+                ]}>
+                  Fog Coast
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  timeFilter === 'Jellyfish Basin' && styles.activeFilterButton
+                ]}
+                onPress={() => setTimeFilter('Jellyfish Basin')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  timeFilter === 'Jellyfish Basin' && styles.activeFilterButtonText
+                ]}>
+                  Jellyfish Basin
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterButton,
+                  timeFilter === 'Night' && styles.activeFilterButton
+                ]}
+                onPress={() => setTimeFilter('Night')}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  timeFilter === 'Night' && styles.activeFilterButtonText
+                ]}>
+                  Night
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </View>
+
+        {/* 🆕 NEW: Reset Filters Button */}
+        <TouchableOpacity
+          style={styles.resetButton}
+          onPress={resetFilters}
+        >
+          <Text style={styles.resetButtonText}>Reset All Filters</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Marine Life Grid */}
       <FlatList
         data={filteredMarineLife}
         renderItem={renderMarineLifeItem}
@@ -337,7 +597,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         showsVerticalScrollIndicator={false}
       />
 
-      {/* Fish Detail Modal */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -391,14 +650,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 12,
   },
+  // 🆕 NEW: Filter section styles
+  filterSection: {
+    marginBottom: 12,
+  },
+  filterSectionTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 8,
+  },
   filterContainer: {
     flexDirection: 'row',
   },
   filterButton: {
     backgroundColor: '#e0e0e0',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
     marginRight: 8,
   },
   activeFilterButton: {
@@ -406,11 +675,24 @@ const styles = StyleSheet.create({
   },
   filterButtonText: {
     color: '#666',
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '500',
   },
   activeFilterButtonText: {
     color: 'white',
+  },
+  // 🆕 NEW: Reset button styles
+  resetButton: {
+    backgroundColor: '#ff6b6b',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  resetButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '600',
   },
   listContainer: {
     padding: 8,
@@ -431,12 +713,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 8,
   },
-  // 🖼️ UPDATED: Grid image styling with proper sizing for ALL thumbnails
   fishImage: {
     width: 80,
     height: 80,
     borderRadius: 8,
-    backgroundColor: '#f8f8f8', // Light background for padding
+    backgroundColor: '#f8f8f8',
   },
   placeholderImage: {
     width: 80,
@@ -496,7 +777,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  // Modal Styles
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -539,7 +819,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
   },
-  // 🖼️ UPDATED: Modal placeholder styling for ALL marine life
   modalPlaceholderImage: {
     width: 200,
     height: 200,
@@ -617,4 +896,3 @@ const styles = StyleSheet.create({
 });
 
 export default MarineLifeScreen;
-
