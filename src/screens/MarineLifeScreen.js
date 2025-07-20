@@ -131,7 +131,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           <Image
             source={{ uri: `file://${item.local_thumbnail}` }}
             style={styles.fishImage}
-            defaultSource={require('../../assets/placeholder-fish.png')}
           />
         ) : (
           <View style={styles.placeholderImage}>
@@ -139,7 +138,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           </View>
         )}
       </View>
-      
+
       <View style={styles.fishInfo}>
         <Text style={styles.fishName} numberOfLines={2}>{item.name}</Text>
         <Text style={styles.fishZone}>{item.zone}</Text>
@@ -152,16 +151,16 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           onPress={() => toggleCaught(item.name)}
         >
           <Text style={styles.buttonText}>
-            {item.caught ? '✓' : '○'}
+            {item.caught ? '✓' : 'o'}
           </Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={[styles.toggleButton, item.breeding_pair ? styles.breedingButton : styles.noBreedingButton]}
           onPress={() => toggleBreedingPair(item.name)}
         >
           <Text style={styles.buttonText}>
-            {item.breeding_pair ? '♥' : '♡'}
+            {item.breeding_pair ? '♥' : 'o'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -185,7 +184,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
               <View style={styles.modalHeader}>
                 <Text style={styles.modalTitle}>{selectedFish.name}</Text>
                 <TouchableOpacity onPress={closeFishCard} style={styles.closeButton}>
-                  <Text style={styles.closeButtonText}>✕</Text>
+                  <Text style={styles.closeButtonText}>×</Text>
                 </TouchableOpacity>
               </View>
 
@@ -195,7 +194,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
                   <Image
                     source={{ uri: selectedFish.image_url }}
                     style={styles.modalImage}
-                    defaultSource={require('../../assets/placeholder-fish.png')}
                   />
                 ) : (
                   <View style={styles.modalPlaceholderImage}>
@@ -210,22 +208,22 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
                   <Text style={styles.detailLabel}>Zone:</Text>
                   <Text style={styles.detailValue}>{selectedFish.zone}</Text>
                 </View>
-                
+
                 <View style={styles.detailRow}>
                   <Text style={styles.detailLabel}>Weight:</Text>
                   <Text style={styles.detailValue}>{selectedFish.weight}</Text>
                 </View>
-                
+
                 <View style={styles.detailRow}>
                   <Text style={styles.detailLabel}>Active Time:</Text>
                   <Text style={styles.detailValue}>{selectedFish.active_time}</Text>
                 </View>
-                
+
                 <View style={styles.detailRow}>
                   <Text style={styles.detailLabel}>Difficulty:</Text>
                   <Text style={styles.detailValue}>{'★'.repeat(selectedFish.difficulty)}</Text>
                 </View>
-                
+
                 <View style={styles.detailRow}>
                   <Text style={styles.detailLabel}>Best Method:</Text>
                   <Text style={styles.detailValue}>{selectedFish.best_capture_method}</Text>
@@ -248,16 +246,16 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
                     onPress={() => toggleCaught(selectedFish.name)}
                   >
                     <Text style={styles.modalButtonText}>
-                      {selectedFish.caught ? 'Caught ✓' : 'Not Caught ○'}
+                      {selectedFish.caught ? 'Caught ✓' : 'Not Caught o'}
                     </Text>
                   </TouchableOpacity>
-                  
+
                   <TouchableOpacity
                     style={[styles.modalToggleButton, selectedFish.breeding_pair ? styles.breedingButton : styles.noBreedingButton]}
                     onPress={() => toggleBreedingPair(selectedFish.name)}
                   >
                     <Text style={styles.modalButtonText}>
-                      {selectedFish.breeding_pair ? 'Breeding Pair ♥' : 'No Breeding Pair ♡'}
+                      {selectedFish.breeding_pair ? 'Breeding Pair ♥' : 'No Breeding Pair o'}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -298,7 +296,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           onChangeText={setSearchText}
           placeholderTextColor="#666"
         />
-        
+
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
           {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
             <TouchableOpacity
@@ -537,7 +535,8 @@ const styles = StyleSheet.create({
   detailRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 12,
+    alignItems: 'center',
+    marginBottom: 8,
     paddingBottom: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
