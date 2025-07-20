@@ -1,6 +1,5 @@
 // FILE LOCATION: src/screens/MarineLifeScreen.js
-// COMPLETE IMPLEMENTATION WITH ALL FIXES + CATEGORY FILTERS
-// Generated automatically for ALL 206 marine life entries
+// REPLACE THE ENTIRE EXISTING FILE WITH THIS CODE
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -19,28 +18,233 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { saveUserMarineLifeData } from '../utils/marineLifeDatabase';
 
+// FIX: Statically require all images for Metro Bundler
+// This maps each image filename (string) to its required module.
+const marineLifeThumbnails = {
+  'American_Lobster.png': require('../assets/marine_life_thumbs/American_Lobster.png'),
+  'Barrel_Jellyfish.png': require('../assets/marine_life_thumbs/Barrel_Jellyfish.png'),
+  'Big_Belly_Seahorse.png': require('../assets/marine_life_thumbs/Big_Belly_Seahorse.png'),
+  'Black_and_White_Snapper.png': require('../assets/marine_life_thumbs/Black_and_White_Snapper.png'),
+  'Blacktip_Reefshark.png': require('../assets/marine_life_thumbs/Blacktip_Reefshark.png'),
+  'Blue_Lobster.png': require('../assets/marine_life_thumbs/Blue_Lobster.png'),
+  'Blue_Tang.png': require('../assets/marine_life_thumbs/Blue_Tang.png'),
+  'Bluefin_Tuna.png': require('../assets/marine_life_thumbs/Bluefin_Tuna.png'),
+  'Box_Jellyfish.png': require('../assets/marine_life_thumbs/Box_Jellyfish.png'),
+  'Cardinal_Fish.png': require('../assets/marine_life_thumbs/Cardinal_Fish.png'),
+  'Clearfin_Lionfish.png': require('../assets/marine_life_thumbs/Clearfin_Lionfish.png'),
+  'Clownfish.png': require('../assets/marine_life_thumbs/Clownfish.png'),
+  'Comber.png': require('../assets/marine_life_thumbs/Comber.png'),
+  'Copper_Shark.png': require('../assets/marine_life_thumbs/Copper_Shark.png'),
+  'Emperor_Angelfish.png': require('../assets/marine_life_thumbs/Emperor_Angelfish.png'),
+  'European_Lobster.png': require('../assets/marine_life_thumbs/European_Lobster.png'),
+  'Flame_Angelfish.png': require('../assets/marine_life_thumbs/Flame_Angelfish.png'),
+  'Fried_Egg_Jellyfish.png': require('../assets/marine_life_thumbs/Fried_Egg_Jellyfish.png'),
+  'Great_White_Shark_Klaus.png': require('../assets/marine_life_thumbs/Great_White_Shark_Klaus.png'),
+  'Green_Humphead_Parrotfish.png': require('../assets/marine_life_thumbs/Green_Humphead_Parrotfish.png'),
+  'Green_Sea_Urchin.png': require('../assets/marine_life_thumbs/Green_Sea_Urchin.png'),
+  'Jayakars_Seahorse.png': require('../assets/marine_life_thumbs/Jayakars_Seahorse.png'),
+  'Lagoon_Triggerfish.png': require('../assets/marine_life_thumbs/Lagoon_Triggerfish.png'),
+  'Long_Snouted_Seahorse.png': require('../assets/marine_life_thumbs/Long_Snouted_Seahorse.png'),
+  'Longfin_Batfish.png': require('../assets/marine_life_thumbs/Longfin_Batfish.png'),
+  'Longspine_Porcupinefish.png': require('../assets/marine_life_thumbs/Longspine_Porcupinefish.png'),
+  'Longspine_Squirrelfish.png': require('../assets/marine_life_thumbs/Longspine_Squirrelfish.png'),
+  'Mantis_Shrimp.png': require('../assets/marine_life_thumbs/Mantis_Shrimp.png'),
+  'Marbled_Electric_Ray.png': require('../assets/marine_life_thumbs/Marbled_Electric_Ray.png'),
+  'Marlin.png': require('../assets/marine_life_thumbs/Marlin.png'),
+  'Mediterranean_Parrotfish.png': require('../assets/marine_life_thumbs/Mediterranean_Parrotfish.png'),
+  'Moray_Eel.png': require('../assets/marine_life_thumbs/Moray_Eel.png'),
+  'Orbicular_Batfish.png': require('../assets/marine_life_thumbs/Orbicular_Batfish.png'),
+  'Ornate_Wrasse.png': require('../assets/marine_life_thumbs/Ornate_Wrasse.png'),
+  'Pacific_Seahorse.png': require('../assets/marine_life_thumbs/Pacific_Seahorse.png'),
+  'Purple_Sea_Urchin.png': require('../assets/marine_life_thumbs/Purple_Sea_Urchin.png'),
+  'Pyramid_Butterflyfish.png': require('../assets/marine_life_thumbs/Pyramid_Butterflyfish.png'),
+  'Rainbow_Wrasse.png': require('../assets/marine_life_thumbs/Rainbow_Wrasse.png'),
+  'Red_Lionfish.png': require('../assets/marine_life_thumbs/Red_Lionfish.png'),
+  'Red_banded_Lobster.png': require('../assets/marine_life_thumbs/Red_banded_Lobster.png'),
+  'Redtoothed_Triggerfish.png': require('../assets/marine_life_thumbs/Redtoothed_Triggerfish.png'),
+  'Salema_Porgy.png': require('../assets/marine_life_thumbs/Salema_Porgy.png'),
+  'Sea_Goldie.png': require('../assets/marine_life_thumbs/Sea_Goldie.png'),
+  'Sheepshead.png': require('../assets/marine_life_thumbs/Sheepshead.png'),
+  'Shortfin_Mako.png': require('../assets/marine_life_thumbs/Shortfin_Mako.png'),
+  'Small_Spotted_Dart.png': require('../assets/marine_life_thumbs/Small_Spotted_Dart.png'),
+  'Starry_Puffer.png': require('../assets/marine_life_thumbs/Starry_Puffer.png'),
+  'Stingray.png': require('../assets/marine_life_thumbs/Stingray.png'),
+  'Striped_Catfish.png': require('../assets/marine_life_thumbs/Striped_Catfish.png'),
+  'Thresher_Shark.png': require('../assets/marine_life_thumbs/Thresher_Shark.png'),
+  'Titan_Triggerfish.png': require('../assets/marine_life_thumbs/Titan_Triggerfish.png'),
+  'Truck_Hermit_Crab.png': require('../assets/marine_life_thumbs/Truck_Hermit_Crab.png'),
+  'White_Shrimp.png': require('../assets/marine_life_thumbs/White_Shrimp.png'),
+  'Whiteleg_Shrimp.png': require('../assets/marine_life_thumbs/Whiteleg_Shrimp.png'),
+  'Whitetip_Reefshark.png': require('../assets/marine_life_thumbs/Whitetip_Reefshark.png'),
+  'Yellow_Tang.png': require('../assets/marine_life_thumbs/Yellow_Tang.png'),
+  'Yellowback_Fusilier.png': require('../assets/marine_life_thumbs/Yellowback_Fusilier.png'),
+  'Yellowfin_Tuna.png': require('../assets/marine_life_thumbs/Yellowfin_Tuna.png'),
+  'Zebra_Shark.png': require('../assets/marine_life_thumbs/Zebra_Shark.png'),
+  'Atlantic_Anglerfish.png': require('../assets/marine_life_thumbs/Atlantic_Anglerfish.png'),
+  'Atlantic_Bonito.png': require('../assets/marine_life_thumbs/Atlantic_Bonito.png'),
+  'Atlantic_Mackerel.png': require('../assets/marine_life_thumbs/Atlantic_Mackerel.png'),
+  'Bigeye_Scad.png': require('../assets/marine_life_thumbs/Bigeye_Scad.png'),
+  'Bigeye_Trevally.png': require('../assets/marine_life_thumbs/Bigeye_Trevally.png'),
+  'Black_Tiger_Shrimp.png': require('../assets/marine_life_thumbs/Black_Tiger_Shrimp.png'),
+  'Blackfin_Barracuda.png': require('../assets/marine_life_thumbs/Blackfin_Barracuda.png'),
+  'Bluehead_Tilefish.png': require('../assets/marine_life_thumbs/Bluehead_Tilefish.png'),
+  'California_Spiny_Lobster.png': require('../assets/marine_life_thumbs/California_Spiny_Lobster.png'),
+  'Clown_Frogfish.png': require('../assets/marine_life_thumbs/Clown_Frogfish.png'),
+  'Coral_Trout.png': require('../assets/marine_life_thumbs/Coral_Trout.png'),
+  'Crystal_Lobster.png': require('../assets/marine_life_thumbs/Crystal_Lobster.png'),
+  'Cuttlefish.png': require('../assets/marine_life_thumbs/Cuttlefish.png'),
+  'Devil_Scorpionfish.png': require('../assets/marine_life_thumbs/Devil_Scorpionfish.png'),
+  'Dusky_Grouper.png': require('../assets/marine_life_thumbs/Dusky_Grouper.png'),
+  'Dwarf_Seahorse.png': require('../assets/marine_life_thumbs/Dwarf_Seahorse.png'),
+  'Fan_Lobster.png': require('../assets/marine_life_thumbs/Fan_Lobster.png'),
+  'Giant_Squid.png': require('../assets/marine_life_thumbs/Giant_Squid.png'),
+  'Giant_Trevally.png': require('../assets/marine_life_thumbs/Giant_Trevally.png'),
+  'Giraffe_Seahorse.png': require('../assets/marine_life_thumbs/Giraffe_Seahorse.png'),
+  'Great_Barracuda.png': require('../assets/marine_life_thumbs/Great_Barracuda.png'),
+  'Grey_Triggerfish.png': require('../assets/marine_life_thumbs/Grey_Triggerfish.png'),
+  'Harlequin_Hind.png': require('../assets/marine_life_thumbs/Harlequin_Hind.png'),
+  'Hedgehog_Seahorse.png': require('../assets/marine_life_thumbs/Hedgehog_Seahorse.png'),
+  'Humboldt_Squid.png': require('../assets/marine_life_thumbs/Humboldt_Squid.png'),
+  'Longnose_Sawshark.png': require('../assets/marine_life_thumbs/Longnose_Sawshark.png'),
+  'Lusca.png': require('../assets/marine_life_thumbs/Lusca.png'),
+  'Mackerel_Scad.png': require('../assets/marine_life_thumbs/Mackerel_Scad.png'),
+  'Narrow_Barred_Spanish_Mackerel.png': require('../assets/marine_life_thumbs/Narrow_Barred_Spanish_Mackerel.png'),
+  'Painted_Comber.png': require('../assets/marine_life_thumbs/Painted_Comber.png'),
+  'Sailfish.png': require('../assets/marine_life_thumbs/Sailfish.png'),
+  'Sally_Lightfoot_Crab.png': require('../assets/marine_life_thumbs/Sally_Lightfoot_Crab.png'),
+  'Smooth_Hammerhead.png': require('../assets/marine_life_thumbs/Smooth_Hammerhead.png'),
+  'Spear_Squid.png': require('../assets/marine_life_thumbs/Spear_Squid.png'),
+  'Spiny_Seahorse.png': require('../assets/marine_life_thumbs/Spiny_Seahorse.png'),
+  'Striped_Red_Mullet.png': require('../assets/marine_life_thumbs/Striped_Red_Mullet.png'),
+  'Tiger_Shark.png': require('../assets/marine_life_thumbs/Tiger_Shark.png'),
+  'Tiger_Tail_Seahorse.png': require('../assets/marine_life_thumbs/Tiger_Tail_Seahorse.png'),
+  'Tropical_Rock_Lobster.png': require('../assets/marine_life_thumbs/Tropical_Rock_Lobster.png'),
+  'White_Spotted_Jellyfish.png': require('../assets/marine_life_thumbs/White_Spotted_Jellyfish.png'),
+  'White_Trevally.png': require('../assets/marine_life_thumbs/White_Trevally.png'),
+  'Zebra_Seahorse.png': require('../assets/marine_life_thumbs/Zebra_Seahorse.png'),
+  'Blood_belly_Comb_Jellyfish.png': require('../assets/marine_life_thumbs/Blood_belly_Comb_Jellyfish.png'),
+  'Bluespotted_Stargazer.png': require('../assets/marine_life_thumbs/Bluespotted_Stargazer.png'),
+  'Chambered_Nautilus.png': require('../assets/marine_life_thumbs/Chambered_Nautilus.png'),
+  'Clione.png': require('../assets/marine_life_thumbs/Clione.png'),
+  'Clione_Queen.png': require('../assets/marine_life_thumbs/Clione_Queen.png'),
+  'Comb_Jelly.png': require('../assets/marine_life_thumbs/Comb_Jelly.png'),
+  'Cookiecutter_Shark.png': require('../assets/marine_life_thumbs/Cookiecutter_Shark.png'),
+  'Crowned_Seahorse.png': require('../assets/marine_life_thumbs/Crowned_Seahorse.png'),
+  'Eastern_Rock_Lobster.png': require('../assets/marine_life_thumbs/Eastern_Rock_Lobster.png'),
+  'Fangtooth.png': require('../assets/marine_life_thumbs/Fangtooth.png'),
+  'Frilled_Shark.png': require('../assets/marine_life_thumbs/Frilled_Shark.png'),
+  'Giant_Wolf_Eel.png': require('../assets/marine_life_thumbs/Giant_Wolf_Eel.png'),
+  'Goblin_Shark.png': require('../assets/marine_life_thumbs/Goblin_Shark.png'),
+  'Lined_Seahorse.png': require('../assets/marine_life_thumbs/Lined_Seahorse.png'),
+  'Megamouth_Shark.png': require('../assets/marine_life_thumbs/Megamouth_Shark.png'),
+  'Norway_Lobster.png': require('../assets/marine_life_thumbs/Norway_Lobster.png'),
+  'Pacific_Fanfish.png': require('../assets/marine_life_thumbs/Pacific_Fanfish.png'),
+  'Red_Bream.png': require('../assets/marine_life_thumbs/Red_Bream.png'),
+  'Rhinochimaeridae.png': require('../assets/marine_life_thumbs/Rhinochimaeridae.png'),
+  'Salmon_Snailfish.png': require('../assets/marine_life_thumbs/Salmon_Snailfish.png'),
+  'Sea_Toad.png': require('../assets/marine_life_thumbs/Sea_Toad.png'),
+  'Spider_Crab.png': require('../assets/marine_life_thumbs/Spider_Crab.png'),
+  'Spotted_Seahorse.png': require('../assets/marine_life_thumbs/Spotted_Seahorse.png'),
+  'Threetooth_Puffer.png': require('../assets/marine_life_thumbs/Threetooth_Puffer.png'),
+  'White_Seahorse.png': require('../assets/marine_life_thumbs/White_Seahorse.png'),
+  'Barreleye.png': require('../assets/marine_life_thumbs/Barreleye.png'),
+  'Blobfish.png': require('../assets/marine_life_thumbs/Blobfish.png'),
+  'Dumbo_Octopus.png': require('../assets/marine_life_thumbs/Dumbo_Octopus.png'),
+  'Peacock_Squid.png': require('../assets/marine_life_thumbs/Peacock_Squid.png'),
+  'Pelican_Eel.png': require('../assets/marine_life_thumbs/Pelican_Eel.png'),
+  'Vampire_Squid.png': require('../assets/marine_life_thumbs/Vampire_Squid.png'),
+  'Alaska_Pollock.png': require('../assets/marine_life_thumbs/Alaska_Pollock.png'),
+  'Antarctic_Octopus.png': require('../assets/marine_life_thumbs/Antarctic_Octopus.png'),
+  'Arctic_Cod.png': require('../assets/marine_life_thumbs/Arctic_Cod.png'),
+  'Arctic_Telescope_Fish.png': require('../assets/marine_life_thumbs/Arctic_Telescope_Fish.png'),
+  'Capelin.png': require('../assets/marine_life_thumbs/Capelin.png'),
+  'Gelatinous_Snailfish.png': require('../assets/marine_life_thumbs/Gelatinous_Snailfish.png'),
+  'Golden_King_Crab.png': require('../assets/marine_life_thumbs/Golden_King_Crab.png'),
+  'Greenland_Shark.png': require('../assets/marine_life_thumbs/Greenland_Shark.png'),
+  'Haddock.png': require('../assets/marine_life_thumbs/Haddock.png'),
+  'Horsehair_Crab.png': require('../assets/marine_life_thumbs/Horsehair_Crab.png'),
+  'Ice_Fish.png': require('../assets/marine_life_thumbs/Ice_Fish.png'),
+  'Leafy_Seadragon.png': require('../assets/marine_life_thumbs/Leafy_Seadragon.png'),
+  'Lumpfish.png': require('../assets/marine_life_thumbs/Lumpfish.png'),
+  'Narwhal.png': require('../assets/marine_life_thumbs/Narwhal.png'),
+  'Phantom_Jellyfish.png': require('../assets/marine_life_thumbs/Phantom_Jellyfish.png'),
+  'Polar_Eelpout.png': require('../assets/marine_life_thumbs/Polar_Eelpout.png'),
+  'Porbeagle_Shark.png': require('../assets/marine_life_thumbs/Porbeagle_Shark.png'),
+  'Snow_Crab.png': require('../assets/marine_life_thumbs/Snow_Crab.png'),
+  'Snub_nosed_Spiny_Eel.png': require('../assets/marine_life_thumbs/Snub_nosed_Spiny_Eel.png'),
+  'Starry_Skate.png': require('../assets/marine_life_thumbs/Starry_Skate.png'),
+  'Weedy_Seadragon.png': require('../assets/marine_life_thumbs/Weedy_Seadragon.png'),
+  'Allenypterus.png': require('../assets/marine_life_thumbs/Allenypterus.png'),
+  'Anomalocaris.png': require('../assets/marine_life_thumbs/Anomalocaris.png'),
+  'Dollocaris_Ingens.png': require('../assets/marine_life_thumbs/Dollocaris_Ingens.png'),
+  'Drepanaspis.png': require('../assets/marine_life_thumbs/Drepanaspis.png'),
+  'Dunkleosteus.png': require('../assets/marine_life_thumbs/Dunkleosteus.png'),
+  'Falcatus.png': require('../assets/marine_life_thumbs/Falcatus.png'),
+  'Helicoprion.png': require('../assets/marine_life_thumbs/Helicoprion.png'),
+  'Kronosaurus.png': require('../assets/marine_life_thumbs/Kronosaurus.png'),
+  'Megalograptus.png': require('../assets/marine_life_thumbs/Megalograptus.png'),
+  'Pikaia.png': require('../assets/marine_life_thumbs/Pikaia.png'),
+  'Qingmendous.png': require('../assets/marine_life_thumbs/Qingmendous.png'),
+  'Ruby_Seadragon.png': require('../assets/marine_life_thumbs/Ruby_Seadragon.png'),
+  'Tokummia_Katalepsis.png': require('../assets/marine_life_thumbs/Tokummia_Katalepsis.png'),
+  'Waptia_Fieldensis.png': require('../assets/marine_life_thumbs/Waptia_Fieldensis.png'),
+  'Xenacanthus.png': require('../assets/marine_life_thumbs/Xenacanthus.png'),
+  'Yawie.png': require('../assets/marine_life_thumbs/Yawie.png'),
+  'Aurora_Jellyfish.png': require('../assets/marine_life_thumbs/Aurora_Jellyfish.png'),
+  'Barbed_Eel.png': require('../assets/marine_life_thumbs/Barbed_Eel.png'),
+  'Bloodskin_Shark.png': require('../assets/marine_life_thumbs/Bloodskin_Shark.png'),
+  'Bony_Wreckfish.png': require('../assets/marine_life_thumbs/Bony_Wreckfish.png'),
+  'Bursting_Anglerfish.png': require('../assets/marine_life_thumbs/Bursting_Anglerfish.png'),
+  'Cerebral_Crab.png': require('../assets/marine_life_thumbs/Cerebral_Crab.png'),
+  'Concertina_Barracuda.png': require('../assets/marine_life_thumbs/Concertina_Barracuda.png'),
+  'Cortex_Decorator.png': require('../assets/marine_life_thumbs/Cortex_Decorator.png'),
+  'Entangled_Crab.png': require('../assets/marine_life_thumbs/Entangled_Crab.png'),
+  'Enthralled_Stonefish.png': require('../assets/marine_life_thumbs/Enthralled_Stonefish.png'),
+  'Fanged_Cod.png': require('../assets/marine_life_thumbs/Fanged_Cod.png'),
+  'Gazing_Shark.png': require('../assets/marine_life_thumbs/Gazing_Shark.png'),
+  'Gelatinous_Stonefish.png': require('../assets/marine_life_thumbs/Gelatinous_Stonefish.png'),
+  'Gnashing_Perch.png': require('../assets/marine_life_thumbs/Gnashing_Perch.png'),
+  'Grotesque_Mackerel.png': require('../assets/marine_life_thumbs/Grotesque_Mackerel.png'),
+  'Host_Eel.png': require('../assets/marine_life_thumbs/Host_Eel.png'),
+  'Imperious_Lobster.png': require('../assets/marine_life_thumbs/Imperious_Lobster.png'),
+  'Malignant_Pincer.png': require('../assets/marine_life_thumbs/Malignant_Pincer.png'),
+  'Many_Eyed_Mackerel.png': require('../assets/marine_life_thumbs/Many_Eyed_Mackerel.png'),
+  'Parhelion_Jellyfish.png': require('../assets/marine_life_thumbs/Parhelion_Jellyfish.png'),
+  'Perished_Loosejaw.png': require('../assets/marine_life_thumbs/Perished_Loosejaw.png'),
+  'Radiant_Squid.png': require('../assets/marine_life_thumbs/Radiant_Squid.png'),
+  'Sallow_Sailfish.png': require('../assets/marine_life_thumbs/Sallow_Sailfish.png'),
+  'Savage_Barracuda.png': require('../assets/marine_life_thumbs/Savage_Barracuda.png'),
+  'Scouring_Bass.png': require('../assets/marine_life_thumbs/Scouring_Bass.png'),
+  'Seizing_Snailfish.png': require('../assets/marine_life_thumbs/Seizing_Snailfish.png'),
+  'Shattered_Wreckfish.png': require('../assets/marine_life_thumbs/Shattered_Wreckfish.png'),
+  'Splintered_Crab.png': require('../assets/marine_life_thumbs/Splintered_Crab.png'),
+  'Sprouting_Eel.png': require('../assets/marine_life_thumbs/Sprouting_Eel.png'),
+  'Three_Headed_Cod.png': require('../assets/marine_life_thumbs/Three_Headed_Cod.png'),
+  'Translucent_Sturgeon.png': require('../assets/marine_life_thumbs/Translucent_Sturgeon.png'),
+  'Tusked_Grouper.png': require('../assets/marine_life_thumbs/Tusked_Grouper.png'),
+  'Voltaic_Grouper.png': require('../assets/marine_life_thumbs/Voltaic_Grouper.png'),
+  'Withered_Ray.png': require('../assets/marine_life_thumbs/Withered_Ray.png'),
+};
+
+
 const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   const [filteredMarineLife, setFilteredMarineLife] = useState(marineLifeList);
   const [selectedFish, setSelectedFish] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [filterType, setFilterType] = useState('all'); // all, caught, uncaught, breeding
-  
-  // 🆕 NEW: Category filter states
-  const [zoneFilter, setZoneFilter] = useState('all');
-  const [timeFilter, setTimeFilter] = useState('all');
 
   // Load marine life data when component mounts
   useEffect(() => {
     loadMarineLifeData();
   }, []);
 
-  // Update filtered list when any filter changes
+  // Update filtered list when marineLifeList or filters change
   useEffect(() => {
     applyFilters();
-  }, [marineLifeList, searchText, filterType, zoneFilter, timeFilter]);
+  }, [marineLifeList, searchText, filterType]);
 
-  // 🔧 PRESERVED: Modal state bug fix
+  // Update selectedFish when marineLifeList changes (modal bug fix)
   useEffect(() => {
     if (selectedFish && marineLifeList) {
       const updatedFish = marineLifeList.find(fish => fish.name === selectedFish.name);
@@ -55,6 +259,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
       const storedData = await AsyncStorage.getItem('@DaveTheDiverCompanion:userMarineLife');
       if (storedData) {
         const userData = JSON.parse(storedData);
+        // Merge user data with base marine life data
         const updatedList = marineLifeList.map(item => {
           const userStatus = userData[item.name];
           if (userStatus) {
@@ -73,7 +278,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     }
   };
 
-  // 🆕 ENHANCED: Apply all filters including new category filters
   const applyFilters = () => {
     let filtered = marineLifeList;
 
@@ -85,7 +289,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
       );
     }
 
-    // Apply status filter
+    // Apply type filter
     switch (filterType) {
       case 'caught':
         filtered = filtered.filter(item => item.caught);
@@ -97,28 +301,11 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         filtered = filtered.filter(item => item.breeding_pair);
         break;
       default:
+        // 'all' - no additional filtering
         break;
     }
 
-    // 🆕 NEW: Apply zone filter
-    if (zoneFilter !== 'all') {
-      filtered = filtered.filter(item => item.zone === zoneFilter);
-    }
-
-    // 🆕 NEW: Apply time filter
-    if (timeFilter !== 'all') {
-      filtered = filtered.filter(item => item.active_time === timeFilter);
-    }
-
     setFilteredMarineLife(filtered);
-  };
-
-  // 🆕 NEW: Reset all filters
-  const resetFilters = () => {
-    setSearchText('');
-    setFilterType('all');
-    setZoneFilter('all');
-    setTimeFilter('all');
   };
 
   const toggleCaught = async (fishName) => {
@@ -159,10 +346,10 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
       onPress={() => openFishCard(item)}
     >
       <View style={styles.fishImageContainer}>
-        {/* 🖼️ PRESERVED: Local thumbnails in grid */}
-        {item.image_filename ? (
+        {/* 🖼️ CHANGE: Show local thumbnails in grid for ALL marine life */}
+        {item.image_filename && marineLifeThumbnails[item.image_filename] ? (
           <Image
-            source={require(`../assets/marine_life_thumbs/${item.image_filename}`)}
+            source={marineLifeThumbnails[item.image_filename]} // FIX APPLIED HERE
             style={styles.fishImage}
             resizeMode="contain"
           />
@@ -212,6 +399,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
 
     return (
       <ScrollView style={styles.modalContent}>
+        {/* Header */}
         <View style={styles.modalHeader}>
           <Text style={styles.modalTitle}>{selectedFish.name}</Text>
           <TouchableOpacity
@@ -222,7 +410,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           </TouchableOpacity>
         </View>
 
-        {/* 🖼️ PRESERVED: Placeholder in modal */}
+        {/* 🖼️ CHANGE: Show placeholder in modal for ALL marine life until better images found */}
         <View style={styles.modalImageContainer}>
           <View style={styles.modalPlaceholderImage}>
             <Text style={styles.modalPlaceholderText}>🐟</Text>
@@ -230,6 +418,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           </View>
         </View>
 
+        {/* Fish Details */}
         <View style={styles.detailsContainer}>
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Zone:</Text>
@@ -256,6 +445,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
             <Text style={styles.detailValue}>{selectedFish.best_capture_method}</Text>
           </View>
 
+          {/* Recipes */}
           {selectedFish.recipes && selectedFish.recipes.length > 0 && (
             <View style={styles.recipesContainer}>
               <Text style={styles.recipesTitle}>Used in Recipes:</Text>
@@ -265,6 +455,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
             </View>
           )}
 
+          {/* Toggle Switches */}
           <View style={styles.modalButtonContainer}>
             <TouchableOpacity
               style={[
@@ -302,6 +493,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header with Statistics */}
       <View style={styles.header}>
         <Text style={styles.title}>Marine Life Tracker</Text>
         <View style={styles.statsContainer}>
@@ -314,7 +506,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         </View>
       </View>
 
-      {/* 🆕 ENHANCED: Filter controls with category filters */}
+      {/* Search and Filter Controls */}
       <View style={styles.controlsContainer}>
         <TextInput
           style={styles.searchInput}
@@ -323,271 +515,28 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           onChangeText={setSearchText}
         />
 
-        {/* Status Filters */}
-        <View style={styles.filterSection}>
-          <Text style={styles.filterSectionTitle}>Status:</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.filterContainer}>
-              {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
-                <TouchableOpacity
-                  key={filter}
-                  style={[
-                    styles.filterButton,
-                    filterType === filter && styles.activeFilterButton
-                  ]}
-                  onPress={() => setFilterType(filter)}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    filterType === filter && styles.activeFilterButtonText
-                  ]}>
-                    {filter.charAt(0).toUpperCase() + filter.slice(1)}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </ScrollView>
+        <View style={styles.filterContainer}>
+          {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
+            <TouchableOpacity
+              key={filter}
+              style={[
+                styles.filterButton,
+                filterType === filter && styles.activeFilterButton
+              ]}
+              onPress={() => setFilterType(filter)}
+            >
+              <Text style={[
+                styles.filterButtonText,
+                filterType === filter && styles.activeFilterButtonText
+              ]}>
+                {filter.charAt(0).toUpperCase() + filter.slice(1)}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
-
-        {/* 🆕 NEW: Zone Filters */}
-        <View style={styles.filterSection}>
-          <Text style={styles.filterSectionTitle}>Zone:</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.filterContainer}>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'all' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('all')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'all' && styles.activeFilterButtonText
-                ]}>
-                  All
-                </Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Aberrations' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Aberrations')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Aberrations' && styles.activeFilterButtonText
-                ]}>
-                  Aberrations
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Blue Hole Depths (130-250m)' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Blue Hole Depths (130-250m)')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Blue Hole Depths (130-250m)' && styles.activeFilterButtonText
-                ]}>
-                  Blue Hole Depths
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Blue Hole Medium Depth (50-130m)' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Blue Hole Medium Depth (50-130m)')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Blue Hole Medium Depth (50-130m)' && styles.activeFilterButtonText
-                ]}>
-                  Blue Hole Medium Depth
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Blue Hole Shallows (0-50m)' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Blue Hole Shallows (0-50m)')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Blue Hole Shallows (0-50m)' && styles.activeFilterButtonText
-                ]}>
-                  Blue Hole Shallows
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Glacier Passage' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Glacier Passage')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Glacier Passage' && styles.activeFilterButtonText
-                ]}>
-                  Glacier Passage
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Glacier Zone' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Glacier Zone')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Glacier Zone' && styles.activeFilterButtonText
-                ]}>
-                  Glacier Zone
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Hydrothermal Vents' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Hydrothermal Vents')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Hydrothermal Vents' && styles.activeFilterButtonText
-                ]}>
-                  Hydrothermal Vents
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
-        </View>
-
-        {/* 🆕 NEW: Time Filters */}
-        <View style={styles.filterSection}>
-          <Text style={styles.filterSectionTitle}>Time:</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.filterContainer}>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'all' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('all')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'all' && styles.activeFilterButtonText
-                ]}>
-                  All
-                </Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Black Cliff' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Black Cliff')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Black Cliff' && styles.activeFilterButtonText
-                ]}>
-                  Black Cliff
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Both' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Both')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Both' && styles.activeFilterButtonText
-                ]}>
-                  Both
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Day' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Day')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Day' && styles.activeFilterButtonText
-                ]}>
-                  Day
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Fog Coast' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Fog Coast')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Fog Coast' && styles.activeFilterButtonText
-                ]}>
-                  Fog Coast
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Jellyfish Basin' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Jellyfish Basin')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Jellyfish Basin' && styles.activeFilterButtonText
-                ]}>
-                  Jellyfish Basin
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Night' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Night')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Night' && styles.activeFilterButtonText
-                ]}>
-                  Night
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
-        </View>
-
-        {/* 🆕 NEW: Reset Filters Button */}
-        <TouchableOpacity
-          style={styles.resetButton}
-          onPress={resetFilters}
-        >
-          <Text style={styles.resetButtonText}>Reset All Filters</Text>
-        </TouchableOpacity>
       </View>
 
+      {/* Marine Life Grid */}
       <FlatList
         data={filteredMarineLife}
         renderItem={renderMarineLifeItem}
@@ -597,6 +546,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         showsVerticalScrollIndicator={false}
       />
 
+      {/* Fish Detail Modal */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -650,24 +600,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 12,
   },
-  // 🆕 NEW: Filter section styles
-  filterSection: {
-    marginBottom: 12,
-  },
-  filterSectionTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 8,
-  },
   filterContainer: {
     flexDirection: 'row',
   },
   filterButton: {
     backgroundColor: '#e0e0e0',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
     marginRight: 8,
   },
   activeFilterButton: {
@@ -675,24 +615,11 @@ const styles = StyleSheet.create({
   },
   filterButtonText: {
     color: '#666',
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '500',
   },
   activeFilterButtonText: {
     color: 'white',
-  },
-  // 🆕 NEW: Reset button styles
-  resetButton: {
-    backgroundColor: '#ff6b6b',
-    padding: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  resetButtonText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '600',
   },
   listContainer: {
     padding: 8,
@@ -713,11 +640,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 8,
   },
+  // 🖼️ UPDATED: Grid image styling with proper sizing for ALL thumbnails
   fishImage: {
     width: 80,
     height: 80,
     borderRadius: 8,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#f8f8f8', // Light background for padding
   },
   placeholderImage: {
     width: 80,
@@ -777,6 +705,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  // Modal Styles
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -819,6 +748,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
   },
+  // 🖼️ UPDATED: Modal placeholder styling for ALL marine life
   modalPlaceholderImage: {
     width: 200,
     height: 200,
