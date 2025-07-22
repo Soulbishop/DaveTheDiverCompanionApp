@@ -10,6 +10,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions: # <--- ADDED THIS BLOCK
+      contents: write # This grants the necessary permission for creating releases
+      # Alternatively, for more specific control, you could use:
+      # releases: write
     
     steps:
     - name: Checkout repository
@@ -71,4 +75,3 @@ jobs:
         draft: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
