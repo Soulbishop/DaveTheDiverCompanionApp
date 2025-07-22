@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",  // <--- Changed to "automatic"
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
@@ -21,10 +21,16 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.soulbishop.davethedivercompanion"  // <--- Ensured this is present
+      "package": "com.soulbishop.davethedivercompanion"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "40f9cbfc-2117-41fb-a87f-dfeb8c1958d7"
+      }
+    },
+    "owner": "soulbishop"
   }
 }
