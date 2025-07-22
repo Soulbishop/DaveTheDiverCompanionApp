@@ -14,7 +14,6 @@ import SettingsScreen from './src/screens/SettingsScreen';
 
 // Import database functions
 import { initializeMarineLifeDatabase, getAllMarineLife } from './src/utils/marineLifeDatabase';
-import RecipeScreen from './src/screens/RecipeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,67 +28,52 @@ export default function App() {
 
   const initializeDatabase = async () => {
     try {
-      setIsLoading(true);
-      setError(null);
-      
-      // Initialize the marine life database
+      console.log('Starting database initialization...');
       await initializeMarineLifeDatabase();
+      console.log('Database initialized successfully');
       
-      // Get all marine life data
-      const allMarineLife = getAllMarineLife();
-      setMarineLifeList(allMarineLife);
-      
-      console.log(`Loaded ${allMarineLife.length} marine life entries`);
-      
-    } catch (error) {
-      console.error('Failed to initialize database:', error);
-      setError('Failed to load marine life data. Please restart the app.');
-    } finally {
+      const data = await getAllMarineLife();
+      console.log(`Loaded ${data.length} marine life entries`);
+      setMarineLifeList(data);
+      setIsLoading(false);
+    } catch (err) {
+      console.error('Database initialization failed:', err);
+      setError(err.message);
       setIsLoading(false);
     }
   };
 
-  // Show loading screen while initializing
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#2196F3" />
-        <Text style={styles.loadingText}>Loading Marine Life Database...</Text>
+        <ActivityIndicator size="large" color="#0066cc" />
+        <Text style={styles.loadingText}>Loading Dave the Diver Companion...</Text>
       </View>
     );
   }
 
-  // Show error screen if initialization failed
   if (error) {
     return (
       <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>⚠️</Text>
-        <Text style={styles.errorMessage}>{error}</Text>
+        <Text style={styles.errorText}>Error: {error}</Text>
+        <Text style={styles.errorSubtext}>Please restart the app</Text>
       </View>
     );
   }
 
   return (
     <NavigationContainer>
-      <StatusBar style="auto" />
       <Tab.Navigator
         screenOptions={{
-          tabBarActiveTintColor: '#2196F3',
+          tabBarActiveTintColor: '#0066cc',
           tabBarInactiveTintColor: '#666',
           tabBarStyle: {
-            backgroundColor: '#fff',
+            backgroundColor: '#f8f9fa',
             borderTopWidth: 1,
-            borderTopColor: '#e0e0e0',
-            paddingBottom: 5,
-            paddingTop: 5,
-            height: 60,
-          },
-          tabBarLabelStyle: {
-            fontSize: 12,
-            fontWeight: '500',
+            borderTopColor: '#e9ecef',
           },
           headerStyle: {
-            backgroundColor: '#2196F3',
+            backgroundColor: '#0066cc',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
@@ -97,51 +81,38 @@ export default function App() {
           },
         }}
       >
-        <Tab.Screen
-          name="Marine Life"
+        <Tab.Screen 
+          name="Marine Life" 
           options={{
             tabBarIcon: ({ color, size }) => (
               <Text style={{ color, fontSize: size }}>🐟</Text>
             ),
-            headerShown: false, // MarineLifeScreen has its own header
           }}
         >
-          {() => (
-            <MarineLifeScreen
-              marineLifeList={marineLifeList}
-              setMarineLifeList={setMarineLifeList}
-            />
-          )}
+          {() => <MarineLifeScreen marineLifeList={marineLifeList} />}
         </Tab.Screen>
         
-        <Tab.Screen
-          name="Recipes"
+        <Tab.Screen 
+          name="Recipes" 
           component={RecipesScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Text style={{ color, fontSize: size }}>🍣</Text>
             ),
-            title: 'Sushi Recipes',
           }}
         />
         
-        <Tab.Screen
-          name="Settings"
+        <Tab.Screen 
+          name="Settings" 
+          component={SettingsScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Text style={{ color, fontSize: size }}>⚙️</Text>
             ),
           }}
-        >
-          {() => (
-            <SettingsScreen
-              marineLifeList={marineLifeList}
-              setMarineLifeList={setMarineLifeList}
-              onDatabaseReset={initializeDatabase}
-            />
-          )}
-        </Tab.Screen>
+        />
       </Tab.Navigator>
+      <StatusBar style="light" />
     </NavigationContainer>
   );
 }
@@ -149,10 +120,9 @@ export default function App() {
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    alignItems: 'center',
+    backgroundColor: '#f8f9fa',
   },
   loadingText: {
     marginTop: 16,
@@ -162,20 +132,21 @@ const styles = StyleSheet.create({
   },
   errorContainer: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f8f9fa',
     padding: 20,
   },
   errorText: {
-    fontSize: 48,
-    marginBottom: 16,
+    fontSize: 18,
+    color: '#dc3545',
+    textAlign: 'center',
+    marginBottom: 8,
   },
-  errorMessage: {
-    fontSize: 16,
+  errorSubtext: {
+    fontSize: 14,
     color: '#666',
     textAlign: 'center',
-    lineHeight: 24,
   },
 });
 
