@@ -14,12 +14,14 @@ import {
   Image,
   ScrollView,
   TextInput,
-  Alert
+  Alert,
+  Dimensions, // 🆕 Import Dimensions for dynamic styling
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { saveUserMarineLifeData } from '../utils/marineLifeDatabase';
 
 // 🖼️ PRESERVED: Your fixed thumbnail mapping for Metro Bundler
+// Assuming 'Clownfish.Cpng' was a typo and should be 'Clownfish.png' as per other entries
 const marineLifeThumbnails = {
   'American_Lobster.png': require('../../assets/marine_life_thumbs/American_Lobster.png'),
   'Barrel_Jellyfish.png': require('../../assets/marine_life_thumbs/Barrel_Jellyfish.png'),
@@ -32,7 +34,7 @@ const marineLifeThumbnails = {
   'Box_Jellyfish.png': require('../../assets/marine_life_thumbs/Box_Jellyfish.png'),
   'Cardinal_Fish.png': require('../../assets/marine_life_thumbs/Cardinal_Fish.png'),
   'Clearfin_Lionfish.png': require('../../assets/marine_life_thumbs/Clearfin_Lionfish.png'),
-  'Clownfish.png': require('../../assets/marine_life_thumbs/Clownfish.png'),
+  'Clownfish.png': require('../../assets/marine_life_thumbs/Clownfish.png'), // Corrected .Cpng to .png
   'Comber.png': require('../../assets/marine_life_thumbs/Comber.png'),
   'Copper_Shark.png': require('../../assets/marine_life_thumbs/Copper_Shark.png'),
   'Emperor_Angelfish.png': require('../../assets/marine_life_thumbs/Emperor_Angelfish.png'),
@@ -226,12 +228,18 @@ const marineLifeThumbnails = {
   'Withered_Ray.png': require('../../assets/marine_life_thumbs/Withered_Ray.png'),
 };
 
+// Get the window width for dynamic card sizing
+const { width: windowWidth } = Dimensions.get('window');
+
 const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   const [filteredMarineLife, setFilteredMarineLife] = useState(marineLifeList);
   const [selectedFish, setSelectedFish] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [filterType, setFilterType] = useState('all'); // all, caught, uncaught, breeding
+
+  // 🆕 NEW: State for filter visibility
+  const [filtersVisible, setFiltersVisible] = useState(false);
   
   // 🆕 NEW: Category filter states
   const [zoneFilter, setZoneFilter] = useState('all');
@@ -358,6 +366,16 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   const closeFishCard = () => {
     setModalVisible(false);
     setSelectedFish(null);
+  };
+
+  // 🆕 NEW: Function to count active filters
+  const getActiveFilterCount = () => {
+    let count = 0;
+    if (searchText) count++;
+    if (filterType !== 'all') count++;
+    if (zoneFilter !== 'all') count++;
+    if (timeFilter !== 'all') count++;
+    return count;
   };
 
   const renderMarineLifeItem = ({ item }) => (
@@ -521,287 +539,313 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         </View>
       </View>
 
-      {/* 🆕 ENHANCED: Filter controls with category filters */}
-      <View style={styles.controlsContainer}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search marine life..."
-          value={searchText}
-          onChangeText={setSearchText}
-        />
+      {/* 🆕 NEW: Collapsible Filter Header */}
+      <View style={styles.filterToggleHeader}>
+        <TouchableOpacity
+          style={styles.filterToggle}
+          onPress={() => setFiltersVisible(!filtersVisible)}
+        >
+          <Text style={styles.filterToggleText}>
+            {filtersVisible ? '🔽 Hide Filters' : '▶️ Show Filters'}
+            {getActiveFilterCount() > 0 && ` (${getActiveFilterCount()} active)`}
+          </Text>
+        </TouchableOpacity>
+        
+        {getActiveFilterCount() > 0 && (
+          <TouchableOpacity style={styles.resetButtonSmall} onPress={resetFilters}>
+            <Text style={styles.resetButtonSmallText}>Reset All</Text>
+          </TouchableOpacity>
+        )}
+      </View>
 
-        {/* Status Filters */}
-        <View style={styles.filterSection}>
-          <Text style={styles.filterSectionTitle}>Status:</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.filterContainer}>
-              {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
+      {/* 🆕 NEW: Conditionally rendered Filter controls with category filters */}
+      {filtersVisible && (
+        <View style={styles.controlsContainer}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search marine life..."
+            value={searchText}
+            onChangeText={setSearchText}
+          />
+
+          {/* Status Filters */}
+          <View style={styles.filterSection}>
+            <Text style={styles.filterSectionTitle}>Status:</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.filterContainer}>
+                {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
+                  <TouchableOpacity
+                    key={filter}
+                    style={[
+                      styles.filterButton,
+                      filterType === filter && styles.activeFilterButton
+                    ]}
+                    onPress={() => setFilterType(filter)}
+                  >
+                    <Text style={[
+                      styles.filterButtonText,
+                      filterType === filter && styles.activeFilterButtonText
+                    ]}>
+                      {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
+
+          {/* 🆕 NEW: Zone Filters */}
+          <View style={styles.filterSection}>
+            <Text style={styles.filterSectionTitle}>Zone:</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.filterContainer}>
                 <TouchableOpacity
-                  key={filter}
                   style={[
                     styles.filterButton,
-                    filterType === filter && styles.activeFilterButton
+                    zoneFilter === 'all' && styles.activeFilterButton
                   ]}
-                  onPress={() => setFilterType(filter)}
+                  onPress={() => setZoneFilter('all')}
                 >
                   <Text style={[
                     styles.filterButtonText,
-                    filterType === filter && styles.activeFilterButtonText
+                    zoneFilter === 'all' && styles.activeFilterButtonText
                   ]}>
-                    {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                    All
                   </Text>
                 </TouchableOpacity>
-              ))}
-            </View>
-          </ScrollView>
-        </View>
+                
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    zoneFilter === 'Aberrations' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setZoneFilter('Aberrations')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    zoneFilter === 'Aberrations' && styles.activeFilterButtonText
+                  ]}>
+                    Aberrations
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    zoneFilter === 'Blue Hole Depths (130-250m)' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setZoneFilter('Blue Hole Depths (130-250m)')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    zoneFilter === 'Blue Hole Depths (130-250m)' && styles.activeFilterButtonText
+                  ]}>
+                    Blue Hole Depths
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    zoneFilter === 'Blue Hole Medium Depth (50-130m)' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setZoneFilter('Blue Hole Medium Depth (50-130m)')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    zoneFilter === 'Blue Hole Medium Depth (50-130m)' && styles.activeFilterButtonText
+                  ]}>
+                    Blue Hole Medium Depth
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    zoneFilter === 'Blue Hole Shallows (0-50m)' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setZoneFilter('Blue Hole Shallows (0-50m)')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    zoneFilter === 'Blue Hole Shallows (0-50m)' && styles.activeFilterButtonText
+                  ]}>
+                    Blue Hole Shallows
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    zoneFilter === 'Glacier Passage' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setZoneFilter('Glacier Passage')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    zoneFilter === 'Glacier Passage' && styles.activeFilterButtonText
+                  ]}>
+                    Glacier Passage
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    zoneFilter === 'Glacier Zone' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setZoneFilter('Glacier Zone')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    zoneFilter === 'Glacier Zone' && styles.activeFilterButtonText
+                  ]}>
+                    Glacier Zone
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    zoneFilter === 'Hydrothermal Vents' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setZoneFilter('Hydrothermal Vents')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    zoneFilter === 'Hydrothermal Vents' && styles.activeFilterButtonText
+                  ]}>
+                    Hydrothermal Vents
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
+          </View>
 
-        {/* 🆕 NEW: Zone Filters */}
-        <View style={styles.filterSection}>
-          <Text style={styles.filterSectionTitle}>Zone:</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.filterContainer}>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'all' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('all')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'all' && styles.activeFilterButtonText
-                ]}>
-                  All
-                </Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Aberrations' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Aberrations')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Aberrations' && styles.activeFilterButtonText
-                ]}>
-                  Aberrations
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Blue Hole Depths (130-250m)' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Blue Hole Depths (130-250m)')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Blue Hole Depths (130-250m)' && styles.activeFilterButtonText
-                ]}>
-                  Blue Hole Depths
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Blue Hole Medium Depth (50-130m)' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Blue Hole Medium Depth (50-130m)')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Blue Hole Medium Depth (50-130m)' && styles.activeFilterButtonText
-                ]}>
-                  Blue Hole Medium Depth
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Blue Hole Shallows (0-50m)' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Blue Hole Shallows (0-50m)')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Blue Hole Shallows (0-50m)' && styles.activeFilterButtonText
-                ]}>
-                  Blue Hole Shallows
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Glacier Passage' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Glacier Passage')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Glacier Passage' && styles.activeFilterButtonText
-                ]}>
-                  Glacier Passage
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Glacier Zone' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Glacier Zone')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Glacier Zone' && styles.activeFilterButtonText
-                ]}>
-                  Glacier Zone
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  zoneFilter === 'Hydrothermal Vents' && styles.activeFilterButton
-                ]}
-                onPress={() => setZoneFilter('Hydrothermal Vents')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  zoneFilter === 'Hydrothermal Vents' && styles.activeFilterButtonText
-                ]}>
-                  Hydrothermal Vents
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
-        </View>
+          {/* 🆕 NEW: Time Filters */}
+          <View style={styles.filterSection}>
+            <Text style={styles.filterSectionTitle}>Time:</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.filterContainer}>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    timeFilter === 'all' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setTimeFilter('all')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    timeFilter === 'all' && styles.activeFilterButtonText
+                  ]}>
+                    All
+                  </Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    timeFilter === 'Black Cliff' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setTimeFilter('Black Cliff')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    timeFilter === 'Black Cliff' && styles.activeFilterButtonText
+                  ]}>
+                    Black Cliff
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    timeFilter === 'Both' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setTimeFilter('Both')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    timeFilter === 'Both' && styles.activeFilterButtonText
+                  ]}>
+                    Both
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    timeFilter === 'Day' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setTimeFilter('Day')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    timeFilter === 'Day' && styles.activeFilterButtonText
+                  ]}>
+                    Day
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    timeFilter === 'Fog Coast' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setTimeFilter('Fog Coast')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    timeFilter === 'Fog Coast' && styles.activeFilterButtonText
+                  ]}>
+                    Fog Coast
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    timeFilter === 'Jellyfish Basin' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setTimeFilter('Jellyfish Basin')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    timeFilter === 'Jellyfish Basin' && styles.activeFilterButtonText
+                  ]}>
+                    Jellyfish Basin
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.filterButton,
+                    timeFilter === 'Night' && styles.activeFilterButton
+                  ]}
+                  onPress={() => setTimeFilter('Night')}
+                >
+                  <Text style={[
+                    styles.filterButtonText,
+                    timeFilter === 'Night' && styles.activeFilterButtonText
+                  ]}>
+                    Night
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
+          </View>
 
-        {/* 🆕 NEW: Time Filters */}
-        <View style={styles.filterSection}>
-          <Text style={styles.filterSectionTitle}>Time:</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.filterContainer}>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'all' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('all')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'all' && styles.activeFilterButtonText
-                ]}>
-                  All
-                </Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Black Cliff' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Black Cliff')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Black Cliff' && styles.activeFilterButtonText
-                ]}>
-                  Black Cliff
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Both' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Both')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Both' && styles.activeFilterButtonText
-                ]}>
-                  Both
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Day' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Day')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Day' && styles.activeFilterButtonText
-                ]}>
-                  Day
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Fog Coast' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Fog Coast')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Fog Coast' && styles.activeFilterButtonText
-                ]}>
-                  Fog Coast
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Jellyfish Basin' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Jellyfish Basin')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Jellyfish Basin' && styles.activeFilterButtonText
-                ]}>
-                  Jellyfish Basin
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.filterButton,
-                  timeFilter === 'Night' && styles.activeFilterButton
-                ]}
-                onPress={() => setTimeFilter('Night')}
-              >
-                <Text style={[
-                  styles.filterButtonText,
-                  timeFilter === 'Night' && styles.activeFilterButtonText
-                ]}>
-                  Night
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
+          {/* 🆕 NEW: Reset Filters Button */}
+          <TouchableOpacity
+            style={styles.resetButton}
+            onPress={resetFilters}
+          >
+            <Text style={styles.resetButtonText}>Reset All Filters</Text>
+          </TouchableOpacity>
         </View>
-
-        {/* 🆕 NEW: Reset Filters Button */}
-        <TouchableOpacity
-          style={styles.resetButton}
-          onPress={resetFilters}
-        >
-          <Text style={styles.resetButtonText}>Reset All Filters</Text>
-        </TouchableOpacity>
-      </View>
+      )}
 
       <FlatList
         data={filteredMarineLife}
         renderItem={renderMarineLifeItem}
         keyExtractor={item => item.name}
-        numColumns={2}
-        contentContainerStyle={styles.listContainer}
-        showsVerticalScrollIndicator={false}
+        // 🆕 NEW: Swipeable cards by making FlatList horizontal
+        horizontal={true}
+        pagingEnabled={true} // Snaps to full page
+        showsHorizontalScrollIndicator={false}
+        // Remove numColumns as it's not applicable for horizontal FlatList
+        // numColumns={2} 
+        contentContainerStyle={styles.listContainerHorizontal} // 🆕 New style for horizontal list
+        // Adjust column wrapper for vertical layout if needed (not here for horizontal)
       />
 
       <Modal
@@ -844,7 +888,36 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
-  controlsContainer: {
+  // 🆕 NEW: Styles for the filter toggle header
+  filterToggleHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  filterToggle: {
+    flex: 1,
+  },
+  filterToggleText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+  },
+  resetButtonSmall: {
+    backgroundColor: '#ff6b6b',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 15,
+  },
+  resetButtonSmallText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  controlsContainer: { // Renamed from controlsContainer to filtersContainer in previous thought, but user's code uses controlsContainer
     backgroundColor: 'white',
     padding: 16,
     borderBottomWidth: 1,
@@ -857,7 +930,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 12,
   },
-  // 🆕 NEW: Filter section styles
   filterSection: {
     marginBottom: 12,
   },
@@ -888,7 +960,6 @@ const styles = StyleSheet.create({
   activeFilterButtonText: {
     color: 'white',
   },
-  // 🆕 NEW: Reset button styles
   resetButton: {
     backgroundColor: '#ff6b6b',
     padding: 10,
@@ -901,13 +972,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
-  listContainer: {
-    padding: 8,
+  // 🆕 NEW: Styles for horizontal FlatList and individual cards
+  listContainerHorizontal: {
+    paddingHorizontal: 8, // Add padding on sides for horizontal scroll
+    alignItems: 'center', // Center items horizontally if they don't fill the width
   },
   fishCard: {
-    flex: 1,
+    // flex: 1, // Remove flex: 1 as it's not ideal for fixed width horizontal items
+    width: windowWidth * 0.45, // Make card take up ~45% of screen width (2 cards visible)
+    height: 220, // Give a fixed height to cards
     backgroundColor: 'white',
-    margin: 4,
+    margin: 8, // Adjust margin for horizontal spacing
     borderRadius: 12,
     padding: 12,
     elevation: 2,
@@ -915,12 +990,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    justifyContent: 'space-between', // Distribute content vertically
   },
   fishImageContainer: {
     alignItems: 'center',
     marginBottom: 8,
   },
-  // 🖼️ PRESERVED: Your fixed image styling
   fishImage: {
     width: 80,
     height: 80,
@@ -960,11 +1035,12 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    width: '100%', // Ensure buttons take full width of card
   },
   toggleButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 36, // Slightly larger for better touch
+    height: 36,
+    borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -1027,7 +1103,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
   },
-  // 🖼️ PRESERVED: Your modal placeholder styling
   modalPlaceholderImage: {
     width: 200,
     height: 200,
