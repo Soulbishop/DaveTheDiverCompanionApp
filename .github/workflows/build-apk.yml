@@ -36,14 +36,10 @@ jobs:
     - name: Setup EAS CLI
       run: npm install -g eas-cli
 
-    - name: Configure EAS project
-      run: eas build:configure --platform android
-      env:
-        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-
     - name: Build APK locally
       run: |
         # Use local build instead of cloud build - no more queues!
+        # Skip configuration since EAS project already exists
         eas build --platform android --profile preview --local --non-interactive
       env:
         EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
