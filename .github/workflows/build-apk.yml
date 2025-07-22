@@ -36,6 +36,11 @@ jobs:
     - name: Setup EAS CLI
       run: npm install -g eas-cli
 
+    - name: Initialize EAS project
+      run: eas init --non-interactive
+      env:
+        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
     - name: Build APK locally
       run: |
         # Use local build instead of cloud build - no more queues!
