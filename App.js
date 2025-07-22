@@ -14,6 +14,7 @@ import SettingsScreen from './src/screens/SettingsScreen';
 
 // Import database functions
 import { initializeMarineLifeDatabase, getAllMarineLife } from './src/utils/marineLifeDatabase';
+import RecipeScreen from './src/screens/RecipeScreen';
 
 const Tab = createBottomTabNavigator();
 
