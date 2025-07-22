@@ -13,6 +13,23 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import allRecipes from '../data/allRecipes';
+// Convert recipe name to local image filename
+const getRecipeImagePath = (recipeName) => {
+  // Convert recipe name to filename format (lowercase, replace spaces/special chars with underscores)
+  const filename = recipeName
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^_|_$/g, '') + '.png';
+  
+  try {
+    return require(`../assets/recipe_images/${filename}`);
+  } catch (error) {
+    console.warn(`Recipe image not found: ${filename}`);
+    return null;
+  }
+};
+
 
 const { width } = Dimensions.get('window');
 
