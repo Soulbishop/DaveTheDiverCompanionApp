@@ -1,4 +1,6 @@
-﻿import React, { useState, useEffect } from 'react';
+// FILE: src/screens/RecipesScreen.js
+
+import React, { useState, useEffect, useRef } from 'react'; // 🆕 Import useRef
 import {
   View,
   Text,
@@ -8,11 +10,13 @@ import {
   StyleSheet,
   Modal,
   ScrollView,
-  TextInput,
   Dimensions,
+  // Removed TextInput as it's not present in this file's current version
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native'; // 🆕 Import useNavigation hook
 import allRecipes from '../data/allRecipes';
+// 🆕 Import getAllMarineLife to check if ingredient is a marine life
+import { getAllMarineLife } from '../utils/marineLifeDatabase';
 
 
 // Get the window width for dynamic card sizing
@@ -28,20 +32,21 @@ const getRecipeImagePath = (recipeName) => {
     .replace(/_+/g, '_')
     .replace(/^_|_$/g, '') + '.png';
   try {
-    // ⚠️ CORRECTED PATH: Points to src/components/assets/recipe_images
-    return require(`../components/assets/recipe_images/${filename}`);
+    // This assumes the images are directly in `src/assets/recipe_images` based on your file structure.
+    return require(`../../assets/recipe_images/${filename}`);
   } catch (error) {
-    console.warn(`Recipe image not found: ${filename}`);
+    // console.warn(`Recipe image not found for: ${recipeName} (${filename})`); // Uncomment for debugging missing images
     return null;
   }
 };
 
 
-const RecipesScreen = () => { // Changed from RecipeScreen to RecipesScreen
+const RecipesScreen = () => {
+  const navigation = useNavigation(); // 🆕 Initialize useNavigation hook
   // State management
   const [recipeList, setRecipeList] = useState(allRecipes);
   const [filteredRecipes, setFilteredRecipes] = useState(allRecipes);
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(-1); // 🆕 Track index for swiping
   const [modalVisible, setModalVisible] = useState(false);
   const [filtersVisible, setFiltersVisible] = useState(false);
   // Filter states
@@ -50,342 +55,27 @@ const RecipesScreen = () => { // Changed from RecipeScreen to RecipesScreen
   const [sourceFilter, setSourceFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
 
-
-  // Recipe thumbnails mapping (Metro Bundler compatible)
-  const recipeThumbnails = {
-    // ⚠️ CORRECTED PATHS: Points to src/components/assets/recipe_images
-    'agar_tokoroten': require('../components/assets/recipe_images/agar_tokoroten.png'),
-    'alaska_pollock_sushi': require('../components/assets/recipe_images/alaska_pollock_sushi.png'),
-    'allenypterus_sushi': require('../components/assets/recipe_images/allenypterus_sushi.png'),
-    'american_lobster_sushi': require('../components/assets/recipe_images/american_lobster_sushi.png'),
-    'antarctic_octopus_carpaccio': require('../components/assets/recipe_images/antarctic_octopus_carpaccio.png'),
-    'antarctic_octopus_sushi': require('../components/assets/recipe_images/antarctic_octopus_sushi.png'),
-    'arctic_cod_risotto': require('../components/assets/recipe_images/arctic_cod_risotto.png'),
-    'arctic_cod_sushi': require('../components/assets/recipe_images/arctic_cod_sushi.png'),
-    'arctic_telescope_fish_sushi': require('../components/assets/recipe_images/arctic_telescope_fish_sushi.png'),
-    'atlantic_anglerfish_sushi': require('../components/assets/recipe_images/atlantic_anglerfish_sushi.png'),
-    'atlantic_bonito_curry': require('../components/assets/recipe_images/atlantic_bonito_curry.png'),
-    'atlantic_bonito_sushi': require('../components/assets/recipe_images/atlantic_bonito_sushi.png'),
-    'atlantic_mackerel_sushi': require('../components/assets/recipe_images/atlantic_mackerel_sushi.png'),
-    'aurora_jellyfish_sushi': require('../components/assets/recipe_images/aurora_jellyfish_sushi.png'),
-    'b_w_snapper_sushi': require('../components/assets/recipe_images/b_w_snapper_sushi.png'),
-    'barbed_eel_sushi': require('../components/assets/recipe_images/barbed_eel_sushi.png'),
-    'barrel_jellyfish_sushi': require('../components/assets/recipe_images/barrel_jellyfish_sushi.png'),
-    'barreleye_sushi': require('../components/assets/recipe_images/barreleye_sushi.png'),
-    'batfish_ricebowl': require('../components/assets/recipe_images/batfish_ricebowl.png'),
-    'big_eyed_scad_and_soybean_paste_roast': require('../components/assets/recipe_images/big_eyed_scad_and_soybean_paste_roast.png'),
-    'bigeye_scad_sushi': require('../components/assets/recipe_images/bigeye_scad_sushi.png'),
-    'bigeye_trevally_sushi': require('../components/assets/recipe_images/bigeye_trevally_sushi.png'),
-    'black_vinegar_braised_parrotfish': require('../components/assets/recipe_images/black_vinegar_braised_parrotfish.png'),
-    'blackfin_barracuda_sushi': require('../components/assets/recipe_images/blackfin_barracuda_sushi.png'),
-    'blackspot_seabream_sushi': require('../components/assets/recipe_images/blackspot_seabream_sushi.png'),
-    'blacktip_reefshark_sushi': require('../components/assets/recipe_images/blacktip_reefshark_sushi.png'),
-    'blanched_lusca_tentacle': require('../components/assets/recipe_images/blanched_lusca_tentacle.png'),
-    'blobfish_spring_roll': require('../components/assets/recipe_images/blobfish_spring_roll.png'),
-    'blobfish_sushi': require('../components/assets/recipe_images/blobfish_sushi.png'),
-    'blood_belly_comb_jelly_sushi': require('../components/assets/recipe_images/blood_belly_comb_jelly_sushi.png'),
-    'bloodskin_shark_sushi': require('../components/assets/recipe_images/bloodskin_shark_sushi.png'),
-    'blue_lobster_sushi': require('../components/assets/recipe_images/blue_lobster_sushi.png'),
-    'blue_tang_sushi': require('../components/assets/recipe_images/blue_tang_sushi.png'),
-    'bluefin_tuna_akami_sushi': require('../components/assets/recipe_images/bluefin_tuna_akami_sushi.png'),
-    'bluefin_tuna_chutoro_sushi': require('../components/assets/recipe_images/bluefin_tuna_chutoro_sushi.png'),
-    'bluefin_tuna_ootoro_sushi': require('../components/assets/recipe_images/bluefin_tuna_ootoro_sushi.png'),
-    'bluefin_tuna_rice_bowl': require('../components/assets/recipe_images/bluefin_tuna_rice_bowl.png'),
-    'bluehead_tilefish_sushi': require('../components/assets/recipe_images/bluehead_tilefish_sushi.png'),
-    'bluespotted_stargazer_sushi': require('../components/assets/recipe_images/bluespotted_stargazer_sushi.png'),
-    'boiled_and_deep_fried_white_shrimp': require('../components/assets/recipe_images/boiled_and_deep_fried_white_shrimp.png'),
-    'boiled_asian_sheepshead_wrasse___truffle': require('../components/assets/recipe_images/boiled_asian_sheepshead_wrasse___truffle.png'),
-    'boiled_mantis_shrimp_with_soy_paste': require('../components/assets/recipe_images/boiled_mantis_shrimp_with_soy_paste.png'),
-    'boiled_porbeagle_shark': require('../components/assets/recipe_images/boiled_porbeagle_shark.png'),
-    'boiled_sailfish_and_seaweed': require('../components/assets/recipe_images/boiled_sailfish_and_seaweed.png'),
-    'boiled_yellowback_fusilier': require('../components/assets/recipe_images/boiled_yellowback_fusilier.png'),
-    'bony_wreckfish_sushi': require('../components/assets/recipe_images/bony_wreckfish_sushi.png'),
-    'box_jellyfish_sushi': require('../components/assets/recipe_images/box_jellyfish_sushi.png'),
-    'bursting_anglerfish_sushi': require('../components/assets/recipe_images/bursting_anglerfish_sushi.png'),
-    'california_spiny_lobster_sushi': require('../components/assets/recipe_images/california_spiny_lobster_sushi.png'),
-    'capelin_sushi': require('../components/assets/recipe_images/capelin_sushi.png'),
-    'cardinalfish_sushi': require('../components/assets/recipe_images/cardinalfish_sushi.png'),
-    'cerebral_crab_sushi': require('../components/assets/recipe_images/cerebral_crab_sushi.png'),
-    'chambered_nautilus_sushi': require('../components/assets/recipe_images/chambered_nautilus_sushi.png'),
-    'chirashi_sushi': require('../components/assets/recipe_images/chirashi_sushi.png'),
-    'clearfin_lionfish_sushi': require('../components/assets/recipe_images/clearfin_lionfish_sushi.png'),
-    'clione_queen_soup': require('../components/assets/recipe_images/clione_queen_soup.png'),
-    'clione_sushi': require('../components/assets/recipe_images/clione_sushi.png'),
-    'clown_frogfish_sushi': require('../components/assets/recipe_images/clown_frogfish_sushi.png'),
-    'clownfish_sushi': require('../components/assets/recipe_images/clownfish_sushi.png'),
-    'cold_jellyfish___green_sea_urchin_salad': require('../components/assets/recipe_images/cold_jellyfish___green_sea_urchin_salad.png'),
-    'comb_jelly_sushi': require('../components/assets/recipe_images/comb_jelly_sushi.png'),
-    'comber_sandwich': require('../components/assets/recipe_images/comber_sandwich.png'),
-    'comber_sushi': require('../components/assets/recipe_images/comber_sushi.png'),
-    'concertina_barracuda_sushi': require('../components/assets/recipe_images/concertina_barracuda_sushi.png'),
-    'cooked_whiteleg_shrimp_sushi': require('../components/assets/recipe_images/cooked_whiteleg_shrimp_sushi.png'),
-    'cookiecutter_shark_sushi': require('../components/assets/recipe_images/cookiecutter_shark_sushi.png'),
-    'copper_shark_sushi': require('../components/assets/recipe_images/copper_shark_sushi.png'),
-    'coral_trout_sushi': require('../components/assets/recipe_images/coral_trout_sushi.png'),
-    'cortex_decorator_sushi': require('../components/assets/recipe_images/cortex_decorator_sushi.png'),
-    'crimson_fish_roll': require('../components/assets/recipe_images/crimson_fish_roll.png'),
-    'crystal_lobster_roll': require('../components/assets/recipe_images/crystal_lobster_roll.png'),
-    'crystal_lobster_sushi': require('../components/assets/recipe_images/crystal_lobster_sushi.png'),
-    'cuttlefish_sushi': require('../components/assets/recipe_images/cuttlefish_sushi.png'),
-    'deep_fish_tempura': require('../components/assets/recipe_images/deep_fish_tempura.png'),
-    'deep_fried_eggplant_shrimp_meatballs': require('../components/assets/recipe_images/deep_fried_eggplant_shrimp_meatballs.png'),
-    'deep_fried_red_lionfish': require('../components/assets/recipe_images/deep_fried_red_lionfish.png'),
-    'deep_fried_sea_urchin': require('../components/assets/recipe_images/deep_fried_sea_urchin.png'),
-    'deep_fried_vegetables': require('../components/assets/recipe_images/deep_fried_vegetables.png'),
-    'deep_sea_kaiju_ramen': require('../components/assets/recipe_images/deep_sea_kaiju_ramen.png'),
-    'devil_scorpionfish_sushi': require('../components/assets/recipe_images/devil_scorpionfish_sushi.png'),
-    'dollocaris_ingens_sushi': require('../components/assets/recipe_images/dollocaris_ingens_sushi.png'),
-    'drepanaspis_sushi': require('../components/assets/recipe_images/drepanaspis_sushi.png'),
-    'dried_stingray': require('../components/assets/recipe_images/dried_stingray.png'),
-    'dumbo_octopus_sushi': require('../components/assets/recipe_images/dumbo_octopus_sushi.png'),
-    'dumbo_takoyaki': require('../components/assets/recipe_images/dumbo_takoyaki.png'),
-    'dunkleosteus_sushi': require('../components/assets/recipe_images/dunkleosteus_sushi.png'),
-    'dusky_grouper_steak': require('../components/assets/recipe_images/dusky_grouper_steak.png'),
-    'dusky_grouper_sushi': require('../components/assets/recipe_images/dusky_grouper_sushi.png'),
-    'eastern_rock_lobster_sushi': require('../components/assets/recipe_images/eastern_rock_lobster_sushi.png'),
-    'ebirah_chasing_sashimi': require('../components/assets/recipe_images/ebirah_chasing_sashimi.png'),
-    'eggplant_soba_oyaki': require('../components/assets/recipe_images/eggplant_soba_oyaki.png'),
-    'emperor_angelfish_sushi': require('../components/assets/recipe_images/emperor_angelfish_sushi.png'),
-    'entangled_crab_sushi': require('../components/assets/recipe_images/entangled_crab_sushi.png'),
-    'enthralled_stonefish_sushi': require('../components/assets/recipe_images/enthralled_stonefish_sushi.png'),
-    'european_lobster_sushi': require('../components/assets/recipe_images/european_lobster_sushi.png'),
-    'falcatus_soybean_paste_soup': require('../components/assets/recipe_images/falcatus_soybean_paste_soup.png'),
-    'falcatus_sushi': require('../components/assets/recipe_images/falcatus_sushi.png'),
-    'fan_lobster_sushi': require('../components/assets/recipe_images/fan_lobster_sushi.png'),
-    'fanged_cod_sushi': require('../components/assets/recipe_images/fanged_cod_sushi.png'),
-    'fangtooth_sushi': require('../components/assets/recipe_images/fangtooth_sushi.png'),
-    'flame_angelfish_sushi': require('../components/assets/recipe_images/flame_angelfish_sushi.png'),
-    'fried_egg_jellyfish_sushi': require('../components/assets/recipe_images/fried_egg_jellyfish_sushi.png'),
-    'fried_habanero_fangtooth': require('../components/assets/recipe_images/fried_habanero_fangtooth.png'),
-    'fried_onion_cuttlefish': require('../components/assets/recipe_images/fried_onion_cuttlefish.png'),
-    'fried_rice_with_sally_lightfoot_crab': require('../components/assets/recipe_images/fried_rice_with_sally_lightfoot_crab.png'),
-    'fried_seahorses': require('../components/assets/recipe_images/fried_seahorses.png'),
-    'fried_tomato_and_snailfish': require('../components/assets/recipe_images/fried_tomato_and_snailfish.png'),
-    'frilled_shark_sushi': require('../components/assets/recipe_images/frilled_shark_sushi.png'),
-    'gazing_shark_sushi': require('../components/assets/recipe_images/gazing_shark_sushi.png'),
-    'gelatinous_snailfish_sushi': require('../components/assets/recipe_images/gelatinous_snailfish_sushi.png'),
-    'gelatinous_stonefish_sushi': require('../components/assets/recipe_images/gelatinous_stonefish_sushi.png'),
-    'giant_trevally_sushi': require('../components/assets/recipe_images/giant_trevally_sushi.png'),
-    'gnashing_perch_sushi': require('../components/assets/recipe_images/gnashing_perch_sushi.png'),
-    'goblin_shark_belly_roast': require('../components/assets/recipe_images/goblin_shark_belly_roast.png'),
-    'godzilla_vs__ebirah_curry': require('../components/assets/recipe_images/godzilla_vs__ebirah_curry.png'),
-    'golden_king_crab_sushi': require('../components/assets/recipe_images/golden_king_crab_sushi.png'),
-    'great_barracuda_canape': require('../components/assets/recipe_images/great_barracuda_canape.png'),
-    'great_barracuda_sushi': require('../components/assets/recipe_images/great_barracuda_sushi.png'),
-    'great_spider_crab_and_cucumber_sushi': require('../components/assets/recipe_images/great_spider_crab_and_cucumber_sushi.png'),
-    'great_spider_crab_curry': require('../components/assets/recipe_images/great_spider_crab_curry.png'),
-    'green_humphead_parrotfish_sushi': require('../components/assets/recipe_images/green_humphead_parrotfish_sushi.png'),
-    'green_sea_urchin___cucumber_salad': require('../components/assets/recipe_images/green_sea_urchin___cucumber_salad.png'),
-    'greenland_shark_sushi': require('../components/assets/recipe_images/greenland_shark_sushi.png'),
-    'grey_triggerfish_sushi': require('../components/assets/recipe_images/grey_triggerfish_sushi.png'),
-    'grilled_antarctic_octopus___truffle': require('../components/assets/recipe_images/grilled_antarctic_octopus___truffle.png'),
-    'grilled_eel_with_habanero': require('../components/assets/recipe_images/grilled_eel_with_habanero.png'),
-    'grotesque_mackerel_sushi': require('../components/assets/recipe_images/grotesque_mackerel_sushi.png'),
-    'haddock_acqua_pazza': require('../components/assets/recipe_images/haddock_acqua_pazza.png'),
-    'haddock_sushi': require('../components/assets/recipe_images/haddock_sushi.png'),
-    'harlequin_hind_sushi': require('../components/assets/recipe_images/harlequin_hind_sushi.png'),
-    'hawaiian_poke': require('../components/assets/recipe_images/hawaiian_poke.png'),
-    'horsehair_crab_sushi': require('../components/assets/recipe_images/horsehair_crab_sushi.png'),
-    'host_eel_sushi': require('../components/assets/recipe_images/host_eel_sushi.png'),
-    'hot_pepper_tuna': require('../components/assets/recipe_images/hot_pepper_tuna.png'),
-    'humboldt_ink_pasta': require('../components/assets/recipe_images/humboldt_ink_pasta.png'),
-    'humboldt_squid_sushi': require('../components/assets/recipe_images/humboldt_squid_sushi.png'),
-    'humphead_parrotfish_curry': require('../components/assets/recipe_images/humphead_parrotfish_curry.png'),
-    'hyalonema_tuna_sashimi': require('../components/assets/recipe_images/hyalonema_tuna_sashimi.png'),
-    'ice_fish_curry': require('../components/assets/recipe_images/ice_fish_curry.png'),
-    'ice_fish_sushi': require('../components/assets/recipe_images/ice_fish_sushi.png'),
-    'imperious_lobster_sushi': require('../components/assets/recipe_images/imperious_lobster_sushi.png'),
-    'lagoon_triggerfish_sushi': require('../components/assets/recipe_images/lagoon_triggerfish_sushi.png'),
-    'latok_omelet': require('../components/assets/recipe_images/latok_omelet.png'),
-    'lobster_platter': require('../components/assets/recipe_images/lobster_platter.png'),
-    'longfin_batfish_sushi': require('../components/assets/recipe_images/longfin_batfish_sushi.png'),
-    'longnose_sawshark_sushi': require('../components/assets/recipe_images/longnose_sawshark_sushi.png'),
-    'longspine_squirrelfish_sushi': require('../components/assets/recipe_images/longspine_squirrelfish_sushi.png'),
-    'lumpfish_sushi': require('../components/assets/recipe_images/lumpfish_sushi.png'),
-    'lusca_neck_tadaki': require('../components/assets/recipe_images/lusca_neck_tadaki.png'),
-    'mackerel_scad_hotdog': require('../components/assets/recipe_images/mackerel_scad_hotdog.png'),
-    'mackerel_scad_sushi': require('../components/assets/recipe_images/mackerel_scad_sushi.png'),
-    'malignant_pincer_sushi': require('../components/assets/recipe_images/malignant_pincer_sushi.png'),
-    'many_eyed_mackerel_sushi': require('../components/assets/recipe_images/many_eyed_mackerel_sushi.png'),
-    'marbled_electric_ray_sushi': require('../components/assets/recipe_images/marbled_electric_ray_sushi.png'),
-    'marlin_and_soybean_paste_roast': require('../components/assets/recipe_images/marlin_and_soybean_paste_roast.png'),
-    'marlin_sushi': require('../components/assets/recipe_images/marlin_sushi.png'),
-    'mediterranean_parrotfish_sushi': require('../components/assets/recipe_images/mediterranean_parrotfish_sushi.png'),
-    'megalograptus_sushi': require('../components/assets/recipe_images/megalograptus_sushi.png'),
-    'megamouth_shark_sushi': require('../components/assets/recipe_images/megamouth_shark_sushi.png'),
-    'mianbao_xia': require('../components/assets/recipe_images/mianbao_xia.png'),
-    'moonlight_bladderwrack_roll': require('../components/assets/recipe_images/moonlight_bladderwrack_roll.png'),
-    'moray_eel_curry': require('../components/assets/recipe_images/moray_eel_curry.png'),
-    'moray_eel_sushi': require('../components/assets/recipe_images/moray_eel_sushi.png'),
-    'narrow_barred_spanish_mackerel_arancini': require('../components/assets/recipe_images/narrow_barred_spanish_mackerel_arancini.png'),
-    'narrow_barred_spanish_mackerel_sushi': require('../components/assets/recipe_images/narrow_barred_spanish_mackerel_sushi.png'),
-    'narwhal_miso_soup': require('../components/assets/recipe_images/narwhal_miso_soup.png'),
-    'narwhal_sushi': require('../components/assets/recipe_images/narwhal_sushi.png'),
-    'nasu_dengaku': require('../components/assets/recipe_images/nasu_dengaku.png'),
-    'norimaki': require('../components/assets/recipe_images/norimaki.png'),
-    'norway_lobster_sushi': require('../components/assets/recipe_images/norway_lobster_sushi.png'),
-    'orbicular_batfish_fry': require('../components/assets/recipe_images/orbicular_batfish_fry.png'),
-    'ornate_wrasse_sushi': require('../components/assets/recipe_images/ornate_wrasse_sushi.png'),
-    'pacific_fanfish_sushi': require('../components/assets/recipe_images/pacific_fanfish_sushi.png'),
-    'painted_comber_sushi': require('../components/assets/recipe_images/painted_comber_sushi.png'),
-    'parhelion_jellyfish_sushi': require('../components/assets/recipe_images/parhelion_jellyfish_sushi.png'),
-    'peacock_squid_ripieni': require('../components/assets/recipe_images/peacock_squid_ripieni.png'),
-    'peacock_squid_sushi': require('../components/assets/recipe_images/peacock_squid_sushi.png'),
-    'pelican_eel_jelly': require('../components/assets/recipe_images/pelican_eel_jelly.png'),
-    'pelican_eel_sushi': require('../components/assets/recipe_images/pelican_eel_sushi.png'),
-    'perished_loosejaw_sushi': require('../components/assets/recipe_images/perished_loosejaw_sushi.png'),
-    'phantom_jellyfish_jelly': require('../components/assets/recipe_images/phantom_jellyfish_jelly.png'),
-    'pickled_vegetables': require('../components/assets/recipe_images/pickled_vegetables.png'),
-    'pikaia_ramen': require('../components/assets/recipe_images/pikaia_ramen.png'),
-    'pikaia_sushi': require('../components/assets/recipe_images/pikaia_sushi.png'),
-    'plotosid_pie': require('../components/assets/recipe_images/plotosid_pie.png'),
-    'polar_eelpout_sushi': require('../components/assets/recipe_images/polar_eelpout_sushi.png'),
-    'porbeagle_shark_sushi': require('../components/assets/recipe_images/porbeagle_shark_sushi.png'),
-    'pufferfish_dumpling_soup': require('../components/assets/recipe_images/pufferfish_dumpling_soup.png'),
-    'purple_sea_urchin_sushi': require('../components/assets/recipe_images/purple_sea_urchin_sushi.png'),
-    'pyramid_butterflyfish_sushi': require('../components/assets/recipe_images/pyramid_butterflyfish_sushi.png'),
-    'qingmendous_sushi': require('../components/assets/recipe_images/qingmendous_sushi.png'),
-    'radiant_squid_sushi': require('../components/assets/recipe_images/radiant_squid_sushi.png'),
-    'rainbow_cap_eel_skewers': require('../components/assets/recipe_images/rainbow_cap_eel_skewers.png'),
-    'rainbow_cap_pacific_fanfish_ochazuke': require('../components/assets/recipe_images/rainbow_cap_pacific_fanfish_ochazuke.png'),
-    'rainbow_cap_triggerfish_fishcake': require('../components/assets/recipe_images/rainbow_cap_triggerfish_fishcake.png'),
-    'rainbow_wrasse_sushi': require('../components/assets/recipe_images/rainbow_wrasse_sushi.png'),
-    'raw_black_tiger_shrimp_sushi': require('../components/assets/recipe_images/raw_black_tiger_shrimp_sushi.png'),
-    'red_banded_lobster_sushi': require('../components/assets/recipe_images/red_banded_lobster_sushi.png'),
-    'red_bream_sushi': require('../components/assets/recipe_images/red_bream_sushi.png'),
-    'red_lionfish_sushi': require('../components/assets/recipe_images/red_lionfish_sushi.png'),
-    'redtoothed_triggerfish_sushi': require('../components/assets/recipe_images/redtoothed_triggerfish_sushi.png'),
-    'rhinochimaeridae_sushi': require('../components/assets/recipe_images/rhinochimaeridae_sushi.png'),
-    'rice_with_great_spider_crab_meat': require('../components/assets/recipe_images/rice_with_great_spider_crab_meat.png'),
-    'rice_with_purple_sea_urchin_sushi': require('../components/assets/recipe_images/rice_with_purple_sea_urchin_sushi.png'),
-    'rice_with_white_shrimp_meat': require('../components/assets/recipe_images/rice_with_white_shrimp_meat.png'),
-    'roasted_capelin': require('../components/assets/recipe_images/roasted_capelin.png'),
-    'roasted_helicoprion_tail': require('../components/assets/recipe_images/roasted_helicoprion_tail.png'),
-    'roasted_tropical_fish_and_garlic': require('../components/assets/recipe_images/roasted_tropical_fish_and_garlic.png'),
-    'sailfish_sushi': require('../components/assets/recipe_images/sailfish_sushi.png'),
-    'salema_porgy_sushi': require('../components/assets/recipe_images/salema_porgy_sushi.png'),
-    'sallow_sailfish_sushi': require('../components/assets/recipe_images/sallow_sailfish_sushi.png'),
-    'sally_lightfoot_crab_sushi': require('../components/assets/recipe_images/sally_lightfoot_crab_sushi.png'),
-    'salmon_snailfish_sushi': require('../components/assets/recipe_images/salmon_snailfish_sushi.png'),
-    'salt_grilled_redtoothed_triggerfish': require('../components/assets/recipe_images/salt_grilled_redtoothed_triggerfish.png'),
-    'savage_barracuda_sushi': require('../components/assets/recipe_images/savage_barracuda_sushi.png'),
-    'scouring_bass_sushi': require('../components/assets/recipe_images/scouring_bass_sushi.png'),
-    'sea_goldie_sushi': require('../components/assets/recipe_images/sea_goldie_sushi.png'),
-    'sea_toad_and_cucumber_gunkan_sushi': require('../components/assets/recipe_images/sea_toad_and_cucumber_gunkan_sushi.png'),
-    'sea_toad_sushi': require('../components/assets/recipe_images/sea_toad_sushi.png'),
-    'seadragon_onigiri': require('../components/assets/recipe_images/seadragon_onigiri.png'),
-    'seagrapes_jellyfish_sushi': require('../components/assets/recipe_images/seagrapes_jellyfish_sushi.png'),
-    'seagrapes_special_sushi': require('../components/assets/recipe_images/seagrapes_special_sushi.png'),
-    'seahorse_salad': require('../components/assets/recipe_images/seahorse_salad.png'),
-    'seahorse_skewers': require('../components/assets/recipe_images/seahorse_skewers.png'),
-    'seahorse_udon': require('../components/assets/recipe_images/seahorse_udon.png'),
-    'seasoned_jellyfish': require('../components/assets/recipe_images/seasoned_jellyfish.png'),
-    'seasoned_kajime': require('../components/assets/recipe_images/seasoned_kajime.png'),
-    'seasoned_long_spine_porcupinefish_skin': require('../components/assets/recipe_images/seasoned_long_spine_porcupinefish_skin.png'),
-    'seasoned_waptia_fieldensis': require('../components/assets/recipe_images/seasoned_waptia_fieldensis.png'),
-    'seaweed_rolled_omelet': require('../components/assets/recipe_images/seaweed_rolled_omelet.png'),
-    'seizing_snailfish_sushi': require('../components/assets/recipe_images/seizing_snailfish_sushi.png'),
-    'shark_karaage': require('../components/assets/recipe_images/shark_karaage.png'),
-    'shattered_wreckfish_sushi': require('../components/assets/recipe_images/shattered_wreckfish_sushi.png'),
-    'sheepshead_sushi': require('../components/assets/recipe_images/sheepshead_sushi.png'),
-    'shortfin_mako_sushi': require('../components/assets/recipe_images/shortfin_mako_sushi.png'),
-    'skewered_cucumber': require('../components/assets/recipe_images/skewered_cucumber.png'),
-    'smallspotted_dart_kajime_soup': require('../components/assets/recipe_images/smallspotted_dart_kajime_soup.png'),
-    'smallspotted_dart_sushi': require('../components/assets/recipe_images/smallspotted_dart_sushi.png'),
-    'smoked_atlantic_mackerel_scramble': require('../components/assets/recipe_images/smoked_atlantic_mackerel_scramble.png'),
-    'smooth_hammerhead_sushi': require('../components/assets/recipe_images/smooth_hammerhead_sushi.png'),
-    'snow_crab_sushi': require('../components/assets/recipe_images/snow_crab_sushi.png'),
-    'snub_nosed_spiny_eel_sushi': require('../components/assets/recipe_images/snub_nosed_spiny_eel_sushi.png'),
-    'soy_sauce_marinated_crab': require('../components/assets/recipe_images/soy_sauce_marinated_crab.png'),
-    'spear_squid_soba_futomaki': require('../components/assets/recipe_images/spear_squid_soba_futomaki.png'),
-    'spear_squid_sushi': require('../components/assets/recipe_images/spear_squid_sushi.png'),
-    'special_fried_shrimp_sushi': require('../components/assets/recipe_images/special_fried_shrimp_sushi.png'),
-    'spider_crab_sushi': require('../components/assets/recipe_images/spider_crab_sushi.png'),
-    'splintered_crab_sushi': require('../components/assets/recipe_images/splintered_crab_sushi.png'),
-    'sprouting_eel_sushi': require('../components/assets/recipe_images/sprouting_eel_sushi.png'),
-    'starry_skate_sushi': require('../components/assets/recipe_images/starry_skate_sushi.png'),
-    'steamed_eastern_rock_lobster___egg': require('../components/assets/recipe_images/steamed_eastern_rock_lobster___egg.png'),
-    'steamed_hyalonema_angler_fish': require('../components/assets/recipe_images/steamed_hyalonema_angler_fish.png'),
-    'steamed_kronosaurus_tongue': require('../components/assets/recipe_images/steamed_kronosaurus_tongue.png'),
-    'steamed_wolf_eel': require('../components/assets/recipe_images/steamed_wolf_eel.png'),
-    'stellate_puffer_nicogori': require('../components/assets/recipe_images/stellate_puffer_nicogori.png'),
-    'stellate_puffer_special_sushi': require('../components/assets/recipe_images/stellate_puffer_special_sushi.png'),
-    'stingray_sashimi_cold_noodles': require('../components/assets/recipe_images/stingray_sashimi_cold_noodles.png'),
-    'stingray_sushi': require('../components/assets/recipe_images/stingray_sushi.png'),
-    'stir_fried_habanero_lobster': require('../components/assets/recipe_images/stir_fried_habanero_lobster.png'),
-    'stir_fried_hermit_crab_and_seaweed': require('../components/assets/recipe_images/stir_fried_hermit_crab_and_seaweed.png'),
-    'striped_catfish_sushi': require('../components/assets/recipe_images/striped_catfish_sushi.png'),
-    'striped_red_mullet_sushi': require('../components/assets/recipe_images/striped_red_mullet_sushi.png'),
-    'striped_red_mullet_tangle_roll': require('../components/assets/recipe_images/striped_red_mullet_tangle_roll.png'),
-    'sweet_and_sour_stargazer': require('../components/assets/recipe_images/sweet_and_sour_stargazer.png'),
-    'three_colored_squid_roast': require('../components/assets/recipe_images/three_colored_squid_roast.png'),
-    'three_headed_cod_sushi': require('../components/assets/recipe_images/three_headed_cod_sushi.png'),
-    'threetooth_puffer_sushi': require('../components/assets/recipe_images/threetooth_puffer_sushi.png'),
-    'thresher_shark_sushi': require('../components/assets/recipe_images/thresher_shark_sushi.png'),
-    'tiger_shark_sushi': require('../components/assets/recipe_images/tiger_shark_sushi.png'),
-    'titan_triggerfish_sushi': require('../components/assets/recipe_images/titan_triggerfish_sushi.png'),
-    'tokummia_katalepsi_sushi': require('../components/assets/recipe_images/tokummia_katalepsi_sushi.png'),
-    'tomato_egg_soup': require('../components/assets/recipe_images/tomato_egg_soup.png'),
-    'translucent_sturgeon_sushi': require('../components/assets/recipe_images/translucent_sturgeon_sushi.png'),
-    'trevally_nanbanzuke': require('../components/assets/recipe_images/trevally_nanbanzuke.png'),
-    'trevally_sandwich': require('../components/assets/recipe_images/trevally_sandwich.png'),
-    'tropical_fish_sushi_set': require('../components/assets/recipe_images/tropical_fish_sushi_set.png'),
-    'tropical_rock_lobster_sushi': require('../components/assets/recipe_images/tropical_rock_lobster_sushi.png'),
-    'trout_sea_grapes_ricebowl': require('../components/assets/recipe_images/trout_sea_grapes_ricebowl.png'),
-    'truffle_blue_lobster_tail_sushi': require('../components/assets/recipe_images/truffle_blue_lobster_tail_sushi.png'),
-    'truffle_sailfish_tartare': require('../components/assets/recipe_images/truffle_sailfish_tartare.png'),
-    'truffle_shark_sandwich': require('../components/assets/recipe_images/truffle_shark_sandwich.png'),
-    'tusked_grouper_sushi': require('../components/assets/recipe_images/tusked_grouper_sushi.png'),
-    'vampire_squid_sushi': require('../components/assets/recipe_images/vampire_squid_sushi.png'),
-    'vegetable_sushi': require('../components/assets/recipe_images/vegetable_sushi.png'),
-    'voltaic_grouper_sushi': require('../components/assets/recipe_images/voltaic_grouper_sushi.png'),
-    'waptia_sushi': require('../components/assets/recipe_images/waptia_sushi.png'),
-    'warm_atlantic_mackerel_soba': require('../components/assets/recipe_images/warm_atlantic_mackerel_soba.png'),
-    'white_shark_omelet': require('../components/assets/recipe_images/white_shark_omelet.png'),
-    // CORRECTED LINE:
-    'white_shrimp_sushi': require('../components/assets/recipe_images/white_shrimp_sushi.png'),
-    'white_spotted_jellyfish_sushi': require('../components/assets/recipe_images/white_spotted_jellyfish_sushi.png'),
-    'white_trevally_kombu_ochazuke': require('../components/assets/recipe_images/white_trevally_kombu_ochazuke.png'),
-    'white_trevally_sushi': require('../components/assets/recipe_images/white_trevally_sushi.png'),
-    'whitetip_reefshark_sushi': require('../components/assets/recipe_images/whitetip_reefshark_sushi.png'),
-    'whole_roasted_shark_head': require('../components/assets/recipe_images/whole_roasted_shark_head.png'),
-    'withered_ray_sushi': require('../components/assets/recipe_images/withered_ray_sushi.png'),
-    'wrasse_curry': require('../components/assets/recipe_images/wrasse_curry.png'),
-    'xenacanthus_sushi': require('../components/assets/recipe_images/xenacanthus_sushi.png'),
-    'yawie_steamed_meat': require('../components/assets/recipe_images/yawie_steamed_meat.png'),
-    'yellow_tang_sushi': require('../components/assets/recipe_images/yellow_tang_sushi.png'),
-    'yellowback_fusilier_sushi': require('../components/assets/recipe_images/yellowback_fusilier_sushi.png'),
-    'yellowfin_tuna_akami_sushi': require('../components/assets/recipe_images/yellowfin_tuna_akami_sushi.png'),
-    'yellowfin_tuna_chutoro_sushi': require('../components/assets/recipe_images/yellowfin_tuna_chutoro_sushi.png'),
-    'yellowfin_tuna_ootoro_sushi': require('../components/assets/recipe_images/yellowfin_tuna_ootoro_sushi.png'),
-    'yellowfin_tuna_steak': require('../components/assets/recipe_images/yellowfin_tuna_steak.png'),
-    'young_anomalocaris_sushi': require('../components/assets/recipe_images/young_anomalocaris_sushi.png'),
-    'zebra_shark_sushi': require('../components/assets/recipe_images/zebra_shark_sushi.png'),
-  };
-
-
-  // Load saved data on component mount
-  useEffect(() => {
-    loadSavedData();
-  }, []);
-
+  const swipeFlatListRef = useRef(null); // 🆕 Ref for horizontal FlatList in modal
 
   // Apply filters whenever filter states change
   useEffect(() => {
     applyFilters();
   }, [priceFilter, tasteFilter, sourceFilter, typeFilter, recipeList]);
 
-
-  const loadSavedData = async () => {
-    try {
-      // For now, we'll use the static recipe data
-      // In the future, this could load user preferences or favorites
-      console.log('Recipe data loaded successfully');
-    } catch (error) {
-      console.error('Error loading recipe data:', error);
+  // Use another useEffect to scroll to the selected item when modal opens or index changes
+  useEffect(() => {
+    if (modalVisible && swipeFlatListRef.current && selectedRecipeIndex !== -1) {
+      // Use setTimeout to ensure the FlatList has rendered before attempting to scroll
+      setTimeout(() => {
+        swipeFlatListRef.current.scrollToIndex({
+          index: selectedRecipeIndex,
+          animated: false, // Set to true for smooth animation, false for instant jump
+          viewOffset: 0,
+          viewPosition: 0, // 0 is start, 0.5 is center, 1 is end
+        });
+      }, 50); // Small delay to allow FlatList to render its items
     }
-  };
-
+  }, [modalVisible, selectedRecipeIndex, filteredRecipes]); // Depend on filteredRecipes to re-scroll if filter changes while modal is open
 
   const applyFilters = () => {
     let filtered = [...recipeList];
@@ -439,23 +129,73 @@ const RecipesScreen = () => { // Changed from RecipeScreen to RecipesScreen
     // Type filter
     if (typeFilter !== 'all') {
       filtered = filtered.filter(recipe => {
-        const ingredients = recipe.ingredients.join(' ').toLowerCase();
+        // Corrected filter logic for ingredient types
+        const allMarineLife = getAllMarineLife();
+        const marineLifeNames = new Set(allMarineLife.map(ml => ml.name.toLowerCase()));
+
         switch (typeFilter) {
-          case 'fish': return recipe.ingredients.some(ing =>
-            // Check if ingredient matches marine life names
-            ing.toLowerCase().includes('tuna') ||
-            ing.toLowerCase().includes('salmon') ||
-            ing.toLowerCase().includes('shark') ||
-            ing.toLowerCase().includes('fish') ||
-            ing.toLowerCase().includes('lobster') ||
-            ing.toLowerCase().includes('shrimp')
-          );
-          case 'veggie': return ingredients.includes('bean') ||
-            ingredients.includes('carrot') ||
-            ingredients.includes('cucumber') ||
-            ingredients.includes('onion');
-          case 'mixed': return recipe.ingredients.length > 2;
-          default: return true;
+            case 'fish':
+                // Check if any ingredient is a marine life type or related to fish/seafood
+                return recipe.ingredients.some(ing => {
+                    const lowerIng = ing.toLowerCase();
+                    return marineLifeNames.has(lowerIng) ||
+                           lowerIng.includes('tuna') ||
+                           lowerIng.includes('salmon') ||
+                           lowerIng.includes('shark') ||
+                           lowerIng.includes('fish') ||
+                           lowerIng.includes('lobster') ||
+                           lowerIng.includes('shrimp') ||
+                           lowerIng.includes('crab') ||
+                           lowerIng.includes('octopus') ||
+                           lowerIng.includes('squid') ||
+                           lowerIng.includes('jellyfish') ||
+                           lowerIng.includes('seahorse') ||
+                           lowerIng.includes('eel') ||
+                           lowerIng.includes('ray') ||
+                           lowerIng.includes('snailfish') ||
+                           lowerIng.includes('stargazer') ||
+                           lowerIng.includes('nautilus') ||
+                           lowerIng.includes('clione') ||
+                           lowerIng.includes('anglerfish') ||
+                           lowerIng.includes('barracuda') ||
+                           lowerIng.includes('trevally') ||
+                           lowerIng.includes('triggerfish') ||
+                           lowerIng.includes('parrotfish') ||
+                           lowerIng.includes('snapper') ||
+                           lowerIng.includes('porgy') ||
+                           lowerIng.includes('wrasse') ||
+                           lowerIng.includes('batfish') ||
+                           lowerIng.includes('puffer');
+                });
+            case 'veggie':
+                return recipe.ingredients.some(ing => {
+                    const lowerIng = ing.toLowerCase();
+                    return lowerIng.includes('bean') ||
+                           lowerIng.includes('carrot') ||
+                           lowerIng.includes('cucumber') ||
+                           lowerIng.includes('onion') ||
+                           lowerIng.includes('eggplant') ||
+                           lowerIng.includes('tomato') ||
+                           lowerIng.includes('seaweed') ||
+                           lowerIng.includes('kelp') ||
+                           lowerIng.includes('bladderwrack') ||
+                           lowerIng.includes('sea grape') ||
+                           lowerIng.includes('truffle') ||
+                           lowerIng.includes('habanero') ||
+                           lowerIng.includes('turmeric') ||
+                           lowerIng.includes('buckwheat');
+                });
+            case 'mixed':
+                // A 'mixed' type could be defined as recipes with both marine life and veggie ingredients,
+                // or simply recipes with more than two ingredients as you originally had.
+                // For now, let's keep it as "more than 2 ingredients" or refine if you have a specific definition.
+                const hasMarineLife = recipe.ingredients.some(ing => marineLifeNames.has(ing.toLowerCase()));
+                const hasVeggie = recipe.ingredients.some(ing => {
+                    const lowerIng = ing.toLowerCase();
+                    return lowerIng.includes('bean') || lowerIng.includes('carrot') || lowerIng.includes('cucumber') || lowerIng.includes('onion') || lowerIng.includes('eggplant') || lowerIng.includes('tomato') || lowerIng.includes('seaweed') || lowerIng.includes('kelp') || lowerIng.includes('bladderwrack') || lowerIng.includes('sea grape') || lowerIng.includes('truffle') || lowerIng.includes('habanero') || lowerIng.includes('turmeric') || lowerIng.includes('buckwheat');
+                });
+                return hasMarineLife && hasVeggie && recipe.ingredients.length > 2; // Mixed if both types and more than 2 ingredients total
+            default: return true;
         }
       });
     }
@@ -483,15 +223,17 @@ const RecipesScreen = () => { // Changed from RecipeScreen to RecipesScreen
   };
 
 
-  const openRecipeModal = (recipe) => {
-    setSelectedRecipe(recipe);
+  // 🆕 MODIFIED: openRecipeModal now takes index to support swiping
+  const openRecipeModal = (recipeIndex) => {
+    if (filteredRecipes.length === 0) return; // Prevent opening if list is empty
+    setSelectedRecipeIndex(recipeIndex);
     setModalVisible(true);
   };
 
 
   const closeRecipeModal = () => {
     setModalVisible(false);
-    setSelectedRecipe(null);
+    setSelectedRecipeIndex(-1); // Reset index when modal closes
   };
 
 
@@ -559,431 +301,4 @@ const RecipesScreen = () => { // Changed from RecipeScreen to RecipesScreen
         <Text style={styles.filterLabel}>🥘 Type:</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
           {renderFilterButton('All', 'all', typeFilter, setTypeFilter)}
-          {renderFilterButton('Fish', 'fish', typeFilter, setTypeFilter)}
-          {renderFilterButton('Veggie', 'veggie', typeFilter, setTypeFilter)}
-          {renderFilterButton('Mixed', 'mixed', typeFilter, setTypeFilter)}
-        </ScrollView>
-      </View>
-
-
-      {/* Reset Button */}
-      <TouchableOpacity style={styles.resetButton} onPress={resetFilters}>
-        <Text style={styles.resetButtonText}>Reset All Filters</Text>
-      </TouchableOpacity>
-    </View>
-  );
-
-
-  const renderRecipeItem = ({ item }) => {
-    const thumbnailKey = item.name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
-    const thumbnailSource = recipeThumbnails[thumbnailKey];
-
-
-
-
-    return (
-      <TouchableOpacity
-        style={styles.recipeCard}
-        onPress={() => openRecipeModal(item)}
-      >
-        <View style={styles.recipeImageContainer}>
-          {thumbnailSource ? (
-            <Image source={thumbnailSource} style={styles.recipeImage} resizeMode="contain" />
-          ) : (
-            <View style={styles.placeholderImage}>
-              <Text style={styles.placeholderText}>🍣</Text>
-            </View>
-          )}
-        </View>
-        <View style={styles.recipeInfo}>
-          <Text style={styles.recipeName} numberOfLines={2}>{item.name}</Text>
-          <Text style={styles.recipePrice}>${item.price_base} - ${item.price_max}</Text>
-          <Text style={styles.recipeTaste}>Taste: {item.taste_base} - {item.taste_max}</Text>
-          <Text style={styles.recipeServings}>{item.dish_base}-{item.dish_max} servings</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-  const renderRecipeModal = () => (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={closeRecipeModal}
-    >
-      <View style={styles.modalOverlay}>
-        <View style={styles.modalContent}>
-          <ScrollView>
-            {selectedRecipe && (
-              <>
-                <View style={styles.modalHeader}>
-                  <Text style={styles.modalTitle}>{selectedRecipe.name}</Text>
-                  <TouchableOpacity style={styles.closeButton} onPress={closeRecipeModal}>
-                    <Text style={styles.closeButtonText}>✕</Text>
-                  </TouchableOpacity>
-                </View>
-
-
-                <View style={styles.modalImageContainer}>
-                  <View style={styles.modalPlaceholderImage}>
-                    <Text style={styles.modalPlaceholderText}>🍣</Text>
-                    <Text style={styles.comingSoonText}>Image Coming Soon</Text>
-                  </View>
-                </View>
-
-
-                <View style={styles.modalDetails}>
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>💰 Price:</Text>
-                    <Text style={styles.detailValue}>${selectedRecipe.price_base} - ${selectedRecipe.price_max}</Text>
-                  </View>
-
-
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>👅 Taste:</Text>
-                    <Text style={styles.detailValue}>{selectedRecipe.taste_base} - {selectedRecipe.taste_max}</Text>
-                  </View>
-
-
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>🍽️ Servings:</Text>
-                    <Text style={styles.detailValue}>{selectedRecipe.dish_base} - {selectedRecipe.dish_max}</Text>
-                  </View>
-
-
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>🥘 Ingredients:</Text>
-                    <Text style={styles.detailValue}>{selectedRecipe.ingredients.join(', ')}</Text>
-                  </View>
-
-
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>🎯 How to Get:</Text>
-                    <Text style={styles.detailValue}>{selectedRecipe.acquisition}</Text>
-                  </View>
-                </View>
-              </>
-            )}
-          </ScrollView>
-        </View>
-      </View>
-    </Modal>
-  );
-
-
-  return (
-    <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.title}>Recipe Database</Text>
-        <Text style={styles.subtitle}>
-          Found: {filteredRecipes.length}/{recipeList.length} recipes
-        </Text>
-      </View>
-
-
-      {/* Collapsible Filters */}
-      <View style={styles.filterHeader}>
-        <TouchableOpacity
-          style={styles.filterToggle}
-          onPress={() => setFiltersVisible(!filtersVisible)}
-        >
-          <Text style={styles.filterToggleText}>
-            {filtersVisible ? '🔽' : '▶️'} Filters
-            {getActiveFilterCount() > 0 && ` (${getActiveFilterCount()} active)`}
-          </Text>
-        </TouchableOpacity>
-        {getActiveFilterCount() > 0 && (
-          <TouchableOpacity style={styles.resetButtonSmall} onPress={resetFilters}>
-            <Text style={styles.resetButtonSmallText}>Reset All</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-
-
-
-
-      {filtersVisible && renderFilters()}
-
-
-
-
-      {/* Recipe Grid */}
-      <FlatList
-        data={filteredRecipes}
-        renderItem={renderRecipeItem}
-        keyExtractor={(item, index) => `recipe-${index}`}
-        // 🆕 NEW: Swipeable cards by making FlatList horizontal
-        horizontal={true}
-        pagingEnabled={true} // Snaps to full page
-        showsHorizontalScrollIndicator={false}
-        // numColumns={2} // Remove numColumns as it's not applicable for horizontal FlatList
-        contentContainerStyle={styles.recipeGridHorizontal} // 🆕 New style for horizontal FlatList
-      />
-
-
-
-
-      {/* Recipe Detail Modal */}
-      {renderRecipeModal()}
-    </View>
-  );
-};
-
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  header: {
-    backgroundColor: '#2196F3',
-    padding: 16,
-    paddingTop: 50,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: 'white',
-    textAlign: 'center',
-    marginTop: 4,
-  },
-  filterHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  filterToggle: {
-    flex: 1,
-  },
-  filterToggleText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  resetButtonSmall: {
-    backgroundColor: '#ff6b6b',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 15,
-  },
-  resetButtonSmallText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  filtersContainer: {
-    backgroundColor: 'white',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  filterRow: {
-    marginBottom: 12,
-  },
-  filterLabel: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 8,
-  },
-  filterScroll: {
-    flexDirection: 'row',
-  },
-  filterButton: {
-    backgroundColor: '#f0f0f0',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    marginRight: 8,
-    borderWidth: 1,
-    borderColor: '#ddd',
-  },
-  filterButtonActive: {
-    backgroundColor: '#2196F3',
-    borderColor: '#2196F3',
-  },
-  filterButtonText: {
-    fontSize: 14,
-    color: '#666',
-    fontWeight: '500',
-  },
-  filterButtonTextActive: {
-    color: 'white',
-    fontWeight: '600',
-  },
-  resetButton: {
-    backgroundColor: '#ff6b6b',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  resetButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  // 🆕 NEW: Styles for horizontal FlatList and individual cards
-  recipeGridHorizontal: {
-    paddingHorizontal: 8, // Add padding on sides for horizontal scroll
-    alignItems: 'center', // Center items horizontally if they don't fill the width
-  },
-  recipeCard: {
-    // flex: 1, // Remove flex: 1 for fixed width horizontal items
-    width: windowWidth * 0.45, // Make card take up ~45% of screen width (2 cards visible)
-    height: 200, // Give a fixed height to cards
-    backgroundColor: 'white',
-    margin: 8, // Adjust margin for horizontal spacing
-    borderRadius: 12,
-    padding: 12,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    justifyContent: 'space-between', // Distribute content vertically
-  },
-  recipeImageContainer: {
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  recipeImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 8,
-  },
-  placeholderImage: {
-    width: 60,
-    height: 60,
-    backgroundColor: '#f8f8f8',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-  },
-  placeholderText: {
-    fontSize: 24,
-  },
-  recipeInfo: {
-    alignItems: 'center',
-  },
-  recipeName: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    textAlign: 'center',
-    marginBottom: 4,
-  },
-  recipePrice: {
-    fontSize: 12,
-    color: '#4CAF50',
-    fontWeight: '500',
-    marginBottom: 2,
-  },
-  recipeTaste: {
-    fontSize: 12,
-    color: '#FF9800',
-    marginBottom: 2,
-  },
-  recipeServings: {
-    fontSize: 12,
-    color: '#666',
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContent: {
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 20,
-    width: windowWidth * 0.9,
-    maxHeight: '80%',
-  },
-  modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
-    flex: 1,
-  },
-  closeButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  closeButtonText: {
-    fontSize: 18,
-    color: '#666',
-  },
-  modalImageContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  modalPlaceholderImage: {
-    width: 120,
-    height: 120,
-    backgroundColor: '#f8f8f8',
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-  },
-  modalPlaceholderText: {
-    fontSize: 40,
-    marginBottom: 8,
-  },
-  comingSoonText: {
-    fontSize: 12,
-    color: '#666',
-    textAlign: 'center',
-  },
-  modalDetails: {
-    marginTop: 10,
-  },
-  detailRow: {
-    flexDirection: 'row',
-    marginBottom: 12,
-    alignItems: 'flex-start',
-  },
-  detailLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    width: 100,
-    marginRight: 10,
-  },
-  detailValue: {
-    fontSize: 16,
-    color: '#666',
-    flex: 1,
-    flexWrap: 'wrap',
-  },
-});
-
-
-export default RecipesScreen; // Changed from RecipeScreen to RecipesScreen
+          {render
