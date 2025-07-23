@@ -88,8 +88,10 @@ export default function App() {
               <Text style={{ color, fontSize: size }}>🐟</Text>
             ),
           }}
+          // 🆕 MODIFIED: Pass marineLifeList and setMarineLifeList as props
+          // This also allows MarineLifeScreen to receive parameters for deep linking
         >
-          {() => <MarineLifeScreen marineLifeList={marineLifeList} />}
+          {(props) => <MarineLifeScreen {...props} marineLifeList={marineLifeList} setMarineLifeList={setMarineLifeList} />}
         </Tab.Screen>
         
         <Tab.Screen 
@@ -149,4 +151,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
