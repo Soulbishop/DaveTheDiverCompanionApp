@@ -1,9 +1,8 @@
-﻿// FILE LOCATION: src/screens/MarineLifeScreen.js
+// FILE LOCATION: src/screens/MarineLifeScreen.js
 // ENHANCED VERSION WITH CATEGORY FILTERS - BASED ON YOUR FIXED WORKING FILE
 // Generated automatically for ALL 206 marine life entries
 
-
-import React, { useState, useEffect, useRef } from 'react'; // 🆕 Import useRef for programmatic scrolling
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -18,19 +17,17 @@ import {
   Alert,
   Dimensions,
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native'; // 🆕 Import useNavigation and useRoute
+import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// 🆕 Using the specific update functions from the database utility
+// Using the specific update functions from the database utility
 import {
   saveUserMarineLifeData,
   updateMarineLifeCaught,
   updateMarineLifeBreedingPair,
-  getAllMarineLife, // 🆕 Re-import getAllMarineLife to refresh filtered list if needed by navigation
+  getAllMarineLife,
 } from '../utils/marineLifeDatabase';
 
-
-// 🖼️ PRESERVED: Your fixed thumbnail mapping for Metro Bundler
-// Assuming 'Clownfish.Cpng' was a typo and should be 'Clownfish.png' as per other entries
+// PRESERVED: Your fixed thumbnail mapping for Metro Bundler
 const marineLifeThumbnails = {
   'American_Lobster.png': require('../../assets/marine_life_thumbs/American_Lobster.png'),
   'Barrel_Jellyfish.png': require('../../assets/marine_life_thumbs/Barrel_Jellyfish.png'),
@@ -43,7 +40,7 @@ const marineLifeThumbnails = {
   'Box_Jellyfish.png': require('../../assets/marine_life_thumbs/Box_Jellyfish.png'),
   'Cardinal_Fish.png': require('../../assets/marine_life_thumbs/Cardinal_Fish.png'),
   'Clearfin_Lionfish.png': require('../../assets/marine_life_thumbs/Clearfin_Lionfish.png'),
-  'Clownfish.png': require('../../assets/marine_life_thumbs/Clownfish.png'), // Corrected .Cpng to .png
+  'Clownfish.png': require('../../assets/marine_life_thumbs/Clownfish.png'),
   'Comber.png': require('../../assets/marine_life_thumbs/Comber.png'),
   'Copper_Shark.png': require('../../assets/marine_life_thumbs/Copper_Shark.png'),
   'Emperor_Angelfish.png': require('../../assets/marine_life_thumbs/Emperor_Angelfish.png'),
@@ -237,10 +234,8 @@ const marineLifeThumbnails = {
   'Withered_Ray.png': require('../../assets/marine_life_thumbs/Withered_Ray.png'),
 };
 
-
 // Get the window width for dynamic card sizing
 const { width: windowWidth } = Dimensions.get('window');
-
 
 const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   const [filteredMarineLife, setFilteredMarineLife] = useState(marineLifeList);
@@ -249,28 +244,24 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   const [searchText, setSearchText] = useState('');
   const [filterType, setFilterType] = useState('all'); // all, caught, uncaught, breeding
 
-
-  // 🆕 NEW: State for filter visibility
+  // State for filter visibility
   const [filtersVisible, setFiltersVisible] = useState(false);
   
-  // 🆕 NEW: Category filter states
+  // Category filter states
   const [zoneFilter, setZoneFilter] = useState('all');
   const [timeFilter, setTimeFilter] = useState('all');
-
 
   // Load marine life data when component mounts
   useEffect(() => {
     loadMarineLifeData();
   }, []);
 
-
-  // 🆕 ENHANCED: Update filtered list when ANY filter changes
+  // Update filtered list when ANY filter changes
   useEffect(() => {
     applyFilters();
   }, [marineLifeList, searchText, filterType, zoneFilter, timeFilter]);
 
-
-  // 🔧 PRESERVED: Modal state bug fix
+  // Modal state bug fix
   useEffect(() => {
     if (selectedFish && marineLifeList) {
       const updatedFish = marineLifeList.find(fish => fish.name === selectedFish.name);
@@ -279,7 +270,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
       }
     }
   }, [marineLifeList]);
-
 
   const loadMarineLifeData = async () => {
     try {
@@ -304,11 +294,9 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     }
   };
 
-
-  // 🆕 ENHANCED: Apply all filters including new category filters
+  // Apply all filters including new category filters
   const applyFilters = () => {
     let filtered = marineLifeList;
-
 
     // Apply search filter
     if (searchText) {
@@ -317,7 +305,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         item.zone.toLowerCase().includes(searchText.toLowerCase())
       );
     }
-
 
     // Apply status filter
     switch (filterType) {
@@ -334,31 +321,26 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         break;
     }
 
-
-    // 🆕 NEW: Apply zone filter
+    // Apply zone filter
     if (zoneFilter !== 'all') {
       filtered = filtered.filter(item => item.zone === zoneFilter);
     }
 
-
-    // 🆕 NEW: Apply time filter
+    // Apply time filter
     if (timeFilter !== 'all') {
       filtered = filtered.filter(item => item.active_time === timeFilter);
     }
 
-
     setFilteredMarineLife(filtered);
   };
 
-
-  // 🆕 NEW: Reset all filters
+  // Reset all filters
   const resetFilters = () => {
     setSearchText('');
     setFilterType('all');
     setZoneFilter('all');
     setTimeFilter('all');
   };
-
 
   const toggleCaught = async (fishName) => {
     const updatedList = marineLifeList.map(item => {
@@ -371,7 +353,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     await saveUserMarineLifeData(updatedList);
   };
 
-
   const toggleBreedingPair = async (fishName) => {
     const updatedList = marineLifeList.map(item => {
       if (item.name === fishName) {
@@ -383,20 +364,17 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     await saveUserMarineLifeData(updatedList);
   };
 
-
   const openFishCard = (fish) => {
     setSelectedFish(fish);
     setModalVisible(true);
   };
-
 
   const closeFishCard = () => {
     setModalVisible(false);
     setSelectedFish(null);
   };
 
-
-  // 🆕 NEW: Function to count active filters
+  // Function to count active filters
   const getActiveFilterCount = () => {
     let count = 0;
     if (searchText) count++;
@@ -406,14 +384,13 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     return count;
   };
 
-
   const renderMarineLifeItem = ({ item }) => (
     <TouchableOpacity
       style={styles.fishCard}
       onPress={() => openFishCard(item)}
     >
       <View style={styles.fishImageContainer}>
-        {/* 🖼️ PRESERVED: Your fixed thumbnail implementation */}
+        {/* Your fixed thumbnail implementation */}
         {item.image_filename && marineLifeThumbnails[item.image_filename] ? (
           <Image
             source={marineLifeThumbnails[item.image_filename]}
@@ -427,13 +404,11 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         )}
       </View>
 
-
       <View style={styles.fishInfo}>
         <Text style={styles.fishName}>{item.name}</Text>
         <Text style={styles.fishZone}>{item.zone}</Text>
         <Text style={styles.fishWeight}>{item.weight}</Text>
       </View>
-
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -447,7 +422,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
             {item.caught ? '✓' : 'o'}
           </Text>
         </TouchableOpacity>
-
 
         <TouchableOpacity
           style={[
@@ -464,10 +438,8 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     </TouchableOpacity>
   );
 
-
   const renderFishCard = () => {
     if (!selectedFish) return null;
-
 
     return (
       <ScrollView style={styles.modalContent}>
@@ -481,8 +453,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           </TouchableOpacity>
         </View>
 
-
-        {/* 🖼️ PRESERVED: Placeholder in modal */}
+        {/* Placeholder in modal */}
         <View style={styles.modalImageContainer}>
           <View style={styles.modalPlaceholderImage}>
             <Text style={styles.modalPlaceholderText}>🐟</Text>
@@ -490,37 +461,31 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           </View>
         </View>
 
-
         <View style={styles.detailsContainer}>
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Zone:</Text>
             <Text style={styles.detailValue}>{selectedFish.zone}</Text>
           </View>
 
-
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Weight:</Text>
             <Text style={styles.detailValue}>{selectedFish.weight}</Text>
           </View>
-
 
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Active Time:</Text>
             <Text style={styles.detailValue}>{selectedFish.active_time}</Text>
           </View>
 
-
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Difficulty:</Text>
             <Text style={styles.detailValue}>{'★'.repeat(selectedFish.difficulty)}</Text>
           </View>
 
-
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Best Method:</Text>
             <Text style={styles.detailValue}>{selectedFish.best_capture_method}</Text>
           </View>
-
 
           {selectedFish.recipes && selectedFish.recipes.length > 0 && (
             <View style={styles.recipesContainer}>
@@ -530,7 +495,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
               ))}
             </View>
           )}
-
 
           <View style={styles.modalButtonContainer}>
             <TouchableOpacity
@@ -544,7 +508,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
                 {selectedFish.caught ? 'Caught ✓' : 'Not Caught o'}
               </Text>
             </TouchableOpacity>
-
 
             <TouchableOpacity
               style={[
@@ -563,12 +526,10 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     );
   };
 
-
   // Calculate statistics
   const caughtCount = marineLifeList.filter(item => item.caught).length;
   const breedingCount = marineLifeList.filter(item => item.breeding_pair).length;
   const totalCount = marineLifeList.length;
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -584,8 +545,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         </View>
       </View>
 
-
-      {/* 🆕 NEW: Collapsible Filter Header */}
+      {/* Collapsible Filter Header */}
       <View style={styles.filterToggleHeader}>
         <TouchableOpacity
           style={styles.filterToggle}
@@ -604,8 +564,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         )}
       </View>
 
-
-      {/* 🆕 NEW: Conditionally rendered Filter controls with category filters */}
+      {/* Conditionally rendered Filter controls with category filters */}
       {filtersVisible && (
         <View style={styles.controlsContainer}>
           <TextInput
@@ -614,7 +573,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
             value={searchText}
             onChangeText={setSearchText}
           />
-
 
           {/* Status Filters */}
           <View style={styles.filterSection}>
@@ -642,8 +600,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
             </ScrollView>
           </View>
 
-
-          {/* 🆕 NEW: Zone Filters */}
+          {/* Zone Filters */}
           <View style={styles.filterSection}>
             <Text style={styles.filterSectionTitle}>Zone:</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -765,8 +722,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
             </ScrollView>
           </View>
 
-
-          {/* 🆕 NEW: Time Filters */}
+          {/* Time Filters */}
           <View style={styles.filterSection}>
             <Text style={styles.filterSectionTitle}>Time:</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -874,8 +830,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
             </ScrollView>
           </View>
 
-
-          {/* 🆕 NEW: Reset Filters Button */}
+          {/* Reset Filters Button */}
           <TouchableOpacity
             style={styles.resetButton}
             onPress={resetFilters}
@@ -885,21 +840,13 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         </View>
       )}
 
-
       <FlatList
         data={filteredMarineLife}
         renderItem={renderMarineLifeItem}
         keyExtractor={item => item.name}
-        // 🆕 NEW: Swipeable cards by making FlatList horizontal
-        horizontal={true}
-        pagingEnabled={true} // Snaps to full page
-        showsHorizontalScrollIndicator={false}
-        // Remove numColumns as it's not applicable for horizontal FlatList
-        // numColumns={2} 
-        contentContainerStyle={styles.listContainerHorizontal} // 🆕 New style for horizontal list
-        // Adjust column wrapper for vertical layout if needed (not here for horizontal)
+        numColumns={2}
+        contentContainerStyle={styles.listContainer}
       />
-
 
       <Modal
         animationType="slide"
@@ -914,7 +861,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     </SafeAreaView>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -942,7 +888,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
-  // 🆕 NEW: Styles for the filter toggle header
   filterToggleHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -971,7 +916,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
-  controlsContainer: { // Renamed from controlsContainer to filtersContainer in previous thought, but user's code uses controlsContainer
+  controlsContainer: {
     backgroundColor: 'white',
     padding: 16,
     borderBottomWidth: 1,
@@ -1026,17 +971,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
-  // 🆕 NEW: Styles for horizontal FlatList and individual cards
-  listContainerHorizontal: {
-    paddingHorizontal: 8, // Add padding on sides for horizontal scroll
-    alignItems: 'center', // Center items horizontally if they don't fill the width
+  listContainer: {
+    paddingHorizontal: 8,
   },
   fishCard: {
-    // flex: 1, // Remove flex: 1 as it's not ideal for fixed width horizontal items
-    width: windowWidth * 0.45, // Make card take up ~45% of screen width (2 cards visible)
-    height: 220, // Give a fixed height to cards
+    flex: 1,
     backgroundColor: 'white',
-    margin: 8, // Adjust margin for horizontal spacing
+    margin: 8,
     borderRadius: 12,
     padding: 12,
     elevation: 2,
@@ -1044,7 +985,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    justifyContent: 'space-between', // Distribute content vertically
+    justifyContent: 'space-between',
   },
   fishImageContainer: {
     alignItems: 'center',
@@ -1089,10 +1030,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '100%', // Ensure buttons take full width of card
+    width: '100%',
   },
   toggleButton: {
-    width: 36, // Slightly larger for better touch
+    width: 36,
     height: 36,
     borderRadius: 18,
     justifyContent: 'center',
@@ -1233,5 +1174,5 @@ const styles = StyleSheet.create({
   },
 });
 
-
 export default MarineLifeScreen;
+
