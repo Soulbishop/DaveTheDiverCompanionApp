@@ -11,32 +11,13 @@ import {
   Modal,
   ScrollView,
   Dimensions,
-  // Removed TextInput as it's not present in this file's current version
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import allRecipes from '../data/allRecipes'; // This will now contain pre-required images
 import { getAllMarineLife } from '../utils/marineLifeDatabase';
 
-
 // Get the window width for dynamic card sizing
 const { width: windowWidth } = Dimensions.get('window');
-
-
-// Removed: getRecipeImagePath function is no longer needed
-// const getRecipeImagePath = (recipeName) => {
-//   const filename = recipeName
-//     .toLowerCase()
-//     .replace(/[^a-z0-9]/g, '_')
-//     .replace(/_+/g, '_')
-//     .replace(/^_|_$/g, '') + '.png';
-//   try {
-//     return require(`../../assets/recipe_images/${filename}`);
-//   } catch (error) {
-//     console.warn(`Recipe image not found for: ${recipeName} (${filename})`);
-//     return null;
-//   }
-// };
-
 
 const RecipesScreen = () => {
   const navigation = useNavigation();
@@ -76,7 +57,6 @@ const RecipesScreen = () => {
   const applyFilters = () => {
     let filtered = [...recipeList];
 
-
     // Price filter
     if (priceFilter !== 'all') {
       filtered = filtered.filter(recipe => {
@@ -90,7 +70,6 @@ const RecipesScreen = () => {
         }
       });
     }
-
 
     // Taste filter
     if (tasteFilter !== 'all') {
@@ -106,7 +85,6 @@ const RecipesScreen = () => {
       });
     }
 
-
     // Source filter
     if (sourceFilter !== 'all') {
       filtered = filtered.filter(recipe => {
@@ -120,7 +98,6 @@ const RecipesScreen = () => {
         }
       });
     }
-
 
     // Type filter
     if (typeFilter !== 'all') {
@@ -196,10 +173,8 @@ const RecipesScreen = () => {
       });
     }
 
-
     setFilteredRecipes(filtered);
   };
-
 
   const resetFilters = () => {
     setPriceFilter('all');
@@ -207,7 +182,6 @@ const RecipesScreen = () => {
     setSourceFilter('all');
     setTypeFilter('all');
   };
-
 
   const getActiveFilterCount = () => {
     let count = 0;
@@ -218,20 +192,17 @@ const RecipesScreen = () => {
     return count;
   };
 
-
-  // 🆕 MODIFIED: openRecipeModal now takes index to support swiping
+  // openRecipeModal now takes index to support swiping
   const openRecipeModal = (recipeIndex) => {
     if (filteredRecipes.length === 0) return; // Prevent opening if list is empty
     setSelectedRecipeIndex(recipeIndex);
     setModalVisible(true);
   };
 
-
   const closeRecipeModal = () => {
     setModalVisible(false);
     setSelectedRecipeIndex(-1); // Reset index when modal closes
   };
-
 
   const renderFilterButton = (label, value, currentFilter, setFilter) => (
     <TouchableOpacity
@@ -251,7 +222,6 @@ const RecipesScreen = () => {
     </TouchableOpacity>
   );
 
-
   const renderFilters = () => (
     <View style={styles.filtersContainer}>
       {/* Price Filters */}
@@ -266,7 +236,6 @@ const RecipesScreen = () => {
         </ScrollView>
       </View>
 
-
       {/* Taste Filters */}
       <View style={styles.filterRow}>
         <Text style={styles.filterLabel}>👅 Taste:</Text>
@@ -278,7 +247,6 @@ const RecipesScreen = () => {
           {renderFilterButton('Excellent', 'excellent', tasteFilter, setTasteFilter)}
         </ScrollView>
       </View>
-
 
       {/* Source Filters */}
       <View style={styles.filterRow}>
@@ -292,7 +260,6 @@ const RecipesScreen = () => {
         </ScrollView>
       </View>
 
-
       {/* Type Filters */}
       <View style={styles.filterRow}>
         <Text style={styles.filterLabel}>🥘 Type:</Text>
@@ -304,7 +271,6 @@ const RecipesScreen = () => {
         </ScrollView>
       </View>
 
-
       {/* Reset Button */}
       <TouchableOpacity style={styles.resetButton} onPress={resetFilters}>
         <Text style={styles.resetButtonText}>Reset All Filters</Text>
@@ -312,16 +278,14 @@ const RecipesScreen = () => {
     </View>
   );
 
-
-  const renderRecipeItem = ({ item, index }) => { // 🆕 index is now available from FlatList
-    // ⚠️ MODIFIED: Direct access to item.local_thumbnail (which should be pre-required)
+  const renderRecipeItem = ({ item, index }) => { // index is now available from FlatList
+    // Direct access to item.local_thumbnail (which should be pre-required)
     const thumbnailSource = item.local_thumbnail; // This expects item.local_thumbnail to be the 'require'd image
-
 
     return (
       <TouchableOpacity
         style={styles.recipeCard}
-        onPress={() => openRecipeModal(index)} // 🆕 Pass index instead of item
+        onPress={() => openRecipeModal(index)} // Pass index instead of item
       >
         <View style={styles.recipeImageContainer}>
           {thumbnailSource ? (
@@ -342,7 +306,7 @@ const RecipesScreen = () => {
     );
   };
 
-  // 🆕 NEW: Render function for each detailed card within the swipeable modal
+  // Render function for each detailed card within the swipeable modal
   const renderDetailedRecipeCard = ({ item: recipe }) => {
       // Get all marine life data to check for clickable ingredients
       const allMarineLife = getAllMarineLife();
@@ -360,7 +324,7 @@ const RecipesScreen = () => {
 
           <View style={styles.modalImageContainer}>
             <View style={styles.modalPlaceholderImage}>
-              {/* ⚠️ MODIFIED: Direct access to recipe.local_thumbnail */}
+              {/* Direct access to recipe.local_thumbnail */}
               {recipe.local_thumbnail ? (
                 <Image
                   source={recipe.local_thumbnail} // Direct usage of the pre-resolved image
@@ -376,27 +340,23 @@ const RecipesScreen = () => {
             </View>
           </View>
 
-
           <View style={styles.modalDetails}>
             <View style={styles.detailRow}>
               <Text style={styles.detailLabel}>💰 Price:</Text>
               <Text style={styles.detailValue}>${recipe.price_base} - ${recipe.price_max}</Text>
             </View>
 
-
             <View style={styles.detailRow}>
               <Text style={styles.detailLabel}>👅 Taste:</Text>
               <Text style={styles.detailValue}>{recipe.taste_base} - {recipe.taste_max}</Text>
             </View>
-
 
             <View style={styles.detailRow}>
               <Text style={styles.detailLabel}>🍽️ Servings:</Text>
               <Text style={styles.detailValue}>{recipe.dish_base} - {recipe.dish_max}</Text>
             </View>
 
-
-            {/* 🆕 MODIFIED: Ingredients as clickable links */}
+            {/* Ingredients as clickable links */}
             <View style={styles.detailRow}>
               <Text style={styles.detailLabel}>🥘 Ingredients:</Text>
               <View style={styles.ingredientsList}>
@@ -425,7 +385,6 @@ const RecipesScreen = () => {
               </View>
             </View>
 
-
             <View style={styles.detailRow}>
               <Text style={styles.detailLabel}>🎯 How to Get:</Text>
               <Text style={styles.detailValue}>{recipe.acquisition}</Text>
@@ -434,7 +393,6 @@ const RecipesScreen = () => {
         </ScrollView>
       );
   };
-
 
   return (
     <View style={styles.container}>
@@ -445,7 +403,6 @@ const RecipesScreen = () => {
           Found: {filteredRecipes.length}/{recipeList.length} recipes
         </Text>
       </View>
-
 
       {/* Collapsible Filters */}
       <View style={styles.filterHeader}>
@@ -465,27 +422,16 @@ const RecipesScreen = () => {
         )}
       </View>
 
-
-
-
       {filtersVisible && renderFilters()}
 
-
-
-
       {/* Recipe Grid */}
-      {/* 🆕 MODIFIED: FlatList for main grid */}
       <FlatList
         data={filteredRecipes}
         renderItem={renderRecipeItem}
         keyExtractor={(item, index) => `recipe-${index}`}
-        numColumns={2} // <--- ADDED: Renders items in two columns
-        // Removed horizontal, pagingEnabled, showsHorizontalScrollIndicator
-        contentContainerStyle={styles.recipeGridContainer} // <--- CHANGED STYLE NAME
+        numColumns={2} // Renders items in two columns
+        contentContainerStyle={styles.recipeGridContainer}
       />
-
-
-
 
       {/* Recipe Detail Modal */}
       <Modal
@@ -495,7 +441,7 @@ const RecipesScreen = () => {
         onRequestClose={closeRecipeModal}
       >
         <View style={styles.modalOverlay}>
-          {/* 🆕 MODIFIED: Swipable FlatList for detailed cards */}
+          {/* Swipable FlatList for detailed cards */}
           {modalVisible && filteredRecipes.length > 0 && selectedRecipeIndex !== -1 && (
             <FlatList
               ref={swipeFlatListRef} // Attach ref here
@@ -538,8 +484,6 @@ const RecipesScreen = () => {
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -643,15 +587,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-  // 🆕 MODIFIED: Styles for vertical grid FlatList
-  recipeGridContainer: { // Changed from recipeGridHorizontal
-    paddingHorizontal: 4, // Slightly less padding for grid items
+  recipeGridContainer: {
+    paddingHorizontal: 4,
   },
   recipeCard: {
-    flex: 1, // <--- ADDED: Allows cards to share space in columns
-    margin: 4, // <--- ADJUSTED: Smaller margin for grid spacing
-    width: (windowWidth / 2) - 8, // Adjusted width for 2 columns, accounting for margin
-    height: 200, // Give a fixed height to cards
+    flex: 1,
+    margin: 4,
+    width: (windowWidth / 2) - 8,
+    height: 200,
     backgroundColor: 'white',
     borderRadius: 12,
     padding: 12,
@@ -660,7 +603,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    justifyContent: 'space-between', // Distribute content vertically
+    justifyContent: 'space-between',
   },
   recipeImageContainer: {
     alignItems: 'center',
@@ -715,33 +658,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  // 🆕 NEW: Style for the FlatList inside the modal
   modalFlatList: {
-    width: '90%', // Match the desired width of the modal content
-    maxHeight: '80%', // Limit height if needed
-    borderRadius: 16, // Apply border radius to the FlatList itself
-    overflow: 'hidden', // Ensures content respects border radius
+    width: '90%',
+    maxHeight: '80%',
+    borderRadius: 16,
+    overflow: 'hidden',
   },
-  // 🆕 NEW: Style for the content *within* each swipeable modal card page
   modalScrollContent: {
-    flexGrow: 1, // Allows content to grow
-    justifyContent: 'flex-start', // Align content to the top
-    backgroundColor: 'white', // Background for individual cards
-    paddingBottom: 20, // Add some padding at the bottom of the scrollable content
+    flexGrow: 1,
+    justifyContent: 'flex-start',
+    backgroundColor: 'white',
+    paddingBottom: 20,
   },
-  // 🆕 NEW: Style for the fixed header within the modal
   modalHeaderFixed: {
-    position: 'absolute', // Make it float above the swipable content
-    top: Dimensions.get('window').height * 0.1, // Adjust based on modalOverlay justifyContent
-    width: '90%', // Match modal width
+    position: 'absolute',
+    top: Dimensions.get('window').height * 0.1,
+    width: '90%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.95)', // Slightly transparent white
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
-    zIndex: 10, // Ensure it's above the FlatList content
+    zIndex: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
@@ -749,7 +689,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     flex: 1,
-    textAlign: 'center', // Center the title
+    textAlign: 'center',
   },
   closeButton: {
     width: 32,
@@ -758,10 +698,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute', // Position relative to modalHeaderFixed
+    position: 'absolute',
     right: 16,
     top: 16,
-    zIndex: 20, // Ensure it's above title and other elements
+    zIndex: 20,
   },
   closeButtonText: {
     fontSize: 18,
@@ -770,9 +710,9 @@ const styles = StyleSheet.create({
   modalImageContainer: {
     alignItems: 'center',
     padding: 16,
-    marginTop: 60, // Account for the fixed header
+    marginTop: 60,
   },
-  modalRecipeImage: { // New style for recipe image in modal
+  modalRecipeImage: {
     width: 200,
     height: 200,
     borderRadius: 12,
@@ -799,7 +739,7 @@ const styles = StyleSheet.create({
   },
   modalDetails: {
     marginTop: 10,
-    paddingHorizontal: 16, // Add horizontal padding for details
+    paddingHorizontal: 16,
   },
   detailRow: {
     flexDirection: 'row',
@@ -824,11 +764,11 @@ const styles = StyleSheet.create({
   },
   ingredientsList: {
     flex: 1,
-    flexDirection: 'row', // Display ingredients in a row
-    flexWrap: 'wrap', // Allow ingredients to wrap to next line
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   ingredientLink: {
-    color: '#0066cc', // Make it blue like a link
+    color: '#0066cc',
     fontWeight: 'bold',
     textDecorationLine: 'underline',
   },
@@ -837,5 +777,5 @@ const styles = StyleSheet.create({
   },
 });
 
-
 export default RecipesScreen;
+
