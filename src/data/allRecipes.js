@@ -15,7 +15,7 @@ const allRecipes = [
     "ingredients": ["Agar", "Soy Sauce"],
     "acquisition": "Cooksta Bronze Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/agar_tokoroten.png)
+    "local_thumbnail": require('../../assets/recipe_images/agar_tokoroten.png')
   },
   {
     "name": "Alaska Pollock Sushi",
@@ -29,7 +29,7 @@ const allRecipes = [
     "ingredients": ["Alaska Pollock"],
     "acquisition": "Alaska Pollock",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/alaska_pollock_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/alaska_pollock_sushi.png')
   },
   {
     "name": "Allenypterus Sushi",
@@ -43,7 +43,7 @@ const allRecipes = [
     "ingredients": ["Allenypterus"],
     "acquisition": "Allenypterus",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/allenypterus_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/allenypterus_sushi.png')
   },
   {
     "name": "American Lobster Sushi",
@@ -57,7 +57,7 @@ const allRecipes = [
     "ingredients": ["American Lobster"],
     "acquisition": "American Lobster",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/american_lobster_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/american_lobster_sushi.png')
   },
   {
     "name": "Antarctic Octopus Carpaccio",
@@ -71,7 +71,7 @@ const allRecipes = [
     "ingredients": ["Antarctic Octopus", "Onion", "Olive Oil"],
     "acquisition": "Complete Let Us Begin the Contest",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/antarctic_octopus_carpaccio.png)
+    "local_thumbnail": require('../../assets/recipe_images/antarctic_octopus_carpaccio.png')
   },
   {
     "name": "Antarctic Octopus Sushi",
@@ -85,7 +85,7 @@ const allRecipes = [
     "ingredients": ["Antarctic Octopus"],
     "acquisition": "Antarctic Octopus",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/antarctic_octopus_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/antarctic_octopus_sushi.png')
   },
   {
     "name": "Arctic Cod Risotto",
@@ -99,7 +99,7 @@ const allRecipes = [
     "ingredients": ["Arctic Cod", "Cherry Tomato", "Rice", "Garlic"],
     "acquisition": "Complete Let Us Begin the Contest",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/arctic_cod_risotto.png)
+    "local_thumbnail": require('../../assets/recipe_images/arctic_cod_risotto.png')
   },
   {
     "name": "Arctic Cod Sushi",
@@ -113,7 +113,7 @@ const allRecipes = [
     "ingredients": ["Arctic Cod"],
     "acquisition": "Arctic Cod",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/arctic_cod_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/arctic_cod_sushi.png')
   },
   {
     "name": "Arctic Telescope Fish Sushi",
@@ -127,7 +127,7 @@ const allRecipes = [
     "ingredients": ["Arctic Telescope Fish"],
     "acquisition": "Arctic Telescope Fish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/arctic_telescope_fish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/arctic_telescope_fish_sushi.png')
   },
   {
     "name": "Atlantic Anglerfish Sushi",
@@ -141,7 +141,7 @@ const allRecipes = [
     "ingredients": ["Atlantic Anglerfish"],
     "acquisition": "Atlantic Anglerfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/atlantic_anglerfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/atlantic_anglerfish_sushi.png')
   },
   {
     "name": "Atlantic Bonito Curry",
@@ -155,7 +155,7 @@ const allRecipes = [
     "ingredients": ["Atlantic Bonito", "Carrot", "Curry Block"],
     "acquisition": "Cooksta Platinum Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/atlantic_bonito_curry.png)
+    "local_thumbnail": require('../../assets/recipe_images/atlantic_bonito_curry.png')
   },
   {
     "name": "Atlantic Bonito Sushi",
@@ -169,7 +169,7 @@ const allRecipes = [
     "ingredients": ["Atlantic Bonito"],
     "acquisition": "Atlantic Bonito",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/atlantic_bonito_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/atlantic_bonito_sushi.png')
   },
   {
     "name": "Atlantic Mackerel Sushi",
@@ -183,7 +183,7 @@ const allRecipes = [
     "ingredients": ["Atlantic Mackerel"],
     "acquisition": "Atlantic Mackerel",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/atlantic_mackerel_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/atlantic_mackerel_sushi.png')
   },
   {
     "name": "Aurora Jellyfish Sushi",
@@ -197,7 +197,7 @@ const allRecipes = [
     "ingredients": ["Aurora Jellyfish"],
     "acquisition": "Aurora Jellyfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/aurora_jellyfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/aurora_jellyfish_sushi.png')
   },
   {
     "name": "B&W Snapper Sushi",
@@ -211,7 +211,7 @@ const allRecipes = [
     "ingredients": ["Black and White Snapper"],
     "acquisition": "Black and White Snapper",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/b_w_snapper_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/b_w_snapper_sushi.png')
   },
   {
     "name": "Barbed Eel Sushi",
@@ -225,7 +225,7 @@ const allRecipes = [
     "ingredients": ["Barbed Eel"],
     "acquisition": "Barbed Eel",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/barbed_eel_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/barbed_eel_sushi.png')
   },
   {
     "name": "Barrel Jellyfish Sushi",
@@ -239,7 +239,7 @@ const allRecipes = [
     "ingredients": ["Barrel Jellyfish"],
     "acquisition": "Barrel Jellyfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/barrel_jellyfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/barrel_jellyfish_sushi.png')
   },
   {
     "name": "Barreleye Sushi",
@@ -253,7 +253,7 @@ const allRecipes = [
     "ingredients": ["Barreleye"],
     "acquisition": "Barreleye",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/barreleye_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/barreleye_sushi.png')
   },
   {
     "name": "Batfish Ricebowl",
@@ -267,7 +267,7 @@ const allRecipes = [
     "ingredients": ["Longfin Batfish", "Orbicular Batfish", "Rice", "Egg"],
     "acquisition": "Train Mitchell to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/batfish_ricebowl.png)
+    "local_thumbnail": require('../../assets/recipe_images/batfish_ricebowl.png')
   },
   {
     "name": "Big-Eyed Scad and Soybean Paste Roast",
@@ -281,7 +281,7 @@ const allRecipes = [
     "ingredients": ["Bigeye Scad", "Miso", "Sesame Seed"],
     "acquisition": "Cooksta Gold Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/big_eyed_scad_and_soybean_paste_roast.png)
+    "local_thumbnail": require('../../assets/recipe_images/big_eyed_scad_and_soybean_paste_roast.png')
   },
   {
     "name": "Bigeye Scad Sushi",
@@ -295,7 +295,7 @@ const allRecipes = [
     "ingredients": ["Bigeye Scad"],
     "acquisition": "Bigeye Scad",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/bigeye_scad_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/bigeye_scad_sushi.png')
   },
   {
     "name": "Bigeye Trevally Sushi",
@@ -309,7 +309,7 @@ const allRecipes = [
     "ingredients": ["Bigeye Trevally"],
     "acquisition": "Bigeye Trevally",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/bigeye_trevally_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/bigeye_trevally_sushi.png')
   },
   {
     "name": "Black Vinegar Braised Parrotfish",
@@ -323,7 +323,7 @@ const allRecipes = [
     "ingredients": ["Mediterranean Parrotfish", "Carrot", "Black Vinegar"],
     "acquisition": "Cooksta Platinum Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/black_vinegar_braised_parrotfish.png)
+    "local_thumbnail": require('../../assets/recipe_images/black_vinegar_braised_parrotfish.png')
   },
   {
     "name": "Blackfin Barracuda Sushi",
@@ -337,7 +337,7 @@ const allRecipes = [
     "ingredients": ["Blackfin Barracuda"],
     "acquisition": "Blackfin Barracuda",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/blackfin_barracuda_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/blackfin_barracuda_sushi.png')
   },
   {
     "name": "Blackspot Seabream Sushi",
@@ -351,7 +351,7 @@ const allRecipes = [
     "ingredients": ["Blackspot Seabream"],
     "acquisition": "Blackspot Seabream",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/blackspot_seabream_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/blackspot_seabream_sushi.png')
   },
   {
     "name": "Blacktip Reefshark Sushi",
@@ -365,7 +365,7 @@ const allRecipes = [
     "ingredients": ["Blacktip Shark Meat"],
     "acquisition": "Blacktip Reefshark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/blacktip_reefshark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/blacktip_reefshark_sushi.png')
   },
   {
     "name": "Blanched Lusca Tentacle",
@@ -379,7 +379,7 @@ const allRecipes = [
     "ingredients": ["Lusca Tentacle", "Salt", "Olive Oil"],
     "acquisition": "Defeat Lusca",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/blanched_lusca_tentacle.png)
+    "local_thumbnail": require('../../assets/recipe_images/blanched_lusca_tentacle.png')
   },
   {
     "name": "Blobfish Spring Roll",
@@ -393,7 +393,7 @@ const allRecipes = [
     "ingredients": ["Blobfish", "Wheat", "Mayonnaise", "Sesame Seed"],
     "acquisition": "Complete Chinese Cuisine Contest!",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/blobfish_spring_roll.png)
+    "local_thumbnail": require('../../assets/recipe_images/blobfish_spring_roll.png')
   },
   {
     "name": "Blobfish Sushi",
@@ -407,7 +407,7 @@ const allRecipes = [
     "ingredients": ["Blobfish"],
     "acquisition": "Blobfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/blobfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/blobfish_sushi.png')
   },
   {
     "name": "Blood-belly Comb Jelly Sushi",
@@ -421,7 +421,7 @@ const allRecipes = [
     "ingredients": ["Blood-belly Comb Jellyfish"],
     "acquisition": "Blood-belly Comb Jellyfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/blood_belly_comb_jelly_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/blood_belly_comb_jelly_sushi.png')
   },
   {
     "name": "Bloodskin Shark Sushi",
@@ -435,7 +435,7 @@ const allRecipes = [
     "ingredients": ["Bloodskin Shark"],
     "acquisition": "Bloodskin Shark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/bloodskin_shark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/bloodskin_shark_sushi.png')
   },
   {
     "name": "Blue Lobster Sushi",
@@ -449,7 +449,7 @@ const allRecipes = [
     "ingredients": ["Blue Lobster"],
     "acquisition": "Blue Lobster",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/blue_lobster_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/blue_lobster_sushi.png')
   },
   {
     "name": "Blue Tang Sushi",
@@ -463,7 +463,7 @@ const allRecipes = [
     "ingredients": ["Blue Tang"],
     "acquisition": "Blue Tang",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/blue_tang_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/blue_tang_sushi.png')
   },
   {
     "name": "Bluefin Tuna Akami Sushi",
@@ -477,7 +477,7 @@ const allRecipes = [
     "ingredients": ["Bluefin Tuna Akami"],
     "acquisition": "Bluefin Tuna Akami",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/bluefin_tuna_akami_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/bluefin_tuna_akami_sushi.png')
   },
   {
     "name": "Bluefin Tuna Chutoro Sushi",
@@ -491,7 +491,7 @@ const allRecipes = [
     "ingredients": ["Bluefin Tuna Chutoro"],
     "acquisition": "Bluefin Tuna Chutoro",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/bluefin_tuna_chutoro_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/bluefin_tuna_chutoro_sushi.png')
   },
   {
     "name": "Bluefin Tuna Ootoro Sushi",
@@ -505,7 +505,7 @@ const allRecipes = [
     "ingredients": ["Bluefin Tuna Ootoro"],
     "acquisition": "Bluefin Tuna Ootoro",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/bluefin_tuna_ootoro_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/bluefin_tuna_ootoro_sushi.png')
   },
   {
     "name": "Bluefin Tuna Rice Bowl",
@@ -519,7 +519,7 @@ const allRecipes = [
     "ingredients": ["Bluefin Tuna Akami", "Rice", "Egg", "Sesame Seed"],
     "acquisition": "Seasonal Event: Tuna Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/bluefin_tuna_rice_bowl.png)
+    "local_thumbnail": require('../../assets/recipe_images/bluefin_tuna_rice_bowl.png')
   },
   {
     "name": "Bluehead Tilefish Sushi",
@@ -533,7 +533,7 @@ const allRecipes = [
     "ingredients": ["Bluehead Tilefish"],
     "acquisition": "Bluehead Tilefish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/bluehead_tilefish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/bluehead_tilefish_sushi.png')
   },
   {
     "name": "Bluespotted Stargazer Sushi",
@@ -547,7 +547,7 @@ const allRecipes = [
     "ingredients": ["Bluespotted Stargazer"],
     "acquisition": "Bluespotted Stargazer",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/bluespotted_stargazer_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/bluespotted_stargazer_sushi.png')
   },
   {
     "name": "Boiled Asian Sheepshead Wrasse & Truffle",
@@ -561,7 +561,7 @@ const allRecipes = [
     "ingredients": ["Sheepshead Meat", "Kelp", "Truffle"],
     "acquisition": "Complete Make Jango Warm!",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/boiled_asian_sheepshead_wrasse___truffle.png)
+    "local_thumbnail": require('../../assets/recipe_images/boiled_asian_sheepshead_wrasse___truffle.png')
   },
   {
     "name": "Boiled Mantis Shrimp with Soy Paste",
@@ -575,7 +575,7 @@ const allRecipes = [
     "ingredients": ["Mantis Shrimp Meat", "Eggplant", "Agar", "Miso"],
     "acquisition": "Defeat Mantis Shrimp",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/boiled_mantis_shrimp_with_soy_paste.png)
+    "local_thumbnail": require('../../assets/recipe_images/boiled_mantis_shrimp_with_soy_paste.png')
   },
   {
     "name": "Boiled Porbeagle Shark",
@@ -589,7 +589,7 @@ const allRecipes = [
     "ingredients": ["Porbeagle Shark Meat", "Black Vinegar", "Black Pepper"],
     "acquisition": "Train Raul to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/boiled_porbeagle_shark.png)
+    "local_thumbnail": require('../../assets/recipe_images/boiled_porbeagle_shark.png')
   },
   {
     "name": "Boiled Sailfish and Seaweed",
@@ -603,7 +603,7 @@ const allRecipes = [
     "ingredients": ["Sailfish Meat", "Southern Bull Kelp", "Kajime", "Soy Sauce"],
     "acquisition": "Seasonal Event: Marlin Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/boiled_sailfish_and_seaweed.png)
+    "local_thumbnail": require('../../assets/recipe_images/boiled_sailfish_and_seaweed.png')
   },
   {
     "name": "Boiled Yellowback Fusilier",
@@ -617,7 +617,7 @@ const allRecipes = [
     "ingredients": ["Yellowback Fusilier", "Soy Sauce"],
     "acquisition": "Cooksta Bronze Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/boiled_yellowback_fusilier.png)
+    "local_thumbnail": require('../../assets/recipe_images/boiled_yellowback_fusilier.png')
   },
   {
     "name": "Boiled and Deep-Fried White Shrimp",
@@ -631,7 +631,7 @@ const allRecipes = [
     "ingredients": ["Whiteleg Shrimp", "Egg", "Mayonnaise", "Olive Oil"],
     "acquisition": "Train Raptor to Level 5",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/boiled_and_deep_fried_white_shrimp.png)
+    "local_thumbnail": require('../../assets/recipe_images/boiled_and_deep_fried_white_shrimp.png')
   },
   {
     "name": "Bony Wreckfish Sushi",
@@ -645,7 +645,7 @@ const allRecipes = [
     "ingredients": ["Bony Wreckfish"],
     "acquisition": "Bony Wreckfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/bony_wreckfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/bony_wreckfish_sushi.png')
   },
   {
     "name": "Box Jellyfish Sushi",
@@ -659,7 +659,7 @@ const allRecipes = [
     "ingredients": ["Box Jellyfish"],
     "acquisition": "Box Jellyfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/box_jellyfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/box_jellyfish_sushi.png')
   },
   {
     "name": "Bursting Anglerfish Sushi",
@@ -673,7 +673,7 @@ const allRecipes = [
     "ingredients": ["Bursting Anglerfish"],
     "acquisition": "Bursting Anglerfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/bursting_anglerfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/bursting_anglerfish_sushi.png')
   },
   {
     "name": "California Spiny Lobster Sushi",
@@ -687,7 +687,7 @@ const allRecipes = [
     "ingredients": ["California Spiny Lobster"],
     "acquisition": "California Spiny Lobster",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/california_spiny_lobster_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/california_spiny_lobster_sushi.png')
   },
   {
     "name": "Capelin Sushi",
@@ -701,7 +701,7 @@ const allRecipes = [
     "ingredients": ["Capelin"],
     "acquisition": "Capelin",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/capelin_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/capelin_sushi.png')
   },
   {
     "name": "Cardinalfish Sushi",
@@ -715,7 +715,7 @@ const allRecipes = [
     "ingredients": ["Cardinal Fish"],
     "acquisition": "Cardinal Fish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/cardinalfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/cardinalfish_sushi.png')
   },
   {
     "name": "Cerebral Crab Sushi",
@@ -729,7 +729,7 @@ const allRecipes = [
     "ingredients": ["Cerebral Crab"],
     "acquisition": "Cerebral Crab",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/cerebral_crab_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/cerebral_crab_sushi.png')
   },
   {
     "name": "Chambered Nautilus Sushi",
@@ -743,7 +743,7 @@ const allRecipes = [
     "ingredients": ["Chambered Nautilus"],
     "acquisition": "Chambered Nautilus",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/chambered_nautilus_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/chambered_nautilus_sushi.png')
   },
   {
     "name": "Chirashi Sushi",
@@ -757,7 +757,7 @@ const allRecipes = [
     "ingredients": ["Green Sea Urchin", "Bluefin Tuna Chutoro", "Cuttlefish"],
     "acquisition": "Complete Inspirational Chirashi Sushi",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/chirashi_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/chirashi_sushi.png')
   },
   {
     "name": "Clearfin Lionfish Sushi",
@@ -771,7 +771,7 @@ const allRecipes = [
     "ingredients": ["Clearfin Lionfish"],
     "acquisition": "Clearfin Lionfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/clearfin_lionfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/clearfin_lionfish_sushi.png')
   },
   {
     "name": "Clione Queen Soup",
@@ -785,7 +785,7 @@ const allRecipes = [
     "ingredients": ["Clione Queen Tentacle", "Kelp", "Miso", "Salt"],
     "acquisition": "Defeat Clione Queen",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/clione_queen_soup.png)
+    "local_thumbnail": require('../../assets/recipe_images/clione_queen_soup.png')
   },
   {
     "name": "Clione Sushi",
@@ -799,7 +799,7 @@ const allRecipes = [
     "ingredients": ["Clione"],
     "acquisition": "Clione",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/clione_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/clione_sushi.png')
   },
   {
     "name": "Clown Frogfish Sushi",
@@ -813,7 +813,7 @@ const allRecipes = [
     "ingredients": ["Clown Frogfish"],
     "acquisition": "Clown Frogfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/clown_frogfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/clown_frogfish_sushi.png')
   },
   {
     "name": "Clownfish Sushi",
@@ -827,7 +827,7 @@ const allRecipes = [
     "ingredients": ["Clownfish"],
     "acquisition": "Clownfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/clownfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/clownfish_sushi.png')
   },
   {
     "name": "Cold Jellyfish & Green Sea Urchin Salad",
@@ -841,7 +841,7 @@ const allRecipes = [
     "ingredients": ["Green Sea Urchin", "Box Jellyfish", "Sea Grape"],
     "acquisition": "Green Sea Urchin",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/cold_jellyfish___green_sea_urchin_salad.png)
+    "local_thumbnail": require('../../assets/recipe_images/cold_jellyfish___green_sea_urchin_salad.png')
   },
   {
     "name": "Comb Jelly Sushi",
@@ -855,7 +855,7 @@ const allRecipes = [
     "ingredients": ["Comb Jelly"],
     "acquisition": "Comb Jelly",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/comb_jelly_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/comb_jelly_sushi.png')
   },
   {
     "name": "Comber Sandwich",
@@ -869,7 +869,7 @@ const allRecipes = [
     "ingredients": ["Comber", "Painted Comber", "Egg", "Wheat"],
     "acquisition": "Complete Whose Fried food is the Best?",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/comber_sandwich.png)
+    "local_thumbnail": require('../../assets/recipe_images/comber_sandwich.png')
   },
   {
     "name": "Comber Sushi",
@@ -883,7 +883,7 @@ const allRecipes = [
     "ingredients": ["Comber"],
     "acquisition": "Comber",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/comber_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/comber_sushi.png')
   },
   {
     "name": "Concertina Barracuda Sushi",
@@ -897,7 +897,7 @@ const allRecipes = [
     "ingredients": ["Concertina Barracuda"],
     "acquisition": "Concertina Barracuda",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/concertina_barracuda_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/concertina_barracuda_sushi.png')
   },
   {
     "name": "Cooked Whiteleg Shrimp Sushi",
@@ -911,7 +911,7 @@ const allRecipes = [
     "ingredients": ["Whiteleg Shrimp"],
     "acquisition": "Whiteleg Shrimp",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/cooked_whiteleg_shrimp_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/cooked_whiteleg_shrimp_sushi.png')
   },
   {
     "name": "Cookiecutter Shark Sushi",
@@ -925,7 +925,7 @@ const allRecipes = [
     "ingredients": ["Cookiecutter Shark"],
     "acquisition": "Cookiecutter Shark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/cookiecutter_shark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/cookiecutter_shark_sushi.png')
   },
   {
     "name": "Copper shark Sushi",
@@ -939,7 +939,7 @@ const allRecipes = [
     "ingredients": ["Copper Shark Meat"],
     "acquisition": "Copper Shark Meat",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/copper_shark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/copper_shark_sushi.png')
   },
   {
     "name": "Coral Trout Sushi",
@@ -953,7 +953,7 @@ const allRecipes = [
     "ingredients": ["Coral Trout"],
     "acquisition": "Coral Trout",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/coral_trout_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/coral_trout_sushi.png')
   },
   {
     "name": "Cortex Decorator Sushi",
@@ -967,7 +967,7 @@ const allRecipes = [
     "ingredients": ["Cortex Decorator"],
     "acquisition": "Cortex Decorator",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/cortex_decorator_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/cortex_decorator_sushi.png')
   },
   {
     "name": "Crimson Fish Roll",
@@ -981,7 +981,7 @@ const allRecipes = [
     "ingredients": ["Clown Frogfish", "Red Bream", "Rhinochimaeridae"],
     "acquisition": "Train Billy to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/crimson_fish_roll.png)
+    "local_thumbnail": require('../../assets/recipe_images/crimson_fish_roll.png')
   },
   {
     "name": "Crystal Lobster Roll",
@@ -995,7 +995,7 @@ const allRecipes = [
     "ingredients": ["Crystal Lobster", "Rice", "Bladderwrack"],
     "acquisition": "Seasonal Event: Lobster Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/crystal_lobster_roll.png)
+    "local_thumbnail": require('../../assets/recipe_images/crystal_lobster_roll.png')
   },
   {
     "name": "Crystal Lobster Sushi",
@@ -1009,7 +1009,7 @@ const allRecipes = [
     "ingredients": ["Crystal Lobster"],
     "acquisition": "Crystal Lobster",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/crystal_lobster_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/crystal_lobster_sushi.png')
   },
   {
     "name": "Cuttlefish Sushi",
@@ -1023,7 +1023,7 @@ const allRecipes = [
     "ingredients": ["Cuttlefish"],
     "acquisition": "Cuttlefish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/cuttlefish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/cuttlefish_sushi.png')
   },
   {
     "name": "Deep Fish Tempura",
@@ -1037,7 +1037,7 @@ const allRecipes = [
     "ingredients": ["Cookiecutter Shark", "Vampire Squid", "Barreleye", "Kelp"],
     "acquisition": "Complete Whose Fried food is the Best?",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/deep_fish_tempura.png)
+    "local_thumbnail": require('../../assets/recipe_images/deep_fish_tempura.png')
   },
   {
     "name": "Deep Sea Kaiju Ramen",
@@ -1051,7 +1051,7 @@ const allRecipes = [
     "ingredients": ["Comb Jelly", "Seaweed", "Miso"],
     "acquisition": "Complete Go to Bancho Sushi",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/deep_sea_kaiju_ramen.png)
+    "local_thumbnail": require('../../assets/recipe_images/deep_sea_kaiju_ramen.png')
   },
   {
     "name": "Deep-Fried Eggplant Shrimp Meatballs",
@@ -1065,7 +1065,7 @@ const allRecipes = [
     "ingredients": ["Black Tiger Shrimp", "Whiteleg Shrimp", "Eggplant", "Olive Oil"],
     "acquisition": "Train Yusuke to level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/deep_fried_eggplant_shrimp_meatballs.png)
+    "local_thumbnail": require('../../assets/recipe_images/deep_fried_eggplant_shrimp_meatballs.png')
   },
   {
     "name": "Deep-Fried Red Lionfish",
@@ -1079,7 +1079,7 @@ const allRecipes = [
     "ingredients": ["Red Lionfish", "Wheat", "Olive Oil", "Black Pepper"],
     "acquisition": "Train Cohh to Level 10",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/deep_fried_red_lionfish.png)
+    "local_thumbnail": require('../../assets/recipe_images/deep_fried_red_lionfish.png')
   },
   {
     "name": "Deep-Fried Sea Urchin",
@@ -1093,7 +1093,7 @@ const allRecipes = [
     "ingredients": ["Green Sea Urchin", "Purple Sea Urchin", "Kajime", "Olive Oil"],
     "acquisition": "Green Sea Urchin",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/deep_fried_sea_urchin.png)
+    "local_thumbnail": require('../../assets/recipe_images/deep_fried_sea_urchin.png')
   },
   {
     "name": "Deep-Fried Vegetables",
@@ -1107,7 +1107,7 @@ const allRecipes = [
     "ingredients": ["Cucumber", "Onion", "Carrot", "Olive Oil"],
     "acquisition": "Seasonal Event: Cucumber Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/deep_fried_vegetables.png)
+    "local_thumbnail": require('../../assets/recipe_images/deep_fried_vegetables.png')
   },
   {
     "name": "Devil Scorpionfish Sushi",
@@ -1121,7 +1121,7 @@ const allRecipes = [
     "ingredients": ["Devil Scorpionfish"],
     "acquisition": "Devil Scorpionfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/devil_scorpionfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/devil_scorpionfish_sushi.png')
   },
   {
     "name": "Dollocaris Ingens Sushi",
@@ -1135,7 +1135,7 @@ const allRecipes = [
     "ingredients": ["Dollocaris Ingens"],
     "acquisition": "Dollocaris Ingens",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/dollocaris_ingens_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/dollocaris_ingens_sushi.png')
   },
   {
     "name": "Drepanaspis Sushi",
@@ -1149,7 +1149,7 @@ const allRecipes = [
     "ingredients": ["Drepanaspis Meat"],
     "acquisition": "Drepanaspis",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/drepanaspis_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/drepanaspis_sushi.png')
   },
   {
     "name": "Dried Stingray",
@@ -1163,7 +1163,7 @@ const allRecipes = [
     "ingredients": ["Starry Skate", "Stingray Meat", "Marbled Electric Ray Meat", "Salt"],
     "acquisition": "Train Carolina to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/dried_stingray.png)
+    "local_thumbnail": require('../../assets/recipe_images/dried_stingray.png')
   },
   {
     "name": "Dumbo Octopus Sushi",
@@ -1177,7 +1177,7 @@ const allRecipes = [
     "ingredients": ["Dumbo Octopus"],
     "acquisition": "Dumbo Octopus",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/dumbo_octopus_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/dumbo_octopus_sushi.png')
   },
   {
     "name": "Dumbo Takoyaki",
@@ -1191,7 +1191,7 @@ const allRecipes = [
     "ingredients": ["Dumbo Octopus", "Wheat", "Mayonnaise"],
     "acquisition": "Cooksta Diamond Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/dumbo_takoyaki.png)
+    "local_thumbnail": require('../../assets/recipe_images/dumbo_takoyaki.png')
   },
   {
     "name": "Dunkleosteus Sushi",
@@ -1205,7 +1205,7 @@ const allRecipes = [
     "ingredients": ["Dunkleosteus Meat"],
     "acquisition": "Dunkleosteus",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/dunkleosteus_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/dunkleosteus_sushi.png')
   },
   {
     "name": "Dusky Grouper Steak",
@@ -1219,7 +1219,7 @@ const allRecipes = [
     "ingredients": ["Dusky Grouper", "Cherry Tomato", "Salt", "Olive Oil"],
     "acquisition": "Train El Nino to level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/dusky_grouper_steak.png)
+    "local_thumbnail": require('../../assets/recipe_images/dusky_grouper_steak.png')
   },
   {
     "name": "Dusky Grouper Sushi",
@@ -1233,7 +1233,7 @@ const allRecipes = [
     "ingredients": ["Dusky Grouper"],
     "acquisition": "Dusky Grouper",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/dusky_grouper_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/dusky_grouper_sushi.png')
   },
   {
     "name": "Eastern Rock Lobster Sushi",
@@ -1247,7 +1247,7 @@ const allRecipes = [
     "ingredients": ["Eastern Rock Lobster"],
     "acquisition": "Eastern Rock Lobster",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/eastern_rock_lobster_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/eastern_rock_lobster_sushi.png')
   },
   {
     "name": "Ebirah Chasing Sashimi",
@@ -1261,7 +1261,7 @@ const allRecipes = [
     "ingredients": ["California Spiny Lobster", "Barreleye", "Sea Grape"],
     "acquisition": "Complete Go to Bancho Sushi",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/ebirah_chasing_sashimi.png)
+    "local_thumbnail": require('../../assets/recipe_images/ebirah_chasing_sashimi.png')
   },
   {
     "name": "Eggplant Soba Oyaki",
@@ -1275,7 +1275,7 @@ const allRecipes = [
     "ingredients": ["Buckwheat", "Eggplant", "Carrot", "Miso"],
     "acquisition": "Train Etsuko to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/eggplant_soba_oyaki.png)
+    "local_thumbnail": require('../../assets/recipe_images/eggplant_soba_oyaki.png')
   },
   {
     "name": "Emperor Angelfish Sushi",
@@ -1289,7 +1289,7 @@ const allRecipes = [
     "ingredients": ["Emperor Angelfish"],
     "acquisition": "Emperor Angelfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/emperor_angelfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/emperor_angelfish_sushi.png')
   },
   {
     "name": "Entangled Crab Sushi",
@@ -1303,7 +1303,7 @@ const allRecipes = [
     "ingredients": ["Entangled Crab"],
     "acquisition": "Entangled Crab",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/entangled_crab_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/entangled_crab_sushi.png')
   },
   {
     "name": "Enthralled Stonefish Sushi",
@@ -1317,7 +1317,7 @@ const allRecipes = [
     "ingredients": ["Enthralled Stonefish"],
     "acquisition": "Enthralled Stonefish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/enthralled_stonefish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/enthralled_stonefish_sushi.png')
   },
   {
     "name": "European Lobster Sushi",
@@ -1331,7 +1331,7 @@ const allRecipes = [
     "ingredients": ["European Lobster"],
     "acquisition": "European Lobster",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/european_lobster_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/european_lobster_sushi.png')
   },
   {
     "name": "Falcatus Soybean Paste Soup",
@@ -1345,7 +1345,7 @@ const allRecipes = [
     "ingredients": ["Falcatus", "Seaweed", "Buckbean", "Miso"],
     "acquisition": "Seasonal Event: Shark Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/falcatus_soybean_paste_soup.png)
+    "local_thumbnail": require('../../assets/recipe_images/falcatus_soybean_paste_soup.png')
   },
   {
     "name": "Falcatus Sushi",
@@ -1359,7 +1359,7 @@ const allRecipes = [
     "ingredients": ["Falcatus"],
     "acquisition": "Falcatus",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/falcatus_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/falcatus_sushi.png')
   },
   {
     "name": "Fan Lobster Sushi",
@@ -1373,7 +1373,7 @@ const allRecipes = [
     "ingredients": ["Fan Lobster"],
     "acquisition": "Fan Lobster",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/fan_lobster_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/fan_lobster_sushi.png')
   },
   {
     "name": "Fanged Cod Sushi",
@@ -1387,7 +1387,7 @@ const allRecipes = [
     "ingredients": ["Fanged Cod"],
     "acquisition": "Fanged Cod",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/fanged_cod_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/fanged_cod_sushi.png')
   },
   {
     "name": "Fangtooth Sushi",
@@ -1401,7 +1401,7 @@ const allRecipes = [
     "ingredients": ["Fangtooth"],
     "acquisition": "Fangtooth",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/fangtooth_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/fangtooth_sushi.png')
   },
   {
     "name": "Flame Angelfish Sushi",
@@ -1415,7 +1415,7 @@ const allRecipes = [
     "ingredients": ["Flame Angelfish"],
     "acquisition": "Flame Angelfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/flame_angelfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/flame_angelfish_sushi.png')
   },
   {
     "name": "Fried Egg Jellyfish Sushi",
@@ -1429,7 +1429,7 @@ const allRecipes = [
     "ingredients": ["Fried Egg Jellyfish"],
     "acquisition": "Fried Egg Jellyfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/fried_egg_jellyfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/fried_egg_jellyfish_sushi.png')
   },
   {
     "name": "Fried Habanero Fangtooth",
@@ -1443,7 +1443,7 @@ const allRecipes = [
     "ingredients": ["Fangtooth", "Habanero", "Bladderwrack", "Olive Oil"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/fried_habanero_fangtooth.png)
+    "local_thumbnail": require('../../assets/recipe_images/fried_habanero_fangtooth.png')
   },
   {
     "name": "Fried Onion Cuttlefish",
@@ -1457,7 +1457,7 @@ const allRecipes = [
     "ingredients": ["Cuttlefish", "Onion", "Olive Oil", "Salt"],
     "acquisition": "Train Raptor to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/fried_onion_cuttlefish.png)
+    "local_thumbnail": require('../../assets/recipe_images/fried_onion_cuttlefish.png')
   },
   {
     "name": "Fried Rice with Sally Lightfoot Crab",
@@ -1471,7 +1471,7 @@ const allRecipes = [
     "ingredients": ["Sally Lightfoot Crab", "Rice", "Grade A Egg", "Black Pepper"],
     "acquisition": "Complete Chinese Cuisine Contest!",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/fried_rice_with_sally_lightfoot_crab.png)
+    "local_thumbnail": require('../../assets/recipe_images/fried_rice_with_sally_lightfoot_crab.png')
   },
   {
     "name": "Fried Seahorses",
@@ -1485,7 +1485,7 @@ const allRecipes = [
     "ingredients": ["Long-Snouted Seahorse", "Olive Oil", "Black Vinegar"],
     "acquisition": "Train Cohh to Level 5",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/fried_seahorses.png)
+    "local_thumbnail": require('../../assets/recipe_images/fried_seahorses.png')
   },
   {
     "name": "Fried Tomato and Snailfish",
@@ -1499,7 +1499,7 @@ const allRecipes = [
     "ingredients": ["Gelatinous Snailfish", "Salmon Snailfish", "Bean", "Cherry Tomato"],
     "acquisition": "Complete Chinese Cuisine Contest!",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/fried_tomato_and_snailfish.png)
+    "local_thumbnail": require('../../assets/recipe_images/fried_tomato_and_snailfish.png')
   },
   {
     "name": "Frilled Shark Sushi",
@@ -1513,7 +1513,7 @@ const allRecipes = [
     "ingredients": ["Frilled Shark Meat"],
     "acquisition": "Frilled Shark Meat",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/frilled_shark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/frilled_shark_sushi.png')
   },
   {
     "name": "Gazing Shark Sushi",
@@ -1527,7 +1527,7 @@ const allRecipes = [
     "ingredients": ["Gazing Shark"],
     "acquisition": "Gazing Shark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/gazing_shark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/gazing_shark_sushi.png')
   },
   {
     "name": "Gelatinous Snailfish Sushi",
@@ -1541,7 +1541,7 @@ const allRecipes = [
     "ingredients": ["Gelatinous Snailfish"],
     "acquisition": "Gelatinous Snailfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/gelatinous_snailfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/gelatinous_snailfish_sushi.png')
   },
   {
     "name": "Gelatinous Stonefish Sushi",
@@ -1555,7 +1555,7 @@ const allRecipes = [
     "ingredients": ["Gelatinous Stonefish"],
     "acquisition": "Gelatinous Stonefish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/gelatinous_stonefish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/gelatinous_stonefish_sushi.png')
   },
   {
     "name": "Giant Trevally Sushi",
@@ -1569,7 +1569,7 @@ const allRecipes = [
     "ingredients": ["Giant Trevally Meat"],
     "acquisition": "Giant Trevally",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/giant_trevally_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/giant_trevally_sushi.png')
   },
   {
     "name": "Gnashing Perch Sushi",
@@ -1583,7 +1583,7 @@ const allRecipes = [
     "ingredients": ["Gnashing Perch"],
     "acquisition": "Gnashing Perch",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/gnashing_perch_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/gnashing_perch_sushi.png')
   },
   {
     "name": "Goblin Shark Belly Roast",
@@ -1597,7 +1597,7 @@ const allRecipes = [
     "ingredients": ["Goblin Shark's Fatty Meat", "Sea Grape", "Olive Oil", "Salt"],
     "acquisition": "Defeat Goblin Shark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/goblin_shark_belly_roast.png)
+    "local_thumbnail": require('../../assets/recipe_images/goblin_shark_belly_roast.png')
   },
   {
     "name": "Godzilla vs. Ebirah Curry",
@@ -1611,7 +1611,7 @@ const allRecipes = [
     "ingredients": ["European Lobster", "Moray Eel", "Turmeric", "Olive Oil"],
     "acquisition": "Complete Go to Bancho Sushi",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/godzilla_vs__ebirah_curry.png)
+    "local_thumbnail": require('../../assets/recipe_images/godzilla_vs__ebirah_curry.png')
   },
   {
     "name": "Golden King Crab Sushi",
@@ -1625,7 +1625,7 @@ const allRecipes = [
     "ingredients": ["Golden King Crab"],
     "acquisition": "Golden King Crab",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/golden_king_crab_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/golden_king_crab_sushi.png')
   },
   {
     "name": "Great Barracuda Canape",
@@ -1639,7 +1639,7 @@ const allRecipes = [
     "ingredients": ["Great Barracuda", "Cherry Tomato", "Onion", "Mayonnaise"],
     "acquisition": "Cooksta Diamond Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/great_barracuda_canape.png)
+    "local_thumbnail": require('../../assets/recipe_images/great_barracuda_canape.png')
   },
   {
     "name": "Great Barracuda Sushi",
@@ -1653,7 +1653,7 @@ const allRecipes = [
     "ingredients": ["Great Barracuda"],
     "acquisition": "Great Barracuda",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/great_barracuda_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/great_barracuda_sushi.png')
   },
   {
     "name": "Great Spider Crab Curry",
@@ -1667,7 +1667,7 @@ const allRecipes = [
     "ingredients": ["Spider Crab", "Grade A Egg", "Curry Block"],
     "acquisition": "Train Charlie to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/great_spider_crab_curry.png)
+    "local_thumbnail": require('../../assets/recipe_images/great_spider_crab_curry.png')
   },
   {
     "name": "Great Spider Crab and Cucumber Sushi",
@@ -1681,7 +1681,7 @@ const allRecipes = [
     "ingredients": ["Spider Crab", "Cucumber"],
     "acquisition": "Seasonal Event: Cucumber Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/great_spider_crab_and_cucumber_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/great_spider_crab_and_cucumber_sushi.png')
   },
   {
     "name": "Green Humphead Parrotfish Sushi",
@@ -1695,7 +1695,7 @@ const allRecipes = [
     "ingredients": ["Green Humphead Parrotfish"],
     "acquisition": "Green Humphead Parrotfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/green_humphead_parrotfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/green_humphead_parrotfish_sushi.png')
   },
   {
     "name": "Green Sea Urchin & Cucumber Salad",
@@ -1709,7 +1709,7 @@ const allRecipes = [
     "ingredients": ["Green Sea Urchin", "Cucumber", "Buckbean"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/green_sea_urchin___cucumber_salad.png)
+    "local_thumbnail": require('../../assets/recipe_images/green_sea_urchin___cucumber_salad.png')
   },
   {
     "name": "Greenland Shark Sushi",
@@ -1723,7 +1723,7 @@ const allRecipes = [
     "ingredients": ["Greenland Shark Meat"],
     "acquisition": "Greenland Shark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/greenland_shark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/greenland_shark_sushi.png')
   },
   {
     "name": "Grey Triggerfish Sushi",
@@ -1737,7 +1737,7 @@ const allRecipes = [
     "ingredients": ["Grey Triggerfish"],
     "acquisition": "Grey Triggerfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/grey_triggerfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/grey_triggerfish_sushi.png')
   },
   {
     "name": "Grilled Antarctic Octopus & Truffle",
@@ -1751,7 +1751,7 @@ const allRecipes = [
     "ingredients": ["Antarctic Octopus", "Kajime", "Truffle"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/grilled_antarctic_octopus___truffle.png)
+    "local_thumbnail": require('../../assets/recipe_images/grilled_antarctic_octopus___truffle.png')
   },
   {
     "name": "Grilled Eel with Habanero",
@@ -1765,7 +1765,7 @@ const allRecipes = [
     "ingredients": ["Snub-nosed Spiny Eel", "Habanero", "Kajime", "Soy Sauce"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/grilled_eel_with_habanero.png)
+    "local_thumbnail": require('../../assets/recipe_images/grilled_eel_with_habanero.png')
   },
   {
     "name": "Grotesque Mackerel Sushi",
@@ -1779,7 +1779,7 @@ const allRecipes = [
     "ingredients": ["Grotesque Mackerel"],
     "acquisition": "Grotesque Mackerel",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/grotesque_mackerel_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/grotesque_mackerel_sushi.png')
   },
   {
     "name": "Haddock Acqua Pazza",
@@ -1793,7 +1793,7 @@ const allRecipes = [
     "ingredients": ["Haddock", "Cherry Tomato", "Carrot", "Olive Oil"],
     "acquisition": "Complete Let Us Begin the Contest",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/haddock_acqua_pazza.png)
+    "local_thumbnail": require('../../assets/recipe_images/haddock_acqua_pazza.png')
   },
   {
     "name": "Haddock Sushi",
@@ -1807,7 +1807,7 @@ const allRecipes = [
     "ingredients": ["Haddock"],
     "acquisition": "Haddock",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/haddock_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/haddock_sushi.png')
   },
   {
     "name": "Harlequin Hind Sushi",
@@ -1821,7 +1821,7 @@ const allRecipes = [
     "ingredients": ["Harlequin Hind"],
     "acquisition": "Harlequin Hind",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/harlequin_hind_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/harlequin_hind_sushi.png')
   },
   {
     "name": "Hawaiian Poke",
@@ -1835,7 +1835,7 @@ const allRecipes = [
     "ingredients": ["Yellowfin Tuna Akami", "Rice", "Mayonnaise", "Sesame Seed"],
     "acquisition": "Seasonal Event: Tuna Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/hawaiian_poke.png)
+    "local_thumbnail": require('../../assets/recipe_images/hawaiian_poke.png')
   },
   {
     "name": "Horsehair Crab Sushi",
@@ -1849,7 +1849,7 @@ const allRecipes = [
     "ingredients": ["Horsehair Crab"],
     "acquisition": "Horsehair Crab",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/horsehair_crab_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/horsehair_crab_sushi.png')
   },
   {
     "name": "Host Eel Sushi",
@@ -1863,7 +1863,7 @@ const allRecipes = [
     "ingredients": ["Host Eel"],
     "acquisition": "Host Eel",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/host_eel_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/host_eel_sushi.png')
   },
   {
     "name": "Hot Pepper Tuna",
@@ -1877,7 +1877,7 @@ const allRecipes = [
     "ingredients": ["Bluefin Tuna Chutoro", "Habanero", "Sea Grape", "Sesame Seed"],
     "acquisition": "Complete Spicy Pepper Seeds!",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/hot_pepper_tuna.png)
+    "local_thumbnail": require('../../assets/recipe_images/hot_pepper_tuna.png')
   },
   {
     "name": "Humboldt Ink Pasta",
@@ -1891,7 +1891,7 @@ const allRecipes = [
     "ingredients": ["Humboldt Squid Meat", "White Shrimp", "Wheat", "Garlic"],
     "acquisition": "Complete Let Us Begin the Contest",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/humboldt_ink_pasta.png)
+    "local_thumbnail": require('../../assets/recipe_images/humboldt_ink_pasta.png')
   },
   {
     "name": "Humboldt Squid Sushi",
@@ -1905,7 +1905,7 @@ const allRecipes = [
     "ingredients": ["Humboldt Squid Meat"],
     "acquisition": "Humboldt Squid",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/humboldt_squid_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/humboldt_squid_sushi.png')
   },
   {
     "name": "Humphead Parrotfish Curry",
@@ -1919,7 +1919,7 @@ const allRecipes = [
     "ingredients": ["Green Humphead Parrotfish", "Onion", "Turmeric"],
     "acquisition": "Cooksta Platinum Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/humphead_parrotfish_curry.png)
+    "local_thumbnail": require('../../assets/recipe_images/humphead_parrotfish_curry.png')
   },
   {
     "name": "Hyalonema Tuna Sashimi",
@@ -1933,7 +1933,7 @@ const allRecipes = [
     "ingredients": ["Bluefin Tuna Ootoro", "Yellowfin Tuna Ootoro", "Hyalonema"],
     "acquisition": "Seasonal Event: Tuna Party and Trapped in the Glacial Cave",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/hyalonema_tuna_sashimi.png)
+    "local_thumbnail": require('../../assets/recipe_images/hyalonema_tuna_sashimi.png')
   },
   {
     "name": "Ice Fish Curry",
@@ -1947,7 +1947,7 @@ const allRecipes = [
     "ingredients": ["Ice Fish", "Bean", "Curry Block"],
     "acquisition": "Train Drae to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/ice_fish_curry.png)
+    "local_thumbnail": require('../../assets/recipe_images/ice_fish_curry.png')
   },
   {
     "name": "Ice Fish Sushi",
@@ -1961,7 +1961,7 @@ const allRecipes = [
     "ingredients": ["Ice Fish"],
     "acquisition": "Ice Fish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/ice_fish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/ice_fish_sushi.png')
   },
   {
     "name": "Imperious Lobster Sushi",
@@ -1975,7 +1975,7 @@ const allRecipes = [
     "ingredients": ["Imperious Lobster"],
     "acquisition": "Imperious Lobster",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/imperious_lobster_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/imperious_lobster_sushi.png')
   },
   {
     "name": "Lagoon Triggerfish Sushi",
@@ -1989,7 +1989,7 @@ const allRecipes = [
     "ingredients": ["Lagoon Triggerfish"],
     "acquisition": "Lagoon Triggerfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/lagoon_triggerfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/lagoon_triggerfish_sushi.png')
   },
   {
     "name": "Latok Omelet",
@@ -2003,7 +2003,7 @@ const allRecipes = [
     "ingredients": ["Grade A Egg", "Rice", "Sea Grape", "Soy Sauce"],
     "acquisition": "Train Masayoshi to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/latok_omelet.png)
+    "local_thumbnail": require('../../assets/recipe_images/latok_omelet.png')
   },
   {
     "name": "Lobster Platter",
@@ -2017,7 +2017,7 @@ const allRecipes = [
     "ingredients": ["American Lobster", "Tropical Rock Lobster", "Tokummia Katalepsis"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/lobster_platter.png)
+    "local_thumbnail": require('../../assets/recipe_images/lobster_platter.png')
   },
   {
     "name": "Longfin Batfish Sushi",
@@ -2031,7 +2031,7 @@ const allRecipes = [
     "ingredients": ["Longfin Batfish"],
     "acquisition": "Longfin Batfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/longfin_batfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/longfin_batfish_sushi.png')
   },
   {
     "name": "Longnose Sawshark Sushi",
@@ -2045,7 +2045,7 @@ const allRecipes = [
     "ingredients": ["Longnose Sawshark Meat"],
     "acquisition": "Longnose Sawshark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/longnose_sawshark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/longnose_sawshark_sushi.png')
   },
   {
     "name": "Longspine Squirrelfish Sushi",
@@ -2059,7 +2059,7 @@ const allRecipes = [
     "ingredients": ["Longspine Squirrelfish"],
     "acquisition": "Longspine Squirrelfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/longspine_squirrelfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/longspine_squirrelfish_sushi.png')
   },
   {
     "name": "Lumpfish sushi",
@@ -2073,7 +2073,7 @@ const allRecipes = [
     "ingredients": ["Lumpfish"],
     "acquisition": "Lumpfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/lumpfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/lumpfish_sushi.png')
   },
   {
     "name": "Lusca Neck Tadaki",
@@ -2087,7 +2087,7 @@ const allRecipes = [
     "ingredients": ["Lusca Neck Meat", "Mayonnaise", "Soy Sauce", "Sesame Seed"],
     "acquisition": "Defeat Lusca",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/lusca_neck_tadaki.png)
+    "local_thumbnail": require('../../assets/recipe_images/lusca_neck_tadaki.png')
   },
   {
     "name": "Mackerel Scad Hotdog",
@@ -2101,7 +2101,7 @@ const allRecipes = [
     "ingredients": ["Mackerel Scad", "Wheat", "Mayonnaise"],
     "acquisition": "Train Cohh to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/mackerel_scad_hotdog.png)
+    "local_thumbnail": require('../../assets/recipe_images/mackerel_scad_hotdog.png')
   },
   {
     "name": "Mackerel Scad Sushi",
@@ -2115,7 +2115,7 @@ const allRecipes = [
     "ingredients": ["Mackerel Scad"],
     "acquisition": "Mackerel Scad",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/mackerel_scad_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/mackerel_scad_sushi.png')
   },
   {
     "name": "Malignant Pincer Sushi",
@@ -2129,7 +2129,7 @@ const allRecipes = [
     "ingredients": ["Malignant Pincer"],
     "acquisition": "Malignant Pincer",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/malignant_pincer_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/malignant_pincer_sushi.png')
   },
   {
     "name": "Many Eyed Mackerel Sushi",
@@ -2143,7 +2143,7 @@ const allRecipes = [
     "ingredients": ["Many Eyed Mackerel"],
     "acquisition": "Many Eyed Mackerel",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/many_eyed_mackerel_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/many_eyed_mackerel_sushi.png')
   },
   {
     "name": "Marbled Electric Ray Sushi",
@@ -2157,7 +2157,7 @@ const allRecipes = [
     "ingredients": ["Marbled Electric Ray Meat"],
     "acquisition": "Marbled Electric Ray",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/marbled_electric_ray_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/marbled_electric_ray_sushi.png')
   },
   {
     "name": "Marlin Sushi",
@@ -2171,7 +2171,7 @@ const allRecipes = [
     "ingredients": ["Marlin Meat"],
     "acquisition": "Marlin",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/marlin_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/marlin_sushi.png')
   },
   {
     "name": "Marlin and Soybean Paste Roast",
@@ -2185,7 +2185,7 @@ const allRecipes = [
     "ingredients": ["Marlin Meat", "Garlic", "Miso"],
     "acquisition": "Seasonal Event: Marlin Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/marlin_and_soybean_paste_roast.png)
+    "local_thumbnail": require('../../assets/recipe_images/marlin_and_soybean_paste_roast.png')
   },
   {
     "name": "Mediterranean Parrotfish Sushi",
@@ -2199,7 +2199,7 @@ const allRecipes = [
     "ingredients": ["Mediterranean Parrotfish"],
     "acquisition": "Mediterranean Parrotfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/mediterranean_parrotfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/mediterranean_parrotfish_sushi.png')
   },
   {
     "name": "Megalograptus Sushi",
@@ -2213,7 +2213,7 @@ const allRecipes = [
     "ingredients": ["Megalograptus"],
     "acquisition": "Megalograptus",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/megalograptus_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/megalograptus_sushi.png')
   },
   {
     "name": "Megamouth Shark Sushi",
@@ -2227,7 +2227,7 @@ const allRecipes = [
     "ingredients": ["Megamouth Shark Meat"],
     "acquisition": "Megamouth Shark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/megamouth_shark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/megamouth_shark_sushi.png')
   },
   {
     "name": "Mianbao Xia",
@@ -2241,7 +2241,7 @@ const allRecipes = [
     "ingredients": ["Black Tiger Shrimp", "Whiteleg Shrimp", "Wheat", "Olive Oil"],
     "acquisition": "Complete Chinese Cuisine Contest!",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/mianbao_xia.png)
+    "local_thumbnail": require('../../assets/recipe_images/mianbao_xia.png')
   },
   {
     "name": "Moonlight Bladderwrack Roll",
@@ -2255,7 +2255,7 @@ const allRecipes = [
     "ingredients": ["Longspine Squirrelfish", "Clearfin Lionfish", "Blackfin Barracuda", "Bladderwrack"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/moonlight_bladderwrack_roll.png)
+    "local_thumbnail": require('../../assets/recipe_images/moonlight_bladderwrack_roll.png')
   },
   {
     "name": "Moray Eel Curry",
@@ -2269,7 +2269,7 @@ const allRecipes = [
     "ingredients": ["Moray Eel", "Turmeric"],
     "acquisition": "Cooksta Silver Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/moray_eel_curry.png)
+    "local_thumbnail": require('../../assets/recipe_images/moray_eel_curry.png')
   },
   {
     "name": "Moray Eel Sushi",
@@ -2283,7 +2283,7 @@ const allRecipes = [
     "ingredients": ["Moray Eel"],
     "acquisition": "Moray Eel",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/moray_eel_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/moray_eel_sushi.png')
   },
   {
     "name": "Narrow-barred Spanish Mackerel Arancini",
@@ -2297,7 +2297,7 @@ const allRecipes = [
     "ingredients": ["Narrow-Barred Spanish Mackerel", "Egg", "Rice", "Garlic"],
     "acquisition": "Complete Let Us Begin the Contest",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/narrow_barred_spanish_mackerel_arancini.png)
+    "local_thumbnail": require('../../assets/recipe_images/narrow_barred_spanish_mackerel_arancini.png')
   },
   {
     "name": "Narrow-barred Spanish mackerel Sushi",
@@ -2311,7 +2311,7 @@ const allRecipes = [
     "ingredients": ["Narrow-Barred Spanish Mackerel"],
     "acquisition": "Narrow-Barred Spanish Mackerel",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/narrow_barred_spanish_mackerel_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/narrow_barred_spanish_mackerel_sushi.png')
   },
   {
     "name": "Narwhal Miso Soup",
@@ -2325,7 +2325,7 @@ const allRecipes = [
     "ingredients": ["Narwhal Meat", "Carrot", "Buckbean", "Miso"],
     "acquisition": "Train Davina to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/narwhal_miso_soup.png)
+    "local_thumbnail": require('../../assets/recipe_images/narwhal_miso_soup.png')
   },
   {
     "name": "Narwhal Sushi",
@@ -2339,7 +2339,7 @@ const allRecipes = [
     "ingredients": ["Narwhal Meat"],
     "acquisition": "Narwhal",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/narwhal_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/narwhal_sushi.png')
   },
   {
     "name": "Nasu Dengaku",
@@ -2353,7 +2353,7 @@ const allRecipes = [
     "ingredients": ["Eggplant", "Garlic", "Olive Oil", "Miso"],
     "acquisition": "Cooksta Diamond Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/nasu_dengaku.png)
+    "local_thumbnail": require('../../assets/recipe_images/nasu_dengaku.png')
   },
   {
     "name": "Norimaki",
@@ -2367,7 +2367,7 @@ const allRecipes = [
     "ingredients": [],
     "acquisition": "Default",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/norimaki.png)
+    "local_thumbnail": require('../../assets/recipe_images/norimaki.png')
   },
   {
     "name": "Norway Lobster Sushi",
@@ -2381,7 +2381,7 @@ const allRecipes = [
     "ingredients": ["Norway Lobster"],
     "acquisition": "Norway Lobster",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/norway_lobster_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/norway_lobster_sushi.png')
   },
   {
     "name": "Orbicular Batfish Fry",
@@ -2395,7 +2395,7 @@ const allRecipes = [
     "ingredients": ["Orbicular Batfish"],
     "acquisition": "Orbicular Batfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/orbicular_batfish_fry.png)
+    "local_thumbnail": require('../../assets/recipe_images/orbicular_batfish_fry.png')
   },
   {
     "name": "Ornate Wrasse Sushi",
@@ -2409,7 +2409,7 @@ const allRecipes = [
     "ingredients": ["Ornate Wrasse"],
     "acquisition": "Ornate Wrasse",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/ornate_wrasse_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/ornate_wrasse_sushi.png')
   },
   {
     "name": "Pacific Fanfish Sushi",
@@ -2423,7 +2423,7 @@ const allRecipes = [
     "ingredients": ["Pacific Fanfish"],
     "acquisition": "Pacific Fanfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/pacific_fanfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/pacific_fanfish_sushi.png')
   },
   {
     "name": "Painted Comber Sushi",
@@ -2437,7 +2437,7 @@ const allRecipes = [
     "ingredients": ["Painted Comber"],
     "acquisition": "Painted Comber",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/painted_comber_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/painted_comber_sushi.png')
   },
   {
     "name": "Parhelion Jellyfish Sushi",
@@ -2451,7 +2451,7 @@ const allRecipes = [
     "ingredients": ["Parhelion Jellyfish"],
     "acquisition": "Parhelion Jellyfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/parhelion_jellyfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/parhelion_jellyfish_sushi.png')
   },
   {
     "name": "Peacock Squid Ripieni",
@@ -2465,7 +2465,7 @@ const allRecipes = [
     "ingredients": ["Peacock Squid", "Egg", "Garlic", "Black Pepper"],
     "acquisition": "Complete Let Us Begin the Contest",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/peacock_squid_ripieni.png)
+    "local_thumbnail": require('../../assets/recipe_images/peacock_squid_ripieni.png')
   },
   {
     "name": "Peacock Squid Sushi",
@@ -2479,7 +2479,7 @@ const allRecipes = [
     "ingredients": ["Peacock Squid"],
     "acquisition": "Peacock Squid",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/peacock_squid_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/peacock_squid_sushi.png')
   },
   {
     "name": "Pelican Eel Jelly",
@@ -2493,7 +2493,7 @@ const allRecipes = [
     "ingredients": ["Pelican Eel", "Black Vinegar", "Agar"],
     "acquisition": "Complete Whose Fried food is the Best?",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/pelican_eel_jelly.png)
+    "local_thumbnail": require('../../assets/recipe_images/pelican_eel_jelly.png')
   },
   {
     "name": "Pelican Eel Sushi",
@@ -2507,7 +2507,7 @@ const allRecipes = [
     "ingredients": ["Pelican Eel"],
     "acquisition": "Pelican Eel",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/pelican_eel_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/pelican_eel_sushi.png')
   },
   {
     "name": "Perished Loosejaw Sushi",
@@ -2521,7 +2521,7 @@ const allRecipes = [
     "ingredients": ["Perished Loosejaw"],
     "acquisition": "Perished Loosejaw",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/perished_loosejaw_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/perished_loosejaw_sushi.png')
   },
   {
     "name": "Phantom Jellyfish Jelly",
@@ -2535,7 +2535,7 @@ const allRecipes = [
     "ingredients": ["Phantom Jellyfish Meat", "Agar", "Buckbean"],
     "acquisition": "Defeat Phantom Jellyfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/phantom_jellyfish_jelly.png)
+    "local_thumbnail": require('../../assets/recipe_images/phantom_jellyfish_jelly.png')
   },
   {
     "name": "Pickled Vegetables",
@@ -2549,7 +2549,7 @@ const allRecipes = [
     "ingredients": ["Cucumber", "Eggplant", "Carrot", "Black Vinegar"],
     "acquisition": "Seasonal Event: Cucumber Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/pickled_vegetables.png)
+    "local_thumbnail": require('../../assets/recipe_images/pickled_vegetables.png')
   },
   {
     "name": "Pikaia Ramen",
@@ -2563,7 +2563,7 @@ const allRecipes = [
     "ingredients": ["Pikaia", "Grade A Egg", "Wheat", "Southern Bull Kelp"],
     "acquisition": "Complete Check the Control Room Entrance (last device)",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/pikaia_ramen.png)
+    "local_thumbnail": require('../../assets/recipe_images/pikaia_ramen.png')
   },
   {
     "name": "Pikaia Sushi",
@@ -2577,7 +2577,7 @@ const allRecipes = [
     "ingredients": ["Pikaia"],
     "acquisition": "Pikaia",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/pikaia_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/pikaia_sushi.png')
   },
   {
     "name": "Plotosid Pie",
@@ -2591,7 +2591,7 @@ const allRecipes = [
     "ingredients": ["Striped Catfish", "Wheat", "Onion", "Bean"],
     "acquisition": "Complete Whose Fried food is the Best?",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/plotosid_pie.png)
+    "local_thumbnail": require('../../assets/recipe_images/plotosid_pie.png')
   },
   {
     "name": "Polar Eelpout Sushi",
@@ -2605,7 +2605,7 @@ const allRecipes = [
     "ingredients": ["Polar Eelpout"],
     "acquisition": "Polar Eelpout",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/polar_eelpout_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/polar_eelpout_sushi.png')
   },
   {
     "name": "Porbeagle Shark Sushi",
@@ -2619,7 +2619,7 @@ const allRecipes = [
     "ingredients": ["Porbeagle Shark Meat"],
     "acquisition": "Porbeagle Shark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/porbeagle_shark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/porbeagle_shark_sushi.png')
   },
   {
     "name": "Pufferfish Dumpling Soup",
@@ -2633,7 +2633,7 @@ const allRecipes = [
     "ingredients": ["Longspine Porcupinefish", "Starry Puffer", "Egg", "Bladderwrack"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/pufferfish_dumpling_soup.png)
+    "local_thumbnail": require('../../assets/recipe_images/pufferfish_dumpling_soup.png')
   },
   {
     "name": "Purple Sea Urchin Sushi",
@@ -2647,7 +2647,7 @@ const allRecipes = [
     "ingredients": ["Purple Sea Urchin"],
     "acquisition": "Purple Sea Urchin",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/purple_sea_urchin_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/purple_sea_urchin_sushi.png')
   },
   {
     "name": "Pyramid Butterflyfish Sushi",
@@ -2661,7 +2661,7 @@ const allRecipes = [
     "ingredients": ["Pyramid Butterflyfish"],
     "acquisition": "Pyramid Butterflyfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/pyramid_butterflyfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/pyramid_butterflyfish_sushi.png')
   },
   {
     "name": "Qingmendous Sushi",
@@ -2675,7 +2675,7 @@ const allRecipes = [
     "ingredients": ["Qingmendous"],
     "acquisition": "Qingmendous",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/qingmendous_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/qingmendous_sushi.png')
   },
   {
     "name": "Radiant Squid Sushi",
@@ -2689,7 +2689,7 @@ const allRecipes = [
     "ingredients": ["Radiant Squid"],
     "acquisition": "Radiant Squid",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/radiant_squid_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/radiant_squid_sushi.png')
   },
   {
     "name": "Rainbow Cap Eel Skewers",
@@ -2703,7 +2703,7 @@ const allRecipes = [
     "ingredients": ["Snub-nosed Spiny Eel", "Rainbow Cap", "Soy Sauce"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/rainbow_cap_eel_skewers.png)
+    "local_thumbnail": require('../../assets/recipe_images/rainbow_cap_eel_skewers.png')
   },
   {
     "name": "Rainbow Cap Pacific Fanfish Ochazuke",
@@ -2717,7 +2717,7 @@ const allRecipes = [
     "ingredients": ["Pacific Fanfish", "Rainbow Cap", "Rice", "Kelp"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/rainbow_cap_pacific_fanfish_ochazuke.png)
+    "local_thumbnail": require('../../assets/recipe_images/rainbow_cap_pacific_fanfish_ochazuke.png')
   },
   {
     "name": "Rainbow Cap Triggerfish Fishcake",
@@ -2731,7 +2731,7 @@ const allRecipes = [
     "ingredients": ["Lagoon Triggerfish", "Grey Triggerfish", "Rainbow Cap", "Seaweed"],
     "acquisition": "Complete Fellow Alchemist and Magic Cauldron",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/rainbow_cap_triggerfish_fishcake.png)
+    "local_thumbnail": require('../../assets/recipe_images/rainbow_cap_triggerfish_fishcake.png')
   },
   {
     "name": "Rainbow Wrasse Sushi",
@@ -2745,7 +2745,7 @@ const allRecipes = [
     "ingredients": ["Rainbow Wrasse"],
     "acquisition": "Rainbow Wrasse",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/rainbow_wrasse_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/rainbow_wrasse_sushi.png')
   },
   {
     "name": "Raw Black Tiger Shrimp Sushi",
@@ -2759,7 +2759,7 @@ const allRecipes = [
     "ingredients": ["Black Tiger Shrimp"],
     "acquisition": "Black Tiger Shrimp",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/raw_black_tiger_shrimp_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/raw_black_tiger_shrimp_sushi.png')
   },
   {
     "name": "Red Lionfish Sushi",
@@ -2773,7 +2773,7 @@ const allRecipes = [
     "ingredients": ["Red Lionfish"],
     "acquisition": "Red Lionfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/red_lionfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/red_lionfish_sushi.png')
   },
   {
     "name": "Red bream Sushi",
@@ -2787,7 +2787,7 @@ const allRecipes = [
     "ingredients": ["Red Bream"],
     "acquisition": "Red Bream",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/red_bream_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/red_bream_sushi.png')
   },
   {
     "name": "Red-banded Lobster Sushi",
@@ -2801,7 +2801,7 @@ const allRecipes = [
     "ingredients": ["Red-banded Lobster"],
     "acquisition": "Red-banded Lobster",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/red_banded_lobster_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/red_banded_lobster_sushi.png')
   },
   {
     "name": "Redtoothed Triggerfish Sushi",
@@ -2815,7 +2815,7 @@ const allRecipes = [
     "ingredients": ["Redtoothed Triggerfish"],
     "acquisition": "Redtoothed Triggerfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/redtoothed_triggerfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/redtoothed_triggerfish_sushi.png')
   },
   {
     "name": "Rhinochimaeridae Sushi",
@@ -2829,7 +2829,7 @@ const allRecipes = [
     "ingredients": ["Rhinochimaeridae Meat"],
     "acquisition": "Rhinochimaeridae",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/rhinochimaeridae_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/rhinochimaeridae_sushi.png')
   },
   {
     "name": "Rice with Great Spider Crab Meat",
@@ -2843,7 +2843,7 @@ const allRecipes = [
     "ingredients": ["Spider Crab", "Rice", "Bean"],
     "acquisition": "Cooksta Diamond Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/rice_with_great_spider_crab_meat.png)
+    "local_thumbnail": require('../../assets/recipe_images/rice_with_great_spider_crab_meat.png')
   },
   {
     "name": "Rice with Purple Sea Urchin Sushi",
@@ -2857,7 +2857,7 @@ const allRecipes = [
     "ingredients": ["Purple Sea Urchin", "Rice", "Sesame Seed"],
     "acquisition": "Train Raptor to Level 10",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/rice_with_purple_sea_urchin_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/rice_with_purple_sea_urchin_sushi.png')
   },
   {
     "name": "Rice with White Shrimp Meat",
@@ -2871,7 +2871,7 @@ const allRecipes = [
     "ingredients": ["White Shrimp", "Rice", "Egg", "Soy Sauce"],
     "acquisition": "Train Kyoko to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/rice_with_white_shrimp_meat.png)
+    "local_thumbnail": require('../../assets/recipe_images/rice_with_white_shrimp_meat.png')
   },
   {
     "name": "Roasted Capelin",
@@ -2885,7 +2885,7 @@ const allRecipes = [
     "ingredients": ["Capelin", "Black Coral", "Turmeric"],
     "acquisition": "Train Drae to Level 10",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/roasted_capelin.png)
+    "local_thumbnail": require('../../assets/recipe_images/roasted_capelin.png')
   },
   {
     "name": "Roasted Helicoprion Tail",
@@ -2899,7 +2899,7 @@ const allRecipes = [
     "ingredients": ["Helicoprion Tail", "Seaweed", "Southern Bull Kelp", "Olive Oil"],
     "acquisition": "Defeat Helicoprion",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/roasted_helicoprion_tail.png)
+    "local_thumbnail": require('../../assets/recipe_images/roasted_helicoprion_tail.png')
   },
   {
     "name": "Roasted Tropical Fish and Garlic",
@@ -2913,7 +2913,7 @@ const allRecipes = [
     "ingredients": ["Clownfish", "Pyramid Butterflyfish", "Blue Tang", "Garlic"],
     "acquisition": "Train Tohoku to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/roasted_tropical_fish_and_garlic.png)
+    "local_thumbnail": require('../../assets/recipe_images/roasted_tropical_fish_and_garlic.png')
   },
   {
     "name": "Sailfish Sushi",
@@ -2927,7 +2927,7 @@ const allRecipes = [
     "ingredients": ["Sailfish Meat"],
     "acquisition": "Sailfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/sailfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/sailfish_sushi.png')
   },
   {
     "name": "Salema Porgy Sushi",
@@ -2941,7 +2941,7 @@ const allRecipes = [
     "ingredients": ["Salema Porgy"],
     "acquisition": "Salema Porgy",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/salema_porgy_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/salema_porgy_sushi.png')
   },
   {
     "name": "Sallow Sailfish Sushi",
@@ -2955,7 +2955,7 @@ const allRecipes = [
     "ingredients": ["Sallow Sailfish"],
     "acquisition": "Sallow Sailfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/sallow_sailfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/sallow_sailfish_sushi.png')
   },
   {
     "name": "Sally Lightfoot Crab Sushi",
@@ -2969,7 +2969,7 @@ const allRecipes = [
     "ingredients": ["Sally Lightfoot Crab"],
     "acquisition": "Sally Lightfoot Crab",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/sally_lightfoot_crab_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/sally_lightfoot_crab_sushi.png')
   },
   {
     "name": "Salmon Snailfish Sushi",
@@ -2983,7 +2983,7 @@ const allRecipes = [
     "ingredients": ["Salmon Snailfish"],
     "acquisition": "Salmon Snailfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/salmon_snailfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/salmon_snailfish_sushi.png')
   },
   {
     "name": "Salt-grilled Redtoothed Triggerfish",
@@ -2997,7 +2997,7 @@ const allRecipes = [
     "ingredients": ["Redtoothed Triggerfish", "Salt"],
     "acquisition": "Cooksta Bronze Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/salt_grilled_redtoothed_triggerfish.png)
+    "local_thumbnail": require('../../assets/recipe_images/salt_grilled_redtoothed_triggerfish.png')
   },
   {
     "name": "Savage Barracuda Sushi",
@@ -3011,7 +3011,7 @@ const allRecipes = [
     "ingredients": ["Savage Barracuda"],
     "acquisition": "Savage Barracuda",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/savage_barracuda_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/savage_barracuda_sushi.png')
   },
   {
     "name": "Scouring Bass Sushi",
@@ -3025,7 +3025,7 @@ const allRecipes = [
     "ingredients": ["Scouring Bass"],
     "acquisition": "Scouring Bass",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/scouring_bass_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/scouring_bass_sushi.png')
   },
   {
     "name": "Sea Goldie Sushi",
@@ -3039,7 +3039,7 @@ const allRecipes = [
     "ingredients": ["Sea Goldie"],
     "acquisition": "Sea Goldie",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/sea_goldie_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/sea_goldie_sushi.png')
   },
   {
     "name": "Sea Toad and Cucumber Gunkan Sushi",
@@ -3053,7 +3053,7 @@ const allRecipes = [
     "ingredients": ["Sea Toad", "Cucumber"],
     "acquisition": "Seasonal Event: Cucumber Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/sea_toad_and_cucumber_gunkan_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/sea_toad_and_cucumber_gunkan_sushi.png')
   },
   {
     "name": "Sea toad Sushi",
@@ -3067,7 +3067,7 @@ const allRecipes = [
     "ingredients": ["Sea Toad"],
     "acquisition": "Sea Toad",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/sea_toad_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/sea_toad_sushi.png')
   },
   {
     "name": "Seadragon Onigiri",
@@ -3081,7 +3081,7 @@ const allRecipes = [
     "ingredients": ["Seadragon"],
     "acquisition": "Seadragon",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seadragon_onigiri.png)
+    "local_thumbnail": require('../../assets/recipe_images/seadragon_onigiri.png')
   },
   {
     "name": "Seagrapes Jellyfish Sushi",
@@ -3095,7 +3095,7 @@ const allRecipes = [
     "ingredients": ["Sea Grape", "White Spotted Jellyfish", "Salt"],
     "acquisition": "Complete Gourmet Vincent's Challenge",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seagrapes_jellyfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/seagrapes_jellyfish_sushi.png')
   },
   {
     "name": "Seagrapes Special Sushi",
@@ -3109,7 +3109,7 @@ const allRecipes = [
     "ingredients": ["Sea Grape", "Rice"],
     "acquisition": "Cooksta Gold Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seagrapes_special_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/seagrapes_special_sushi.png')
   },
   {
     "name": "Seahorse Salad",
@@ -3123,7 +3123,7 @@ const allRecipes = [
     "ingredients": ["Long-Snouted Seahorse", "Cherry Tomato", "Sea Grape", "Olive Oil"],
     "acquisition": "Train Yone to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seahorse_salad.png)
+    "local_thumbnail": require('../../assets/recipe_images/seahorse_salad.png')
   },
   {
     "name": "Seahorse Skewers",
@@ -3137,7 +3137,7 @@ const allRecipes = [
     "ingredients": ["Long-Snouted Seahorse"],
     "acquisition": "Long-Snouted Seahorse",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seahorse_skewers.png)
+    "local_thumbnail": require('../../assets/recipe_images/seahorse_skewers.png')
   },
   {
     "name": "Seahorse Udon",
@@ -3151,7 +3151,7 @@ const allRecipes = [
     "ingredients": ["Long-Snouted Seahorse", "Wheat", "Miso"],
     "acquisition": "Cooksta Platinum Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seahorse_udon.png)
+    "local_thumbnail": require('../../assets/recipe_images/seahorse_udon.png')
   },
   {
     "name": "Seasoned Jellyfish",
@@ -3165,7 +3165,7 @@ const allRecipes = [
     "ingredients": ["Barrel Jellyfish", "Fried Egg Jellyfish", "Garlic", "Black Coral"],
     "acquisition": "Train James to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seasoned_jellyfish.png)
+    "local_thumbnail": require('../../assets/recipe_images/seasoned_jellyfish.png')
   },
   {
     "name": "Seasoned Kajime",
@@ -3179,7 +3179,7 @@ const allRecipes = [
     "ingredients": ["Kajime", "Black Vinegar"],
     "acquisition": "Cooksta Bronze Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seasoned_kajime.png)
+    "local_thumbnail": require('../../assets/recipe_images/seasoned_kajime.png')
   },
   {
     "name": "Seasoned Long-spine Porcupinefish Skin",
@@ -3193,7 +3193,7 @@ const allRecipes = [
     "ingredients": ["Longspine Porcupinefish", "Kelp", "Black Vinegar"],
     "acquisition": "Complete Otto's Gift?",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seasoned_long_spine_porcupinefish_skin.png)
+    "local_thumbnail": require('../../assets/recipe_images/seasoned_long_spine_porcupinefish_skin.png')
   },
   {
     "name": "Seasoned Waptia Fieldensis",
@@ -3207,7 +3207,7 @@ const allRecipes = [
     "ingredients": ["Waptia Fieldensis", "Cucumber", "Black Coral", "Black Vinegar"],
     "acquisition": "Seasonal Event: Cucumber Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seasoned_waptia_fieldensis.png)
+    "local_thumbnail": require('../../assets/recipe_images/seasoned_waptia_fieldensis.png')
   },
   {
     "name": "Seaweed Rolled Omelet",
@@ -3221,7 +3221,7 @@ const allRecipes = [
     "ingredients": ["Grade A Egg", "Seaweed", "Kelp"],
     "acquisition": "Train Pai to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seaweed_rolled_omelet.png)
+    "local_thumbnail": require('../../assets/recipe_images/seaweed_rolled_omelet.png')
   },
   {
     "name": "Seizing Snailfish Sushi",
@@ -3235,7 +3235,7 @@ const allRecipes = [
     "ingredients": ["Seizing Snailfish"],
     "acquisition": "Seizing Snailfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/seizing_snailfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/seizing_snailfish_sushi.png')
   },
   {
     "name": "Shark Karaage",
@@ -3249,7 +3249,7 @@ const allRecipes = [
     "ingredients": ["Blacktip Shark Meat", "Copper Shark Meat", "Wheat", "Olive Oil"],
     "acquisition": "Train Itsuki to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/shark_karaage.png)
+    "local_thumbnail": require('../../assets/recipe_images/shark_karaage.png')
   },
   {
     "name": "Shattered Wreckfish Sushi",
@@ -3263,7 +3263,7 @@ const allRecipes = [
     "ingredients": ["Shattered Wreckfish"],
     "acquisition": "Shattered Wreckfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/shattered_wreckfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/shattered_wreckfish_sushi.png')
   },
   {
     "name": "Sheepshead Sushi",
@@ -3277,7 +3277,7 @@ const allRecipes = [
     "ingredients": ["Sheepshead Meat"],
     "acquisition": "Sheepshead",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/sheepshead_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/sheepshead_sushi.png')
   },
   {
     "name": "Shortfin Mako Sushi",
@@ -3291,7 +3291,7 @@ const allRecipes = [
     "ingredients": ["Mako Meat"],
     "acquisition": "Shortfin Mako",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/shortfin_mako_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/shortfin_mako_sushi.png')
   },
   {
     "name": "Skewered Cucumber",
@@ -3305,7 +3305,7 @@ const allRecipes = [
     "ingredients": ["Cucumber"],
     "acquisition": "Seasonal Event: Cucumber Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/skewered_cucumber.png)
+    "local_thumbnail": require('../../assets/recipe_images/skewered_cucumber.png')
   },
   {
     "name": "Smallspotted Dart Kajime Soup",
@@ -3319,7 +3319,7 @@ const allRecipes = [
     "ingredients": ["Small Spotted Dart", "Kajime", "Soy Sauce"],
     "acquisition": "Train Maki/Liu to Level 5",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/smallspotted_dart_kajime_soup.png)
+    "local_thumbnail": require('../../assets/recipe_images/smallspotted_dart_kajime_soup.png')
   },
   {
     "name": "Smallspotted Dart Sushi",
@@ -3333,7 +3333,7 @@ const allRecipes = [
     "ingredients": ["Small Spotted Dart"],
     "acquisition": "Small Spotted Dart",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/smallspotted_dart_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/smallspotted_dart_sushi.png')
   },
   {
     "name": "Smoked Atlantic Mackerel Scramble",
@@ -3347,7 +3347,7 @@ const allRecipes = [
     "ingredients": ["Atlantic Mackerel", "Wheat", "Egg"],
     "acquisition": "Complete Whose Fried food is the Best?",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/smoked_atlantic_mackerel_scramble.png)
+    "local_thumbnail": require('../../assets/recipe_images/smoked_atlantic_mackerel_scramble.png')
   },
   {
     "name": "Smooth Hammerhead Sushi",
@@ -3361,7 +3361,7 @@ const allRecipes = [
     "ingredients": ["Hammerhead Meat"],
     "acquisition": "Smooth Hammerhead",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/smooth_hammerhead_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/smooth_hammerhead_sushi.png')
   },
   {
     "name": "Snow Crab Sushi",
@@ -3375,7 +3375,7 @@ const allRecipes = [
     "ingredients": ["Snow Crab"],
     "acquisition": "Snow Crab",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/snow_crab_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/snow_crab_sushi.png')
   },
   {
     "name": "Snub-nosed Spiny Eel Sushi",
@@ -3389,7 +3389,7 @@ const allRecipes = [
     "ingredients": ["Snub-nosed Spiny Eel"],
     "acquisition": "Snub-nosed Spiny Eel",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/snub_nosed_spiny_eel_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/snub_nosed_spiny_eel_sushi.png')
   },
   {
     "name": "Soy Sauce Marinated Crab",
@@ -3403,7 +3403,7 @@ const allRecipes = [
     "ingredients": ["Golden King Crab", "Snow Crab", "Horsehair Crab", "Soy Sauce"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/soy_sauce_marinated_crab.png)
+    "local_thumbnail": require('../../assets/recipe_images/soy_sauce_marinated_crab.png')
   },
   {
     "name": "Spear Squid Soba Futomaki",
@@ -3417,7 +3417,7 @@ const allRecipes = [
     "ingredients": ["Spear Squid", "Buckwheat", "Egg", "Carrot"],
     "acquisition": "Train Chitose to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/spear_squid_soba_futomaki.png)
+    "local_thumbnail": require('../../assets/recipe_images/spear_squid_soba_futomaki.png')
   },
   {
     "name": "Spear Squid Sushi",
@@ -3431,7 +3431,7 @@ const allRecipes = [
     "ingredients": ["Spear Squid"],
     "acquisition": "Spear Squid",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/spear_squid_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/spear_squid_sushi.png')
   },
   {
     "name": "Special Fried Shrimp Sushi",
@@ -3445,7 +3445,7 @@ const allRecipes = [
     "ingredients": ["Black Tiger Shrimp", "Whiteleg Shrimp", "Rice", "Olive Oil"],
     "acquisition": "Train Drae to Level 5",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/special_fried_shrimp_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/special_fried_shrimp_sushi.png')
   },
   {
     "name": "Spider Crab Sushi",
@@ -3459,7 +3459,7 @@ const allRecipes = [
     "ingredients": ["Spider Crab"],
     "acquisition": "Spider Crab",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/spider_crab_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/spider_crab_sushi.png')
   },
   {
     "name": "Splintered Crab Sushi",
@@ -3473,7 +3473,7 @@ const allRecipes = [
     "ingredients": ["Splintered Crab"],
     "acquisition": "Splintered Crab",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/splintered_crab_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/splintered_crab_sushi.png')
   },
   {
     "name": "Sprouting Eel Sushi",
@@ -3487,7 +3487,7 @@ const allRecipes = [
     "ingredients": ["Sprouting Eel"],
     "acquisition": "Sprouting Eel",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/sprouting_eel_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/sprouting_eel_sushi.png')
   },
   {
     "name": "Starry Skate Sushi",
@@ -3501,7 +3501,7 @@ const allRecipes = [
     "ingredients": ["Starry Skate"],
     "acquisition": "Starry Skate",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/starry_skate_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/starry_skate_sushi.png')
   },
   {
     "name": "Steamed Eastern Rock Lobster & Egg",
@@ -3515,7 +3515,7 @@ const allRecipes = [
     "ingredients": ["Eastern Rock Lobster", "Egg", "Kelp"],
     "acquisition": "Seasonal Event: Lobster Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/steamed_eastern_rock_lobster___egg.png)
+    "local_thumbnail": require('../../assets/recipe_images/steamed_eastern_rock_lobster___egg.png')
   },
   {
     "name": "Steamed Hyalonema Angler Fish",
@@ -3529,7 +3529,7 @@ const allRecipes = [
     "ingredients": ["Atlantic Anglerfish", "Hyalonema", "Soy Sauce"],
     "acquisition": "Complete Trapped in the Glacial Cave",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/steamed_hyalonema_angler_fish.png)
+    "local_thumbnail": require('../../assets/recipe_images/steamed_hyalonema_angler_fish.png')
   },
   {
     "name": "Steamed Kronosaurus Tongue",
@@ -3543,7 +3543,7 @@ const allRecipes = [
     "ingredients": ["Kronosaurus Tongue", "Seaweed", "Agar", "Southern Bull Kelp"],
     "acquisition": "Defeat Kronosaurus",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/steamed_kronosaurus_tongue.png)
+    "local_thumbnail": require('../../assets/recipe_images/steamed_kronosaurus_tongue.png')
   },
   {
     "name": "Steamed Wolf Eel",
@@ -3557,7 +3557,7 @@ const allRecipes = [
     "ingredients": ["Wolf Eel Tail Meat", "Agar", "Salt", "Black Vinegar"],
     "acquisition": "Defeat Giant Wolf Eel",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/steamed_wolf_eel.png)
+    "local_thumbnail": require('../../assets/recipe_images/steamed_wolf_eel.png')
   },
   {
     "name": "Stellate Puffer Nicogori",
@@ -3571,7 +3571,7 @@ const allRecipes = [
     "ingredients": ["Starry Puffer", "Agar", "Soy Sauce"],
     "acquisition": "Train specific Staff to Level 5",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/stellate_puffer_nicogori.png)
+    "local_thumbnail": require('../../assets/recipe_images/stellate_puffer_nicogori.png')
   },
   {
     "name": "Stellate Puffer Special Sushi",
@@ -3585,7 +3585,7 @@ const allRecipes = [
     "ingredients": ["Starry Puffer", "Rice"],
     "acquisition": "Cooksta Gold Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/stellate_puffer_special_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/stellate_puffer_special_sushi.png')
   },
   {
     "name": "Stingray Sashimi Cold Noodles",
@@ -3599,7 +3599,7 @@ const allRecipes = [
     "ingredients": ["Stingray Meat", "Buckwheat", "Egg"],
     "acquisition": "Complete Deliver Cold Noodles to Bartender",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/stingray_sashimi_cold_noodles.png)
+    "local_thumbnail": require('../../assets/recipe_images/stingray_sashimi_cold_noodles.png')
   },
   {
     "name": "Stingray Sushi",
@@ -3613,7 +3613,7 @@ const allRecipes = [
     "ingredients": ["Stingray Meat"],
     "acquisition": "Stingray",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/stingray_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/stingray_sushi.png')
   },
   {
     "name": "Stir-Fried Hermit Crab and Seaweed",
@@ -3627,7 +3627,7 @@ const allRecipes = [
     "ingredients": ["Truck Hermit Crab Legs", "Kajime", "Seaweed", "Black Vinegar"],
     "acquisition": "Defeat Truck Hermit Crab",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/stir_fried_hermit_crab_and_seaweed.png)
+    "local_thumbnail": require('../../assets/recipe_images/stir_fried_hermit_crab_and_seaweed.png')
   },
   {
     "name": "Stir-fried Habanero Lobster",
@@ -3641,7 +3641,7 @@ const allRecipes = [
     "ingredients": ["Norway Lobster", "Habanero", "Olive Oil"],
     "acquisition": "Seasonal Event: Lobster Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/stir_fried_habanero_lobster.png)
+    "local_thumbnail": require('../../assets/recipe_images/stir_fried_habanero_lobster.png')
   },
   {
     "name": "Striped Catfish Sushi",
@@ -3655,7 +3655,7 @@ const allRecipes = [
     "ingredients": ["Striped Catfish"],
     "acquisition": "Striped Catfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/striped_catfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/striped_catfish_sushi.png')
   },
   {
     "name": "Striped Red Mullet Sushi",
@@ -3669,7 +3669,7 @@ const allRecipes = [
     "ingredients": ["Striped Red Mullet"],
     "acquisition": "Striped Red Mullet",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/striped_red_mullet_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/striped_red_mullet_sushi.png')
   },
   {
     "name": "Striped Red Mullet Tangle Roll",
@@ -3683,7 +3683,7 @@ const allRecipes = [
     "ingredients": ["Striped Red Mullet", "Kelp"],
     "acquisition": "Cooksta Silver Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/striped_red_mullet_tangle_roll.png)
+    "local_thumbnail": require('../../assets/recipe_images/striped_red_mullet_tangle_roll.png')
   },
   {
     "name": "Sweet and Sour Stargazer",
@@ -3697,7 +3697,7 @@ const allRecipes = [
     "ingredients": ["Bluespotted Stargazer", "Wheat", "Egg", "Olive Oil"],
     "acquisition": "Complete Chinese Cuisine Contest!",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/sweet_and_sour_stargazer.png)
+    "local_thumbnail": require('../../assets/recipe_images/sweet_and_sour_stargazer.png')
   },
   {
     "name": "Three-Colored Squid Roast",
@@ -3711,7 +3711,7 @@ const allRecipes = [
     "ingredients": ["Peacock Squid", "Vampire Squid", "Cuttlefish", "Salt"],
     "acquisition": "Train Liu to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/three_colored_squid_roast.png)
+    "local_thumbnail": require('../../assets/recipe_images/three_colored_squid_roast.png')
   },
   {
     "name": "Three-Headed Cod Sushi",
@@ -3725,7 +3725,7 @@ const allRecipes = [
     "ingredients": ["Three-Headed Cod"],
     "acquisition": "Three-Headed Cod",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/three_headed_cod_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/three_headed_cod_sushi.png')
   },
   {
     "name": "Threetooth Puffer Sushi",
@@ -3739,7 +3739,7 @@ const allRecipes = [
     "ingredients": ["Threetooth Puffer"],
     "acquisition": "Threetooth Puffer",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/threetooth_puffer_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/threetooth_puffer_sushi.png')
   },
   {
     "name": "Thresher Shark Sushi",
@@ -3753,7 +3753,7 @@ const allRecipes = [
     "ingredients": ["Thresher Shark Meat"],
     "acquisition": "Thresher Shark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/thresher_shark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/thresher_shark_sushi.png')
   },
   {
     "name": "Tiger shark Sushi",
@@ -3767,7 +3767,7 @@ const allRecipes = [
     "ingredients": ["Tiger Shark Meat"],
     "acquisition": "Tiger Shark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/tiger_shark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/tiger_shark_sushi.png')
   },
   {
     "name": "Titan Triggerfish Sushi",
@@ -3781,7 +3781,7 @@ const allRecipes = [
     "ingredients": ["Titan Triggerfish"],
     "acquisition": "Titan Triggerfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/titan_triggerfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/titan_triggerfish_sushi.png')
   },
   {
     "name": "Tokummia Katalepsi Sushi",
@@ -3795,7 +3795,7 @@ const allRecipes = [
     "ingredients": ["Tokummia Katalepsis"],
     "acquisition": "Tokummia Katalepsis",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/tokummia_katalepsi_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/tokummia_katalepsi_sushi.png')
   },
   {
     "name": "Tomato Egg Soup",
@@ -3809,7 +3809,7 @@ const allRecipes = [
     "ingredients": ["Grade A Egg", "Cherry Tomato", "Black Pepper"],
     "acquisition": "Complete Chinese Cuisine Contest!",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/tomato_egg_soup.png)
+    "local_thumbnail": require('../../assets/recipe_images/tomato_egg_soup.png')
   },
   {
     "name": "Translucent Sturgeon Sushi",
@@ -3823,7 +3823,7 @@ const allRecipes = [
     "ingredients": ["Translucent Sturgeon"],
     "acquisition": "Translucent Sturgeon",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/translucent_sturgeon_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/translucent_sturgeon_sushi.png')
   },
   {
     "name": "Trevally Nanbanzuke",
@@ -3837,7 +3837,7 @@ const allRecipes = [
     "ingredients": ["White Trevally", "Onion", "Soy Sauce", "Olive Oil"],
     "acquisition": "Train Maki to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/trevally_nanbanzuke.png)
+    "local_thumbnail": require('../../assets/recipe_images/trevally_nanbanzuke.png')
   },
   {
     "name": "Trevally Sandwich",
@@ -3851,7 +3851,7 @@ const allRecipes = [
     "ingredients": ["Giant Trevally Meat", "Bigeye Trevally", "Cucumber"],
     "acquisition": "Seasonal Event: Cucumber Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/trevally_sandwich.png)
+    "local_thumbnail": require('../../assets/recipe_images/trevally_sandwich.png')
   },
   {
     "name": "Tropical Fish Sushi Set",
@@ -3865,7 +3865,7 @@ const allRecipes = [
     "ingredients": ["Titan Triggerfish", "Harlequin Hind", "Coral Trout", "Rice"],
     "acquisition": "Complete Michael Bang's Inspiration",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/tropical_fish_sushi_set.png)
+    "local_thumbnail": require('../../assets/recipe_images/tropical_fish_sushi_set.png')
   },
   {
     "name": "Tropical Rock Lobster Sushi",
@@ -3879,7 +3879,7 @@ const allRecipes = [
     "ingredients": ["Tropical Rock Lobster"],
     "acquisition": "Tropical Rock Lobster",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/tropical_rock_lobster_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/tropical_rock_lobster_sushi.png')
   },
   {
     "name": "Trout Sea Grapes Ricebowl",
@@ -3893,7 +3893,7 @@ const allRecipes = [
     "ingredients": ["Coral Trout", "Sea Grape", "Rice", "Soy Sauce"],
     "acquisition": "Cooksta Gold Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/trout_sea_grapes_ricebowl.png)
+    "local_thumbnail": require('../../assets/recipe_images/trout_sea_grapes_ricebowl.png')
   },
   {
     "name": "Truffle Blue Lobster Tail Sushi",
@@ -3907,7 +3907,7 @@ const allRecipes = [
     "ingredients": ["Blue Lobster", "Truffle"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/truffle_blue_lobster_tail_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/truffle_blue_lobster_tail_sushi.png')
   },
   {
     "name": "Truffle Sailfish Tartare",
@@ -3921,7 +3921,7 @@ const allRecipes = [
     "ingredients": ["Sailfish Meat", "Purple Sea Urchin", "Truffle"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/truffle_sailfish_tartare.png)
+    "local_thumbnail": require('../../assets/recipe_images/truffle_sailfish_tartare.png')
   },
   {
     "name": "Truffle Shark Sandwich",
@@ -3935,7 +3935,7 @@ const allRecipes = [
     "ingredients": ["Frilled Shark Meat", "Megamouth Shark Meat", "Truffle"],
     "acquisition": "Jango",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/truffle_shark_sandwich.png)
+    "local_thumbnail": require('../../assets/recipe_images/truffle_shark_sandwich.png')
   },
   {
     "name": "Tusked Grouper Sushi",
@@ -3949,7 +3949,7 @@ const allRecipes = [
     "ingredients": ["Tusked Grouper"],
     "acquisition": "Tusked Grouper",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/tusked_grouper_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/tusked_grouper_sushi.png')
   },
   {
     "name": "Vampire Squid Sushi",
@@ -3963,7 +3963,7 @@ const allRecipes = [
     "ingredients": ["Vampire Squid"],
     "acquisition": "Vampire Squid",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/vampire_squid_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/vampire_squid_sushi.png')
   },
   {
     "name": "Vegetable Sushi",
@@ -3977,7 +3977,7 @@ const allRecipes = [
     "ingredients": ["Rice", "Carrot", "Eggplant"],
     "acquisition": "Complete Good Ol' Vegetable Sushi!",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/vegetable_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/vegetable_sushi.png')
   },
   {
     "name": "Voltaic Grouper Sushi",
@@ -3991,7 +3991,7 @@ const allRecipes = [
     "ingredients": ["Voltaic Grouper"],
     "acquisition": "Voltaic Grouper",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/voltaic_grouper_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/voltaic_grouper_sushi.png')
   },
   {
     "name": "Waptia Sushi",
@@ -4005,7 +4005,7 @@ const allRecipes = [
     "ingredients": ["Waptia Fieldensis"],
     "acquisition": "Waptia Fieldensis",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/waptia_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/waptia_sushi.png')
   },
   {
     "name": "Warm Atlantic Mackerel Soba",
@@ -4019,7 +4019,7 @@ const allRecipes = [
     "ingredients": ["Atlantic Mackerel", "Buckwheat", "Seaweed", "Soy Sauce"],
     "acquisition": "Train Hamako to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/warm_atlantic_mackerel_soba.png)
+    "local_thumbnail": require('../../assets/recipe_images/warm_atlantic_mackerel_soba.png')
   },
   {
     "name": "White Shark Omelet",
@@ -4033,7 +4033,7 @@ const allRecipes = [
     "ingredients": ["Klaus's Fin", "Grade A Egg"],
     "acquisition": "Defeat Klaus",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/white_shark_omelet.png)
+    "local_thumbnail": require('../../assets/recipe_images/white_shark_omelet.png')
   },
   {
     "name": "White Shrimp Sushi",
@@ -4047,7 +4047,7 @@ const allRecipes = [
     "ingredients": ["White Shrimp"],
     "acquisition": "White Shrimp",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/white_shrimp_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/white_shrimp_sushi.png')
   },
   {
     "name": "White Spotted Jellyfish Sushi",
@@ -4061,7 +4061,7 @@ const allRecipes = [
     "ingredients": ["White Spotted Jellyfish"],
     "acquisition": "White Spotted Jellyfish",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/white_spotted_jellyfish_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/white_spotted_jellyfish_sushi.png')
   },
   {
     "name": "White Trevally Kombu Ochazuke",
@@ -4075,7 +4075,7 @@ const allRecipes = [
     "ingredients": ["White Trevally", "Kelp", "Soy Sauce"],
     "acquisition": "Cooksta Silver Rank",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/white_trevally_kombu_ochazuke.png)
+    "local_thumbnail": require('../../assets/recipe_images/white_trevally_kombu_ochazuke.png')
   },
   {
     "name": "White Trevally Sushi",
@@ -4089,7 +4089,7 @@ const allRecipes = [
     "ingredients": ["White Trevally"],
     "acquisition": "White Trevally",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/white_trevally_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/white_trevally_sushi.png')
   },
   {
     "name": "Whitetip Reefshark Sushi",
@@ -4103,7 +4103,7 @@ const allRecipes = [
     "ingredients": ["Whitetip Reefshark Meat"],
     "acquisition": "Whitetip Reefshark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/whitetip_reefshark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/whitetip_reefshark_sushi.png')
   },
   {
     "name": "Whole-Roasted Shark Head",
@@ -4117,7 +4117,7 @@ const allRecipes = [
     "ingredients": ["Whitetip Reefshark Head", "Olive Oil"],
     "acquisition": "Complete A Scolding from Yoshie",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/whole_roasted_shark_head.png)
+    "local_thumbnail": require('../../assets/recipe_images/whole_roasted_shark_head.png')
   },
   {
     "name": "Withered Ray Sushi",
@@ -4131,7 +4131,7 @@ const allRecipes = [
     "ingredients": ["Withered Ray"],
     "acquisition": "Withered Ray",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/withered_ray_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/withered_ray_sushi.png')
   },
   {
     "name": "Wrasse Curry",
@@ -4145,7 +4145,7 @@ const allRecipes = [
     "ingredients": ["Rainbow Wrasse", "Ornate Wrasse", "Bean", "Curry Block"],
     "acquisition": "Train Jandi to Level 15",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/wrasse_curry.png)
+    "local_thumbnail": require('../../assets/recipe_images/wrasse_curry.png')
   },
   {
     "name": "Xenacanthus Sushi",
@@ -4159,7 +4159,7 @@ const allRecipes = [
     "ingredients": ["Xenacanthus Meat"],
     "acquisition": "Xenacanthus Meat",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/xenacanthus_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/xenacanthus_sushi.png')
   },
   {
     "name": "Yawie Steamed Meat",
@@ -4173,7 +4173,7 @@ const allRecipes = [
     "ingredients": ["Yawie's Inner Flesh", "Salt"],
     "acquisition": "Defeat Yawie",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/yawie_steamed_meat.png)
+    "local_thumbnail": require('../../assets/recipe_images/yawie_steamed_meat.png')
   },
   {
     "name": "Yellow Tang Sushi",
@@ -4187,7 +4187,7 @@ const allRecipes = [
     "ingredients": ["Yellow Tang"],
     "acquisition": "Yellow Tang",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/yellow_tang_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/yellow_tang_sushi.png')
   },
   {
     "name": "Yellowback Fusilier Sushi",
@@ -4201,7 +4201,7 @@ const allRecipes = [
     "ingredients": ["Yellowback Fusilier"],
     "acquisition": "Yellowback Fusilier",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/yellowback_fusilier_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/yellowback_fusilier_sushi.png')
   },
   {
     "name": "Yellowfin Tuna Akami Sushi",
@@ -4215,7 +4215,7 @@ const allRecipes = [
     "ingredients": ["Yellowfin Tuna Akami"],
     "acquisition": "Yellowfin Tuna Akami",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/yellowfin_tuna_akami_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/yellowfin_tuna_akami_sushi.png')
   },
   {
     "name": "Yellowfin Tuna Chutoro Sushi",
@@ -4229,7 +4229,7 @@ const allRecipes = [
     "ingredients": ["Yellowfin Tuna Chutoro"],
     "acquisition": "Yellowfin Tuna Chutoro",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/yellowfin_tuna_chutoro_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/yellowfin_tuna_chutoro_sushi.png')
   },
   {
     "name": "Yellowfin Tuna Ootoro Sushi",
@@ -4243,7 +4243,7 @@ const allRecipes = [
     "ingredients": ["Yellowfin Tuna Ootoro"],
     "acquisition": "Yellowfin Tuna Ootoro",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/yellowfin_tuna_ootoro_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/yellowfin_tuna_ootoro_sushi.png')
   },
   {
     "name": "Yellowfin Tuna Steak",
@@ -4257,7 +4257,7 @@ const allRecipes = [
     "ingredients": ["Yellowfin Tuna Chutoro", "Cherry Tomato", "Olive Oil"],
     "acquisition": "Seasonal Event: Tuna Party",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/yellowfin_tuna_steak.png)
+    "local_thumbnail": require('../../assets/recipe_images/yellowfin_tuna_steak.png')
   },
   {
     "name": "Young Anomalocaris Sushi",
@@ -4271,7 +4271,7 @@ const allRecipes = [
     "ingredients": ["Anomalocaris"],
     "acquisition": "Anomalocaris",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/young_anomalocaris_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/young_anomalocaris_sushi.png')
   },
   {
     "name": "Zebra Shark Sushi",
@@ -4285,7 +4285,7 @@ const allRecipes = [
     "ingredients": ["Zebra Shark Meat"],
     "acquisition": "Zebra Shark",
     "image_filename": "",
-    "local_thumbnail": require('../../'assets/recipe_images/zebra_shark_sushi.png)
+    "local_thumbnail": require('../../assets/recipe_images/zebra_shark_sushi.png')
   }
 ];
 
