@@ -1,6 +1,6 @@
 // FILE: src/screens/RecipesScreen.js
 
-import React, { useState, useEffect, useRef } from 'react'; // 🆕 Import useRef
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -13,9 +13,8 @@ import {
   Dimensions,
   // Removed TextInput as it's not present in this file's current version
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // 🆕 Import useNavigation hook
-import allRecipes from '../data/allRecipes';
-// 🆕 Import getAllMarineLife to check if ingredient is a marine life
+import { useNavigation } from '@react-navigation/native';
+import allRecipes from '../data/allRecipes'; // This will now contain pre-required images
 import { getAllMarineLife } from '../utils/marineLifeDatabase';
 
 
@@ -23,30 +22,28 @@ import { getAllMarineLife } from '../utils/marineLifeDatabase';
 const { width: windowWidth } = Dimensions.get('window');
 
 
-// Convert recipe name to local image filename
-const getRecipeImagePath = (recipeName) => {
-  // Convert recipe name to filename format (lowercase, replace spaces/special chars with underscores)
-  const filename = recipeName
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, '_')
-    .replace(/_+/g, '_')
-    .replace(/^_|_$/g, '') + '.png';
-  try {
-    // This assumes the images are directly in `src/assets/recipe_images` based on your file structure.
-    return require(`../../assets/recipe_images/${filename}`);
-  } catch (error) {
-    // console.warn(`Recipe image not found for: ${recipeName} (${filename})`); // Uncomment for debugging missing images
-    return null;
-  }
-};
+// Removed: getRecipeImagePath function is no longer needed
+// const getRecipeImagePath = (recipeName) => {
+//   const filename = recipeName
+//     .toLowerCase()
+//     .replace(/[^a-z0-9]/g, '_')
+//     .replace(/_+/g, '_')
+//     .replace(/^_|_$/g, '') + '.png';
+//   try {
+//     return require(`../../assets/recipe_images/${filename}`);
+//   } catch (error) {
+//     console.warn(`Recipe image not found for: ${recipeName} (${filename})`);
+//     return null;
+//   }
+// };
 
 
 const RecipesScreen = () => {
-  const navigation = useNavigation(); // 🆕 Initialize useNavigation hook
+  const navigation = useNavigation();
   // State management
   const [recipeList, setRecipeList] = useState(allRecipes);
   const [filteredRecipes, setFilteredRecipes] = useState(allRecipes);
-  const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(-1); // 🆕 Track index for swiping
+  const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(-1);
   const [modalVisible, setModalVisible] = useState(false);
   const [filtersVisible, setFiltersVisible] = useState(false);
   // Filter states
@@ -55,7 +52,7 @@ const RecipesScreen = () => {
   const [sourceFilter, setSourceFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
 
-  const swipeFlatListRef = useRef(null); // 🆕 Ref for horizontal FlatList in modal
+  const swipeFlatListRef = useRef(null);
 
   // Apply filters whenever filter states change
   useEffect(() => {
@@ -65,17 +62,16 @@ const RecipesScreen = () => {
   // Use another useEffect to scroll to the selected item when modal opens or index changes
   useEffect(() => {
     if (modalVisible && swipeFlatListRef.current && selectedRecipeIndex !== -1) {
-      // Use setTimeout to ensure the FlatList has rendered before attempting to scroll
       setTimeout(() => {
         swipeFlatListRef.current.scrollToIndex({
           index: selectedRecipeIndex,
-          animated: false, // Set to true for smooth animation, false for instant jump
+          animated: false,
           viewOffset: 0,
-          viewPosition: 0, // 0 is start, 0.5 is center, 1 is end
+          viewPosition: 0,
         });
-      }, 50); // Small delay to allow FlatList to render its items
+      }, 50);
     }
-  }, [modalVisible, selectedRecipeIndex, filteredRecipes]); // Depend on filteredRecipes to re-scroll if filter changes while modal is open
+  }, [modalVisible, selectedRecipeIndex, filteredRecipes]);
 
   const applyFilters = () => {
     let filtered = [...recipeList];
@@ -318,10 +314,8 @@ const RecipesScreen = () => {
 
 
   const renderRecipeItem = ({ item, index }) => { // 🆕 index is now available from FlatList
-    const thumbnailKey = item.name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
-    const thumbnailSource = getRecipeImagePath(item.name); // Using the helper function
-
-
+    // ⚠️ MODIFIED: Direct access to item.local_thumbnail (which should be pre-required)
+    const thumbnailSource = item.local_thumbnail; // This expects item.local_thumbnail to be the 'require'd image
 
 
     return (
@@ -366,9 +360,10 @@ const RecipesScreen = () => {
 
           <View style={styles.modalImageContainer}>
             <View style={styles.modalPlaceholderImage}>
-              {getRecipeImagePath(recipe.name) ? (
+              {/* ⚠️ MODIFIED: Direct access to recipe.local_thumbnail */}
+              {recipe.local_thumbnail ? (
                 <Image
-                  source={getRecipeImagePath(recipe.name)}
+                  source={recipe.local_thumbnail} // Direct usage of the pre-resolved image
                   style={styles.modalRecipeImage}
                   resizeMode="contain"
                 />
