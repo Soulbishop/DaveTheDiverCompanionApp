@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
-// Import screens
+// Import screens - CORRECTED IMPORT PATH
 import MarineLifeScreen from './src/screens/MarineLifeScreen';
 import RecipesScreen from './src/screens/RecipesScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
@@ -88,8 +88,7 @@ export default function App() {
               <Text style={{ color, fontSize: size }}>🐟</Text>
             ),
           }}
-          // 🆕 MODIFIED: Pass marineLifeList and setMarineLifeList as props
-          // This also allows MarineLifeScreen to receive parameters for deep linking
+          // Pass marineLifeList and setMarineLifeList as props
         >
           {(props) => <MarineLifeScreen {...props} marineLifeList={marineLifeList} setMarineLifeList={setMarineLifeList} />}
         </Tab.Screen>
@@ -151,3 +150,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
