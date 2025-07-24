@@ -173,16 +173,29 @@ const RecipesScreen = () => {
               pagingEnabled
               showsHorizontalScrollIndicator={false}
               initialScrollIndex={selectedRecipeIndex}
-              getItemLayout={(data, index) => (
-                { length: windowWidth * 0.9, offset: (windowWidth * 0.9) * index, index }
-              )}
+              getItemLayout={(data, index) => {
+                const cardBaseWidth = windowWidth * 0.9;
+                const cardHorizontalMargin = 8; // From styles.detailedRecipeCard
+                const totalCardWidthWithMargins = cardBaseWidth + (cardHorizontalMargin * 2);
+                return {
+                  length: totalCardWidthWithMargins,
+                  offset: totalCardWidthWithMargins * index,
+                  index,
+                };
+              }}
+
               onScrollEndDrag={(event) => {
                 const contentOffsetX = event.nativeEvent.contentOffset.x;
-                const newIndex = Math.round(contentOffsetX / (windowWidth * 0.9));
+                // Important: Use the same totalCardWidthWithMargins for calculation here
+                const cardBaseWidth = windowWidth * 0.9;
+                const cardHorizontalMargin = 8;
+                const totalCardWidthWithMargins = cardBaseWidth + (cardHorizontalMargin * 2);
+                const newIndex = Math.round(contentOffsetX / totalCardWidthWithMargins);
                 if (newIndex !== selectedRecipeIndex) {
                   setSelectedRecipeIndex(newIndex);
                 }
               }}
+
               style={styles.modalFlatList}
               contentContainerStyle={{ alignItems: 'center' }}
             />
