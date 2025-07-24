@@ -30,6 +30,31 @@ const RecipesScreen = () => {
     setRecipes(allRecipes);
     setFilteredRecipes(allRecipes);
   }, []);
+  // Effect to explicitly scroll the FlatList to the selected item when the modal opens
+  useEffect(() => {
+    if (modalVisible && selectedRecipeIndex !== -1 && swipeFlatListRef.current) {
+      // Use requestAnimationFrame to defer scrolling until after the next render cycle,
+      // ensuring the FlatList has fully laid out its content before attempting to scroll.
+      requestAnimationFrame(() => {
+        try {
+          // Calculate the full width of an item, including its margins.
+          // This should match the snapToInterval, getItemLayout, and renderDetailedRecipeCard's own width + margins.
+          const itemFullWidth = (windowWidth * 0.9) + (4 * 2); // (windowWidth * 0.9) + 8
+          swipeFlatListRef.current.scrollToIndex({
+            index: selectedRecipeIndex,
+            animated: false, // Set to false for an immediate jump without animation on open
+            // offset: 0, // No specific offset needed if snapToAlignment='center' is working
+            // viewPosition: 0.5, // Optional: attempts to place item in center of view if not using snapToAlignment
+          });
+        } catch (e) {
+          console.warn('Failed to scroll to index on modal open:', e);
+          // In case of an error (e.g., FlatList not yet fully measured, or index out of bounds),
+          // you might consider a fallback, such as closing the modal or resetting the index.
+          // For now, logging the warning is sufficient.
+        }
+      });
+    }
+  }, [modalVisible, selectedRecipeIndex, filteredRecipes.length]); // Dependencies: Re-run when these values change.
 
   const openRecipeModal = (index) => {
     setSelectedRecipeIndex(index);
