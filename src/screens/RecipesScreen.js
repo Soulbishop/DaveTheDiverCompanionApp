@@ -49,7 +49,7 @@ const RecipesScreen = () => {
       <Image
         source={item.local_thumbnail}
         style={styles.recipeImage}
-        defaultSource={require('../../assets/recipe_images/placeholder_recipe.png')}
+        
       />
       <View style={styles.recipeInfo}>
         <Text style={styles.recipeName}>{item.name}</Text>
@@ -72,7 +72,7 @@ const RecipesScreen = () => {
         <Image
           source={item.local_thumbnail}
           style={styles.recipeDetailImage}
-          defaultSource={require('../../assets/recipe_images/placeholder_recipe.png')}
+          
         />
       </View>
       <View style={styles.recipeDetailsContainer}>
