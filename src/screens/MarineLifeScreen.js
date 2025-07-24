@@ -1,4 +1,4 @@
-﻿// FILE LOCATION: src/screens/MarineLifeScreen.js
+// FILE LOCATION: src/screens/MarineLifeScreen.js
 // ENHANCED VERSION WITH CATEGORY FILTERS - BASED ON YOUR FIXED WORKING FILE
 // Generated automatically for ALL 206 marine life entries
 
@@ -257,6 +257,11 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   const [zoneFilter, setZoneFilter] = useState('all');
   const [timeFilter, setTimeFilter] = useState('all');
 
+  // 🆕 NEW: State for the index of the selected fish in the filtered list for swiping
+  const [selectedFishIndex, setSelectedFishIndex] = useState(-1);
+  // 🆕 NEW: Ref for controlling the FlatList in the modal
+  const swipeFlatListRef = useRef(null);
+
 
   // Load marine life data when component mounts
   useEffect(() => {
@@ -270,15 +275,26 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   }, [marineLifeList, searchText, filterType, zoneFilter, timeFilter]);
 
 
-  // 🔧 PRESERVED: Modal state bug fix
+  // 🔧 PRESERVED & MODIFIED: Modal state bug fix and update selectedFishIndex
   useEffect(() => {
     if (selectedFish && marineLifeList) {
       const updatedFish = marineLifeList.find(fish => fish.name === selectedFish.name);
       if (updatedFish) {
         setSelectedFish(updatedFish);
+        // Find the index of the updated fish in the *currently filtered* list
+        // This is crucial for initialScrollIndex
+        const indexInFiltered = filteredMarineLife.findIndex(fish => fish.name === updatedFish.name);
+        if (indexInFiltered !== -1) {
+            setSelectedFishIndex(indexInFiltered);
+            // Optionally scroll to the item if the modal is already open and filters change
+            // This might cause a visual jump if the list changes drastically while open
+            if (modalVisible && swipeFlatListRef.current) {
+                swipeFlatListRef.current.scrollToIndex({ index: indexInFiltered, animated: false });
+            }
+        }
       }
     }
-  }, [marineLifeList]);
+  }, [marineLifeList, selectedFish, filteredMarineLife, modalVisible]); // Add filteredMarineLife and modalVisible dependencies
 
 
   const loadMarineLifeData = async () => {
@@ -386,13 +402,18 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
 
   const openFishCard = (fish) => {
     setSelectedFish(fish);
+    // Find the index of the clicked fish within the *currently filtered* list
+    const initialIndex = filteredMarineLife.findIndex(item => item.name === fish.name);
+    setSelectedFishIndex(initialIndex);
     setModalVisible(true);
   };
 
 
-  const closeFishCard = () => {
+  // 🆕 MODIFIED: Renamed to closeModal for consistency
+  const closeModal = () => {
     setModalVisible(false);
     setSelectedFish(null);
+    setSelectedFishIndex(-1); // Reset index when closing
   };
 
 
@@ -465,23 +486,14 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   );
 
 
-  const renderFishCard = () => {
-    if (!selectedFish) return null;
-
+  // 🆕 NEW: Function specifically for rendering individual detailed fish cards within the modal's FlatList
+  const renderDetailedFishCard = ({ item: fish }) => {
+    if (!fish) return null; // Safety check
 
     return (
-      <ScrollView style={styles.modalContent}>
-        <View style={styles.modalHeader}>
-          <Text style={styles.modalTitle}>{selectedFish.name}</Text>
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={closeFishCard}
-          >
-            <Text style={styles.closeButtonText}>×</Text>
-          </TouchableOpacity>
-        </View>
-
-
+      <ScrollView style={[styles.modalContent, {width: windowWidth * 0.9}]}> {/* Adjust width for modal's FlatList */}
+        {/* The modal header is now fixed above this FlatList, so no header here */}
+        
         {/* 🖼️ PRESERVED: Placeholder in modal */}
         <View style={styles.modalImageContainer}>
           <View style={styles.modalPlaceholderImage}>
@@ -494,38 +506,38 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         <View style={styles.detailsContainer}>
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Zone:</Text>
-            <Text style={styles.detailValue}>{selectedFish.zone}</Text>
+            <Text style={styles.detailValue}>{fish.zone}</Text>
           </View>
 
 
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Weight:</Text>
-            <Text style={styles.detailValue}>{selectedFish.weight}</Text>
+            <Text style={styles.detailValue}>{fish.weight}</Text>
           </View>
 
 
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Active Time:</Text>
-            <Text style={styles.detailValue}>{selectedFish.active_time}</Text>
+            <Text style={styles.detailValue}>{fish.active_time}</Text>
           </View>
 
 
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Difficulty:</Text>
-            <Text style={styles.detailValue}>{'★'.repeat(selectedFish.difficulty)}</Text>
+            <Text style={styles.detailValue}>{'★'.repeat(fish.difficulty)}</Text>
           </View>
 
 
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Best Method:</Text>
-            <Text style={styles.detailValue}>{selectedFish.best_capture_method}</Text>
+            <Text style={styles.detailValue}>{fish.best_capture_method}</Text>
           </View>
 
 
-          {selectedFish.recipes && selectedFish.recipes.length > 0 && (
+          {fish.recipes && fish.recipes.length > 0 && (
             <View style={styles.recipesContainer}>
               <Text style={styles.recipesTitle}>Used in Recipes:</Text>
-              {selectedFish.recipes.map((recipe, index) => (
+              {fish.recipes.map((recipe, index) => (
                 <Text key={index} style={styles.recipeItem}>• {recipe}</Text>
               ))}
             </View>
@@ -536,12 +548,12 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
             <TouchableOpacity
               style={[
                 styles.modalToggleButton,
-                selectedFish.caught ? styles.caughtButton : styles.uncaughtButton
+                fish.caught ? styles.caughtButton : styles.uncaughtButton
               ]}
-              onPress={() => toggleCaught(selectedFish.name)}
+              onPress={() => toggleCaught(fish.name)}
             >
               <Text style={styles.modalButtonText}>
-                {selectedFish.caught ? 'Caught ✓' : 'Not Caught o'}
+                {fish.caught ? 'Caught ✓' : 'Not Caught o'}
               </Text>
             </TouchableOpacity>
 
@@ -549,12 +561,12 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
             <TouchableOpacity
               style={[
                 styles.modalToggleButton,
-                selectedFish.breeding_pair ? styles.breedingButton : styles.noBreedingButton
+                fish.breeding_pair ? styles.breedingButton : styles.noBreedingButton
               ]}
-              onPress={() => toggleBreedingPair(selectedFish.name)}
+              onPress={() => toggleBreedingPair(fish.name)}
             >
               <Text style={styles.modalButtonText}>
-                {selectedFish.breeding_pair ? 'Breeding Pair ♥' : 'No Breeding Pair o'}
+                {fish.breeding_pair ? 'Breeding Pair ♥' : 'No Breeding Pair o'}
               </Text>
             </TouchableOpacity>
           </View>
@@ -902,42 +914,19 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
 
 
       
-  // Fish Detail Modal with Swipeable Functionality
+  {/* Fish Detail Modal with Swipeable Functionality */}
   <Modal
     animationType="slide"
     transparent={true}
     visible={modalVisible}
-    onRequestClose={closeModal}
+    onRequestClose={closeModal} // Using the renamed function
   >
     <View style={styles.modalOverlay}>
-      {/* Swipable FlatList for detailed cards */}
-      {modalVisible && filteredMarineLife.length > 0 && selectedFishIndex !== -1 && (
-        <FlatList
-          ref={swipeFlatListRef} // Attach ref here
-          data={filteredMarineLife}
-          renderItem={renderDetailedFishCard}
-          keyExtractor={item => item.name}
-          horizontal // Make this FlatList horizontal
-          pagingEnabled // Enable snapping to full pages
-          showsHorizontalScrollIndicator={false}
-          initialScrollIndex={selectedFishIndex} // Start at the selected item
-          getItemLayout={(data, index) => ( // Optimize scrolling performance
-            { length: windowWidth * 0.9, offset: (windowWidth * 0.9) * index, index }
-          )}
-          onScrollEndDrag={(event) => {
-            const contentOffsetX = event.nativeEvent.contentOffset.x;
-            // Calculate new index based on modal page width (windowWidth * 0.9)
-            const newIndex = Math.round(contentOffsetX / (windowWidth * 0.9));
-            if (newIndex !== selectedFishIndex) {
-              setSelectedFishIndex(newIndex);
-            }
-          }}
-          style={styles.modalFlatList} // NEW STYLE for modal FlatList
-        />
-      )}
-      {modalVisible && ( // Display modal header only when modal is visible
-         <View style={styles.modalHeaderFixed}> {/* NEW STYLE for fixed header */}
+      {/* 🆕 NEW: Fixed Modal Header to be always visible */}
+      {modalVisible && (
+         <View style={styles.modalHeaderFixed}>
            <Text style={styles.modalTitle}>
+             {/* Display name of the currently selected fish for the header */}
              {selectedFishIndex !== -1 ? filteredMarineLife[selectedFishIndex]?.name : 'Fish Details'}
            </Text>
            <TouchableOpacity
@@ -947,6 +936,42 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
              <Text style={styles.closeButtonText}>✕</Text>
            </TouchableOpacity>
          </View>
+      )}
+
+      {/* Swipable FlatList for detailed cards */}
+      {modalVisible && filteredMarineLife.length > 0 && selectedFishIndex !== -1 && (
+        <FlatList
+          ref={swipeFlatListRef} // Attach ref here
+          data={filteredMarineLife}
+          renderItem={renderDetailedFishCard} {/* Using the new dedicated render function */}
+          keyExtractor={item => item.name}
+          horizontal // Make this FlatList horizontal
+          pagingEnabled // Enable snapping to full pages
+          showsHorizontalScrollIndicator={false}
+          initialScrollIndex={selectedFishIndex} // Start at the selected item
+          // onLayout is needed to ensure scrollToIndex works correctly on initial render
+          onLayout={() => {
+            if (swipeFlatListRef.current && selectedFishIndex !== -1) {
+              swipeFlatListRef.current.scrollToIndex({ index: selectedFishIndex, animated: false });
+            }
+          }}
+          getItemLayout={(data, index) => ( // Optimize scrolling performance
+            { length: windowWidth * 0.9, offset: (windowWidth * 0.9) * index, index }
+          )}
+          // 🆕 MODIFIED: Use onMomentumScrollEnd for more reliable page snapping
+          onMomentumScrollEnd={(event) => {
+            const contentOffsetX = event.nativeEvent.contentOffset.x;
+            // Calculate new index based on modal page width (windowWidth * 0.9)
+            const newIndex = Math.round(contentOffsetX / (windowWidth * 0.9));
+            if (newIndex !== selectedFishIndex) {
+              setSelectedFishIndex(newIndex);
+              // Also update selectedFish state to reflect the currently viewed fish
+              setSelectedFish(filteredMarineLife[newIndex]);
+            }
+          }}
+          style={styles.modalFlatList} {/* NEW STYLE for modal FlatList */}
+          contentContainerStyle={{ paddingTop: styles.modalHeaderFixed.height || 60 }} // Adjust padding to avoid header overlap
+        />
       )}
     </View>
   </Modal>
@@ -1068,7 +1093,7 @@ const styles = StyleSheet.create({
   // 🆕 NEW: Styles for horizontal FlatList and individual cards
   listContainerHorizontal: {
     paddingHorizontal: 8, // Add padding on sides for horizontal scroll
-    alignItems: 'center', // Center items horizontally if they don't fill the width
+    // alignItems: 'center', // Can be removed if you want cards to align strictly left
   },
   fishCard: {
     // flex: 1, // Remove flex: 1 as it's not ideal for fixed width horizontal items
@@ -1160,25 +1185,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modalContent: {
+  modalContent: { // This is now for individual items within modalFlatList
     backgroundColor: 'white',
     borderRadius: 16,
-    width: '90%',
-    maxHeight: '80%',
+    // width: '90%', // Removed this as FlatList items handle their own width
+    // maxHeight: '80%', // Removed this as FlatList items handle their own height
     elevation: 5,
+    padding: 16, // Add padding to content within each modal item
   },
-  modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
+  // modalHeader: { // This style is replaced by modalHeaderFixed
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   alignItems: 'center',
+  //   padding: 16,
+  //   borderBottomWidth: 1,
+  //   borderBottomColor: '#e0e0e0',
+  // },
   modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     flex: 1,
+    textAlign: 'center', // Center the title in the fixed header
   },
   closeButton: {
     width: 32,
@@ -1217,7 +1244,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   detailsContainer: {
-    padding: 16,
+    padding: 0, // Padding moved to modalContent
   },
   detailRow: {
     flexDirection: 'row',
@@ -1272,15 +1299,17 @@ const styles = StyleSheet.create({
   },
 
   modalFlatList: {
-    width: '90%',
-    maxHeight: '80%',
+    width: '90%', // The FlatList itself should take up 90% width
+    maxHeight: '80%', // Limit the height of the modal
     borderRadius: 16,
-    overflow: 'hidden',
+    overflow: 'hidden', // Ensures content stays within rounded corners
+    backgroundColor: 'white', // Ensure background for the FlatList itself
   },
   modalHeaderFixed: {
     position: 'absolute',
-    top: Dimensions.get('window').height * 0.1,
-    width: '90%',
+    // Calculate top based on modalOverlay's centering to place it at the top of the 'modalFlatList'
+    top: Dimensions.get('window').height * 0.1 - 20, // Adjust this based on actual centering/modal size
+    width: Dimensions.get('window').width * 0.9, // Match the width of modalFlatList
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -1291,6 +1320,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
+    height: 60, // Explicitly define height for paddingTop calculation
   },
 });
 
