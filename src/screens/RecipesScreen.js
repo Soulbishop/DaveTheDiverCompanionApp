@@ -213,8 +213,12 @@ const RecipesScreen = () => {
               style={styles.modalFlatList}
               // Adjust content container style to add padding at ends for centering
               contentContainerStyle={{
-                alignItems: 'center', // Center content
-                paddingHorizontal: (windowWidth - ((windowWidth * 0.9) + (8 * 2))) / 2 // Half of remaining space to center the first/last item
+                // Calculate padding to center items within the full window width,
+                // given that the FlatList itself is 90% wide.
+                // The gap on each side of the 90% FlatList is (windowWidth * 0.1) / 2
+                // We want the *first item's left margin* to align with the screen's edge minus this gap.
+                paddingHorizontal: (windowWidth * 0.1) / 2,
+                alignItems: 'center', // This is still useful for general centering of items
               }}
             />
           )}
