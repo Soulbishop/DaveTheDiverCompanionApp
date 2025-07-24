@@ -66,56 +66,71 @@ const RecipesScreen = () => {
     </TouchableOpacity>
   );
 
-  const renderDetailedRecipeCard = ({ item, index }) => (
-    <View style={[styles.detailedRecipeCard, { width: windowWidth * 0.9 }]}>
-      <View style={styles.recipeImageContainer}>
-        <Image
-          source={item.local_thumbnail}
-          style={styles.recipeDetailImage}
+  const renderDetailedRecipeCard = ({ item, index }) => {
+    // Define the full width one card should occupy, including any margins
+    const CARD_FULL_WIDTH = windowWidth * 0.9; // Each card will be 90% of screen width
+    const CARD_MARGIN_HORIZONTAL = 8; // Margin on each side of the card
+
+    return (
+      <View
+        style={[
+          styles.detailedRecipeCard,
+          {
+            width: CARD_FULL_WIDTH, // The card itself fills 90% of screen width
+            marginHorizontal: CARD_MARGIN_HORIZONTAL, // Add margins to this rendered item
+          },
+        ]}
+      >
+        <View style={styles.recipeImageContainer}>
+          <Image
+            source={item.local_thumbnail}
+            style={styles.recipeDetailImage}
+            
+          />
+        </View>
+        <View style={styles.recipeDetailsContainer}>
+          <View style={styles.recipeStatsRow}>
+            <Text style={styles.statIcon}>💰</Text>
+            <Text style={styles.statLabel}>Price:</Text>
+            <Text style={styles.statValue}>
+              ${item.price_base} - ${item.price_max}
+            </Text>
+          </View>
           
-        />
-      </View>
-      <View style={styles.recipeDetailsContainer}>
-        <View style={styles.recipeStatsRow}>
-          <Text style={styles.statIcon}>💰</Text>
-          <Text style={styles.statLabel}>Price:</Text>
-          <Text style={styles.statValue}>
-            ${item.price_base} - ${item.price_max}
-          </Text>
-        </View>
-        
-        <View style={styles.recipeStatsRow}>
-          <Text style={styles.statIcon}>👅</Text>
-          <Text style={styles.statLabel}>Taste:</Text>
-          <Text style={styles.statValue}>
-            {item.taste_base} - {item.taste_max}
-          </Text>
-        </View>
-        
-        <View style={styles.recipeStatsRow}>
-          <Text style={styles.statIcon}>🍽️</Text>
-          <Text style={styles.statLabel}>Servings:</Text>
-          <Text style={styles.statValue}>
-            {item.dish_base} - {item.dish_max}
-          </Text>
-        </View>
-        
-        <View style={styles.ingredientsSection}>
-          <Text style={styles.statIcon}>🥘</Text>
-          <Text style={styles.statLabel}>Ingredients:</Text>
-          <Text style={styles.ingredientsList}>
-            {item.ingredients.join(', ')}
-          </Text>
-        </View>
-        
-        <View style={styles.acquisitionSection}>
-          <Text style={styles.statIcon}>🎯</Text>
-          <Text style={styles.statLabel}>How to Get:</Text>
-          <Text style={styles.acquisitionText}>{item.acquisition}</Text>
+          <View style={styles.recipeStatsRow}>
+            <Text style={styles.statIcon}>👅</Text>
+            <Text style={styles.statLabel}>Taste:</Text>
+            <Text style={styles.statValue}>
+              {item.taste_base} - {item.taste_max}
+            </Text>
+          </View>
+          
+          <View style={styles.recipeStatsRow}>
+            <Text style={styles.statIcon}>🍽️</Text>
+            <Text style={styles.statLabel}>Servings:</Text>
+            <Text style={styles.statValue}>
+              {item.dish_base} - {item.dish_max}
+            </Text>
+          </View>
+          
+          <View style={styles.ingredientsSection}>
+            <Text style={styles.statIcon}>🥘</Text>
+            <Text style={styles.statLabel}>Ingredients:</Text>
+            <Text style={styles.ingredientsList}>
+              {item.ingredients.join(', ')}
+            </Text>
+          </View>
+          
+          <View style={styles.acquisitionSection}>
+            <Text style={styles.statIcon}>🎯</Text>
+            <Text style={styles.statLabel}>How to Get:</Text>
+            <Text style={styles.acquisitionText}>{item.acquisition}</Text>
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  };
+
 
   return (
     <View style={styles.container}>
@@ -164,40 +179,43 @@ const RecipesScreen = () => {
           </View>
           
           {modalVisible && filteredRecipes.length > 0 && selectedRecipeIndex !== -1 && (
-            <FlatList
+             <FlatList
               ref={swipeFlatListRef}
               data={filteredRecipes}
               renderItem={renderDetailedRecipeCard}
               keyExtractor={(item, index) => item.name + index}
               horizontal
-              pagingEnabled
+              // We explicitly set snapping behavior instead of using pagingEnabled
+              pagingEnabled={false} // Disable default paging
+              snapToInterval={ (windowWidth * 0.9) + (8 * 2) } // Card width + left margin + right margin
+              snapToAlignment={'center'} // Snap the item to the center of the FlatList
+              decelerationRate="fast" // Improves snap feeling
               showsHorizontalScrollIndicator={false}
               initialScrollIndex={selectedRecipeIndex}
+              // getItemLayout is still useful for initial rendering performance,
+              // but snapToInterval will enforce the snapping.
               getItemLayout={(data, index) => {
-                const cardBaseWidth = windowWidth * 0.9;
-                const cardHorizontalMargin = 8; // From styles.detailedRecipeCard
-                const totalCardWidthWithMargins = cardBaseWidth + (cardHorizontalMargin * 2);
+                const itemFullWidth = (windowWidth * 0.9) + (8 * 2); // Card width + total margins
                 return {
-                  length: totalCardWidthWithMargins,
-                  offset: totalCardWidthWithMargins * index,
+                  length: itemFullWidth,
+                  offset: itemFullWidth * index,
                   index,
                 };
               }}
-
               onScrollEndDrag={(event) => {
+                const itemFullWidth = (windowWidth * 0.9) + (8 * 2);
                 const contentOffsetX = event.nativeEvent.contentOffset.x;
-                // Important: Use the same totalCardWidthWithMargins for calculation here
-                const cardBaseWidth = windowWidth * 0.9;
-                const cardHorizontalMargin = 8;
-                const totalCardWidthWithMargins = cardBaseWidth + (cardHorizontalMargin * 2);
-                const newIndex = Math.round(contentOffsetX / totalCardWidthWithMargins);
+                const newIndex = Math.round(contentOffsetX / itemFullWidth);
                 if (newIndex !== selectedRecipeIndex) {
                   setSelectedRecipeIndex(newIndex);
                 }
               }}
-
               style={styles.modalFlatList}
-              contentContainerStyle={{ alignItems: 'center' }}
+              // Adjust content container style to add padding at ends for centering
+              contentContainerStyle={{
+                alignItems: 'center', // Center content
+                paddingHorizontal: (windowWidth - ((windowWidth * 0.9) + (8 * 2))) / 2 // Half of remaining space to center the first/last item
+              }}
             />
           )}
         </View>
@@ -344,8 +362,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderRadius: 16,
     padding: 16,
-    marginHorizontal: 8,
-    width: windowWidth * 0.9 - 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
