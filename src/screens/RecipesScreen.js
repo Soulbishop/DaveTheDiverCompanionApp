@@ -69,7 +69,7 @@ const RecipesScreen = () => {
   const renderDetailedRecipeCard = ({ item, index }) => {
     // Define the full width one card should occupy, including any margins
     const CARD_FULL_WIDTH = windowWidth * 0.9; // Each card will be 90% of screen width
-    const CARD_MARGIN_HORIZONTAL = 8; // Margin on each side of the card
+    const CARD_MARGIN_HORIZONTAL = 4; // Margin on each side of the card
 
     return (
       <View
@@ -185,17 +185,15 @@ const RecipesScreen = () => {
               renderItem={renderDetailedRecipeCard}
               keyExtractor={(item, index) => item.name + index}
               horizontal
-              // We explicitly set snapping behavior instead of using pagingEnabled
               pagingEnabled={false} // Disable default paging
-              snapToInterval={ (windowWidth * 0.9) + (8 * 2) } // Card width + left margin + right margin
-              snapToAlignment={'center'} // Snap the item to the center of the FlatList
+              // snapToInterval must be (card_content_width + 2 * desired_margin_horizontal)
+              snapToInterval={ (windowWidth * 0.9) + (4 * 2) } // Actual total item width: (windowWidth * 0.9) + 8
+              snapToAlignment={'center'} // Snap the item to the center of the FlatList's viewport
               decelerationRate="fast" // Improves snap feeling
               showsHorizontalScrollIndicator={false}
               initialScrollIndex={selectedRecipeIndex}
-              // getItemLayout is still useful for initial rendering performance,
-              // but snapToInterval will enforce the snapping.
               getItemLayout={(data, index) => {
-                const itemFullWidth = (windowWidth * 0.9) + (8 * 2); // Card width + total margins
+                const itemFullWidth = (windowWidth * 0.9) + (4 * 2); // Match snapToInterval
                 return {
                   length: itemFullWidth,
                   offset: itemFullWidth * index,
@@ -203,22 +201,18 @@ const RecipesScreen = () => {
                 };
               }}
               onScrollEndDrag={(event) => {
-                const itemFullWidth = (windowWidth * 0.9) + (8 * 2);
+                const itemFullWidth = (windowWidth * 0.9) + (4 * 2); // Match snapToInterval
                 const contentOffsetX = event.nativeEvent.contentOffset.x;
                 const newIndex = Math.round(contentOffsetX / itemFullWidth);
                 if (newIndex !== selectedRecipeIndex) {
                   setSelectedRecipeIndex(newIndex);
                 }
               }}
-              style={styles.modalFlatList}
-              // Adjust content container style to add padding at ends for centering
+              style={styles.modalFlatList} // The FlatList container itself is 90% width and centered.
               contentContainerStyle={{
-                // Calculate padding to center items within the full window width,
-                // given that the FlatList itself is 90% wide.
-                // The gap on each side of the 90% FlatList is (windowWidth * 0.1) / 2
-                // We want the *first item's left margin* to align with the screen's edge minus this gap.
-                paddingHorizontal: (windowWidth * 0.1) / 2,
-                alignItems: 'center', // This is still useful for general centering of items
+                alignItems: 'center', // This is sufficient for centering items within the FlatList's viewport
+                // Remove paddingHorizontal, as it was causing an unintended offset with snapToAlignment:'center'
+                // and the FlatList's 90% width.
               }}
             />
           )}
