@@ -1,9 +1,7 @@
 // FILE LOCATION: src/screens/MarineLifeScreen.js
-// ENHANCED VERSION WITH CATEGORY FILTERS - BASED ON YOUR FIXED WORKING FILE
-// Generated automatically for ALL 206 marine life entries
+// REPLACE THE ENTIRE EXISTING FILE WITH THIS CODE
 
-
-import React, { useState, useEffect, useRef } from 'react'; // 🆕 Import useRef for programmatic scrolling
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -15,232 +13,10 @@ import {
   Image,
   ScrollView,
   TextInput,
-  Alert,
-  Dimensions,
+  Alert
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native'; // 🆕 Import useNavigation and useRoute
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// 🆕 Using the specific update functions from the database utility
-import {
-  saveUserMarineLifeData,
-  updateMarineLifeCaught,
-  updateMarineLifeBreedingPair,
-  getAllMarineLife, // 🆕 Re-import getAllMarineLife to refresh filtered list if needed by navigation
-} from '../utils/marineLifeDatabase';
-
-
-// 🖼️ PRESERVED: Your fixed thumbnail mapping for Metro Bundler
-// Assuming 'Clownfish.Cpng' was a typo and should be 'Clownfish.png' as per other entries
-const marineLifeThumbnails = {
-  'American_Lobster.png': require('../../assets/marine_life_thumbs/American_Lobster.png'),
-  'Barrel_Jellyfish.png': require('../../assets/marine_life_thumbs/Barrel_Jellyfish.png'),
-  'Big_Belly_Seahorse.png': require('../../assets/marine_life_thumbs/Big_Belly_Seahorse.png'),
-  'Black_and_White_Snapper.png': require('../../assets/marine_life_thumbs/Black_and_White_Snapper.png'),
-  'Blacktip_Reefshark.png': require('../../assets/marine_life_thumbs/Blacktip_Reefshark.png'),
-  'Blue_Lobster.png': require('../../assets/marine_life_thumbs/Blue_Lobster.png'),
-  'Blue_Tang.png': require('../../assets/marine_life_thumbs/Blue_Tang.png'),
-  'Bluefin_Tuna.png': require('../../assets/marine_life_thumbs/Bluefin_Tuna.png'),
-  'Box_Jellyfish.png': require('../../assets/marine_life_thumbs/Box_Jellyfish.png'),
-  'Cardinal_Fish.png': require('../../assets/marine_life_thumbs/Cardinal_Fish.png'),
-  'Clearfin_Lionfish.png': require('../../assets/marine_life_thumbs/Clearfin_Lionfish.png'),
-  'Clownfish.png': require('../../assets/marine_life_thumbs/Clownfish.png'), // Corrected .Cpng to .png
-  'Comber.png': require('../../assets/marine_life_thumbs/Comber.png'),
-  'Copper_Shark.png': require('../../assets/marine_life_thumbs/Copper_Shark.png'),
-  'Emperor_Angelfish.png': require('../../assets/marine_life_thumbs/Emperor_Angelfish.png'),
-  'European_Lobster.png': require('../../assets/marine_life_thumbs/European_Lobster.png'),
-  'Flame_Angelfish.png': require('../../assets/marine_life_thumbs/Flame_Angelfish.png'),
-  'Fried_Egg_Jellyfish.png': require('../../assets/marine_life_thumbs/Fried_Egg_Jellyfish.png'),
-  'Great_White_Shark_Klaus.png': require('../../assets/marine_life_thumbs/Great_White_Shark_Klaus.png'),
-  'Green_Humphead_Parrotfish.png': require('../../assets/marine_life_thumbs/Green_Humphead_Parrotfish.png'),
-  'Green_Sea_Urchin.png': require('../../assets/marine_life_thumbs/Green_Sea_Urchin.png'),
-  'Jayakars_Seahorse.png': require('../../assets/marine_life_thumbs/Jayakars_Seahorse.png'),
-  'Lagoon_Triggerfish.png': require('../../assets/marine_life_thumbs/Lagoon_Triggerfish.png'),
-  'Long_Snouted_Seahorse.png': require('../../assets/marine_life_thumbs/Long_Snouted_Seahorse.png'),
-  'Longfin_Batfish.png': require('../../assets/marine_life_thumbs/Longfin_Batfish.png'),
-  'Longspine_Porcupinefish.png': require('../../assets/marine_life_thumbs/Longspine_Porcupinefish.png'),
-  'Longspine_Squirrelfish.png': require('../../assets/marine_life_thumbs/Longspine_Squirrelfish.png'),
-  'Mantis_Shrimp.png': require('../../assets/marine_life_thumbs/Mantis_Shrimp.png'),
-  'Marbled_Electric_Ray.png': require('../../assets/marine_life_thumbs/Marbled_Electric_Ray.png'),
-  'Marlin.png': require('../../assets/marine_life_thumbs/Marlin.png'),
-  'Mediterranean_Parrotfish.png': require('../../assets/marine_life_thumbs/Mediterranean_Parrotfish.png'),
-  'Moray_Eel.png': require('../../assets/marine_life_thumbs/Moray_Eel.png'),
-  'Orbicular_Batfish.png': require('../../assets/marine_life_thumbs/Orbicular_Batfish.png'),
-  'Ornate_Wrasse.png': require('../../assets/marine_life_thumbs/Ornate_Wrasse.png'),
-  'Pacific_Seahorse.png': require('../../assets/marine_life_thumbs/Pacific_Seahorse.png'),
-  'Purple_Sea_Urchin.png': require('../../assets/marine_life_thumbs/Purple_Sea_Urchin.png'),
-  'Pyramid_Butterflyfish.png': require('../../assets/marine_life_thumbs/Pyramid_Butterflyfish.png'),
-  'Rainbow_Wrasse.png': require('../../assets/marine_life_thumbs/Rainbow_Wrasse.png'),
-  'Red_Lionfish.png': require('../../assets/marine_life_thumbs/Red_Lionfish.png'),
-  'Red_banded_Lobster.png': require('../../assets/marine_life_thumbs/Red_banded_Lobster.png'),
-  'Redtoothed_Triggerfish.png': require('../../assets/marine_life_thumbs/Redtoothed_Triggerfish.png'),
-  'Salema_Porgy.png': require('../../assets/marine_life_thumbs/Salema_Porgy.png'),
-  'Sea_Goldie.png': require('../../assets/marine_life_thumbs/Sea_Goldie.png'),
-  'Sheepshead.png': require('../../assets/marine_life_thumbs/Sheepshead.png'),
-  'Shortfin_Mako.png': require('../../assets/marine_life_thumbs/Shortfin_Mako.png'),
-  'Small_Spotted_Dart.png': require('../../assets/marine_life_thumbs/Small_Spotted_Dart.png'),
-  'Starry_Puffer.png': require('../../assets/marine_life_thumbs/Starry_Puffer.png'),
-  'Stingray.png': require('../../assets/marine_life_thumbs/Stingray.png'),
-  'Striped_Catfish.png': require('../../assets/marine_life_thumbs/Striped_Catfish.png'),
-  'Thresher_Shark.png': require('../../assets/marine_life_thumbs/Thresher_Shark.png'),
-  'Titan_Triggerfish.png': require('../../assets/marine_life_thumbs/Titan_Triggerfish.png'),
-  'Truck_Hermit_Crab.png': require('../../assets/marine_life_thumbs/Truck_Hermit_Crab.png'),
-  'White_Shrimp.png': require('../../assets/marine_life_thumbs/White_Shrimp.png'),
-  'Whiteleg_Shrimp.png': require('../../assets/marine_life_thumbs/Whiteleg_Shrimp.png'),
-  'Whitetip_Reefshark.png': require('../../assets/marine_life_thumbs/Whitetip_Reefshark.png'),
-  'Yellow_Tang.png': require('../../assets/marine_life_thumbs/Yellow_Tang.png'),
-  'Yellowback_Fusilier.png': require('../../assets/marine_life_thumbs/Yellowback_Fusilier.png'),
-  'Yellowfin_Tuna.png': require('../../assets/marine_life_thumbs/Yellowfin_Tuna.png'),
-  'Zebra_Shark.png': require('../../assets/marine_life_thumbs/Zebra_Shark.png'),
-  'Atlantic_Anglerfish.png': require('../../assets/marine_life_thumbs/Atlantic_Anglerfish.png'),
-  'Atlantic_Bonito.png': require('../../assets/marine_life_thumbs/Atlantic_Bonito.png'),
-  'Atlantic_Mackerel.png': require('../../assets/marine_life_thumbs/Atlantic_Mackerel.png'),
-  'Bigeye_Scad.png': require('../../assets/marine_life_thumbs/Bigeye_Scad.png'),
-  'Bigeye_Trevally.png': require('../../assets/marine_life_thumbs/Bigeye_Trevally.png'),
-  'Black_Tiger_Shrimp.png': require('../../assets/marine_life_thumbs/Black_Tiger_Shrimp.png'),
-  'Blackfin_Barracuda.png': require('../../assets/marine_life_thumbs/Blackfin_Barracuda.png'),
-  'Bluehead_Tilefish.png': require('../../assets/marine_life_thumbs/Bluehead_Tilefish.png'),
-  'California_Spiny_Lobster.png': require('../../assets/marine_life_thumbs/California_Spiny_Lobster.png'),
-  'Clown_Frogfish.png': require('../../assets/marine_life_thumbs/Clown_Frogfish.png'),
-  'Coral_Trout.png': require('../../assets/marine_life_thumbs/Coral_Trout.png'),
-  'Crystal_Lobster.png': require('../../assets/marine_life_thumbs/Crystal_Lobster.png'),
-  'Cuttlefish.png': require('../../assets/marine_life_thumbs/Cuttlefish.png'),
-  'Devil_Scorpionfish.png': require('../../assets/marine_life_thumbs/Devil_Scorpionfish.png'),
-  'Dusky_Grouper.png': require('../../assets/marine_life_thumbs/Dusky_Grouper.png'),
-  'Dwarf_Seahorse.png': require('../../assets/marine_life_thumbs/Dwarf_Seahorse.png'),
-  'Fan_Lobster.png': require('../../assets/marine_life_thumbs/Fan_Lobster.png'),
-  'Giant_Squid.png': require('../../assets/marine_life_thumbs/Giant_Squid.png'),
-  'Giant_Trevally.png': require('../../assets/marine_life_thumbs/Giant_Trevally.png'),
-  'Giraffe_Seahorse.png': require('../../assets/marine_life_thumbs/Giraffe_Seahorse.png'),
-  'Great_Barracuda.png': require('../../assets/marine_life_thumbs/Great_Barracuda.png'),
-  'Grey_Triggerfish.png': require('../../assets/marine_life_thumbs/Grey_Triggerfish.png'),
-  'Harlequin_Hind.png': require('../../assets/marine_life_thumbs/Harlequin_Hind.png'),
-  'Hedgehog_Seahorse.png': require('../../assets/marine_life_thumbs/Hedgehog_Seahorse.png'),
-  'Humboldt_Squid.png': require('../../assets/marine_life_thumbs/Humboldt_Squid.png'),
-  'Longnose_Sawshark.png': require('../../assets/marine_life_thumbs/Longnose_Sawshark.png'),
-  'Lusca.png': require('../../assets/marine_life_thumbs/Lusca.png'),
-  'Mackerel_Scad.png': require('../../assets/marine_life_thumbs/Mackerel_Scad.png'),
-  'Narrow_Barred_Spanish_Mackerel.png': require('../../assets/marine_life_thumbs/Narrow_Barred_Spanish_Mackerel.png'),
-  'Painted_Comber.png': require('../../assets/marine_life_thumbs/Painted_Comber.png'),
-  'Sailfish.png': require('../../assets/marine_life_thumbs/Sailfish.png'),
-  'Sally_Lightfoot_Crab.png': require('../../assets/marine_life_thumbs/Sally_Lightfoot_Crab.png'),
-  'Smooth_Hammerhead.png': require('../../assets/marine_life_thumbs/Smooth_Hammerhead.png'),
-  'Spear_Squid.png': require('../../assets/marine_life_thumbs/Spear_Squid.png'),
-  'Spiny_Seahorse.png': require('../../assets/marine_life_thumbs/Spiny_Seahorse.png'),
-  'Striped_Red_Mullet.png': require('../../assets/marine_life_thumbs/Striped_Red_Mullet.png'),
-  'Tiger_Shark.png': require('../../assets/marine_life_thumbs/Tiger_Shark.png'),
-  'Tiger_Tail_Seahorse.png': require('../../assets/marine_life_thumbs/Tiger_Tail_Seahorse.png'),
-  'Tropical_Rock_Lobster.png': require('../../assets/marine_life_thumbs/Tropical_Rock_Lobster.png'),
-  'White_Spotted_Jellyfish.png': require('../../assets/marine_life_thumbs/White_Spotted_Jellyfish.png'),
-  'White_Trevally.png': require('../../assets/marine_life_thumbs/White_Trevally.png'),
-  'Zebra_Seahorse.png': require('../../assets/marine_life_thumbs/Zebra_Seahorse.png'),
-  'Blood_belly_Comb_Jellyfish.png': require('../../assets/marine_life_thumbs/Blood_belly_Comb_Jellyfish.png'),
-  'Bluespotted_Stargazer.png': require('../../assets/marine_life_thumbs/Bluespotted_Stargazer.png'),
-  'Chambered_Nautilus.png': require('../../assets/marine_life_thumbs/Chambered_Nautilus.png'),
-  'Clione.png': require('../../assets/marine_life_thumbs/Clione.png'),
-  'Clione_Queen.png': require('../../assets/marine_life_thumbs/Clione_Queen.png'),
-  'Comb_Jelly.png': require('../../assets/marine_life_thumbs/Comb_Jelly.png'),
-  'Cookiecutter_Shark.png': require('../../assets/marine_life_thumbs/Cookiecutter_Shark.png'),
-  'Crowned_Seahorse.png': require('../../assets/marine_life_thumbs/Crowned_Seahorse.png'),
-  'Eastern_Rock_Lobster.png': require('../../assets/marine_life_thumbs/Eastern_Rock_Lobster.png'),
-  'Fangtooth.png': require('../../assets/marine_life_thumbs/Fangtooth.png'),
-  'Frilled_Shark.png': require('../../assets/marine_life_thumbs/Frilled_Shark.png'),
-  'Giant_Wolf_Eel.png': require('../../assets/marine_life_thumbs/Giant_Wolf_Eel.png'),
-  'Goblin_Shark.png': require('../../assets/marine_life_thumbs/Goblin_Shark.png'),
-  'Lined_Seahorse.png': require('../../assets/marine_life_thumbs/Lined_Seahorse.png'),
-  'Megamouth_Shark.png': require('../../assets/marine_life_thumbs/Megamouth_Shark.png'),
-  'Norway_Lobster.png': require('../../assets/marine_life_thumbs/Norway_Lobster.png'),
-  'Pacific_Fanfish.png': require('../../assets/marine_life_thumbs/Pacific_Fanfish.png'),
-  'Red_Bream.png': require('../../assets/marine_life_thumbs/Red_Bream.png'),
-  'Rhinochimaeridae.png': require('../../assets/marine_life_thumbs/Rhinochimaeridae.png'),
-  'Salmon_Snailfish.png': require('../../assets/marine_life_thumbs/Salmon_Snailfish.png'),
-  'Sea_Toad.png': require('../../assets/marine_life_thumbs/Sea_Toad.png'),
-  'Spider_Crab.png': require('../../assets/marine_life_thumbs/Spider_Crab.png'),
-  'Spotted_Seahorse.png': require('../../assets/marine_life_thumbs/Spotted_Seahorse.png'),
-  'Threetooth_Puffer.png': require('../../assets/marine_life_thumbs/Threetooth_Puffer.png'),
-  'White_Seahorse.png': require('../../assets/marine_life_thumbs/White_Seahorse.png'),
-  'Barreleye.png': require('../../assets/marine_life_thumbs/Barreleye.png'),
-  'Blobfish.png': require('../../assets/marine_life_thumbs/Blobfish.png'),
-  'Dumbo_Octopus.png': require('../../assets/marine_life_thumbs/Dumbo_Octopus.png'),
-  'Peacock_Squid.png': require('../../assets/marine_life_thumbs/Peacock_Squid.png'),
-  'Pelican_Eel.png': require('../../assets/marine_life_thumbs/Pelican_Eel.png'),
-  'Vampire_Squid.png': require('../../assets/marine_life_thumbs/Vampire_Squid.png'),
-  'Alaska_Pollock.png': require('../../assets/marine_life_thumbs/Alaska_Pollock.png'),
-  'Antarctic_Octopus.png': require('../../assets/marine_life_thumbs/Antarctic_Octopus.png'),
-  'Arctic_Cod.png': require('../../assets/marine_life_thumbs/Arctic_Cod.png'),
-  'Arctic_Telescope_Fish.png': require('../../assets/marine_life_thumbs/Arctic_Telescope_Fish.png'),
-  'Capelin.png': require('../../assets/marine_life_thumbs/Capelin.png'),
-  'Gelatinous_Snailfish.png': require('../../assets/marine_life_thumbs/Gelatinous_Snailfish.png'),
-  'Golden_King_Crab.png': require('../../assets/marine_life_thumbs/Golden_King_Crab.png'),
-  'Greenland_Shark.png': require('../../assets/marine_life_thumbs/Greenland_Shark.png'),
-  'Haddock.png': require('../../assets/marine_life_thumbs/Haddock.png'),
-  'Horsehair_Crab.png': require('../../assets/marine_life_thumbs/Horsehair_Crab.png'),
-  'Ice_Fish.png': require('../../assets/marine_life_thumbs/Ice_Fish.png'),
-  'Leafy_Seadragon.png': require('../../assets/marine_life_thumbs/Leafy_Seadragon.png'),
-  'Lumpfish.png': require('../../assets/marine_life_thumbs/Lumpfish.png'),
-  'Narwhal.png': require('../../assets/marine_life_thumbs/Narwhal.png'),
-  'Phantom_Jellyfish.png': require('../../assets/marine_life_thumbs/Phantom_Jellyfish.png'),
-  'Polar_Eelpout.png': require('../../assets/marine_life_thumbs/Polar_Eelpout.png'),
-  'Porbeagle_Shark.png': require('../../assets/marine_life_thumbs/Porbeagle_Shark.png'),
-  'Snow_Crab.png': require('../../assets/marine_life_thumbs/Snow_Crab.png'),
-  'Snub_nosed_Spiny_Eel.png': require('../../assets/marine_life_thumbs/Snub_nosed_Spiny_Eel.png'),
-  'Starry_Skate.png': require('../../assets/marine_life_thumbs/Starry_Skate.png'),
-  'Weedy_Seadragon.png': require('../../assets/marine_life_thumbs/Weedy_Seadragon.png'),
-  'Allenypterus.png': require('../../assets/marine_life_thumbs/Allenypterus.png'),
-  'Anomalocaris.png': require('../../assets/marine_life_thumbs/Anomalocaris.png'),
-  'Dollocaris_Ingens.png': require('../../assets/marine_life_thumbs/Dollocaris_Ingens.png'),
-  'Drepanaspis.png': require('../../assets/marine_life_thumbs/Drepanaspis.png'),
-  'Dunkleosteus.png': require('../../assets/marine_life_thumbs/Dunkleosteus.png'),
-  'Falcatus.png': require('../../assets/marine_life_thumbs/Falcatus.png'),
-  'Helicoprion.png': require('../../assets/marine_life_thumbs/Helicoprion.png'),
-  'Kronosaurus.png': require('../../assets/marine_life_thumbs/Kronosaurus.png'),
-  'Megalograptus.png': require('../../assets/marine_life_thumbs/Megalograptus.png'),
-  'Pikaia.png': require('../../assets/marine_life_thumbs/Pikaia.png'),
-  'Qingmendous.png': require('../../assets/marine_life_thumbs/Qingmendous.png'),
-  'Ruby_Seadragon.png': require('../../assets/marine_life_thumbs/Ruby_Seadragon.png'),
-  'Tokummia_Katalepsis.png': require('../../assets/marine_life_thumbs/Tokummia_Katalepsis.png'),
-  'Waptia_Fieldensis.png': require('../../assets/marine_life_thumbs/Waptia_Fieldensis.png'),
-  'Xenacanthus.png': require('../../assets/marine_life_thumbs/Xenacanthus.png'),
-  'Yawie.png': require('../../assets/marine_life_thumbs/Yawie.png'),
-  'Aurora_Jellyfish.png': require('../../assets/marine_life_thumbs/Aurora_Jellyfish.png'),
-  'Barbed_Eel.png': require('../../assets/marine_life_thumbs/Barbed_Eel.png'),
-  'Bloodskin_Shark.png': require('../../assets/marine_life_thumbs/Bloodskin_Shark.png'),
-  'Bony_Wreckfish.png': require('../../assets/marine_life_thumbs/Bony_Wreckfish.png'),
-  'Bursting_Anglerfish.png': require('../../assets/marine_life_thumbs/Bursting_Anglerfish.png'),
-  'Cerebral_Crab.png': require('../../assets/marine_life_thumbs/Cerebral_Crab.png'),
-  'Concertina_Barracuda.png': require('../../assets/marine_life_thumbs/Concertina_Barracuda.png'),
-  'Cortex_Decorator.png': require('../../assets/marine_life_thumbs/Cortex_Decorator.png'),
-  'Entangled_Crab.png': require('../../assets/marine_life_thumbs/Entangled_Crab.png'),
-  'Enthralled_Stonefish.png': require('../../assets/marine_life_thumbs/Enthralled_Stonefish.png'),
-  'Fanged_Cod.png': require('../../assets/marine_life_thumbs/Fanged_Cod.png'),
-  'Gazing_Shark.png': require('../../assets/marine_life_thumbs/Gazing_Shark.png'),
-  'Gelatinous_Stonefish.png': require('../../assets/marine_life_thumbs/Gelatinous_Stonefish.png'),
-  'Gnashing_Perch.png': require('../../assets/marine_life_thumbs/Gnashing_Perch.png'),
-  'Grotesque_Mackerel.png': require('../../assets/marine_life_thumbs/Grotesque_Mackerel.png'),
-  'Host_Eel.png': require('../../assets/marine_life_thumbs/Host_Eel.png'),
-  'Imperious_Lobster.png': require('../../assets/marine_life_thumbs/Imperious_Lobster.png'),
-  'Malignant_Pincer.png': require('../../assets/marine_life_thumbs/Malignant_Pincer.png'),
-  'Many_Eyed_Mackerel.png': require('../../assets/marine_life_thumbs/Many_Eyed_Mackerel.png'),
-  'Parhelion_Jellyfish.png': require('../../assets/marine_life_thumbs/Parhelion_Jellyfish.png'),
-  'Perished_Loosejaw.png': require('../../assets/marine_life_thumbs/Perished_Loosejaw.png'),
-  'Radiant_Squid.png': require('../../assets/marine_life_thumbs/Radiant_Squid.png'),
-  'Sallow_Sailfish.png': require('../../assets/marine_life_thumbs/Sallow_Sailfish.png'),
-  'Savage_Barracuda.png': require('../../assets/marine_life_thumbs/Savage_Barracuda.png'),
-  'Scouring_Bass.png': require('../../assets/marine_life_thumbs/Scouring_Bass.png'),
-  'Seizing_Snailfish.png': require('../../assets/marine_life_thumbs/Seizing_Snailfish.png'),
-  'Shattered_Wreckfish.png': require('../../assets/marine_life_thumbs/Shattered_Wreckfish.png'),
-  'Splintered_Crab.png': require('../../assets/marine_life_thumbs/Splintered_Crab.png'),
-  'Sprouting_Eel.png': require('../../assets/marine_life_thumbs/Sprouting_Eel.png'),
-  'Three_Headed_Cod.png': require('../../assets/marine_life_thumbs/Three_Headed_Cod.png'),
-  'Translucent_Sturgeon.png': require('../../assets/marine_life_thumbs/Translucent_Sturgeon.png'),
-  'Tusked_Grouper.png': require('../../assets/marine_life_thumbs/Tusked_Grouper.png'),
-  'Voltaic_Grouper.png': require('../../assets/marine_life_thumbs/Voltaic_Grouper.png'),
-  'Withered_Ray.png': require('../../assets/marine_life_thumbs/Withered_Ray.png'),
-};
-
-
-// Get the window width for dynamic card sizing
-const { width: windowWidth } = Dimensions.get('window');
-
+import { saveUserMarineLifeData } from '../utils/marineLifeDatabase';
 
 const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   const [filteredMarineLife, setFilteredMarineLife] = useState(marineLifeList);
@@ -249,59 +25,22 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   const [searchText, setSearchText] = useState('');
   const [filterType, setFilterType] = useState('all'); // all, caught, uncaught, breeding
 
-
-  // 🆕 NEW: State for filter visibility
-  const [filtersVisible, setFiltersVisible] = useState(false);
-  
-  // 🆕 NEW: Category filter states
-  const [zoneFilter, setZoneFilter] = useState('all');
-  const [timeFilter, setTimeFilter] = useState('all');
-
-  // 🆕 NEW: State for the index of the selected fish in the filtered list for swiping
-  const [selectedFishIndex, setSelectedFishIndex] = useState(-1);
-  // 🆕 NEW: Ref for controlling the FlatList in the modal
-  const swipeFlatListRef = useRef(null);
-
-
   // Load marine life data when component mounts
   useEffect(() => {
     loadMarineLifeData();
   }, []);
 
-
-  // 🆕 ENHANCED: Update filtered list when ANY filter changes
+  // Update filtered list when marineLifeList or filters change
   useEffect(() => {
     applyFilters();
-  }, [marineLifeList, searchText, filterType, zoneFilter, timeFilter]);
-
-
-  // 🔧 PRESERVED & MODIFIED: Modal state bug fix and update selectedFishIndex
-  useEffect(() => {
-    if (selectedFish && marineLifeList) {
-      const updatedFish = marineLifeList.find(fish => fish.name === selectedFish.name);
-      if (updatedFish) {
-        setSelectedFish(updatedFish);
-        // Find the index of the updated fish in the *currently filtered* list
-        // This is crucial for initialScrollIndex
-        const indexInFiltered = filteredMarineLife.findIndex(fish => fish.name === updatedFish.name);
-        if (indexInFiltered !== -1) {
-            setSelectedFishIndex(indexInFiltered);
-            // Optionally scroll to the item if the modal is already open and filters change
-            // This might cause a visual jump if the list changes drastically while open
-            if (modalVisible && swipeFlatListRef.current) {
-                swipeFlatListRef.current.scrollToIndex({ index: indexInFiltered, animated: false });
-            }
-        }
-      }
-    }
-  }, [marineLifeList, selectedFish, filteredMarineLife, modalVisible]); // Add filteredMarineLife and modalVisible dependencies
-
+  }, [marineLifeList, searchText, filterType]);
 
   const loadMarineLifeData = async () => {
     try {
       const storedData = await AsyncStorage.getItem('@DaveTheDiverCompanion:userMarineLife');
       if (storedData) {
         const userData = JSON.parse(storedData);
+        // Merge user data with base marine life data
         const updatedList = marineLifeList.map(item => {
           const userStatus = userData[item.name];
           if (userStatus) {
@@ -320,11 +59,8 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     }
   };
 
-
-  // 🆕 ENHANCED: Apply all filters including new category filters
   const applyFilters = () => {
     let filtered = marineLifeList;
-
 
     // Apply search filter
     if (searchText) {
@@ -334,8 +70,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
       );
     }
 
-
-    // Apply status filter
+    // Apply type filter
     switch (filterType) {
       case 'caught':
         filtered = filtered.filter(item => item.caught);
@@ -347,34 +82,12 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         filtered = filtered.filter(item => item.breeding_pair);
         break;
       default:
+        // 'all' - no additional filtering
         break;
     }
 
-
-    // 🆕 NEW: Apply zone filter
-    if (zoneFilter !== 'all') {
-      filtered = filtered.filter(item => item.zone === zoneFilter);
-    }
-
-
-    // 🆕 NEW: Apply time filter
-    if (timeFilter !== 'all') {
-      filtered = filtered.filter(item => item.active_time === timeFilter);
-    }
-
-
     setFilteredMarineLife(filtered);
   };
-
-
-  // 🆕 NEW: Reset all filters
-  const resetFilters = () => {
-    setSearchText('');
-    setFilterType('all');
-    setZoneFilter('all');
-    setTimeFilter('all');
-  };
-
 
   const toggleCaught = async (fishName) => {
     const updatedList = marineLifeList.map(item => {
@@ -387,7 +100,6 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     await saveUserMarineLifeData(updatedList);
   };
 
-
   const toggleBreedingPair = async (fishName) => {
     const updatedList = marineLifeList.map(item => {
       if (item.name === fishName) {
@@ -399,34 +111,15 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     await saveUserMarineLifeData(updatedList);
   };
 
-
   const openFishCard = (fish) => {
     setSelectedFish(fish);
-    // Find the index of the clicked fish within the *currently filtered* list
-    const initialIndex = filteredMarineLife.findIndex(item => item.name === fish.name);
-    setSelectedFishIndex(initialIndex);
     setModalVisible(true);
   };
 
-
-  // 🆕 MODIFIED: Renamed to closeModal for consistency
-  const closeModal = () => {
+  const closeFishCard = () => {
     setModalVisible(false);
     setSelectedFish(null);
-    setSelectedFishIndex(-1); // Reset index when closing
   };
-
-
-  // 🆕 NEW: Function to count active filters
-  const getActiveFilterCount = () => {
-    let count = 0;
-    if (searchText) count++;
-    if (filterType !== 'all') count++;
-    if (zoneFilter !== 'all') count++;
-    if (timeFilter !== 'all') count++;
-    return count;
-  };
-
 
   const renderMarineLifeItem = ({ item }) => (
     <TouchableOpacity
@@ -434,12 +127,10 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
       onPress={() => openFishCard(item)}
     >
       <View style={styles.fishImageContainer}>
-        {/* 🖼️ PRESERVED: Your fixed thumbnail implementation */}
-        {item.image_filename && marineLifeThumbnails[item.image_filename] ? (
+        {item.local_thumbnail ? (
           <Image
-            source={marineLifeThumbnails[item.image_filename]}
+            source={{ uri: `file://${item.local_thumbnail}` }}
             style={styles.fishImage}
-            resizeMode="contain"
           />
         ) : (
           <View style={styles.placeholderImage}>
@@ -448,20 +139,15 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         )}
       </View>
 
-
       <View style={styles.fishInfo}>
-        <Text style={styles.fishName}>{item.name}</Text>
+        <Text style={styles.fishName} numberOfLines={2}>{item.name}</Text>
         <Text style={styles.fishZone}>{item.zone}</Text>
         <Text style={styles.fishWeight}>{item.weight}</Text>
       </View>
 
-
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={[
-            styles.toggleButton,
-            item.caught ? styles.caughtButton : styles.uncaughtButton
-          ]}
+          style={[styles.toggleButton, item.caught ? styles.caughtButton : styles.uncaughtButton]}
           onPress={() => toggleCaught(item.name)}
         >
           <Text style={styles.buttonText}>
@@ -469,12 +155,8 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
           </Text>
         </TouchableOpacity>
 
-
         <TouchableOpacity
-          style={[
-            styles.toggleButton,
-            item.breeding_pair ? styles.breedingButton : styles.noBreedingButton
-          ]}
+          style={[styles.toggleButton, item.breeding_pair ? styles.breedingButton : styles.noBreedingButton]}
           onPress={() => toggleBreedingPair(item.name)}
         >
           <Text style={styles.buttonText}>
@@ -485,105 +167,114 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
     </TouchableOpacity>
   );
 
-
-  // 🆕 NEW: Function specifically for rendering individual detailed fish cards within the modal's FlatList
-  const renderDetailedFishCard = ({ item: fish }) => {
-    if (!fish) return null; // Safety check
+  const renderFishCard = () => {
+    if (!selectedFish) return null;
 
     return (
-      <ScrollView style={[styles.modalContent, {width: windowWidth * 0.9}]}> {/* Adjust width for modal's FlatList */}
-        {/* The modal header is now fixed above this FlatList, so no header here */}
-        
-        {/* 🖼️ PRESERVED: Placeholder in modal */}
-        <View style={styles.modalImageContainer}>
-          <View style={styles.modalPlaceholderImage}>
-            <Text style={styles.modalPlaceholderText}>🐟</Text>
-            <Text style={styles.comingSoonText}>Image Coming Soon</Text>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={closeFishCard}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {/* Header */}
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>{selectedFish.name}</Text>
+                <TouchableOpacity onPress={closeFishCard} style={styles.closeButton}>
+                  <Text style={styles.closeButtonText}>×</Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* Fish Image */}
+              <View style={styles.modalImageContainer}>
+                {selectedFish.image_url ? (
+                  <Image
+                    source={{ uri: selectedFish.image_url }}
+                    style={styles.modalImage}
+                  />
+                ) : (
+                  <View style={styles.modalPlaceholderImage}>
+                    <Text style={styles.modalPlaceholderText}>🐟</Text>
+                  </View>
+                )}
+              </View>
+
+              {/* Fish Details */}
+              <View style={styles.detailsContainer}>
+                <View style={styles.detailRow}>
+                  <Text style={styles.detailLabel}>Zone:</Text>
+                  <Text style={styles.detailValue}>{selectedFish.zone}</Text>
+                </View>
+
+                <View style={styles.detailRow}>
+                  <Text style={styles.detailLabel}>Weight:</Text>
+                  <Text style={styles.detailValue}>{selectedFish.weight}</Text>
+                </View>
+
+                <View style={styles.detailRow}>
+                  <Text style={styles.detailLabel}>Active Time:</Text>
+                  <Text style={styles.detailValue}>{selectedFish.active_time}</Text>
+                </View>
+
+                <View style={styles.detailRow}>
+                  <Text style={styles.detailLabel}>Difficulty:</Text>
+                  <Text style={styles.detailValue}>{'★'.repeat(selectedFish.difficulty)}</Text>
+                </View>
+
+                <View style={styles.detailRow}>
+                  <Text style={styles.detailLabel}>Best Method:</Text>
+                  <Text style={styles.detailValue}>{selectedFish.best_capture_method}</Text>
+                </View>
+
+                {/* Recipes */}
+                {selectedFish.recipes && selectedFish.recipes.length > 0 && (
+                  <View style={styles.recipesContainer}>
+                    <Text style={styles.recipesTitle}>Used in Recipes:</Text>
+                    {selectedFish.recipes.map((recipe, index) => (
+                      <Text key={index} style={styles.recipeItem}>• {recipe}</Text>
+                    ))}
+                  </View>
+                )}
+
+                {/* Toggle Switches */}
+                <View style={styles.modalButtonContainer}>
+                  <TouchableOpacity
+                    style={[styles.modalToggleButton, selectedFish.caught ? styles.caughtButton : styles.uncaughtButton]}
+                    onPress={() => toggleCaught(selectedFish.name)}
+                  >
+                    <Text style={styles.modalButtonText}>
+                      {selectedFish.caught ? 'Caught ✓' : 'Not Caught o'}
+                    </Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={[styles.modalToggleButton, selectedFish.breeding_pair ? styles.breedingButton : styles.noBreedingButton]}
+                    onPress={() => toggleBreedingPair(selectedFish.name)}
+                  >
+                    <Text style={styles.modalButtonText}>
+                      {selectedFish.breeding_pair ? 'Breeding Pair ♥' : 'No Breeding Pair o'}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </ScrollView>
           </View>
         </View>
-
-
-        <View style={styles.detailsContainer}>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Zone:</Text>
-            <Text style={styles.detailValue}>{fish.zone}</Text>
-          </View>
-
-
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Weight:</Text>
-            <Text style={styles.detailValue}>{fish.weight}</Text>
-          </View>
-
-
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Active Time:</Text>
-            <Text style={styles.detailValue}>{fish.active_time}</Text>
-          </View>
-
-
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Difficulty:</Text>
-            <Text style={styles.detailValue}>{'★'.repeat(fish.difficulty)}</Text>
-          </View>
-
-
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Best Method:</Text>
-            <Text style={styles.detailValue}>{fish.best_capture_method}</Text>
-          </View>
-
-
-          {fish.recipes && fish.recipes.length > 0 && (
-            <View style={styles.recipesContainer}>
-              <Text style={styles.recipesTitle}>Used in Recipes:</Text>
-              {fish.recipes.map((recipe, index) => (
-                <Text key={index} style={styles.recipeItem}>• {recipe}</Text>
-              ))}
-            </View>
-          )}
-
-
-          <View style={styles.modalButtonContainer}>
-            <TouchableOpacity
-              style={[
-                styles.modalToggleButton,
-                fish.caught ? styles.caughtButton : styles.uncaughtButton
-              ]}
-              onPress={() => toggleCaught(fish.name)}
-            >
-              <Text style={styles.modalButtonText}>
-                {fish.caught ? 'Caught ✓' : 'Not Caught o'}
-              </Text>
-            </TouchableOpacity>
-
-
-            <TouchableOpacity
-              style={[
-                styles.modalToggleButton,
-                fish.breeding_pair ? styles.breedingButton : styles.noBreedingButton
-              ]}
-              onPress={() => toggleBreedingPair(fish.name)}
-            >
-              <Text style={styles.modalButtonText}>
-                {fish.breeding_pair ? 'Breeding Pair ♥' : 'No Breeding Pair o'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
+      </Modal>
     );
   };
-
 
   // Calculate statistics
   const caughtCount = marineLifeList.filter(item => item.caught).length;
   const breedingCount = marineLifeList.filter(item => item.breeding_pair).length;
   const totalCount = marineLifeList.length;
 
-
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header with Statistics */}
       <View style={styles.header}>
         <Text style={styles.title}>Marine Life Tracker</Text>
         <View style={styles.statsContainer}>
@@ -596,389 +287,46 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
         </View>
       </View>
 
+      {/* Search and Filter Controls */}
+      <View style={styles.controlsContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search marine life..."
+          value={searchText}
+          onChangeText={setSearchText}
+          placeholderTextColor="#666"
+        />
 
-      {/* 🆕 NEW: Collapsible Filter Header */}
-      <View style={styles.filterToggleHeader}>
-        <TouchableOpacity
-          style={styles.filterToggle}
-          onPress={() => setFiltersVisible(!filtersVisible)}
-        >
-          <Text style={styles.filterToggleText}>
-            {filtersVisible ? '🔽 Hide Filters' : '▶️ Show Filters'}
-            {getActiveFilterCount() > 0 && ` (${getActiveFilterCount()} active)`}
-          </Text>
-        </TouchableOpacity>
-        
-        {getActiveFilterCount() > 0 && (
-          <TouchableOpacity style={styles.resetButtonSmall} onPress={resetFilters}>
-            <Text style={styles.resetButtonSmallText}>Reset All</Text>
-          </TouchableOpacity>
-        )}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
+          {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
+            <TouchableOpacity
+              key={filter}
+              style={[styles.filterButton, filterType === filter && styles.activeFilterButton]}
+              onPress={() => setFilterType(filter)}
+            >
+              <Text style={[styles.filterButtonText, filterType === filter && styles.activeFilterButtonText]}>
+                {filter.charAt(0).toUpperCase() + filter.slice(1)}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
 
-
-      {/* 🆕 NEW: Conditionally rendered Filter controls with category filters */}
-      {filtersVisible && (
-        <View style={styles.controlsContainer}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search marine life..."
-            value={searchText}
-            onChangeText={setSearchText}
-          />
-
-
-          {/* Status Filters */}
-          <View style={styles.filterSection}>
-            <Text style={styles.filterSectionTitle}>Status:</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.filterContainer}>
-                {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
-                  <TouchableOpacity
-                    key={filter}
-                    style={[
-                      styles.filterButton,
-                      filterType === filter && styles.activeFilterButton
-                    ]}
-                    onPress={() => setFilterType(filter)}
-                  >
-                    <Text style={[
-                      styles.filterButtonText,
-                      filterType === filter && styles.activeFilterButtonText
-                    ]}>
-                      {filter.charAt(0).toUpperCase() + filter.slice(1)}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </ScrollView>
-          </View>
-
-
-          {/* 🆕 NEW: Zone Filters */}
-          <View style={styles.filterSection}>
-            <Text style={styles.filterSectionTitle}>Zone:</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.filterContainer}>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    zoneFilter === 'all' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setZoneFilter('all')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    zoneFilter === 'all' && styles.activeFilterButtonText
-                  ]}>
-                    All
-                  </Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    zoneFilter === 'Aberrations' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setZoneFilter('Aberrations')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    zoneFilter === 'Aberrations' && styles.activeFilterButtonText
-                  ]}>
-                    Aberrations
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    zoneFilter === 'Blue Hole Depths (130-250m)' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setZoneFilter('Blue Hole Depths (130-250m)')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    zoneFilter === 'Blue Hole Depths (130-250m)' && styles.activeFilterButtonText
-                  ]}>
-                    Blue Hole Depths
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    zoneFilter === 'Blue Hole Medium Depth (50-130m)' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setZoneFilter('Blue Hole Medium Depth (50-130m)')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    zoneFilter === 'Blue Hole Medium Depth (50-130m)' && styles.activeFilterButtonText
-                  ]}>
-                    Blue Hole Medium Depth
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    zoneFilter === 'Blue Hole Shallows (0-50m)' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setZoneFilter('Blue Hole Shallows (0-50m)')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    zoneFilter === 'Blue Hole Shallows (0-50m)' && styles.activeFilterButtonText
-                  ]}>
-                    Blue Hole Shallows
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    zoneFilter === 'Glacier Passage' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setZoneFilter('Glacier Passage')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    zoneFilter === 'Glacier Passage' && styles.activeFilterButtonText
-                  ]}>
-                    Glacier Passage
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    zoneFilter === 'Glacier Zone' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setZoneFilter('Glacier Zone')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    zoneFilter === 'Glacier Zone' && styles.activeFilterButtonText
-                  ]}>
-                    Glacier Zone
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    zoneFilter === 'Hydrothermal Vents' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setZoneFilter('Hydrothermal Vents')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    zoneFilter === 'Hydrothermal Vents' && styles.activeFilterButtonText
-                  ]}>
-                    Hydrothermal Vents
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </ScrollView>
-          </View>
-
-
-          {/* 🆕 NEW: Time Filters */}
-          <View style={styles.filterSection}>
-            <Text style={styles.filterSectionTitle}>Time:</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.filterContainer}>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    timeFilter === 'all' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setTimeFilter('all')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    timeFilter === 'all' && styles.activeFilterButtonText
-                  ]}>
-                    All
-                  </Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    timeFilter === 'Black Cliff' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setTimeFilter('Black Cliff')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    timeFilter === 'Black Cliff' && styles.activeFilterButtonText
-                  ]}>
-                    Black Cliff
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    timeFilter === 'Both' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setTimeFilter('Both')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    timeFilter === 'Both' && styles.activeFilterButtonText
-                  ]}>
-                    Both
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    timeFilter === 'Day' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setTimeFilter('Day')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    timeFilter === 'Day' && styles.activeFilterButtonText
-                  ]}>
-                    Day
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    timeFilter === 'Fog Coast' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setTimeFilter('Fog Coast')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    timeFilter === 'Fog Coast' && styles.activeFilterButtonText
-                  ]}>
-                    Fog Coast
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    timeFilter === 'Jellyfish Basin' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setTimeFilter('Jellyfish Basin')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    timeFilter === 'Jellyfish Basin' && styles.activeFilterButtonText
-                  ]}>
-                    Jellyfish Basin
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    timeFilter === 'Night' && styles.activeFilterButton
-                  ]}
-                  onPress={() => setTimeFilter('Night')}
-                >
-                  <Text style={[
-                    styles.filterButtonText,
-                    timeFilter === 'Night' && styles.activeFilterButtonText
-                  ]}>
-                    Night
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </ScrollView>
-          </View>
-
-
-          {/* 🆕 NEW: Reset Filters Button */}
-          <TouchableOpacity
-            style={styles.resetButton}
-            onPress={resetFilters}
-          >
-            <Text style={styles.resetButtonText}>Reset All Filters</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
-
+      {/* Marine Life Grid */}
       <FlatList
         data={filteredMarineLife}
         renderItem={renderMarineLifeItem}
-        keyExtractor={item => item.name}
-        // 🆕 NEW: Swipeable cards by making FlatList horizontal
-        horizontal={true}
-        pagingEnabled={true} // Snaps to full page
-        showsHorizontalScrollIndicator={false}
-        // Remove numColumns as it's not applicable for horizontal FlatList
-        // numColumns={2} 
-        contentContainerStyle={styles.listContainerHorizontal} // 🆕 New style for horizontal list
-        // Adjust column wrapper for vertical layout if needed (not here for horizontal)
+        keyExtractor={(item) => item.name}
+        numColumns={2}
+        contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
       />
 
-
-      
-  {/* Fish Detail Modal with Swipeable Functionality */}
-  <Modal
-    animationType="slide"
-    transparent={true}
-    visible={modalVisible}
-    onRequestClose={closeModal} // Using the renamed function
-  >
-    <View style={styles.modalOverlay}>
-      {/* 🆕 NEW: Fixed Modal Header to be always visible */}
-      {modalVisible && (
-         <View style={styles.modalHeaderFixed}>
-           <Text style={styles.modalTitle}>
-             {/* Display name of the currently selected fish for the header */}
-             {selectedFishIndex !== -1 ? filteredMarineLife[selectedFishIndex]?.name : 'Fish Details'}
-           </Text>
-           <TouchableOpacity
-             style={styles.closeButton}
-             onPress={closeModal}
-           >
-             <Text style={styles.closeButtonText}>✕</Text>
-           </TouchableOpacity>
-         </View>
-      )}
-
-      {/* Swipable FlatList for detailed cards */}
-      {modalVisible && filteredMarineLife.length > 0 && selectedFishIndex !== -1 && (
-        <FlatList
-          ref={swipeFlatListRef} // Attach ref here
-          data={filteredMarineLife}
-          renderItem={renderDetailedFishCard} {/* Using the new dedicated render function */}
-          keyExtractor={item => item.name}
-          horizontal // Make this FlatList horizontal
-          pagingEnabled // Enable snapping to full pages
-          showsHorizontalScrollIndicator={false}
-          initialScrollIndex={selectedFishIndex} // Start at the selected item
-          // onLayout is needed to ensure scrollToIndex works correctly on initial render
-          onLayout={() => {
-            if (swipeFlatListRef.current && selectedFishIndex !== -1) {
-              swipeFlatListRef.current.scrollToIndex({ index: selectedFishIndex, animated: false });
-            }
-          }}
-          getItemLayout={(data, index) => ( // Optimize scrolling performance
-            { length: windowWidth * 0.9, offset: (windowWidth * 0.9) * index, index }
-          )}
-          // 🆕 MODIFIED: Use onMomentumScrollEnd for more reliable page snapping
-          onMomentumScrollEnd={(event) => {
-            const contentOffsetX = event.nativeEvent.contentOffset.x;
-            // Calculate new index based on modal page width (windowWidth * 0.9)
-            const newIndex = Math.round(contentOffsetX / (windowWidth * 0.9));
-            if (newIndex !== selectedFishIndex) {
-              setSelectedFishIndex(newIndex);
-              // Also update selectedFish state to reflect the currently viewed fish
-              setSelectedFish(filteredMarineLife[newIndex]);
-            }
-          }}
-          style={styles.modalFlatList} {/* NEW STYLE for modal FlatList */}
-          contentContainerStyle={{ paddingTop: styles.modalHeaderFixed.height || 60 }} // Adjust padding to avoid header overlap
-        />
-      )}
-    </View>
-  </Modal>
+      {/* Fish Detail Modal */}
+      {renderFishCard()}
     </SafeAreaView>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -1006,36 +354,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
-  // 🆕 NEW: Styles for the filter toggle header
-  filterToggleHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  filterToggle: {
-    flex: 1,
-  },
-  filterToggleText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  resetButtonSmall: {
-    backgroundColor: '#ff6b6b',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 15,
-  },
-  resetButtonSmallText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  controlsContainer: { // Renamed from controlsContainer to filtersContainer in previous thought, but user's code uses controlsContainer
+  controlsContainer: {
     backgroundColor: 'white',
     padding: 16,
     borderBottomWidth: 1,
@@ -1048,23 +367,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 12,
   },
-  filterSection: {
-    marginBottom: 12,
-  },
-  filterSectionTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 8,
-  },
   filterContainer: {
     flexDirection: 'row',
   },
   filterButton: {
     backgroundColor: '#e0e0e0',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
     marginRight: 8,
   },
   activeFilterButton: {
@@ -1072,35 +382,19 @@ const styles = StyleSheet.create({
   },
   filterButtonText: {
     color: '#666',
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '500',
   },
   activeFilterButtonText: {
     color: 'white',
   },
-  resetButton: {
-    backgroundColor: '#ff6b6b',
-    padding: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  resetButtonText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  // 🆕 NEW: Styles for horizontal FlatList and individual cards
-  listContainerHorizontal: {
-    paddingHorizontal: 8, // Add padding on sides for horizontal scroll
-    // alignItems: 'center', // Can be removed if you want cards to align strictly left
+  listContainer: {
+    padding: 8,
   },
   fishCard: {
-    // flex: 1, // Remove flex: 1 as it's not ideal for fixed width horizontal items
-    width: windowWidth * 0.45, // Make card take up ~45% of screen width (2 cards visible)
-    height: 220, // Give a fixed height to cards
+    flex: 1,
     backgroundColor: 'white',
-    margin: 8, // Adjust margin for horizontal spacing
+    margin: 4,
     borderRadius: 12,
     padding: 12,
     elevation: 2,
@@ -1108,7 +402,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    justifyContent: 'space-between', // Distribute content vertically
   },
   fishImageContainer: {
     alignItems: 'center',
@@ -1118,7 +411,6 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 8,
-    backgroundColor: '#f8f8f8',
   },
   placeholderImage: {
     width: 80,
@@ -1153,12 +445,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '100%', // Ensure buttons take full width of card
   },
   toggleButton: {
-    width: 36, // Slightly larger for better touch
-    height: 36,
-    borderRadius: 18,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -1179,33 +470,32 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  // Modal Styles
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modalContent: { // This is now for individual items within modalFlatList
+  modalContent: {
     backgroundColor: 'white',
     borderRadius: 16,
-    // width: '90%', // Removed this as FlatList items handle their own width
-    // maxHeight: '80%', // Removed this as FlatList items handle their own height
+    width: '90%',
+    maxHeight: '80%',
     elevation: 5,
-    padding: 16, // Add padding to content within each modal item
   },
-  // modalHeader: { // This style is replaced by modalHeaderFixed
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between',
-  //   alignItems: 'center',
-  //   padding: 16,
-  //   borderBottomWidth: 1,
-  //   borderBottomColor: '#e0e0e0',
-  // },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
   modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     flex: 1,
-    textAlign: 'center', // Center the title in the fixed header
   },
   closeButton: {
     width: 32,
@@ -1223,28 +513,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
   },
+  modalImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 12,
+  },
   modalPlaceholderImage: {
     width: 200,
     height: 200,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#e0e0e0',
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 2,
-    borderColor: '#e0e0e0',
-    borderStyle: 'dashed',
   },
   modalPlaceholderText: {
     fontSize: 64,
-    marginBottom: 8,
-  },
-  comingSoonText: {
-    fontSize: 14,
-    color: '#666',
-    fontStyle: 'italic',
   },
   detailsContainer: {
-    padding: 0, // Padding moved to modalContent
+    padding: 16,
   },
   detailRow: {
     flexDirection: 'row',
@@ -1297,32 +583,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-
-  modalFlatList: {
-    width: '90%', // The FlatList itself should take up 90% width
-    maxHeight: '80%', // Limit the height of the modal
-    borderRadius: 16,
-    overflow: 'hidden', // Ensures content stays within rounded corners
-    backgroundColor: 'white', // Ensure background for the FlatList itself
-  },
-  modalHeaderFixed: {
-    position: 'absolute',
-    // Calculate top based on modalOverlay's centering to place it at the top of the 'modalFlatList'
-    top: Dimensions.get('window').height * 0.1 - 20, // Adjust this based on actual centering/modal size
-    width: Dimensions.get('window').width * 0.9, // Match the width of modalFlatList
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    zIndex: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-    height: 60, // Explicitly define height for paddingTop calculation
-  },
 });
 
-
 export default MarineLifeScreen;
+
