@@ -11,7 +11,8 @@ import {
   StyleSheet,
   Modal,
   Dimensions,
-  ScrollView, // Added ScrollView for filter options
+  ScrollView, // Required for the horizontal filter options
+  TextInput, // Added for potential future search filter, declared for applyFilters safety
 } from 'react-native';
 import allRecipes from '../data/allRecipes';
 
@@ -28,16 +29,16 @@ const RecipesScreen = () => {
   // ADDED: searchText state variable for filter functionality
   const [searchText, setSearchText] = useState(''); 
 
-  // New state for FlatList layout readiness for reliable scrolling
+  // New state for FlatList layout readiness for reliable scrolling in modal
   const [isFlatListLayoutReady, setIsFlatListLayoutReady] = useState(false); 
   
-  // New states for filter selections
-  const [activeDishTypeFilter, setActiveDishTypeFilter] = useState('All');
-  const [activeAcquisitionFilter, setActiveAcquisitionFilter] = useState('All');
-
+  // New states for filter selections (Price and Taste, excluding Servings and Acquisition as per request)
+  const [activePriceFilter, setActivePriceFilter] = useState('All');
+  const [activeTasteFilter, setActiveTasteFilter] = useState('All');
+  
   const swipeFlatListRef = useRef(null);
 
-  // Callback for FlatList's onLayout event: sets readiness flag
+  // Callback for FlatList's onLayout event: sets readiness flag for scrolling
   const handleFlatListLayout = () => {
     setIsFlatListLayoutReady(true);
   };
@@ -48,36 +49,24 @@ const RecipesScreen = () => {
     // Initial filtering will be handled by the applyFilters useEffect below
   }, []);
 
-  // 2. Memoized filter options derived from the full recipes list
-  // These must be defined directly within the functional component's top level,
-  // NOT inside another useEffect or function definition.
-  const dishTypes = React.useMemo(() => {
-    const types = new Set();
-    recipes.forEach(recipe => { // Use 'recipes' (full list) to derive filter options
-      const words = recipe.name.split(' ');
-      if (words.length > 1) { 
-        types.add(words[words.length - 1]);
-      }
-    });
-    return ['All', ...Array.from(types).sort()];
-  }, [recipes]); // Depend on 'recipes' (the full list)
+  // 2. Memoized filter options arrays, derived from the full recipes list
+  // These are defined here at the top level of the functional component, outside of other hooks/functions.
+  const priceRanges = React.useMemo(() => {
+    // Basic price tiers: Adjust values as needed based on your data spread
+    return ['All', 'Low (<$50)', 'Medium ($50-$200)', 'High (>$200)'].sort();
+  }, []); // Static array of ranges, no dependency needed after initial render of component
 
-  const acquisitionMethods = React.useMemo(() => {
-    const methods = new Set();
-    recipes.forEach(recipe => {
-      if (recipe.acquisition && recipe.acquisition !== "") { 
-        methods.add(recipe.acquisition);
-      }
-    });
-    return ['All', ...Array.from(methods).sort()];
-  }, [recipes]); // Depend on 'recipes' (the full list)
+  const tasteRanges = React.useMemo(() => {
+    // Basic taste tiers: Adjust values as needed
+    return ['All', 'Low (<50)', 'Medium (50-200)', 'High (>200)'].sort();
+  }, []); // Static array of ranges
 
-  // 3. Function to apply all active filters
+  // 3. Function to apply all active filters based on user selections
   // This must be defined directly within the functional component's top level.
   const applyFilters = () => {
     let currentFiltered = recipes; // Always start filtering from the original, full list
 
-    // Apply search filter using the 'searchText' state
+    // Apply search filter using the 'searchText' state (if a TextInput updates it)
     if (searchText) { 
       currentFiltered = currentFiltered.filter(item =>
         item.name.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -85,33 +74,45 @@ const RecipesScreen = () => {
       );
     }
 
-    // Apply Dish Type filter based on 'activeDishTypeFilter' state
-    if (activeDishTypeFilter !== 'All') {
+    // Apply Price filter based on 'activePriceFilter' state
+    if (activePriceFilter !== 'All') {
       currentFiltered = currentFiltered.filter(item => {
-        const words = item.name.split(' ');
-        const dishType = words.length > 1 ? words[words.length - 1] : item.name;
-        return dishType === activeDishTypeFilter;
+        const avgPrice = (item.price_base + item.price_max) / 2;
+        if (activePriceFilter === 'Low (<$50)') return avgPrice < 50;
+        if (activePriceFilter === 'Medium ($50-$200)') return avgPrice >= 50 && avgPrice <= 200;
+        if (activePriceFilter === 'High (>$200)') return avgPrice > 200;
+        return true; 
       });
     }
 
-    // Apply Acquisition Method filter based on 'activeAcquisitionFilter' state
-    if (activeAcquisitionFilter !== 'All') {
-      currentFiltered = currentFiltered.filter(item => item.acquisition === activeAcquisitionFilter);
+    // Apply Taste filter based on 'activeTasteFilter' state
+    if (activeTasteFilter !== 'All') {
+      currentFiltered = currentFiltered.filter(item => {
+        const avgTaste = (item.taste_base + item.taste_max) / 2;
+        if (activeTasteFilter === 'Low (<50)') return avgTaste < 50;
+        if (activeTasteFilter === 'Medium (50-200)') return avgTaste >= 50 && avgTaste <= 200;
+        if (activeTasteFilter === 'High (>200)') return avgTaste > 200;
+        return true;
+      });
     }
+
+    // No filters for Servings or Acquisition as per your latest instruction.
 
     setFilteredRecipes(currentFiltered); // Update the filtered list displayed in UI
   };
 
   // 4. useEffect to trigger filtering whenever relevant filter criteria change
-  // This ensures 'filteredRecipes' is updated dynamically based on user selections.
+  // This ensures 'filteredRecipes' is updated dynamically based on user selections or initial data load.
   useEffect(() => {
     applyFilters();
-  }, [recipes, searchText, activeDishTypeFilter, activeAcquisitionFilter]); 
+  }, [recipes, searchText, activePriceFilter, activeTasteFilter]); // Dependencies: Re-run when base recipes or any filter state changes
 
   // 5. useEffect to handle scrolling the FlatList in the modal to the selected item
   // This is the most robust implementation for reliable initial scrolling.
   useEffect(() => {
+    // Only attempt scroll if modal is visible, a recipe is selected, ref is available, AND FlatList layout is ready.
     if (modalVisible && selectedRecipeIndex !== -1 && swipeFlatListRef.current && isFlatListLayoutReady) {
+      // Add a short timeout to give the FlatList's children a moment to render and measure
       const scrollTimeoutId = setTimeout(() => {
         try {
           const itemFullWidth = (windowWidth * 0.9) + (4 * 2); // Calculate item's full width (content + margins)
@@ -124,17 +125,19 @@ const RecipesScreen = () => {
         } catch (e) {
           console.warn('*** SCROLL DEBUG ***: Failed to scroll to index (onLayout + timeout trigger):', e);
           console.error('*** SCROLL DEBUG ***: scrollToIndex error details:', { message: e.message, name: e.name, stack: e.stack });
+          // Fallback if scrolling fails: log error but let the app continue.
         }
-      }, 50);
+      }, 50); // 50ms delay, adjust if necessary for different devices/performance
 
-      return () => clearTimeout(scrollTimeoutId);
+      return () => clearTimeout(scrollTimeoutId); // Cleanup the timeout to prevent memory leaks/unwanted behavior
     }
 
+    // Reset layout ready state when modal closes to re-trigger on next open
     if (!modalVisible) {
       console.log('*** SCROLL DEBUG ***: Modal closed. Resetting isFlatListLayoutReady: false.');
       setIsFlatListLayoutReady(false);
     }
-  }, [modalVisible, selectedRecipeIndex, isFlatListLayoutReady, recipes.length]);
+  }, [modalVisible, selectedRecipeIndex, isFlatListLayoutReady, recipes.length]); // Dependencies for this effect
 
   // Handler for opening the recipe detail modal
   const openRecipeModal = (index) => {
@@ -175,16 +178,19 @@ const RecipesScreen = () => {
 
   // Renders the detailed content for a single recipe card in the modal
   const renderDetailedRecipeCard = ({ item }) => { 
+    // IMPORTANT: Check if 'item' is valid before rendering its properties.
+    // This is a crucial safety check for FlatList's initial rendering quirks.
     if (!item) {
+      // Return a placeholder that maintains the expected dimensions for FlatList's layout calculations
       const CARD_FULL_WIDTH_PLACEHOLDER = windowWidth * 0.9;
       const CARD_MARGIN_HORIZONTAL_PLACEHOLDER = 4;
       return (
         <View style={[
-          styles.detailedRecipeCard,
+          styles.detailedRecipeCard, // Inherit basic card styles for consistency
           {
             width: CARD_FULL_WIDTH_PLACEHOLDER,
             marginHorizontal: CARD_MARGIN_HORIZONTAL_PLACEHOLDER,
-            minHeight: 500, 
+            minHeight: 500, // Ensure height is consistent with detailedRecipeCard's minHeight
             justifyContent: 'center',
             alignItems: 'center'
           }
@@ -194,8 +200,8 @@ const RecipesScreen = () => {
       );
     }
 
-    const CARD_FULL_WIDTH = windowWidth * 0.9;
-    const CARD_MARGIN_HORIZONTAL = 4;
+    const CARD_FULL_WIDTH = windowWidth * 0.9; 
+    const CARD_MARGIN_HORIZONTAL = 4; 
 
     return (
       <View
@@ -211,7 +217,7 @@ const RecipesScreen = () => {
           <Image
             source={item.local_thumbnail}
             style={styles.recipeDetailImage}
-            onError={(e) => console.warn("Failed to load recipe image:", item.name, e.nativeEvent.error)}
+            onError={(e) => console.warn("Failed to load recipe image:", item.name, e.nativeEvent.error)} // Enhanced error logging
           />
         </View>
         <View style={styles.recipeDetailsContainer}>
@@ -278,30 +284,30 @@ const RecipesScreen = () => {
       {/* Filter Options UI, conditionally rendered based on showFilters state */}
       {showFilters && (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterOptionsContainer}>
-          {/* Dish Type Filters */}
-          <Text style={styles.filterCategoryLabel}>Dish Type:</Text>
-          {dishTypes.map(type => (
+          {/* Price Range Filters */}
+          <Text style={styles.filterCategoryLabel}>Price:</Text>
+          {priceRanges.map(range => (
             <TouchableOpacity
-              key={type}
-              style={[styles.filterButton, activeDishTypeFilter === type && styles.activeFilterButton]}
-              onPress={() => setActiveDishTypeFilter(type)}
+              key={range}
+              style={[styles.filterButton, activePriceFilter === range && styles.activeFilterButton]}
+              onPress={() => setActivePriceFilter(range)}
             >
-              <Text style={[styles.filterButtonText, activeDishTypeFilter === type && styles.activeFilterButtonText]}>
-                {type}
+              <Text style={[styles.filterButtonText, activePriceFilter === range && styles.activeFilterButtonText]}>
+                {range}
               </Text>
             </TouchableOpacity>
           ))}
 
-          {/* Acquisition Method Filters */}
-          <Text style={styles.filterCategoryLabel}>Acquisition:</Text>
-          {acquisitionMethods.map(method => (
+          {/* Taste Range Filters */}
+          <Text style={styles.filterCategoryLabel}>Taste:</Text>
+          {tasteRanges.map(range => (
             <TouchableOpacity
-              key={method}
-              style={[styles.filterButton, activeAcquisitionFilter === method && styles.activeFilterButton]}
-              onPress={() => setActiveAcquisitionFilter(method)}
+              key={range}
+              style={[styles.filterButton, activeTasteFilter === range && styles.activeFilterButton]}
+              onPress={() => setActiveTasteFilter(range)}
             >
-              <Text style={[styles.filterButtonText, activeAcquisitionFilter === method && styles.activeFilterButtonText]}>
-                {method}
+              <Text style={[styles.filterButtonText, activeTasteFilter === range && styles.activeFilterButtonText]}>
+                {range}
               </Text>
             </TouchableOpacity>
           ))}
@@ -346,7 +352,7 @@ const RecipesScreen = () => {
               horizontal
               pagingEnabled={false} // Disable default paging
               snapToInterval={ (windowWidth * 0.9) + (4 * 2) } // Actual total item width: (windowWidth * 0.9) + 8
-              snapToAlignment={'center'} // Snap the item to the center of the FlatList's viewport
+              snapToAlignment={'center'} // Snap item to center of FlatList's viewport
               decelerationRate="fast" // Improves snap feeling
               showsHorizontalScrollIndicator={false}
               initialScrollIndex={selectedRecipeIndex} // Hint for initial scroll
