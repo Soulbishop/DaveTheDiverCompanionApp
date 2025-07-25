@@ -23,38 +23,50 @@ const RecipesScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(-1);
   const [showFilters, setShowFilters] = useState(false);
+  const [isFlatListLayoutReady, setIsFlatListLayoutReady] = useState(false); // New state to track FlatList layout
+
+  // Callback for FlatList's onLayout event
+  const handleFlatListLayout = () => {
+    setIsFlatListLayoutReady(true);
+  };
 
   const swipeFlatListRef = useRef(null);
 
+  // Original useEffect for initial data loading
   useEffect(() => {
     setRecipes(allRecipes);
     setFilteredRecipes(allRecipes);
   }, []);
+
   // Effect to explicitly scroll the FlatList to the selected item when the modal opens
   useEffect(() => {
-    if (modalVisible && selectedRecipeIndex !== -1 && swipeFlatListRef.current) {
-      // Use requestAnimationFrame to defer scrolling until after the next render cycle,
-      // ensuring the FlatList has fully laid out its content before attempting to scroll.
-      requestAnimationFrame(() => {
+    // Only attempt scroll if modal is visible, a recipe is selected, ref is available, AND layout is ready.
+    if (modalVisible && selectedRecipeIndex !== -1 && swipeFlatListRef.current && isFlatListLayoutReady) {
+      // Add a short timeout to ensure children of FlatList are also measured
+      const scrollTimeoutId = setTimeout(() => {
         try {
-          // Calculate the full width of an item, including its margins.
-          // This should match the snapToInterval, getItemLayout, and renderDetailedRecipeCard's own width + margins.
           const itemFullWidth = (windowWidth * 0.9) + (4 * 2); // (windowWidth * 0.9) + 8
+          console.log('*** SCROLL DEBUG ***: Attempting scroll to index (onLayout + timeout). Target index:', selectedRecipeIndex, 'Item width:', itemFullWidth);
           swipeFlatListRef.current.scrollToIndex({
             index: selectedRecipeIndex,
-            animated: false, // Set to false for an immediate jump without animation on open
-            // offset: 0, // No specific offset needed if snapToAlignment='center' is working
-            // viewPosition: 0.5, // Optional: attempts to place item in center of view if not using snapToAlignment
+            animated: false,
           });
+          console.log('*** SCROLL DEBUG ***: Scroll command issued for index:', selectedRecipeIndex);
         } catch (e) {
-          console.warn('Failed to scroll to index on modal open:', e);
-          // In case of an error (e.g., FlatList not yet fully measured, or index out of bounds),
-          // you might consider a fallback, such as closing the modal or resetting the index.
-          // For now, logging the warning is sufficient.
+          console.warn('*** SCROLL DEBUG ***: Failed to scroll to index (onLayout + timeout trigger):', e);
+          console.error('*** SCROLL DEBUG ***: scrollToIndex error details:', { message: e.message, name: e.name, stack: e.stack });
         }
-      });
+      }, 50); // A very short delay (e.g., 50ms) after onLayout, adjust if needed
+
+      return () => clearTimeout(scrollTimeoutId); // Cleanup timeout on component unmount/dependency change
     }
-  }, [modalVisible, selectedRecipeIndex, filteredRecipes.length]); // Dependencies: Re-run when these values change.
+
+    // Reset layout ready state when modal closes to re-trigger on next open
+    if (!modalVisible) {
+      console.log('*** SCROLL DEBUG ***: Modal closed. Resetting isFlatListLayoutReady: false.');
+      setIsFlatListLayoutReady(false);
+    }
+  }, [modalVisible, selectedRecipeIndex, isFlatListLayoutReady, filteredRecipes.length]);
 
   const openRecipeModal = (index) => {
     setSelectedRecipeIndex(index);
@@ -91,18 +103,21 @@ const RecipesScreen = () => {
     </TouchableOpacity>
   );
 
-  const renderDetailedRecipeCard = ({ item }) => { // Removed 'index' as it's not directly used for display logic within this render
+  const renderDetailedRecipeCard = ({ item }) => { // 'index' is removed as it's not directly used for display logic within this render
     // IMPORTANT: Add a check to ensure 'item' is valid before rendering its properties.
-    // This can prevent errors or blank content if FlatList passes an incomplete item temporarily.
+    // This can prevent errors or blank content if FlatList passes an incomplete item temporarily during init.
     if (!item) {
-      // Return a placeholder that still has the correct dimensions for getItemLayout
+      // Return a placeholder that still maintains the expected dimensions
+      // so FlatList's layout calculations (getItemLayout, snapToInterval) remain consistent.
+      const CARD_FULL_WIDTH_PLACEHOLDER = windowWidth * 0.9;
+      const CARD_MARGIN_HORIZONTAL_PLACEHOLDER = 4;
       return (
         <View style={[
-          styles.detailedRecipeCard,
+          styles.detailedRecipeCard, // Inherit basic card styles
           {
-            width: windowWidth * 0.9,
-            marginHorizontal: 4,
-            height: 500, // Ensure height is consistent with detailedRecipeCard's minHeight
+            width: CARD_FULL_WIDTH_PLACEHOLDER,
+            marginHorizontal: CARD_MARGIN_HORIZONTAL_PLACEHOLDER,
+            minHeight: 500, // Maintain height consistent with detailedRecipeCard's minHeight
             justifyContent: 'center',
             alignItems: 'center'
           }
@@ -114,7 +129,7 @@ const RecipesScreen = () => {
 
     // Define the full width one card should occupy, including any margins
     const CARD_FULL_WIDTH = windowWidth * 0.9; // Each card will be 90% of screen width
-    const CARD_MARGIN_HORIZONTAL = 4; // Margin on each side of the card
+    const CARD_MARGIN_HORIZONTAL = 4; // Margin on each side of the card (you desired 4px here)
 
     return (
       <View
@@ -127,12 +142,11 @@ const RecipesScreen = () => {
         ]}
       >
         <View style={styles.recipeImageContainer}>
-          {/* Ensure local_thumbnail is always present or handle null */}
+          {/* Ensure local_thumbnail is valid before using as source, or provide fallback */}
           <Image
             source={item.local_thumbnail}
             style={styles.recipeDetailImage}
-            // Optional: Add onError to catch image loading issues
-            onError={(e) => console.warn("Failed to load recipe image:", e.nativeEvent.error)}
+            onError={(e) => console.warn("Failed to load recipe image:", item.name, e.nativeEvent.error)} // More specific error logging
           />
         </View>
         <View style={styles.recipeDetailsContainer}>
@@ -164,14 +178,14 @@ const RecipesScreen = () => {
             <Text style={styles.statIcon}>🥘</Text>
             <Text style={styles.statLabel}>Ingredients:</Text>
             <Text style={styles.ingredientsList}>
-              {item.ingredients ? item.ingredients.join(', ') : 'N/A'} {/* Added null check for ingredients */}
+              {item.ingredients && item.ingredients.length > 0 ? item.ingredients.join(', ') : 'N/A'}
             </Text>
           </View>
           
           <View style={styles.acquisitionSection}>
             <Text style={styles.statIcon}>🎯</Text>
             <Text style={styles.statLabel}>How to Get:</Text>
-            <Text style={styles.acquisitionText}>{item.acquisition || 'N/A'}</Text> {/* Added null check for acquisition */}
+            <Text style={styles.acquisitionText}>{item.acquisition || 'N/A'}</Text>
           </View>
         </View>
       </View>
@@ -228,6 +242,7 @@ const RecipesScreen = () => {
           {modalVisible && filteredRecipes.length > 0 && selectedRecipeIndex !== -1 && (
              <FlatList
               ref={swipeFlatListRef}
+              onLayout={handleFlatListLayout} // Add onLayout prop here
               data={filteredRecipes}
               renderItem={renderDetailedRecipeCard}
               keyExtractor={(item, index) => item.name + index}
@@ -481,4 +496,3 @@ const styles = StyleSheet.create({
 });
 
 export default RecipesScreen;
-
