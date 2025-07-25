@@ -25,6 +25,9 @@ const RecipesScreen = () => {
   const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(-1);
   const [showFilters, setShowFilters] = useState(false);
   
+  // ADDED: searchText state variable for filter functionality
+  const [searchText, setSearchText] = useState(''); 
+
   // New state for FlatList layout readiness for reliable scrolling
   const [isFlatListLayoutReady, setIsFlatListLayoutReady] = useState(false); 
   
@@ -46,19 +49,18 @@ const RecipesScreen = () => {
   }, []);
 
   // 2. Memoized filter options derived from the full recipes list
+  // These must be defined directly within the functional component's top level,
+  // NOT inside another useEffect or function definition.
   const dishTypes = React.useMemo(() => {
     const types = new Set();
-    recipes.forEach(recipe => { 
+    recipes.forEach(recipe => { // Use 'recipes' (full list) to derive filter options
       const words = recipe.name.split(' ');
-      // Assuming dish type is the last word for multi-word names, e.g., "Sushi", "Curry"
       if (words.length > 1) { 
         types.add(words[words.length - 1]);
       }
-      // You might need more specific logic if dish type is not always the last word,
-      // or if single-word names are also categories (e.g., "Ramen" itself is a type)
     });
     return ['All', ...Array.from(types).sort()];
-  }, [recipes]); // Re-calculate if the base 'recipes' list ever changes
+  }, [recipes]); // Depend on 'recipes' (the full list)
 
   const acquisitionMethods = React.useMemo(() => {
     const methods = new Set();
@@ -68,15 +70,15 @@ const RecipesScreen = () => {
       }
     });
     return ['All', ...Array.from(methods).sort()];
-  }, [recipes]); // Re-calculate if the base 'recipes' list ever changes
+  }, [recipes]); // Depend on 'recipes' (the full list)
 
-  // 3. Function to apply all active filters to the base recipes list
+  // 3. Function to apply all active filters
+  // This must be defined directly within the functional component's top level.
   const applyFilters = () => {
     let currentFiltered = recipes; // Always start filtering from the original, full list
 
-    // Apply search filter (if searchText state is ever implemented and used)
-    // Currently, searchText is not defined in this component, but this logic is ready.
-    if (typeof searchText !== 'undefined' && searchText) { 
+    // Apply search filter using the 'searchText' state
+    if (searchText) { 
       currentFiltered = currentFiltered.filter(item =>
         item.name.toLowerCase().includes(searchText.toLowerCase()) ||
         (item.ingredients && item.ingredients.some(ing => ing.toLowerCase().includes(searchText.toLowerCase())))
@@ -104,14 +106,12 @@ const RecipesScreen = () => {
   // This ensures 'filteredRecipes' is updated dynamically based on user selections.
   useEffect(() => {
     applyFilters();
-  }, [recipes, searchText, activeDishTypeFilter, activeAcquisitionFilter]); // Dependencies: Re-run when base recipes or any filter state changes
+  }, [recipes, searchText, activeDishTypeFilter, activeAcquisitionFilter]); 
 
   // 5. useEffect to handle scrolling the FlatList in the modal to the selected item
   // This is the most robust implementation for reliable initial scrolling.
   useEffect(() => {
-    // Only attempt scroll if modal is visible, a recipe is selected, ref is available, AND FlatList layout is ready.
     if (modalVisible && selectedRecipeIndex !== -1 && swipeFlatListRef.current && isFlatListLayoutReady) {
-      // Add a short timeout to give the FlatList's children a moment to render and measure
       const scrollTimeoutId = setTimeout(() => {
         try {
           const itemFullWidth = (windowWidth * 0.9) + (4 * 2); // Calculate item's full width (content + margins)
@@ -124,19 +124,17 @@ const RecipesScreen = () => {
         } catch (e) {
           console.warn('*** SCROLL DEBUG ***: Failed to scroll to index (onLayout + timeout trigger):', e);
           console.error('*** SCROLL DEBUG ***: scrollToIndex error details:', { message: e.message, name: e.name, stack: e.stack });
-          // Fallback if scrolling fails: log error but let the app continue.
         }
-      }, 50); // 50ms delay, adjust if necessary for different devices/performance
+      }, 50);
 
-      return () => clearTimeout(scrollTimeoutId); // Cleanup the timeout to prevent memory leaks/unwanted behavior
+      return () => clearTimeout(scrollTimeoutId);
     }
 
-    // Reset layout ready state when modal closes to re-trigger on next open
     if (!modalVisible) {
       console.log('*** SCROLL DEBUG ***: Modal closed. Resetting isFlatListLayoutReady: false.');
       setIsFlatListLayoutReady(false);
     }
-  }, [modalVisible, selectedRecipeIndex, isFlatListLayoutReady, recipes.length]); // Dependencies for this effect
+  }, [modalVisible, selectedRecipeIndex, isFlatListLayoutReady, recipes.length]);
 
   // Handler for opening the recipe detail modal
   const openRecipeModal = (index) => {
@@ -147,7 +145,7 @@ const RecipesScreen = () => {
   // Handler for closing the recipe detail modal
   const closeRecipeModal = () => {
     setModalVisible(false);
-    setSelectedRecipeIndex(-1); // Reset index when modal closes
+    setSelectedRecipeIndex(-1); 
   };
 
   // Renders a single recipe card in the main grid
@@ -177,19 +175,16 @@ const RecipesScreen = () => {
 
   // Renders the detailed content for a single recipe card in the modal
   const renderDetailedRecipeCard = ({ item }) => { 
-    // IMPORTANT: Check if 'item' is valid before rendering its properties.
-    // This is a crucial safety check for FlatList's initial rendering quirks.
     if (!item) {
-      // Return a placeholder that maintains the expected dimensions for FlatList's layout calculations
       const CARD_FULL_WIDTH_PLACEHOLDER = windowWidth * 0.9;
       const CARD_MARGIN_HORIZONTAL_PLACEHOLDER = 4;
       return (
         <View style={[
-          styles.detailedRecipeCard, // Inherit basic card styles for consistency
+          styles.detailedRecipeCard,
           {
             width: CARD_FULL_WIDTH_PLACEHOLDER,
             marginHorizontal: CARD_MARGIN_HORIZONTAL_PLACEHOLDER,
-            minHeight: 500, // Ensure height is consistent with detailedRecipeCard's minHeight
+            minHeight: 500, 
             justifyContent: 'center',
             alignItems: 'center'
           }
@@ -199,8 +194,8 @@ const RecipesScreen = () => {
       );
     }
 
-    const CARD_FULL_WIDTH = windowWidth * 0.9; // Content width of the card
-    const CARD_MARGIN_HORIZONTAL = 4; // Margin on each side of the card
+    const CARD_FULL_WIDTH = windowWidth * 0.9;
+    const CARD_MARGIN_HORIZONTAL = 4;
 
     return (
       <View
@@ -214,9 +209,9 @@ const RecipesScreen = () => {
       >
         <View style={styles.recipeImageContainer}>
           <Image
-            source={item.local_thumbnail} // Assumed to be valid for a defined 'item'
+            source={item.local_thumbnail}
             style={styles.recipeDetailImage}
-            onError={(e) => console.warn("Failed to load recipe image for:", item.name, e.nativeEvent.error)} // Enhanced error logging
+            onError={(e) => console.warn("Failed to load recipe image:", item.name, e.nativeEvent.error)}
           />
         </View>
         <View style={styles.recipeDetailsContainer}>
@@ -351,7 +346,7 @@ const RecipesScreen = () => {
               horizontal
               pagingEnabled={false} // Disable default paging
               snapToInterval={ (windowWidth * 0.9) + (4 * 2) } // Actual total item width: (windowWidth * 0.9) + 8
-              snapToAlignment={'center'} // Snap item to center of FlatList's viewport
+              snapToAlignment={'center'} // Snap the item to the center of the FlatList's viewport
               decelerationRate="fast" // Improves snap feeling
               showsHorizontalScrollIndicator={false}
               initialScrollIndex={selectedRecipeIndex} // Hint for initial scroll
