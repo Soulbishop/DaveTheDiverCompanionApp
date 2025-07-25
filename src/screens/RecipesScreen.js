@@ -91,7 +91,27 @@ const RecipesScreen = () => {
     </TouchableOpacity>
   );
 
-  const renderDetailedRecipeCard = ({ item, index }) => {
+  const renderDetailedRecipeCard = ({ item }) => { // Removed 'index' as it's not directly used for display logic within this render
+    // IMPORTANT: Add a check to ensure 'item' is valid before rendering its properties.
+    // This can prevent errors or blank content if FlatList passes an incomplete item temporarily.
+    if (!item) {
+      // Return a placeholder that still has the correct dimensions for getItemLayout
+      return (
+        <View style={[
+          styles.detailedRecipeCard,
+          {
+            width: windowWidth * 0.9,
+            marginHorizontal: 4,
+            height: 500, // Ensure height is consistent with detailedRecipeCard's minHeight
+            justifyContent: 'center',
+            alignItems: 'center'
+          }
+        ]}>
+          <Text style={{ color: '#888', fontSize: 16 }}>Loading recipe details...</Text>
+        </View>
+      );
+    }
+
     // Define the full width one card should occupy, including any margins
     const CARD_FULL_WIDTH = windowWidth * 0.9; // Each card will be 90% of screen width
     const CARD_MARGIN_HORIZONTAL = 4; // Margin on each side of the card
@@ -107,10 +127,12 @@ const RecipesScreen = () => {
         ]}
       >
         <View style={styles.recipeImageContainer}>
+          {/* Ensure local_thumbnail is always present or handle null */}
           <Image
             source={item.local_thumbnail}
             style={styles.recipeDetailImage}
-            
+            // Optional: Add onError to catch image loading issues
+            onError={(e) => console.warn("Failed to load recipe image:", e.nativeEvent.error)}
           />
         </View>
         <View style={styles.recipeDetailsContainer}>
@@ -134,7 +156,7 @@ const RecipesScreen = () => {
             <Text style={styles.statIcon}>🍽️</Text>
             <Text style={styles.statLabel}>Servings:</Text>
             <Text style={styles.statValue}>
-              {item.dish_base} - {item.dish_max}
+              {item.dish_base}-{item.dish_max} servings
             </Text>
           </View>
           
@@ -142,14 +164,14 @@ const RecipesScreen = () => {
             <Text style={styles.statIcon}>🥘</Text>
             <Text style={styles.statLabel}>Ingredients:</Text>
             <Text style={styles.ingredientsList}>
-              {item.ingredients.join(', ')}
+              {item.ingredients ? item.ingredients.join(', ') : 'N/A'} {/* Added null check for ingredients */}
             </Text>
           </View>
           
           <View style={styles.acquisitionSection}>
             <Text style={styles.statIcon}>🎯</Text>
             <Text style={styles.statLabel}>How to Get:</Text>
-            <Text style={styles.acquisitionText}>{item.acquisition}</Text>
+            <Text style={styles.acquisitionText}>{item.acquisition || 'N/A'}</Text> {/* Added null check for acquisition */}
           </View>
         </View>
       </View>
