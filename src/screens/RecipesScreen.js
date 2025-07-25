@@ -1,7 +1,7 @@
 // FILE: src/screens/RecipesScreen.js
 // Clean rewrite with proper syntax from the start
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'; // Added useCallback import
 import {
   View,
   Text,
@@ -10,13 +10,13 @@ import {
   Image,
   StyleSheet,
   Modal,
-  ScrollView, // Required for the horizontal filter options
+  ScrollView, 
   Dimensions,
-  TextInput, // Keeping TextInput import, just in case searchText is used with it later
+  TextInput, // Keeping TextInput import, even if no explicit UI for search yet
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // For navigating to Marine Life screen from ingredients
-import allRecipes from '../data/allRecipes';
-import { getAllMarineLife } from '../utils/marineLifeDatabase'; // For linking ingredients to marine life details
+import { useNavigation } from '@react-navigation/native'; // Used for navigating from ingredient links
+import allRecipes from '../data/allRecipes'; // Your local recipes data
+import { getAllMarineLife } from '../utils/marineLifeDatabase'; // Your local marine life data, for ingredient links
 
 
 // Get the window dimensions for responsive sizing
@@ -36,7 +36,7 @@ const RecipesScreen = () => {
   // States for selected filter options (only Price and Taste, as per your request)
   const [activePriceFilter, setActivePriceFilter] = useState('All');
   const [activeTasteFilter, setActiveTasteFilter] = useState('All');
-  const [searchText, setSearchText] = useState(''); // Declared for applyFilters, even if no TextInput UI is present yet
+  const [searchText, setSearchText] = useState(''); // State for search input (if a search bar is added later)
 
   // Ref for direct FlatList manipulation (e.g., scrollToIndex)
   const swipeFlatListRef = useRef(null);
@@ -52,18 +52,20 @@ const RecipesScreen = () => {
 
   // 1. useEffect: Loads all recipes data into 'recipes' state once on component mount.
   useEffect(() => {
-    setRecipes(allRecipes); 
+    setRecipes(allRecipes); // Load all recipes into base state
+    // filteredRecipes will be set by the filtering useEffect below after recipes are loaded
   }, []);
 
   // 2. useMemo: Dynamically generates available filter options (price ranges, taste ranges)
+  // These are memoized to prevent unnecessary re-creation on every render.
   const priceRanges = useMemo(() => {
-    // These are predefined categories. Adjust values to fit your game's price distribution.
+    // Define your price tiers explicitly. Adjust values based on your game's price distribution.
     return ['All', 'Low (<$50)', 'Medium ($50-$200)', 'High (>$200)'].sort();
   }, []); 
 
   const tasteRanges = useMemo(() => {
-    // These are predefined categories. Adjust values to fit your game's taste distribution.
-    return ['All', 'Low (<50)', 'Medium (50-200)', 'High (>200)'].sort(); 
+    // Define your taste tiers explicitly. Adjust values based on your game's taste distribution.
+    return ['All', 'Low (<50)', 'Medium (50-200)', 'High (>200)'].sort(); // Simplified to one 'High' tier
   }, []);
 
   // Memoized list of marine life names for checking clickable ingredients in detailed card
@@ -75,10 +77,10 @@ const RecipesScreen = () => {
   // --- Filtering Logic ---
 
   // 3. Function: applyFilters - Core logic to filter 'recipes' based on current filter states.
-  const applyFilters = React.useCallback(() => { // Using useCallback to memoize the function itself
+  const applyFilters = useCallback(() => { // Using useCallback to memoize the function itself
     let currentFiltered = recipes; // Always start filtering from the original, full 'recipes' list
 
-    // Apply search filter (if searchText has a value)
+    // Apply search filter (if searchText has a value, e.g., from a future TextInput)
     if (searchText) { 
       currentFiltered = currentFiltered.filter(item =>
         item.name.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -117,10 +119,44 @@ const RecipesScreen = () => {
     setFilteredRecipes(currentFiltered); // Update the state that drives the displayed FlatList
   }, [recipes, searchText, activePriceFilter, activeTasteFilter]); // Dependencies for applyFilters
 
-  // 4. useEffect: Triggers 'applyFilters' whenever relevant filter criteria or base recipes change.
+  // 4. useEffect: Triggers 'applyFilters' whenever filter criteria or base recipes change.
   useEffect(() => {
     applyFilters();
   }, [applyFilters]); // Dependency on applyFilters (wrapped in useCallback for stability)
+
+  // --- Modal Scrolling Logic ---
+
+  // 5. useEffect: Handles scrolling the FlatList in the modal to the selected item on open.
+  // This is a robust approach for reliable initial scrolling when the modal opens.
+  useEffect(() => {
+    // Only attempt scroll if modal is visible, an item is selected, FlatList ref is ready, AND layout is complete.
+    if (modalVisible && selectedRecipeIndex !== -1 && swipeFlatListRef.current && isFlatListLayoutReady) {
+      // Add a short timeout to give the FlatList's children a moment to render and measure
+      const scrollTimeoutId = setTimeout(() => {
+        try {
+          const itemFullWidth = (windowWidth * 0.9) + (4 * 2); // Calculate item's full width (content + margins)
+          console.log('*** SCROLL DEBUG ***: Attempting scroll to index (onLayout + timeout). Target index:', selectedRecipeIndex, 'Item width:', itemFullWidth);
+          swipeFlatListRef.current.scrollToIndex({
+            index: selectedRecipeIndex,
+            animated: false, // Immediate jump to position
+          });
+          console.log('*** SCROLL DEBUG ***: Scroll command issued for index:', selectedRecipeIndex);
+        } catch (e) {
+          console.warn('*** SCROLL DEBUG ***: Failed to scroll to index (onLayout + timeout trigger):', e);
+          console.error('*** SCROLL DEBUG ***: scrollToIndex error details:', { message: e.message, name: e.name, stack: e.stack });
+          // Fallback: Log error, but don't stop execution.
+        }
+      }, 50); // Small delay (50ms) as a final safeguard against timing issues.
+
+      return () => clearTimeout(scrollTimeoutId); // Cleanup the timeout when the effect re-runs or component unmounts.
+    }
+
+    // Reset layout readiness when the modal closes, so it's fresh for the next open.
+    if (!modalVisible) {
+      console.log('*** SCROLL DEBUG ***: Modal closed. Resetting isFlatListLayoutReady: false.');
+      setIsFlatListLayoutReady(false);
+    }
+  }, [modalVisible, selectedRecipeIndex, isFlatListLayoutReady, recipes.length]); // Dependencies for this effect.
 
   // --- Modal Control Functions ---
 
@@ -133,7 +169,7 @@ const RecipesScreen = () => {
   // Handler for closing the recipe detail modal
   const closeRecipeModal = () => {
     setModalVisible(false);
-    setSelectedRecipeIndex(-1); // Reset selected index when modal closes
+    setSelectedRecipeIndex(-1); // Reset selected index when modal is closed
   };
 
   // --- FlatList Item Renderers ---
@@ -175,7 +211,7 @@ const RecipesScreen = () => {
           {
             width: CARD_FULL_WIDTH_PLACEHOLDER,
             marginHorizontal: CARD_MARGIN_HORIZONTAL_PLACEHOLDER,
-            minHeight: 500, // Keep height consistent with the main card style
+            minHeight: 500, 
             justifyContent: 'center',
             alignItems: 'center'
           }
@@ -308,7 +344,7 @@ const RecipesScreen = () => {
               </Text>
             </TouchableOpacity>
           ))}
-          {/* Note: Other filters (Dish Type, Servings, Acquisition) are intentionally excluded as per your request */}
+          {/* Note: Dish Type, Servings, and Acquisition filters are intentionally excluded as per your request */}
         </ScrollView>
       )}
 
@@ -530,16 +566,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-    flex: 1, 
-    textAlign: 'center',
-    marginLeft: 32, 
-    marginRight: 32, 
   },
   closeButton: {
+    backgroundColor: '#ff6b6b',
+    padding: 8,
+    borderRadius: 20,
     width: 36,
     height: 36,
-    borderRadius: 18, 
-    backgroundColor: '#ff6b6b',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -554,12 +587,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
     marginTop: 60,
-  },
-  modalScrollContent: {
-    flexGrow: 1, 
-    justifyContent: 'flex-start',
-    backgroundColor: 'white', 
-    paddingBottom: 20, 
   },
   detailedRecipeCard: {
     backgroundColor: '#ffffff',
@@ -624,14 +651,6 @@ const styles = StyleSheet.create({
     color: '#0066cc',
     flex: 1,
     flexWrap: 'wrap',
-  },
-  ingredientLink: {
-    color: '#0066cc',
-    fontWeight: 'bold',
-    textDecorationLine: 'underline',
-  },
-  ingredientText: {
-    color: '#666',
   },
   acquisitionSection: {
     flexDirection: 'row',
