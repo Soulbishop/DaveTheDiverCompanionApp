@@ -32,8 +32,6 @@ const RecipesScreen = () => {
   const [filteredRecipes, setFilteredRecipes] = useState([]); // The list currently displayed after filters are applied
   const [modalVisible, setModalVisible] = useState(false); // Controls visibility of the detail modal
   const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(-1); // Index of the recipe currently selected for the modal
-  const [showFilters, setShowFilters] = useState(false); // Controls visibility of the filter options dropdown
-  const [modalHeaderHeight, setModalHeaderHeight] = useState(0); // State to store the measured height of the modal header
 
   // States for selected filter options (only Price and Taste, as per your request)
   const [activePriceFilter, setActivePriceFilter] = useState('All');
@@ -48,10 +46,7 @@ const RecipesScreen = () => {
   const [isFlatListLayoutReady, setIsFlatListLayoutReady] = useState(false); 
   const handleFlatListLayout = useCallback(() => {
     setIsFlatListLayoutReady(true);
-    }, []);
-  const onModalHeaderLayout = useCallback((event) => {
-      setModalHeaderHeight(event.nativeEvent.layout.height);
-}, []);
+  }, []);
 
   // --- Data Initialization and Memoized Filters ---
 
@@ -318,17 +313,7 @@ return (
       visible={modalVisible}
       onRequestClose={closeRecipeModal}
     >
-  <View style={[styles.modalOverlay, { paddingTop: windowHeight * 0.1 }]}>
-    {/* Modal Header positioned here, no longer absolute to its parent directly */}
-    <View style={styles.modalHeaderFixed} onLayout={onModalHeaderLayout}>
-      <Text style={styles.modalTitle}>
-        {selectedRecipeIndex !== -1 ? filteredRecipes[selectedRecipeIndex]?.name : 'Recipe Details'}
-      </Text>
-      <TouchableOpacity
-        style={styles.closeButton}
-        onPress={closeRecipeModal}
-      >
-        <Text style={styles.closeButtonText}>X</Text></TouchableOpacity> </View>
+      <View style={styles.modalOverlay}>
 
     {/* The swipeable FlatList for detailed recipe cards */}
     {modalVisible && filteredRecipes.length > 0 && selectedRecipeIndex !== -1 && (
@@ -365,14 +350,10 @@ return (
           }
         }}
         style={styles.modalFlatList}
-        contentContainerStyle={{
-          alignItems: 'center',
-          paddingTop: modalHeaderHeight > 0 ? modalHeaderHeight + 10 : 0, 
-          paddingBottom: 20, // Ensure content is not cut off at the bottom
-        }}
+        contentContainerStyle={styles.modalFlatListContent}
       />
     )}
-  </View>
+      </View>
     </Modal>
   </View>
 );
@@ -504,51 +485,17 @@ const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'flex-start',
-    alignItems: 'center', // Keep horizontal centering for children like modalHeaderFixed and modalFlatList
-  },
-  modalHeaderFixed: {
-    width: '90%', 
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    zIndex: 10, 
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
-    flex: 1, 
-    textAlign: 'center',
-    marginLeft: 32, 
-    marginRight: 32, 
-  },
-  closeButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18, 
-    backgroundColor: '#ff6b6b',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  closeButtonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
   modalFlatList: {
-    width: '90%',
-    flex: 1, // Allow FlatList to take all available vertical space
-    borderRadius: 16,
-      overflow: 'hidden',
-    // This marginTop will be replaced by padding on contentContainerStyle based on modalHeaderHeight
-      // Removed old static marginTop to prepare for dynamic padding
+    flexGrow: 0,
+    height: windowHeight * 0.75,
+  },
+  modalFlatListContent: {
+    // This padding ensures the first and last items can be centered in the view
+    // It calculates the space on either side of the card to center it.
+    paddingHorizontal: (windowWidth - (windowWidth * 0.9) - (4 * 2)) / 2,
   },
   searchInput: {
     height: 40,
