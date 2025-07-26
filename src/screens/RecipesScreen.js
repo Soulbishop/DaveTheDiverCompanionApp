@@ -166,7 +166,7 @@ const RecipesScreen = () => {
       console.log('*** SCROLL DEBUG ***: Modal closed. Resetting isFlatListLayoutReady: false.');
       setIsFlatListLayoutReady(false);
     }
-}, [modalVisible, selectedRecipeIndex, isFlatListLayoutReady, windowWidth, filteredRecipes, searchText, recipes, swipeFlatListRef]);
+}, [modalVisible, selectedRecipeIndex, isFlatListLayoutReady, windowWidth, filteredRecipes, swipeFlatListRef]);
 
 
   // --- Modal Control Functions ---
