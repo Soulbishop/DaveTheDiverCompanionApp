@@ -60,10 +60,11 @@ export const initializeMarineLifeDatabase = async () => {
 /**
  * Saves the current user-specific 'caught' and 'breeding_pair' states to AsyncStorage.
  * This function is optimized to only save the mutable flags.
+ * This is an internal helper function and is not exported.
  */
-export const saveUserMarineLifeData = async (marineLifeList) => {
+const saveUserMarineLifeData = async () => {
   try {
-    const dataToSave = marineLifeList.reduce((acc, item) => {
+    const dataToSave = combinedMarineLifeData.reduce((acc, item) => {
       acc[item.name] = { // Use marine life name as unique identifier
         caught: item.caught,
         breeding_pair: item.breeding_pair,
@@ -146,7 +147,7 @@ export const updateMarineLifeCaught = async (fishName, caughtStatus) => {
     if (index !== -1) {
       combinedMarineLifeData[index].caught = caughtStatus;
       // Save to AsyncStorage
-      await saveUserMarineLifeData(combinedMarineLifeData);
+      await saveUserMarineLifeData();
       return true;
     }
     return false;
@@ -166,7 +167,7 @@ export const updateMarineLifeBreedingPair = async (fishName, breedingStatus) => 
     if (index !== -1) {
       combinedMarineLifeData[index].breeding_pair = breedingStatus;
       // Save to AsyncStorage
-      await saveUserMarineLifeData(combinedMarineLifeData);
+      await saveUserMarineLifeData();
       return true;
     }
     return false;
