@@ -245,7 +245,6 @@ const renderDetailedRecipeCard = useCallback(({ item }) => {
           source={item.local_thumbnail}
           style={styles.recipeDetailImage}
           onError={(e) => console.warn("Failed to load recipe image:", item.name, e.nativeEvent.error)}
-          defaultSource={require('../assets/recipe_images/placeholder_recipe.png')} // Fallback image for errors
         />      
       </View>
       <View style={styles.recipeDetailsContainer}>
@@ -303,7 +302,7 @@ const renderDetailedRecipeCard = useCallback(({ item }) => {
       </View>
     </View>
   );
-    }, [marineLifeNames, navigation, windowWidth, styles, closeRecipeModal]);
+    }, [marineLifeNames, navigation, windowWidth, styles, closeRecipeModal, getAllMarineLife]);
 
 return (
   <View style={styles.container}>
