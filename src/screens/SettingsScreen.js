@@ -14,7 +14,7 @@ const SettingsScreen = () => {
           style: 'destructive',
           onPress: async () => {
             try {
-              await AsyncStorage.removeItem('marineLifeData');
+              await AsyncStorage.removeItem('@DaveTheDiverCompanion:userMarineLife');
               Alert.alert('Success', 'All data has been reset.');
             } catch (error) {
               Alert.alert('Error', 'Failed to reset data.');
@@ -119,4 +119,3 @@ const styles = StyleSheet.create({
 });
 
 export default SettingsScreen;
-

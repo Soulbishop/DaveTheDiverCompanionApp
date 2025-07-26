@@ -281,10 +281,11 @@ const renderDetailedRecipeCard = useCallback(({ item }) => {
                   <Text 
                     key={idx}
                       style={marineLifeNames.has(ingredient.toLowerCase()) ? styles.ingredientLink : styles.ingredientText}
-                    onPress={marineLifeNames.has(ingredient.toLowerCase()) ? () => {
-                      closeRecipeModal(); 
-                        navigation.navigate('Marine Life', { screen: 'Marine Life', params: { marineLifeName: ingredient } });
-                    } : undefined}
+                    onPress={
+                      marineLifeNames.has(ingredient.toLowerCase())
+                        ? () => { closeRecipeModal(); navigation.navigate('Marine Life', { marineLifeName: ingredient }); }
+                        : undefined
+                    }
                   >
                     {ingredient} 
                     {idx < item.ingredients.length - 1 && ', '} 
