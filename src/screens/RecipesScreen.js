@@ -313,6 +313,15 @@ return (
       </Text>
     </View>
 
+    <TextInput
+      style={styles.searchInput}
+      placeholder="Search recipes or ingredients..."
+      placeholderTextColor="#888"
+      value={searchText}
+      onChangeText={setSearchText}
+      clearButtonMode="while-editing" // iOS clear button
+    />
+
     <TouchableOpacity
       style={styles.filterHeader}
       onPress={() => setShowFilters(!showFilters)}
@@ -355,14 +364,6 @@ return (
         {/* Note: Dish Type, Servings, and Acquisition filters are intentionally excluded as per your request */}
       </ScrollView>
     )}
-    <TextInput
-      style={styles.searchInput} 
-      placeholder="Search recipes or ingredients..."
-      placeholderTextColor="#888"
-      value={searchText}
-      onChangeText={setSearchText}
-      clearButtonMode="while-editing" // iOS clear button
-    />
     <FlatList
       data={filteredRecipes}
       renderItem={renderRecipeCard}
