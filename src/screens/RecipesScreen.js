@@ -416,7 +416,7 @@ return (
             index,
         };
         }}
-        onScrollEndDrag={(event) => {
+        onMomentumScrollEnd={(event) => {
           const itemFullWidth = (windowWidth * 0.9) + (4 * 2);
           if (!itemFullWidth) return;
           const contentOffsetX = event.nativeEvent.contentOffset.x;
@@ -679,10 +679,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   ingredientsList: {
-   fontSize: 16,
-    color: '#0066cc',
-      flex: 1,
-    flexWrap: 'wrap',
+    fontSize: 16,
+    flex: 1, // Ensures the text container wraps within the flex row
   },
   ingredientLink: {
     color: '#0066cc',
@@ -690,7 +688,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   ingredientText: {
-    color: '#666',
+    color: '#666', // Non-link ingredients
   },
   acquisitionSection: {
     flexDirection: 'row',
@@ -700,8 +698,7 @@ const styles = StyleSheet.create({
   acquisitionText: {
     fontSize: 16,
     color: '#666',
-      // flex: 1, //Might cause issue with text wrapping - Keep Commented
-    flexWrap: 'wrap',
+    flex: 1, // This is necessary for the text to wrap within the flex container
   },
 });
 
