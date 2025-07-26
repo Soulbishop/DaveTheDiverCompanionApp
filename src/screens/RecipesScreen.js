@@ -128,6 +128,16 @@ const RecipesScreen = () => {
     applyFilters();
   }, [applyFilters]); // Dependency on applyFilters (wrapped in useCallback for stability)
 
+  // Handle navigation from other screens (e.g., Marine Life card)
+  useEffect(() => {
+    const recipeNameToSearch = route.params?.recipeName;
+    if (recipeNameToSearch) {
+      setSearchText(recipeNameToSearch);
+      // Clear the param to prevent re-triggering on screen focus
+      navigation.setParams({ recipeName: undefined });
+    }
+  }, [route.params?.recipeName, navigation]);
+
   // --- Modal Scrolling Logic ---
 
   // 5. useEffect: Handles scrolling the FlatList in the modal to the selected item on open.
