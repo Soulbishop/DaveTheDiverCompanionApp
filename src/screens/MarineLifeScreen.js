@@ -156,31 +156,36 @@ const MarineLifeScreen = ({ route, navigation }) => {
     setFilteredMarineLife(filtered);
   };
 
-  const handleToggleCaught = async (fishName, newStatus) => {
+  const handleToggleCaught = useCallback(async (fishName, newStatus) => {
     await updateMarineLifeCaught(fishName, newStatus);
     const updatedData = getAllMarineLife();
     const updatedStats = getMarineLifeStats();
     setAllMarineLife(updatedData);
     setStats(updatedStats);
-  };
+  }, []);
 
-  const handleToggleBreedingPair = async (fishName, newStatus) => {
+  const handleToggleBreedingPair = useCallback(async (fishName, newStatus) => {
     await updateMarineLifeBreedingPair(fishName, newStatus);
     const updatedData = getAllMarineLife();
     const updatedStats = getMarineLifeStats();
     setAllMarineLife(updatedData);
     setStats(updatedStats);
-  };
+  }, []);
 
   const openFishCard = (index) => {
     setSelectedFishIndex(index);
     setModalVisible(true);
   };
 
-  const closeFishCard = () => {
+  const closeFishCard = useCallback(() => {
     setModalVisible(false);
     setSelectedFishIndex(-1);
-  };
+  }, []);
+
+  const handleSelectRecipe = useCallback((recipeName) => {
+    closeFishCard();
+    navigation.navigate('Recipes', { recipeName: recipeName });
+  }, [navigation, closeFishCard]);
 
   const renderGridItem = ({ item, index }) => (
     <TouchableOpacity
@@ -247,10 +252,11 @@ const MarineLifeScreen = ({ route, navigation }) => {
           onClose={closeFishCard}
           onToggleCaught={handleToggleCaught}
           onToggleBreeding={handleToggleBreedingPair}
+          onSelectRecipe={handleSelectRecipe}
         />
       </View>
     );
-  }, [handleToggleCaught, handleToggleBreedingPair, closeFishCard]);
+  }, [closeFishCard, handleSelectRecipe, handleToggleBreedingPair, handleToggleCaught]);
 
   return (
     <SafeAreaView style={styles.container}>

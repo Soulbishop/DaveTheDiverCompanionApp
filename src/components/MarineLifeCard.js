@@ -12,7 +12,7 @@ import {
   Switch,
 } from 'react-native';
 
-const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding }) => {
+const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding, onSelectRecipe }) => {
   if (!fish) return null;
 
   return (
@@ -74,9 +74,11 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding }) => 
           <View style={styles.recipesSection}>
             <Text style={styles.sectionTitle}>Used in Recipes:</Text>
             {fish.recipes.map((recipe, index) => (
-              <View key={index} style={styles.recipeItem}>
-                <Text style={styles.recipeText}>• {recipe}</Text>
-              </View>
+              <TouchableOpacity key={index} onPress={() => onSelectRecipe && onSelectRecipe(recipe)}>
+                <View style={styles.recipeItem}>
+                  <Text style={styles.recipeLinkText}>• {recipe}</Text>
+                </View>
+              </TouchableOpacity>
             ))}
           </View>
         )}
@@ -211,6 +213,12 @@ const styles = StyleSheet.create({
   recipeText: {
     fontSize: 14,
     color: '#666',
+  },
+  recipeLinkText: {
+    fontSize: 14,
+    color: '#0066cc',
+    fontWeight: '600',
+    textDecorationLine: 'underline',
   },
   toggleSection: {
     marginBottom: 20,
