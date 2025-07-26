@@ -1,7 +1,7 @@
 // FILE LOCATION: src/screens/MarineLifeScreen.js
 // REPLACE THE ENTIRE EXISTING FILE WITH THIS CODE
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   View,
   Text,
@@ -11,77 +11,88 @@ import {
   TouchableOpacity,
   Modal,
   Image,
-  ScrollView,
   TextInput,
-  Alert
+  Dimensions,
+  ScrollView,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { saveUserMarineLifeData } from '../utils/marineLifeDatabase';
+import { useFocusEffect } from '@react-navigation/native';
+import {
+  getAllMarineLife,
+  updateMarineLifeCaught,
+  updateMarineLifeBreedingPair,
+  getMarineLifeStats,
+} from '../utils/marineLifeDatabase';
+import MarineLifeCard from '../components/MarineLifeCard';
 
-const MarineLifeScreen = ({ marineLifeList, setMarineLifeList, route, navigation }) => {
-  const [filteredMarineLife, setFilteredMarineLife] = useState(marineLifeList);
-  const [selectedFish, setSelectedFish] = useState(null);
+const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
+
+const MarineLifeScreen = ({ route, navigation }) => {
+  const [allMarineLife, setAllMarineLife] = useState([]);
+  const [filteredMarineLife, setFilteredMarineLife] = useState([]);
+  const [stats, setStats] = useState({ total: 0, caught: 0, breedingPairs: 0, caughtPercentage: 0 });
+
+  const [selectedFishIndex, setSelectedFishIndex] = useState(-1);
   const [modalVisible, setModalVisible] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [filterType, setFilterType] = useState('all'); // all, caught, uncaught, breeding
 
-  // Load marine life data when component mounts
+  const swipeFlatListRef = useRef(null);
+
+  // This effect handles scrolling the modal FlatList to the correct initial item.
   useEffect(() => {
-    loadMarineLifeData();
-  }, []);
+    if (modalVisible && selectedFishIndex !== -1 && swipeFlatListRef.current) {
+      // Using a timeout to ensure the list has had time to render before scrolling.
+      setTimeout(() => {
+        swipeFlatListRef.current?.scrollToIndex({
+          index: selectedFishIndex,
+          animated: false,
+        });
+      }, 100);
+    }
+  }, [modalVisible, selectedFishIndex]);
 
   // Update filtered list when marineLifeList or filters change
   useEffect(() => {
     applyFilters();
-  }, [marineLifeList, searchText, filterType]);
+  }, [allMarineLife, searchText, filterType]);
 
   // Handle navigation from other screens (e.g., Recipes)
   useEffect(() => {
     const fishNameToOpen = route.params?.marineLifeName;
-    if (fishNameToOpen) {
-      // Find the fish in the full list
-      const fishToSelect = marineLifeList.find(
+    if (fishNameToOpen && filteredMarineLife.length > 0) {
+      const fishIndex = filteredMarineLife.findIndex(
         (fish) => fish.name.toLowerCase() === fishNameToOpen.toLowerCase()
       );
-      if (fishToSelect) {
-        openFishCard(fishToSelect);
-        navigation.setParams({ marineLifeName: undefined }); // Clear the param to prevent re-triggering
+      if (fishIndex !== -1) {
+        openFishCard(fishIndex);
+        // Clear the param to prevent re-triggering on screen focus
+        navigation.setParams({ marineLifeName: undefined });
       }
     }
-  }, [route.params?.marineLifeName]);
+  }, [route.params?.marineLifeName, filteredMarineLife]);
 
-  const loadMarineLifeData = async () => {
-    try {
-      const storedData = await AsyncStorage.getItem('@DaveTheDiverCompanion:userMarineLife');
-      if (storedData) {
-        const userData = JSON.parse(storedData);
-        // Merge user data with base marine life data
-        const updatedList = marineLifeList.map(item => {
-          const userStatus = userData[item.name];
-          if (userStatus) {
-            return {
-              ...item,
-              caught: userStatus.caught,
-              breeding_pair: userStatus.breeding_pair,
-            };
-          }
-          return item;
-        });
-        setMarineLifeList(updatedList);
-      }
-    } catch (error) {
-      console.error('Failed to load marine life data:', error);
-    }
-  };
+  // useFocusEffect is like useEffect but runs when the screen comes into focus
+  useFocusEffect(
+    useCallback(() => {
+      const refreshData = () => {
+        const data = getAllMarineLife();
+        const currentStats = getMarineLifeStats();
+        setAllMarineLife(data);
+        setStats(currentStats);
+      };
+      refreshData();
+    }, [])
+  );
 
   const applyFilters = () => {
-    let filtered = marineLifeList;
+    let filtered = allMarineLife;
 
     // Apply search filter
     if (searchText) {
+      const lowercasedSearchText = searchText.toLowerCase();
       filtered = filtered.filter(item =>
-        item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.zone.toLowerCase().includes(searchText.toLowerCase())
+        item.name.toLowerCase().includes(lowercasedSearchText) ||
+        item.zone.toLowerCase().includes(lowercasedSearchText)
       );
     }
 
@@ -104,52 +115,49 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList, route, navigation
     setFilteredMarineLife(filtered);
   };
 
-  const toggleCaught = async (fishName) => {
-    const updatedList = marineLifeList.map(item => {
-      if (item.name === fishName) {
-        return { ...item, caught: !item.caught };
-      }
-      return item;
-    });
-    setMarineLifeList(updatedList);
-    await saveUserMarineLifeData(updatedList);
+  const handleToggleCaught = async (fishName, newStatus) => {
+    await updateMarineLifeCaught(fishName, newStatus);
+    const updatedData = getAllMarineLife();
+    const updatedStats = getMarineLifeStats();
+    setAllMarineLife(updatedData);
+    setStats(updatedStats);
   };
 
-  const toggleBreedingPair = async (fishName) => {
-    const updatedList = marineLifeList.map(item => {
-      if (item.name === fishName) {
-        return { ...item, breeding_pair: !item.breeding_pair };
-      }
-      return item;
-    });
-    setMarineLifeList(updatedList);
-    await saveUserMarineLifeData(updatedList);
+  const handleToggleBreedingPair = async (fishName, newStatus) => {
+    await updateMarineLifeBreedingPair(fishName, newStatus);
+    const updatedData = getAllMarineLife();
+    const updatedStats = getMarineLifeStats();
+    setAllMarineLife(updatedData);
+    setStats(updatedStats);
   };
 
-  const openFishCard = (fish) => {
-    setSelectedFish(fish);
+  const openFishCard = (index) => {
+    setSelectedFishIndex(index);
     setModalVisible(true);
   };
 
   const closeFishCard = () => {
     setModalVisible(false);
-    setSelectedFish(null);
+    setSelectedFishIndex(-1);
   };
 
-  const renderMarineLifeItem = ({ item }) => (
+  const renderGridItem = ({ item, index }) => (
     <TouchableOpacity
       style={styles.fishCard}
-      onPress={() => openFishCard(item)}
+      onPress={() => openFishCard(index)}
     >
       <View style={styles.fishImageContainer}>
         {item.image_url ? (
           <Image
+            accessibilityIgnoresInvertColors={true}
             source={{ uri: item.image_url }}
             style={styles.fishImage}
           />
         ) : (
           <View style={styles.placeholderImage}>
-            <Text style={styles.placeholderText}>🐟</Text>
+            <Text style={styles.placeholderText}>
+              {item.name.includes('Shark') ? '🦈' : '🐟'}
+            </Text>
           </View>
         )}
       </View>
@@ -163,7 +171,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList, route, navigation
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[styles.toggleButton, item.caught ? styles.caughtButton : styles.uncaughtButton]}
-          onPress={() => toggleCaught(item.name)}
+          onPress={() => handleToggleCaught(item.name, !item.caught)}
         >
           <Text style={styles.buttonText}>
             {item.caught ? '✓' : 'o'}
@@ -172,7 +180,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList, route, navigation
 
         <TouchableOpacity
           style={[styles.toggleButton, item.breeding_pair ? styles.breedingButton : styles.noBreedingButton]}
-          onPress={() => toggleBreedingPair(item.name)}
+          onPress={() => handleToggleBreedingPair(item.name, !item.breeding_pair)}
         >
           <Text style={styles.buttonText}>
             {item.breeding_pair ? '♥' : 'o'}
@@ -182,111 +190,26 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList, route, navigation
     </TouchableOpacity>
   );
 
-  const renderFishCard = () => {
-    if (!selectedFish) return null;
-
+  const renderDetailedFishCard = useCallback(({ item }) => {
+    const cardWidth = windowWidth * 0.9;
+    const cardMargin = 4;
     return (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={closeFishCard}
+      <View
+        style={{
+          width: cardWidth,
+          marginHorizontal: cardMargin,
+          height: windowHeight * 0.7,
+        }}
       >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              {/* Header */}
-              <View style={styles.modalHeader}>
-                <Text style={styles.modalTitle}>{selectedFish.name}</Text>
-                <TouchableOpacity onPress={closeFishCard} style={styles.closeButton}>
-                  <Text style={styles.closeButtonText}>×</Text>
-                </TouchableOpacity>
-              </View>
-
-              {/* Fish Image */}
-              <View style={styles.modalImageContainer}>
-                {selectedFish.image_url ? (
-                  <Image
-                    source={{ uri: selectedFish.image_url }}
-                    style={styles.modalImage}
-                    resizeMode="contain"
-                  />
-                ) : (
-                  <View style={styles.modalPlaceholderImage}>
-                    <Text style={styles.modalPlaceholderText}>🐟</Text>
-                  </View>
-                )}
-              </View>
-
-              {/* Fish Details */}
-              <View style={styles.detailsContainer}>
-                <View style={styles.detailRow}>
-                  <Text style={styles.detailLabel}>Zone:</Text>
-                  <Text style={styles.detailValue}>{selectedFish.zone}</Text>
-                </View>
-
-                <View style={styles.detailRow}>
-                  <Text style={styles.detailLabel}>Weight:</Text>
-                  <Text style={styles.detailValue}>{selectedFish.weight}</Text>
-                </View>
-
-                <View style={styles.detailRow}>
-                  <Text style={styles.detailLabel}>Active Time:</Text>
-                  <Text style={styles.detailValue}>{selectedFish.active_time}</Text>
-                </View>
-
-                <View style={styles.detailRow}>
-                  <Text style={styles.detailLabel}>Difficulty:</Text>
-                  <Text style={styles.detailValue}>{'★'.repeat(selectedFish.difficulty)}</Text>
-                </View>
-
-                <View style={styles.detailRow}>
-                  <Text style={styles.detailLabel}>Best Method:</Text>
-                  <Text style={styles.detailValue}>{selectedFish.best_capture_method}</Text>
-                </View>
-
-                {/* Recipes */}
-                {selectedFish.recipes && selectedFish.recipes.length > 0 && (
-                  <View style={styles.recipesContainer}>
-                    <Text style={styles.recipesTitle}>Used in Recipes:</Text>
-                    {selectedFish.recipes.map((recipe, index) => (
-                      <Text key={index} style={styles.recipeItem}>• {recipe}</Text>
-                    ))}
-                  </View>
-                )}
-
-                {/* Toggle Switches */}
-                <View style={styles.modalButtonContainer}>
-                  <TouchableOpacity
-                    style={[styles.modalToggleButton, selectedFish.caught ? styles.caughtButton : styles.uncaughtButton]}
-                    onPress={() => toggleCaught(selectedFish.name)}
-                  >
-                    <Text style={styles.modalButtonText}>
-                      {selectedFish.caught ? 'Caught ✓' : 'Not Caught o'}
-                    </Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={[styles.modalToggleButton, selectedFish.breeding_pair ? styles.breedingButton : styles.noBreedingButton]}
-                    onPress={() => toggleBreedingPair(selectedFish.name)}
-                  >
-                    <Text style={styles.modalButtonText}>
-                      {selectedFish.breeding_pair ? 'Breeding Pair ♥' : 'No Breeding Pair o'}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
+        <MarineLifeCard
+          fish={item}
+          onClose={closeFishCard}
+          onToggleCaught={handleToggleCaught}
+          onToggleBreeding={handleToggleBreedingPair}
+        />
+      </View>
     );
-  };
-
-  // Calculate statistics
-  const caughtCount = marineLifeList.filter(item => item.caught).length;
-  const breedingCount = marineLifeList.filter(item => item.breeding_pair).length;
-  const totalCount = marineLifeList.length;
+  }, [handleToggleCaught, handleToggleBreedingPair, closeFishCard]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -295,10 +218,10 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList, route, navigation
         <Text style={styles.title}>Marine Life Tracker</Text>
         <View style={styles.statsContainer}>
           <Text style={styles.statsText}>
-            Caught: {caughtCount}/{totalCount} ({Math.round((caughtCount/totalCount)*100)}%)
+            Caught: {stats.caught}/{stats.total} ({stats.caughtPercentage}%)
           </Text>
           <Text style={styles.statsText}>
-            Breeding Pairs: {breedingCount}
+            Breeding Pairs: {stats.breedingPairs}
           </Text>
         </View>
       </View>
@@ -309,7 +232,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList, route, navigation
           style={styles.searchInput}
           placeholder="Search marine life..."
           value={searchText}
-          onChangeText={setSearchText}
+          onChangeText={(text) => setSearchText(text)}
           placeholderTextColor="#666"
         />
 
@@ -331,15 +254,51 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList, route, navigation
       {/* Marine Life Grid */}
       <FlatList
         data={filteredMarineLife}
-        renderItem={renderMarineLifeItem}
+        renderItem={renderGridItem}
         keyExtractor={(item) => item.name}
         numColumns={2}
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
       />
 
-      {/* Fish Detail Modal */}
-      {renderFishCard()}
+      {/* Swipable Detailed Fish Card Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={closeFishCard}
+      >
+        <View style={styles.modalOverlay}>
+          {modalVisible && filteredMarineLife.length > 0 && selectedFishIndex !== -1 && (
+            <FlatList
+              ref={swipeFlatListRef}
+              data={filteredMarineLife}
+              renderItem={renderDetailedFishCard}
+              keyExtractor={(item) => item.name}
+              horizontal
+              pagingEnabled={false}
+              snapToInterval={(windowWidth * 0.9) + (4 * 2)} // Card width + horizontal margins
+              snapToAlignment="center"
+              decelerationRate="fast"
+              showsHorizontalScrollIndicator={false}
+              initialScrollIndex={selectedFishIndex}
+              getItemLayout={(data, index) => {
+                const itemWidth = (windowWidth * 0.9) + (4 * 2);
+                return { length: itemWidth, offset: itemWidth * index, index };
+              }}
+              onMomentumScrollEnd={(event) => {
+                const itemWidth = (windowWidth * 0.9) + (4 * 2);
+                const newIndex = Math.round(event.nativeEvent.contentOffset.x / itemWidth);
+                if (newIndex !== selectedFishIndex) {
+                  setSelectedFishIndex(newIndex);
+                }
+              }}
+              style={styles.modalFlatList}
+              contentContainerStyle={styles.modalFlatListContent}
+            />
+          )}
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -352,7 +311,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#2196F3',
     padding: 16,
-    paddingTop: 20,
+    paddingTop: 40, // Increased padding for notch
   },
   title: {
     fontSize: 24,
@@ -491,114 +450,16 @@ const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
+    justifyContent: 'center', // Center the FlatList vertically
     alignItems: 'center',
   },
-  modalContent: {
-    backgroundColor: 'white',
-    borderRadius: 16,
-    width: '90%',
-    maxHeight: '80%',
-    elevation: 5,
+  modalFlatList: {
+    flexGrow: 0, // Prevent FlatList from taking full screen height
+    height: windowHeight * 0.75, // Set explicit height for the list area
   },
-  modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    flex: 1,
-  },
-  closeButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  closeButtonText: {
-    fontSize: 18,
-    color: '#666',
-  },
-  modalImageContainer: {
-    alignItems: 'center',
-    padding: 16,
-  },
-  modalImage: {
-    width: 200,
-    height: 200,
-    borderRadius: 12,
-  },
-  modalPlaceholderImage: {
-    width: 200,
-    height: 200,
-    backgroundColor: '#e0e0e0',
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalPlaceholderText: {
-    fontSize: 64,
-  },
-  detailsContainer: {
-    padding: 16,
-  },
-  detailRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-    paddingBottom: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  detailLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  detailValue: {
-    fontSize: 16,
-    color: '#666',
-    flex: 1,
-    textAlign: 'right',
-  },
-  recipesContainer: {
-    marginTop: 16,
-    padding: 12,
-    backgroundColor: '#f8f8f8',
-    borderRadius: 8,
-  },
-  recipesTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#333',
-  },
-  recipeItem: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 4,
-  },
-  modalButtonContainer: {
-    marginTop: 20,
-    gap: 12,
-  },
-  modalToggleButton: {
-    padding: 16,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  modalButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
+  modalFlatListContent: {
+    // Padding to ensure the first and last items can be centered
+    paddingHorizontal: (windowWidth - (windowWidth * 0.9) - (4 * 2)) / 2,
   },
 });
 

@@ -13,36 +13,32 @@ import RecipesScreen from './src/screens/RecipesScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 
 // Import database functions
-import { initializeMarineLifeDatabase, getAllMarineLife } from './src/utils/marineLifeDatabase';
+import { initializeMarineLifeDatabase } from './src/utils/marineLifeDatabase';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [marineLifeList, setMarineLifeList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    initializeDatabase();
-  }, []);
+    const initializeApp = async () => {
+      try {
+        console.log('Starting database initialization...');
+        await initializeMarineLifeDatabase();
+        console.log('Database initialized successfully');
+      } catch (err) {
+        console.error('Database initialization failed:', err);
+        setError(err.message);
+      } finally {
+        // This ensures the loading spinner is hidden regardless of success or failure.
+        setIsLoading(false);
+      }
+    };
 
-  const initializeDatabase = async () => {
-    try {
-      console.log('Starting database initialization...');
-      await initializeMarineLifeDatabase();
-      console.log('Database initialized successfully');
-      
-      const data = await getAllMarineLife();
-      console.log(`Loaded ${data.length} marine life entries`);
-      setMarineLifeList(data);
-      setIsLoading(false);
-    } catch (err) {
-      console.error('Database initialization failed:', err);
-      setError(err.message);
-      setIsLoading(false);
-    }
-  };
-
+    initializeApp();
+  }, []); // The empty dependency array ensures this effect runs only once.
+  
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
@@ -88,10 +84,8 @@ export default function App() {
               <Text style={{ color, fontSize: size }}>🐟</Text>
             ),
           }}
-          // Pass marineLifeList and setMarineLifeList as props
-        >
-          {(props) => <MarineLifeScreen {...props} marineLifeList={marineLifeList} setMarineLifeList={setMarineLifeList} />}
-        </Tab.Screen>
+          component={MarineLifeScreen}
+        />
         
         <Tab.Screen 
           name="Recipes" 
@@ -150,4 +144,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-

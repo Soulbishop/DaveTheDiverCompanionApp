@@ -1,5 +1,5 @@
 // FILE LOCATION: src/components/MarineLifeCard.js
-// CREATE THIS NEW FILE (it may not exist yet)
+// CREATE THIS NEW FILE
 
 import React from 'react';
 import {
@@ -26,9 +26,9 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding }) => 
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
-          {fish.sprite ? (
+          {fish.image_url ? (
             <Image 
-              source={{ uri: fish.sprite }} 
+              source={{ uri: fish.image_url }} 
               style={styles.fishImage}
               resizeMode="contain"
             />
@@ -47,20 +47,13 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding }) => 
 
           <View style={styles.infoRow}>
             <Text style={styles.label}>Time of Day:</Text>
-            <Text style={styles.value}>{fish.timeOfDay}</Text>
+            <Text style={styles.value}>{fish.active_time}</Text>
           </View>
 
           <View style={styles.infoRow}>
-            <Text style={styles.label}>Capture Method:</Text>
-            <Text style={styles.value}>{fish.captureMethod}</Text>
+            <Text style={styles.label}>Best Method:</Text>
+            <Text style={styles.value}>{fish.best_capture_method}</Text>
           </View>
-
-          {fish.rarity && (
-            <View style={styles.infoRow}>
-              <Text style={styles.label}>Rarity:</Text>
-              <Text style={[styles.value, styles.rarityText]}>{fish.rarity}</Text>
-            </View>
-          )}
 
           {fish.weight && (
             <View style={styles.infoRow}>
@@ -72,7 +65,7 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding }) => 
           {fish.difficulty && (
             <View style={styles.infoRow}>
               <Text style={styles.label}>Difficulty:</Text>
-              <Text style={styles.value}>{fish.difficulty}</Text>
+              <Text style={styles.value}>{'★'.repeat(fish.difficulty)}</Text>
             </View>
           )}
         </View>
@@ -93,7 +86,7 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding }) => 
             <Text style={styles.toggleLabel}>Caught</Text>
             <Switch
               value={fish.caught}
-              onValueChange={onToggleCaught}
+              onValueChange={() => onToggleCaught(fish.name, !fish.caught)}
               trackColor={{ false: '#767577', true: '#4CAF50' }}
               thumbColor={fish.caught ? '#ffffff' : '#f4f3f4'}
             />
@@ -102,20 +95,14 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding }) => 
           <View style={styles.toggleRow}>
             <Text style={styles.toggleLabel}>Breeding Pair</Text>
             <Switch
-              value={fish.breedingPair}
-              onValueChange={onToggleBreeding}
+              value={fish.breeding_pair}
+              onValueChange={() => onToggleBreeding(fish.name, !fish.breeding_pair)}
               trackColor={{ false: '#767577', true: '#2196F3' }}
-              thumbColor={fish.breedingPair ? '#ffffff' : '#f4f3f4'}
+              thumbColor={fish.breeding_pair ? '#ffffff' : '#f4f3f4'}
             />
           </View>
         </View>
 
-        {fish.description && (
-          <View style={styles.descriptionSection}>
-            <Text style={styles.sectionTitle}>Description:</Text>
-            <Text style={styles.description}>{fish.description}</Text>
-          </View>
-        )}
       </ScrollView>
     </View>
   );
@@ -123,8 +110,11 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding }) => 
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: 'white',
+    borderRadius: 16,
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
   },
   header: {
     flexDirection: 'row',
@@ -250,4 +240,3 @@ const styles = StyleSheet.create({
 });
 
 export default MarineLifeCard;
-
