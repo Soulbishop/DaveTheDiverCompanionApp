@@ -34,9 +34,18 @@ const MarineLifeScreen = ({ route, navigation }) => {
   const [selectedFishIndex, setSelectedFishIndex] = useState(-1);
   const [modalVisible, setModalVisible] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const [filterType, setFilterType] = useState('all'); // all, caught, uncaught, breeding
+  const [filterType, setFilterType] = useState('all');
+  const [sortType, setSortType] = useState('name_asc');
 
   const swipeFlatListRef = useRef(null);
+
+  const sortOptions = [
+    { key: 'name_asc', label: 'Name (A-Z)' },
+    { key: 'name_desc', label: 'Name (Z-A)' },
+    { key: 'zone_asc', label: 'Zone' },
+    { key: 'difficulty_desc', label: 'Difficulty (High-Low)' },
+    { key: 'difficulty_asc', label: 'Difficulty (Low-High)' },
+  ];
 
   // This effect handles scrolling the modal FlatList to the correct initial item.
   useEffect(() => {
@@ -53,8 +62,8 @@ const MarineLifeScreen = ({ route, navigation }) => {
 
   // Update filtered list when marineLifeList or filters change
   useEffect(() => {
-    applyFilters();
-  }, [allMarineLife, searchText, filterType]);
+    updateDisplayedData();
+  }, [allMarineLife, searchText, filterType, sortType]);
 
   // Handle navigation from other screens (e.g., Recipes)
   useEffect(() => {
@@ -84,7 +93,7 @@ const MarineLifeScreen = ({ route, navigation }) => {
     }, [])
   );
 
-  const applyFilters = () => {
+  const updateDisplayedData = () => {
     let filtered = allMarineLife;
 
     // Apply search filter
@@ -109,6 +118,38 @@ const MarineLifeScreen = ({ route, navigation }) => {
         break;
       default:
         // 'all' - no additional filtering
+        break;
+    }
+
+    // Apply sorting
+    switch (sortType) {
+      case 'name_asc':
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'name_desc':
+        filtered.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'zone_asc':
+        // Sort by zone, then by name for items in the same zone
+        filtered.sort((a, b) => {
+          const zoneCompare = a.zone.localeCompare(b.zone);
+          if (zoneCompare !== 0) return zoneCompare;
+          return a.name.localeCompare(b.name);
+        });
+        break;
+      case 'difficulty_asc':
+        filtered.sort((a, b) => {
+          const diffCompare = a.difficulty - b.difficulty;
+          if (diffCompare !== 0) return diffCompare;
+          return a.name.localeCompare(b.name);
+        });
+        break;
+      case 'difficulty_desc':
+        filtered.sort((a, b) => {
+          const diffCompare = b.difficulty - a.difficulty;
+          if (diffCompare !== 0) return diffCompare;
+          return a.name.localeCompare(b.name);
+        });
         break;
     }
 
@@ -236,6 +277,7 @@ const MarineLifeScreen = ({ route, navigation }) => {
           placeholderTextColor="#666"
         />
 
+        <Text style={styles.controlLabel}>Filter by:</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
           {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
             <TouchableOpacity
@@ -245,6 +287,21 @@ const MarineLifeScreen = ({ route, navigation }) => {
             >
               <Text style={[styles.filterButtonText, filterType === filter && styles.activeFilterButtonText]}>
                 {filter.charAt(0).toUpperCase() + filter.slice(1)}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
+        <Text style={styles.controlLabel}>Sort by:</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
+          {sortOptions.map((option) => (
+            <TouchableOpacity
+              key={option.key}
+              style={[styles.filterButton, sortType === option.key && styles.activeFilterButton]}
+              onPress={() => setSortType(option.key)}
+            >
+              <Text style={[styles.filterButtonText, sortType === option.key && styles.activeFilterButtonText]}>
+                {option.label}
               </Text>
             </TouchableOpacity>
           ))}
@@ -335,6 +392,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
+  controlLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#888',
+    marginBottom: 8,
+  },
   searchInput: {
     backgroundColor: '#f0f0f0',
     borderRadius: 8,
@@ -344,6 +407,7 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     flexDirection: 'row',
+    marginBottom: 12,
   },
   filterButton: {
     backgroundColor: '#e0e0e0',
