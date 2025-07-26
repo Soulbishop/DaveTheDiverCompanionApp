@@ -17,6 +17,7 @@ import {
 import { useNavigation } from '@react-navigation/native'; // Used for navigating from ingredient links
 import allRecipes from '../data/allRecipes'; // Your local recipes data
 import { getAllMarineLife } from '../utils/marineLifeDatabase'; // Your local marine life data, for ingredient links
+import RecipeCard from '../components/RecipeCard';
 
 
 // Get the window dimensions for responsive sizing
@@ -182,11 +183,16 @@ const RecipesScreen = () => {
   };
 
   // Handler for closing the recipe detail modal
-  const closeRecipeModal = () => {
+  const closeRecipeModal = useCallback(() => {
     setModalVisible(false);
     setSelectedRecipeIndex(-1); // Reset selected index when modal is closed
-  };
+  }, []);
 
+  // Handler for navigating to an ingredient's detail page from the RecipeCard
+  const handleSelectIngredient = useCallback((ingredientName) => {
+    closeRecipeModal();
+    navigation.navigate('Marine Life', { marineLifeName: ingredientName });
+  }, [navigation, closeRecipeModal]);
   // --- FlatList Item Renderers ---
 
   // Renders a single recipe card in the main grid view
@@ -215,105 +221,27 @@ const RecipesScreen = () => {
     </TouchableOpacity>
   );
 // Renders the detailed content for a single recipe card within the swipeable modal
-const renderDetailedRecipeCard = useCallback(({ item }) => {
-  // CRITICAL SAFETY CHECK: If 'item' is undefined or null during rendering, display a placeholder.
-  if (!item) {
-    const CARD_FULL_WIDTH_PLACEHOLDER = windowWidth * 0.9;
-    const CARD_MARGIN_HORIZONTAL_PLACEHOLDER = 4;
+  const renderDetailedRecipeCard = useCallback(({ item }) => {
+    const cardWidth = windowWidth * 0.9;
+    const cardMargin = 4;
+
     return (
-      <View style={[
-        styles.detailedRecipeCard, 
-        {
-          width: CARD_FULL_WIDTH_PLACEHOLDER,
-          marginHorizontal: CARD_MARGIN_HORIZONTAL_PLACEHOLDER,
-          minHeight: 500, 
-          justifyContent: 'center',
-          alignItems: 'center'
-        }
-      ]}>
-        <Text style={{ color: '#888', fontSize: 16 }}>Loading recipe details...</Text>
+      <View
+        style={{
+          width: cardWidth,
+          marginHorizontal: cardMargin,
+          height: windowHeight * 0.7, // Set a consistent height for the card area
+        }}
+      >
+        <RecipeCard
+          recipe={item}
+          onClose={closeRecipeModal}
+          onSelectIngredient={handleSelectIngredient}
+          marineLifeNames={marineLifeNames}
+        />
       </View>
     );
-  }
-
-  const CARD_FULL_WIDTH = windowWidth * 0.9; 
-  const CARD_MARGIN_HORIZONTAL = 4; 
-
-  return (
-    <View
-      style={[
-        styles.detailedRecipeCard, 
-        {
-          width: CARD_FULL_WIDTH, 
-          marginHorizontal: CARD_MARGIN_HORIZONTAL, 
-        },
-      ]}
-    >
-      <View style={styles.recipeImageContainer}>
-        <Image
-          accessibilityIgnoresInvertColors={true}
-          source={item.local_thumbnail}
-          style={styles.recipeDetailImage}
-          onError={(e) => console.warn("Failed to load recipe image:", item.name, e.nativeEvent.error)}
-        />      
-      </View>
-      <View style={styles.recipeDetailsContainer}>
-        <View style={styles.recipeStatsRow}> 
-          <Text style={styles.statIcon}>💰</Text>
-          <Text style={styles.statLabel}>Price:</Text>
-          <Text style={styles.statValue}>
-            ${item.price_base} - ${item.price_max} 
-          </Text>
-        </View>
-        
-        <View style={styles.recipeStatsRow}>
-          <Text style={styles.statIcon}>👅</Text>
-          <Text style={styles.statLabel}>Taste:</Text>
-          <Text style={styles.statValue}>
-            {item.taste_base} - {item.taste_max} 
-          </Text>
-        </View>
-        
-        <View style={styles.recipeStatsRow}>
-          <Text style={styles.statIcon}>🍽️</Text>
-          <Text style={styles.statLabel}>Servings:</Text>
-          <Text style={styles.statValue}>
-            {item.dish_base}-{item.dish_max} servings 
-          </Text>
-        </View>
-        
-        <View style={styles.ingredientsSection}>
-          <Text style={styles.statIcon}>🥘</Text>
-          <Text style={styles.statLabel}>Ingredients:</Text>
-          <Text style={styles.ingredientsList}>
-            {item.ingredients && item.ingredients.length > 0 
-              ? item.ingredients.map((ingredient, idx )=> (
-                  <Text 
-                    key={idx}
-                      style={marineLifeNames.has(ingredient.toLowerCase()) ? styles.ingredientLink : styles.ingredientText}
-                    onPress={
-                      marineLifeNames.has(ingredient.toLowerCase())
-                        ? () => { closeRecipeModal(); navigation.navigate('Marine Life', { marineLifeName: ingredient }); }
-                        : undefined
-                    }
-                  >
-                    {ingredient} 
-                    {idx < item.ingredients.length - 1 && ', '} 
-                  </Text>
-                ))
-              : 'N/A'}
-          </Text>
-        </View>
-        
-        <View style={styles.acquisitionSection}>
-          <Text style={styles.statIcon}>🎯</Text>
-          <Text style={styles.statLabel}>How to Get:</Text>
-          <Text style={styles.acquisitionText}>{item.acquisition || 'N/A'}</Text> 
-        </View>
-      </View>
-    </View>
-  );
-    }, [marineLifeNames, navigation, windowWidth, styles, closeRecipeModal, getAllMarineLife]);
+  }, [closeRecipeModal, handleSelectIngredient, marineLifeNames]);
 
 return (
   <View style={styles.container}>
