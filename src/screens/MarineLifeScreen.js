@@ -18,7 +18,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { saveUserMarineLifeData } from '../utils/marineLifeDatabase';
 
-const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
+const MarineLifeScreen = ({ marineLifeList, setMarineLifeList, route, navigation }) => {
   const [filteredMarineLife, setFilteredMarineLife] = useState(marineLifeList);
   const [selectedFish, setSelectedFish] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -34,6 +34,21 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList }) => {
   useEffect(() => {
     applyFilters();
   }, [marineLifeList, searchText, filterType]);
+
+  // Handle navigation from other screens (e.g., Recipes)
+  useEffect(() => {
+    const fishNameToOpen = route.params?.marineLifeName;
+    if (fishNameToOpen) {
+      // Find the fish in the full list
+      const fishToSelect = marineLifeList.find(
+        (fish) => fish.name.toLowerCase() === fishNameToOpen.toLowerCase()
+      );
+      if (fishToSelect) {
+        openFishCard(fishToSelect);
+        navigation.setParams({ marineLifeName: undefined }); // Clear the param to prevent re-triggering
+      }
+    }
+  }, [route.params?.marineLifeName]);
 
   const loadMarineLifeData = async () => {
     try {
@@ -586,4 +601,3 @@ const styles = StyleSheet.create({
 });
 
 export default MarineLifeScreen;
-
