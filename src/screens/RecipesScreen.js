@@ -512,6 +512,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   recipeGridContainer: {
+    flex: 1,
     paddingHorizontal: 4,
     paddingVertical: 8,
   },
