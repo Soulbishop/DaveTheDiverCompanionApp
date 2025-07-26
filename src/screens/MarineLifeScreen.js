@@ -66,19 +66,37 @@ const MarineLifeScreen = ({ route, navigation }) => {
   }, [allMarineLife, searchText, filterType, sortType]);
 
   // Handle navigation from other screens (e.g., Recipes)
-  useEffect(() => {
+useEffect(() => {
     const fishNameToOpen = route.params?.marineLifeName;
-    if (fishNameToOpen && filteredMarineLife.length > 0) {
-      const fishIndex = filteredMarineLife.findIndex(
+    // Exit early if no name is passed or data isn't ready
+    if (!fishNameToOpen || allMarineLife.length === 0) {
+      return;
+    }
+
+    // Check if the fish is currently visible in the filtered list
+    const fishIndexInFiltered = filteredMarineLife.findIndex(
+      (fish) => fish.name.toLowerCase() === fishNameToOpen.toLowerCase()
+    );
+
+    if (fishIndexInFiltered !== -1) {
+      // If visible, open the card and clear the navigation parameter
+      openFishCard(fishIndexInFiltered);
+      navigation.setParams({ marineLifeName: undefined });
+    } else {
+      // If not visible, reset filters. The component will re-render,
+      // this effect will run again, and the condition above will be met.
+      const fishExistsInMasterList = allMarineLife.some(
         (fish) => fish.name.toLowerCase() === fishNameToOpen.toLowerCase()
       );
-      if (fishIndex !== -1) {
-        openFishCard(fishIndex);
-        // Clear the param to prevent re-triggering on screen focus
+      if (fishExistsInMasterList) {
+        setSearchText('');
+        setFilterType('all');
+      } else {
+        // Fish doesn't exist at all, clear param to avoid infinite loops
         navigation.setParams({ marineLifeName: undefined });
       }
     }
-  }, [route.params?.marineLifeName, filteredMarineLife]);
+  }, [route.params?.marineLifeName, allMarineLife, filteredMarineLife, navigation]);
 
   // useFocusEffect is like useEffect but runs when the screen comes into focus
   useFocusEffect(
