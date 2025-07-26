@@ -142,9 +142,9 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList, route, navigation
       onPress={() => openFishCard(item)}
     >
       <View style={styles.fishImageContainer}>
-        {item.local_thumbnail ? (
+        {item.image_url ? (
           <Image
-            source={{ uri: `file://${item.local_thumbnail}` }}
+            source={{ uri: item.image_url }}
             style={styles.fishImage}
           />
         ) : (
@@ -209,6 +209,7 @@ const MarineLifeScreen = ({ marineLifeList, setMarineLifeList, route, navigation
                   <Image
                     source={{ uri: selectedFish.image_url }}
                     style={styles.modalImage}
+                    resizeMode="contain"
                   />
                 ) : (
                   <View style={styles.modalPlaceholderImage}>
@@ -426,6 +427,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 8,
+    resizeMode: 'contain',
   },
   placeholderImage: {
     width: 80,
