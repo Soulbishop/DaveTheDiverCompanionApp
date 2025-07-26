@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { resetAllUserData } from '../utils/marineLifeDatabase';
 
 const SettingsScreen = () => {
   const handleResetData = () => {
@@ -14,10 +14,14 @@ const SettingsScreen = () => {
           style: 'destructive',
           onPress: async () => {
             try {
-              await AsyncStorage.removeItem('@DaveTheDiverCompanion:userMarineLife');
-              Alert.alert('Success', 'All data has been reset.');
+              const success = await resetAllUserData();
+              if (success) {
+                Alert.alert('Success', 'All tracking data has been reset. Please restart the app for changes to fully apply.');
+              } else {
+                Alert.alert('Error', 'Failed to reset data.');
+              }
             } catch (error) {
-              Alert.alert('Error', 'Failed to reset data.');
+              Alert.alert('Error', `An unexpected error occurred: ${error.message}`);
             }
           }
         }

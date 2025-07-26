@@ -53,6 +53,7 @@ export const initializeMarineLifeDatabase = async () => {
 
   } catch (error) {
     console.error('Error initializing marine life database:', error);
+    throw error; // Re-throw the error so the caller (App.js) can handle it
   }
 };
 
@@ -211,4 +212,3 @@ export const resetAllUserData = async () => {
     return false;
   }
 };
-
