@@ -10,7 +10,7 @@ import {
   Image,
   StyleSheet,
   Modal,
-  ScrollView, 
+  ScrollView,
   Dimensions,
   TextInput, // Keeping TextInput import, even if no explicit UI for search yet
 } from 'react-native';
@@ -45,7 +45,7 @@ const RecipesScreen = () => {
 
   // State and callback for FlatList's internal layout readiness
   // This is crucial for reliable scrollToIndex calls when the modal opens.
-  const [isFlatListLayoutReady, setIsFlatListLayoutReady] = useState(false); 
+  const [isFlatListLayoutReady, setIsFlatListLayoutReady] = useState(false);
   const handleFlatListLayout = useCallback(() => {
     setIsFlatListLayoutReady(true);
   }, []);
@@ -63,7 +63,7 @@ const RecipesScreen = () => {
   const priceRanges = useMemo(() => {
     // Define your price tiers explicitly. Adjust values based on your game's price distribution.
     return ['All', 'Low (<$50)', 'Medium ($50-$200)', 'High (>$200)'].sort();
-  }, []); 
+  }, []);
 
   const tasteRanges = useMemo(() => {
     // Define your taste tiers explicitly. Adjust values based on your game's taste distribution.
@@ -74,7 +74,7 @@ const RecipesScreen = () => {
   const marineLifeNames = useMemo(() => {
     const allMarineLife = getAllMarineLife(); // Assuming this function exists and returns an array of marine life objects
     return new Set(allMarineLife.map(ml => ml.name.toLowerCase())); // Create a Set for efficient lookup
-    }, []); 
+  }, []);
 
   // --- Filtering Logic ---
 
@@ -83,7 +83,7 @@ const RecipesScreen = () => {
     let currentFiltered = recipes; // Always start filtering from the original, full 'recipes' list
 
     // Apply search filter (if searchText has a value, e.g., from a future TextInput)
-    if (searchText) { 
+    if (searchText) {
       currentFiltered = currentFiltered.filter(item =>
         item.name.toLowerCase().includes(searchText.toLowerCase()) ||
         (item.ingredients && item.ingredients.some(ing => ing.toLowerCase().includes(searchText.toLowerCase())))
@@ -94,15 +94,15 @@ const RecipesScreen = () => {
     if (activePriceFilter !== 'All') {
       currentFiltered = currentFiltered.filter(item => {
         const currentPrice = (item.price_base + item.price_max) / 2; // Using average price for filtering logic
-          switch (activePriceFilter) { 
+        switch (activePriceFilter) {
           case 'Low (<$50)': return currentPrice < 50;
           case 'Medium ($50-$200)': return (currentPrice >= 50) && (currentPrice <= 200);
           case 'High (>$200)': return currentPrice > 200;
-          default: return true; 
+          default: return true;
         }
       });
     }
-    
+
     // Apply Taste filter
     if (activeTasteFilter !== 'All') {
       currentFiltered = currentFiltered.filter(item => {
@@ -119,7 +119,7 @@ const RecipesScreen = () => {
     // No filters for Dish Type, Servings, or Acquisition Method are implemented here, as per your request.
 
     setFilteredRecipes(currentFiltered); // Update the state that drives the displayed FlatList
-    }, [recipes, searchText, activePriceFilter, activeTasteFilter]); // Dependencies for applyFilters
+  }, [recipes, searchText, activePriceFilter, activeTasteFilter]); // Dependencies for applyFilters
 
   // 4. useEffect: Triggers 'applyFilters' whenever filter criteria or base recipes change.
   useEffect(() => {
@@ -141,8 +141,8 @@ const RecipesScreen = () => {
   // 5. useEffect: Handles scrolling the FlatList in the modal to the selected item on open.
   // This is a robust approach for reliable initial scrolling when the modal opens.
   useEffect(() => {
-      // Only attempt scroll if modal is visible, an item is selected, FlatList ref is ready, and layout is complete.
-      if (modalVisible && selectedRecipeIndex !== -1 && swipeFlatListRef.current && isFlatListLayoutReady) {
+    // Only attempt scroll if modal is visible, an item is selected, FlatList ref is ready, and layout is complete.
+    if (modalVisible && selectedRecipeIndex !== -1 && swipeFlatListRef.current && isFlatListLayoutReady) {
       // Add a short timeout to give the FlatList's children a moment to render and measure
       const scrollTimeoutId = setTimeout(() => {
         try {
@@ -168,7 +168,7 @@ const RecipesScreen = () => {
       console.log('*** SCROLL DEBUG ***: Modal closed. Resetting isFlatListLayoutReady: false.');
       setIsFlatListLayoutReady(false);
     }
-}, [modalVisible, selectedRecipeIndex, isFlatListLayoutReady, windowWidth, filteredRecipes, swipeFlatListRef]);
+  }, [modalVisible, selectedRecipeIndex, isFlatListLayoutReady, windowWidth, filteredRecipes, swipeFlatListRef]);
 
 
   // --- Modal Control Functions ---
@@ -208,7 +208,7 @@ const RecipesScreen = () => {
         <Text style={styles.recipePrice}>
           ${item.price_base} - ${item.price_max}
         </Text>
-        <Text style={styles.recipeTaste}> 
+        <Text style={styles.recipeTaste}>
           Taste: {item.taste_base} - {item.taste_max}
         </Text>
         <Text style={styles.recipeServings}>
@@ -217,7 +217,7 @@ const RecipesScreen = () => {
       </View>
     </TouchableOpacity>
   );
-// Renders the detailed content for a single recipe card within the swipeable modal
+  // Renders the detailed content for a single recipe card within the swipeable modal
   const renderDetailedRecipeCard = useCallback(({ item }) => {
     const cardWidth = windowWidth * 0.9;
     const cardMargin = 4;
@@ -240,125 +240,129 @@ const RecipesScreen = () => {
     );
   }, [closeRecipeModal, handleSelectIngredient, marineLifeNames]);
 
-return (
-  <View style={styles.container}>
-    <View style={styles.header}>
-      <Text style={styles.title}>Recipe Collection</Text>
-      <Text style={styles.subtitle}>
-        Found: {filteredRecipes.length}/{recipes.length} recipes
-      </Text>
-    </View>
-
-    <TextInput
-      style={styles.searchInput}
-      placeholder="Search recipes or ingredients..."
-      placeholderTextColor="#888"
-      value={searchText}
-      onChangeText={setSearchText}
-      clearButtonMode="while-editing" // iOS clear button
-    />
-
-    <TouchableOpacity
-      style={styles.filterHeader}
-      onPress={() => setShowFilters(!showFilters)}
-    >
-      <Text style={styles.filterToggleText}>
-        🔽 Filters {showFilters ? '(Hide)' : '(Show)'}
-      </Text>
-    </TouchableOpacity>
-
-    {/* Filter Options UI, conditionally rendered based on showFilters state */}
-    {showFilters && (
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterOptionsContainer}>
-        {/* Price Range Filters */}
-        <Text style={styles.filterCategoryLabel}>Price:</Text> 
-        {priceRanges.map(range => (
-          <TouchableOpacity
-            key={range}
-            style={[styles.filterButton, activePriceFilter === range && styles.activeFilterButton]}
-            onPress={() => setActivePriceFilter(range)}
-          >
-            <Text style={[styles.filterButtonText, activePriceFilter === range && styles.activeFilterButtonText]}>
-              {range}
-            </Text>
-          </TouchableOpacity>
-        ))}
-
-        {/* Taste Range Filters */}
-      <Text style={styles.filterCategoryLabel}>Taste:</Text>
-        {tasteRanges.map(range => (
-          <TouchableOpacity
-            key={range}
-            style={[styles.filterButton, activeTasteFilter === range && styles.activeFilterButton]}
-            onPress={() => setActiveTasteFilter(range)}
-          >
-            <Text style={[styles.filterButtonText, activeTasteFilter === range && styles.activeFilterButtonText]}>
-              {range}
-            </Text>
-          </TouchableOpacity>
-        ))}
-        {/* Note: Dish Type, Servings, and Acquisition filters are intentionally excluded as per your request */}
-      </ScrollView>
-    )}
-    <FlatList
-      data={filteredRecipes}
-      renderItem={renderRecipeCard}
-      keyExtractor={(item, index) => item.name + index}
-      numColumns={2}
-      style={styles.recipeGridContainer}
-      contentContainerStyle={styles.recipeGrid}
-    />
-
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={closeRecipeModal}
-    >
-      <View style={styles.modalOverlay}>
-
-    {/* The swipeable FlatList for detailed recipe cards */}
-    {modalVisible && filteredRecipes.length > 0 && selectedRecipeIndex !== -1 && (
-      <FlatList
-        ref={swipeFlatListRef}
-        onLayout={handleFlatListLayout}
-        data={filteredRecipes}
-        renderItem={renderDetailedRecipeCard}
-        keyExtractor={(item, index) => item.name + index}
-        horizontal 
-        pagingEnabled={false}
-        snapToInterval={ (windowWidth * 0.9) + (4 * 2) }
-        snapToAlignment={'center'}
-        decelerationRate="fast"
-        showsHorizontalScrollIndicator={false}
-        initialScrollIndex={selectedRecipeIndex}
-        removeClippedSubviews={true}
-        initialNumToRender={5} // Changed from filteredRecipes.length to a small, fixed number for performance
-        getItemLayout={(data, index) => {
-          const itemFullWidth = (windowWidth * 0.9) + (4 * 2);
-          return {
-            length: itemFullWidth,
-              offset: itemFullWidth * index,
-            index,
-        };
-        }}
-        onMomentumScrollEnd={(event) => {
-          const itemFullWidth = (windowWidth * 0.9) + (4 * 2);
-          if (!itemFullWidth) return;
-          const contentOffsetX = event.nativeEvent.contentOffset.x;
-          const newIndex = Math.round(contentOffsetX / itemFullWidth);
-          if (newIndex !== selectedRecipeIndex) {
-            setSelectedRecipeIndex(newIndex);
-          }
-        }}
-        style={styles.modalFlatList}
-        contentContainerStyle={styles.modalFlatListContent}
-      />
-    )}
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Recipe Collection</Text>
+        <Text style={styles.subtitle}>
+          Found: {filteredRecipes.length}/{recipes.length} recipes
+        </Text>
       </View>
-    </Modal>
-  </View>
-);
+
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search recipes or ingredients..."
+        placeholderTextColor="#888"
+        value={searchText}
+        onChangeText={setSearchText}
+        clearButtonMode="while-editing" // iOS clear button
+      />
+
+      <TouchableOpacity
+        style={styles.filterHeader}
+        onPress={() => setShowFilters(!showFilters)}
+      >
+        <Text style={styles.filterToggleText}>
+          🔽 Filters {showFilters ? '(Hide)' : '(Show)'}
+        </Text>
+      </TouchableOpacity>
+
+      {/* Filter Options UI, conditionally rendered based on showFilters state */}
+      {showFilters && (
+        <View style={styles.filterOptionsContainer}>
+          {/* Price Range Filters */}
+          <Text style={styles.filterCategoryLabel}>Price:</Text>
+          <View style={styles.filterButtonsRow}>
+            {priceRanges.map(range => (
+              <TouchableOpacity
+                key={range}
+                style={[styles.filterButton, activePriceFilter === range && styles.activeFilterButton]}
+                onPress={() => setActivePriceFilter(range)}
+              >
+                <Text style={[styles.filterButtonText, activePriceFilter === range && styles.activeFilterButtonText]}>
+                  {range}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          {/* Taste Range Filters */}
+          <Text style={styles.filterCategoryLabel}>Taste:</Text>
+          <View style={styles.filterButtonsRow}>
+            {tasteRanges.map(range => (
+              <TouchableOpacity
+                key={range}
+                style={[styles.filterButton, activeTasteFilter === range && styles.activeFilterButton]}
+                onPress={() => setActiveTasteFilter(range)}
+              >
+                <Text style={[styles.filterButtonText, activeTasteFilter === range && styles.activeFilterButtonText]}>
+                  {range}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          {/* Note: Dish Type, Servings, and Acquisition filters are intentionally excluded as per your request */}
+        </View>
+      )}
+      <FlatList
+        data={filteredRecipes}
+        renderItem={renderRecipeCard}
+        keyExtractor={(item, index) => item.name + index}
+        numColumns={2}
+        style={styles.recipeGridContainer}
+        contentContainerStyle={styles.recipeGrid}
+      />
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={closeRecipeModal}
+      >
+        <View style={styles.modalOverlay}>
+
+          {/* The swipeable FlatList for detailed recipe cards */}
+          {modalVisible && filteredRecipes.length > 0 && selectedRecipeIndex !== -1 && (
+            <FlatList
+              ref={swipeFlatListRef}
+              onLayout={handleFlatListLayout}
+              data={filteredRecipes}
+              renderItem={renderDetailedRecipeCard}
+              keyExtractor={(item, index) => item.name + index}
+              horizontal
+              pagingEnabled={false}
+              snapToInterval={(windowWidth * 0.9) + (4 * 2)}
+              snapToAlignment={'center'}
+              decelerationRate="fast"
+              showsHorizontalScrollIndicator={false}
+              initialScrollIndex={selectedRecipeIndex}
+              removeClippedSubviews={true}
+              initialNumToRender={5} // Changed from filteredRecipes.length to a small, fixed number for performance
+              getItemLayout={(data, index) => {
+                const itemFullWidth = (windowWidth * 0.9) + (4 * 2);
+                return {
+                  length: itemFullWidth,
+                  offset: itemFullWidth * index,
+                  index,
+                };
+              }}
+              onMomentumScrollEnd={(event) => {
+                const itemFullWidth = (windowWidth * 0.9) + (4 * 2);
+                if (!itemFullWidth) return;
+                const contentOffsetX = event.nativeEvent.contentOffset.x;
+                const newIndex = Math.round(contentOffsetX / itemFullWidth);
+                if (newIndex !== selectedRecipeIndex) {
+                  setSelectedRecipeIndex(newIndex);
+                }
+              }}
+              style={styles.modalFlatList}
+              contentContainerStyle={styles.modalFlatListContent}
+            />
+          )}
+        </View>
+      </Modal>
+    </View>
+  );
 }; // Closing brace for RecipesScreen component
 
 const styles = StyleSheet.create({
@@ -396,10 +400,11 @@ const styles = StyleSheet.create({
   filterToggleText: {
     fontSize: 16,
     fontWeight: '600',
-      color: '#333',
+    color: '#333',
   },
   filterOptionsContainer: {
-    flexDirection: 'row',
+    // Removed flexDirection: 'row' and horizontal ScrollView.
+    // This container will now lay out its children vertically by default.
     paddingHorizontal: 16,
     paddingVertical: 8,
     backgroundColor: '#f0f0f0',
@@ -410,17 +415,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#666',
-    marginRight: 10,
-    alignSelf: 'center', 
-    minWidth: 50, 
+    marginTop: 10, // Add some top margin to separate categories
+    marginBottom: 5, // Space between label and its buttons
+  },
+  filterButtonsRow: {
+    flexDirection: 'row', // Keep buttons within a category in a row
+    flexWrap: 'wrap', // Allow buttons to wrap to the next line
+    marginBottom: 10, // Space after each row of buttons
   },
   filterButton: {
     backgroundColor: '#e0e0e0',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 15,
-    marginHorizontal: 4,
-    alignSelf: 'center',
+    marginRight: 8, // Space between buttons in the same row
+    marginBottom: 8, // Space below each button if they wrap
   },
   activeFilterButton: {
     backgroundColor: '#2196F3',
