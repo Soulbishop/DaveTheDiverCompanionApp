@@ -7,13 +7,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
-// Import screens - CORRECTED IMPORT PATH
+// Import screens
 import MarineLifeScreen from './src/screens/MarineLifeScreen';
 import RecipesScreen from './src/screens/RecipesScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import ToCatchListScreen from './src/screens/ToCatchListScreen'; // <--- NEW: Import the ToCatchListScreen
 
 // Import database functions
 import { initializeMarineLifeDatabase } from './src/utils/marineLifeDatabase';
+
+// Import the ToCatchListProvider
+import { ToCatchListProvider } from './src/context/ToCatchListContext'; // <--- NEW: Import the ToCatchListProvider
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +42,7 @@ export default function App() {
 
     initializeApp();
   }, []); // The empty dependency array ensures this effect runs only once.
-  
+
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
@@ -58,57 +62,72 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarActiveTintColor: '#0066cc',
-          tabBarInactiveTintColor: '#666',
-          tabBarStyle: {
-            backgroundColor: '#f8f9fa',
-            borderTopWidth: 1,
-            borderTopColor: '#e9ecef',
-          },
-          headerStyle: {
-            backgroundColor: '#0066cc',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      >
-        <Tab.Screen 
-          name="Marine Life" 
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Text style={{ color, fontSize: size }}>🐟</Text>
-            ),
+    // Wrap the entire navigation structure with ToCatchListProvider
+    // This makes the To-Catch list state available to all screens within the navigator.
+    <ToCatchListProvider> {/* <--- NEW: Wrap with ToCatchListProvider */}
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarActiveTintColor: '#0066cc',
+            tabBarInactiveTintColor: '#666',
+            tabBarStyle: {
+              backgroundColor: '#f8f9fa',
+              borderTopWidth: 1,
+              borderTopColor: '#e9ecef',
+            },
+            headerStyle: {
+              backgroundColor: '#0066cc',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
           }}
-          component={MarineLifeScreen}
-        />
-        
-        <Tab.Screen 
-          name="Recipes" 
-          component={RecipesScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Text style={{ color, fontSize: size }}>🍣</Text>
-            ),
-          }}
-        />
-        
-        <Tab.Screen 
-          name="Settings" 
-          component={SettingsScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Text style={{ color, fontSize: size }}>⚙️</Text>
-            ),
-          }}
-        />
-      </Tab.Navigator>
-      <StatusBar style="light" />
-    </NavigationContainer>
+        >
+          <Tab.Screen
+            name="Marine Life"
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Text style={{ color, fontSize: size }}>🐟</Text>
+              ),
+            }}
+            component={MarineLifeScreen}
+          />
+
+          <Tab.Screen
+            name="Recipes"
+            component={RecipesScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Text style={{ color, fontSize: size }}>🍣</Text>
+              ),
+            }}
+          />
+
+          {/* NEW: Add the To Catch List Screen to the Tab Navigator */}
+          <Tab.Screen
+            name="To Catch" // Name of the tab
+            component={ToCatchListScreen} // The component for this tab
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Text style={{ color, fontSize: size }}>🎒</Text> // A backpack emoji for the shopping list!
+              ),
+            }}
+          />
+
+          <Tab.Screen
+            name="Settings"
+            component={SettingsScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Text style={{ color, fontSize: size }}>⚙️</Text>
+              ),
+            }}
+          />
+        </Tab.Navigator>
+        <StatusBar style="light" />
+      </NavigationContainer>
+    </ToCatchListProvider> // <--- NEW: Closing ToCatchListProvider tag
   );
 }
 
