@@ -14,7 +14,7 @@ import {
   Dimensions,
   TextInput, // Keeping TextInput import, even if no explicit UI for search yet
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Used for navigating from ingredient links
+import { useNavigation, useRoute } from '@react-navigation/native'; // Used for navigating and accessing route params
 import allRecipes from '../data/allRecipes'; // Your local recipes data
 import { getAllMarineLife } from '../utils/marineLifeDatabase'; // Your local marine life data, for ingredient links
 import RecipeCard from '../components/RecipeCard';
@@ -25,7 +25,8 @@ const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
 
 const RecipesScreen = () => {
-  const navigation = useNavigation(); // Hook for navigation within React Navigation stack
+  const navigation = useNavigation(); // Hook for navigation
+  const route = useRoute(); // Hook for accessing the current route's params
 
   // --- State Management ---
   const [recipes, setRecipes] = useState([]); // The full, unfiltered list of recipes from data source
@@ -73,7 +74,7 @@ const RecipesScreen = () => {
   const marineLifeNames = useMemo(() => {
     const allMarineLife = getAllMarineLife(); // Assuming this function exists and returns an array of marine life objects
     return new Set(allMarineLife.map(ml => ml.name.toLowerCase())); // Create a Set for efficient lookup
-    }, [getAllMarineLife]); 
+    }, []); 
 
   // --- Filtering Logic ---
 
