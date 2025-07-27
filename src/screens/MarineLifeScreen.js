@@ -302,12 +302,6 @@ useEffect(() => {
         }}
       >
         <View style={styles.detailedCard}>
-          <FishThumbnail
-            item={item}
-            containerStyle={styles.detailedImageContainer}
-            imageStyle={styles.detailedImage}
-            placeholderTextStyle={styles.detailedPlaceholderText}
-          />
           <MarineLifeCard
             fish={item}
             onClose={closeFishCard}
@@ -588,18 +582,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 6,
-  },
-  detailedImageContainer: {
-    marginBottom: 0,
-    backgroundColor: '#f0f0f0',
-  },
-  detailedImage: {
-    width: '100%',
-    height: windowHeight * 0.25,
-    resizeMode: 'contain',
-  },
-  detailedPlaceholderText: {
-    fontSize: 80,
   },
   // Modal Styles
   modalOverlay: {
