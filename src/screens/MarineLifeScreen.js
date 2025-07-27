@@ -26,6 +26,23 @@ import MarineLifeCard from '../components/MarineLifeCard';
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
+const FishThumbnail = ({ item, imageStyle, containerStyle, placeholderTextStyle }) => (
+  <View style={[styles.fishImageContainer, containerStyle]}>
+    {item.image_url ? (
+      <Image
+        accessibilityIgnoresInvertColors={true}
+        source={{ uri: item.image_url }}
+        style={[styles.fishImage, imageStyle]}
+      />
+    ) : (
+      <View style={[styles.placeholderImage, imageStyle]}>
+        <Text style={[styles.placeholderText, placeholderTextStyle]}>
+          {item.name.includes('Shark') ? '🦈' : '🐟'}
+        </Text>
+      </View>
+    )}
+  </View>
+);
 const MarineLifeScreen = ({ route, navigation }) => {
   const [allMarineLife, setAllMarineLife] = useState([]);
   const [filteredMarineLife, setFilteredMarineLife] = useState([]);
@@ -210,21 +227,7 @@ useEffect(() => {
       style={styles.fishCard}
       onPress={() => openFishCard(index)}
     >
-      <View style={styles.fishImageContainer}>
-        {item.image_url ? (
-          <Image
-            accessibilityIgnoresInvertColors={true}
-            source={{ uri: item.image_url }}
-            style={styles.fishImage}
-          />
-        ) : (
-          <View style={styles.placeholderImage}>
-            <Text style={styles.placeholderText}>
-              {item.name.includes('Shark') ? '🦈' : '🐟'}
-            </Text>
-          </View>
-        )}
-      </View>
+      <FishThumbnail item={item} />
 
       <View style={styles.fishInfo}>
         <Text style={styles.fishName} numberOfLines={2}>{item.name}</Text>
@@ -265,13 +268,21 @@ useEffect(() => {
           height: windowHeight * 0.7,
         }}
       >
-        <MarineLifeCard
-          fish={item}
-          onClose={closeFishCard}
-          onToggleCaught={handleToggleCaught}
-          onToggleBreeding={handleToggleBreedingPair}
-          onSelectRecipe={handleSelectRecipe}
-        />
+        <View style={styles.detailedCard}>
+          <FishThumbnail
+            item={item}
+            containerStyle={styles.detailedImageContainer}
+            imageStyle={styles.detailedImage}
+            placeholderTextStyle={styles.detailedPlaceholderText}
+          />
+          <MarineLifeCard
+            fish={item}
+            onClose={closeFishCard}
+            onToggleCaught={handleToggleCaught}
+            onToggleBreeding={handleToggleBreedingPair}
+            onSelectRecipe={handleSelectRecipe}
+          />
+        </View>
       </View>
     );
   }, [closeFishCard, handleSelectRecipe, handleToggleBreedingPair, handleToggleCaught]);
@@ -533,6 +544,29 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  detailedCard: {
+    flex: 1,
+    backgroundColor: 'white',
+    borderRadius: 16,
+    overflow: 'hidden',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+  },
+  detailedImageContainer: {
+    marginBottom: 0,
+    backgroundColor: '#f0f0f0',
+  },
+  detailedImage: {
+    width: '100%',
+    height: windowHeight * 0.25,
+    resizeMode: 'contain',
+  },
+  detailedPlaceholderText: {
+    fontSize: 80,
   },
   // Modal Styles
   modalOverlay: {
