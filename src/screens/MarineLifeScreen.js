@@ -1,7 +1,7 @@
 // FILE LOCATION: src/screens/MarineLifeScreen.js
 // REPLACE THE ENTIRE EXISTING FILE WITH THIS CODE
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useReducer } from 'react';
 import {
   View,
   Text,
@@ -43,16 +43,55 @@ const FishThumbnail = ({ item, imageStyle, containerStyle, placeholderTextStyle 
     )}
   </View>
 );
-const MarineLifeScreen = ({ route, navigation }) => {
-  const [allMarineLife, setAllMarineLife] = useState([]);
-  const [filteredMarineLife, setFilteredMarineLife] = useState([]);
-  const [stats, setStats] = useState({ total: 0, caught: 0, breedingPairs: 0, caughtPercentage: 0 });
 
-  const [selectedFishIndex, setSelectedFishIndex] = useState(-1);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [searchText, setSearchText] = useState('');
-  const [filterType, setFilterType] = useState('all');
-  const [sortType, setSortType] = useState('name_asc');
+const initialState = {
+  allMarineLife: [],
+  filteredMarineLife: [],
+  stats: { total: 0, caught: 0, breedingPairs: 0, caughtPercentage: 0 },
+  selectedFishIndex: -1,
+  modalVisible: false,
+  searchText: '',
+  filterType: 'all',
+  sortType: 'name_asc',
+};
+
+function marineLifeReducer(state, action) {
+  switch (action.type) {
+    case 'SET_DATA':
+      return { ...state, allMarineLife: action.payload.data, stats: action.payload.stats };
+    case 'SET_FILTERED_DATA':
+      return { ...state, filteredMarineLife: action.payload };
+    case 'SET_SEARCH_TEXT':
+      return { ...state, searchText: action.payload };
+    case 'SET_FILTER_TYPE':
+      return { ...state, filterType: action.payload };
+    case 'SET_SORT_TYPE':
+      return { ...state, sortType: action.payload };
+    case 'OPEN_MODAL':
+      return { ...state, modalVisible: true, selectedFishIndex: action.payload };
+    case 'CLOSE_MODAL':
+      return { ...state, modalVisible: false, selectedFishIndex: -1 };
+    case 'SET_SELECTED_INDEX':
+      return { ...state, selectedFishIndex: action.payload };
+    case 'RESET_FILTERS':
+      return { ...state, searchText: '', filterType: 'all' };
+    default:
+      return state;
+  }
+}
+
+const MarineLifeScreen = ({ route, navigation }) => {
+  const [state, dispatch] = useReducer(marineLifeReducer, initialState);
+  const {
+    allMarineLife,
+    filteredMarineLife,
+    stats,
+    selectedFishIndex,
+    modalVisible,
+    searchText,
+    filterType,
+    sortType,
+  } = state;
 
   const swipeFlatListRef = useRef(null);
 
@@ -106,8 +145,7 @@ useEffect(() => {
         (fish) => fish.name.toLowerCase() === fishNameToOpen.toLowerCase()
       );
       if (fishExistsInMasterList) {
-        setSearchText('');
-        setFilterType('all');
+        dispatch({ type: 'RESET_FILTERS' });
       } else {
         // Fish doesn't exist at all, clear param to avoid infinite loops
         navigation.setParams({ marineLifeName: undefined });
@@ -121,8 +159,7 @@ useEffect(() => {
       const refreshData = () => {
         const data = getAllMarineLife();
         const currentStats = getMarineLifeStats();
-        setAllMarineLife(data);
-        setStats(currentStats);
+        dispatch({ type: 'SET_DATA', payload: { data, stats: currentStats } });
       };
       refreshData();
     }, [])
@@ -188,33 +225,29 @@ useEffect(() => {
         break;
     }
 
-    setFilteredMarineLife(filtered);
+    dispatch({ type: 'SET_FILTERED_DATA', payload: filtered });
   };
 
   const handleToggleCaught = useCallback(async (fishName, newStatus) => {
     await updateMarineLifeCaught(fishName, newStatus);
     const updatedData = getAllMarineLife();
     const updatedStats = getMarineLifeStats();
-    setAllMarineLife(updatedData);
-    setStats(updatedStats);
+    dispatch({ type: 'SET_DATA', payload: { data: updatedData, stats: updatedStats } });
   }, []);
 
   const handleToggleBreedingPair = useCallback(async (fishName, newStatus) => {
     await updateMarineLifeBreedingPair(fishName, newStatus);
     const updatedData = getAllMarineLife();
     const updatedStats = getMarineLifeStats();
-    setAllMarineLife(updatedData);
-    setStats(updatedStats);
+    dispatch({ type: 'SET_DATA', payload: { data: updatedData, stats: updatedStats } });
   }, []);
 
   const openFishCard = (index) => {
-    setSelectedFishIndex(index);
-    setModalVisible(true);
+    dispatch({ type: 'OPEN_MODAL', payload: index });
   };
 
   const closeFishCard = useCallback(() => {
-    setModalVisible(false);
-    setSelectedFishIndex(-1);
+    dispatch({ type: 'CLOSE_MODAL' });
   }, []);
 
   const handleSelectRecipe = useCallback((recipeName) => {
@@ -308,7 +341,7 @@ useEffect(() => {
           style={styles.searchInput}
           placeholder="Search marine life..."
           value={searchText}
-          onChangeText={(text) => setSearchText(text)}
+          onChangeText={(text) => dispatch({ type: 'SET_SEARCH_TEXT', payload: text })}
           placeholderTextColor="#666"
         />
 
@@ -318,7 +351,7 @@ useEffect(() => {
             <TouchableOpacity
               key={filter}
               style={[styles.filterButton, filterType === filter && styles.activeFilterButton]}
-              onPress={() => setFilterType(filter)}
+              onPress={() => dispatch({ type: 'SET_FILTER_TYPE', payload: filter })}
             >
               <Text style={[styles.filterButtonText, filterType === filter && styles.activeFilterButtonText]}>
                 {filter.charAt(0).toUpperCase() + filter.slice(1)}
@@ -333,7 +366,7 @@ useEffect(() => {
             <TouchableOpacity
               key={option.key}
               style={[styles.filterButton, sortType === option.key && styles.activeFilterButton]}
-              onPress={() => setSortType(option.key)}
+              onPress={() => dispatch({ type: 'SET_SORT_TYPE', payload: option.key })}
             >
               <Text style={[styles.filterButtonText, sortType === option.key && styles.activeFilterButtonText]}>
                 {option.label}
@@ -382,7 +415,7 @@ useEffect(() => {
                 const itemWidth = (windowWidth * 0.9) + (4 * 2);
                 const newIndex = Math.round(event.nativeEvent.contentOffset.x / itemWidth);
                 if (newIndex !== selectedFishIndex) {
-                  setSelectedFishIndex(newIndex);
+                  dispatch({ type: 'SET_SELECTED_INDEX', payload: newIndex });
                 }
               }}
               style={styles.modalFlatList}
