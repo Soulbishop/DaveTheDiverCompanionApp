@@ -15,6 +15,8 @@ import {
 const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding, onSelectRecipe }) => {
   if (!fish) return null;
 
+  const imageUrl = fish.detailed_marine_life_art || fish.image_url;
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -26,9 +28,9 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding, onSel
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
-          {fish.image_url ? (
+          {imageUrl ? (
             <Image 
-              source={{ uri: fish.image_url }} 
+              source={{ uri: imageUrl }} 
               style={styles.fishImage}
               resizeMode="contain"
             />
