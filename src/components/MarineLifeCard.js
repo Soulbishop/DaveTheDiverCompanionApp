@@ -30,10 +30,11 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding, onSel
         <View style={styles.imageContainer}>
           {imageUrl ? (
             <Image 
-              source={{ uri: imageUrl }} 
+              source={fish.detailed_marine_life_art || fish.local_thumbnail} 
               style={styles.fishImage}
               resizeMode="contain"
             />
+
           ) : (
             <View style={styles.placeholderImage}>
               <Text style={styles.placeholderText}>🐟</Text>
