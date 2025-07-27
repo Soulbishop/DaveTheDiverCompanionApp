@@ -11,7 +11,8 @@ import {
   Image,
 } from 'react-native';
 
-const RecipeCard = ({ recipe, onClose, onSelectIngredient, marineLifeNames }) => {
+// NEW: Add onAddRecipeToToCatchList to the props
+const RecipeCard = ({ recipe, onClose, onSelectIngredient, marineLifeNames, onAddRecipeToToCatchList }) => {
   if (!recipe) {
     return null;
   }
@@ -90,6 +91,16 @@ const RecipeCard = ({ recipe, onClose, onSelectIngredient, marineLifeNames }) =>
           </View>
         </View>
       </ScrollView>
+
+      {/* NEW: Add to To Catch List Button */}
+      {onAddRecipeToToCatchList && (
+        <TouchableOpacity
+          style={styles.addToListButton}
+          onPress={() => onAddRecipeToToCatchList(recipe)}
+        >
+          <Text style={styles.addToListButtonText}>Add to To Catch List</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -206,6 +217,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     flex: 1,
+  },
+  // NEW: Styles for the "Add to To Catch List" button
+  addToListButton: {
+    backgroundColor: '#17a2b8', // Info blue color
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginTop: 16,
+    marginBottom: 16, // Add some bottom margin for spacing
+    alignSelf: 'center', // Center the button
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  addToListButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

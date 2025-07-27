@@ -1,7 +1,7 @@
 // FILE: src/screens/RecipesScreen.js
 // Clean rewrite with proper syntax from the start
 
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'; // Added useCallback import
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {
   View,
   Text,
@@ -12,77 +12,79 @@ import {
   Modal,
   ScrollView,
   Dimensions,
-  TextInput, // Keeping TextInput import, even if no explicit UI for search yet
+  TextInput,
+  LayoutAnimation, // Import LayoutAnimation for smooth transitions
+  Platform, // For LayoutAnimation on Android
+  UIManager, // For LayoutAnimation on Android
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native'; // Used for navigating and accessing route params
-import allRecipes from '../data/allRecipes'; // Your local recipes data
-import { getAllMarineLife } from '../utils/marineLifeDatabase'; // Your local marine life data, for ingredient links
+import { useNavigation, useRoute } from '@react-navigation/native';
+import allRecipes from '../data/allRecipes';
+import { getAllMarineLife } from '../utils/marineLifeDatabase';
 import RecipeCard from '../components/RecipeCard';
 
+// NEW: Import our ToCatchListContext for global state management
+import { useToCatchList } from '../context/ToCatchListContext';
 
-// Get the window dimensions for responsive sizing
+// Enable LayoutAnimation on Android (if not already enabled globally in App.js)
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
-
 const RecipesScreen = () => {
-  const navigation = useNavigation(); // Hook for navigation
-  const route = useRoute(); // Hook for accessing the current route's params
+  const navigation = useNavigation();
+  const route = useRoute();
+
+  // NEW: Destructure the toCatchList and dispatch function from our context
+  const { dispatchToCatchList, TO_CATCH_ACTIONS } = useToCatchList();
 
   // --- State Management ---
-  const [recipes, setRecipes] = useState([]); // The full, unfiltered list of recipes from data source
-  const [filteredRecipes, setFilteredRecipes] = useState([]); // The list currently displayed after filters are applied
-  const [modalVisible, setModalVisible] = useState(false); // Controls visibility of the detail modal
-  const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(-1); // Index of the recipe currently selected for the modal
-  const [showFilters, setShowFilters] = useState(false); // Controls visibility of the filter options dropdown
-
-  // States for selected filter options (only Price and Taste, as per your request)
+  const [recipes, setRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(-1);
+  const [showFilters, setShowFilters] = useState(false);
   const [activePriceFilter, setActivePriceFilter] = useState('All');
   const [activeTasteFilter, setActiveTasteFilter] = useState('All');
-  const [searchText, setSearchText] = useState(''); // State for search input (if a search bar is added later)
+  const [searchText, setSearchText] = useState('');
 
-  // Ref for direct FlatList manipulation (e.g., scrollToIndex)
+  // NEW: State for multi-select mode
+  const [isMultiSelectMode, setIsMultiSelectMode] = useState(false);
+  // NEW: State to store selected recipes for batch adding
+  const [selectedRecipesForBatch, setSelectedRecipesForBatch] = useState({}); // Use object for efficient lookup: { recipeName: true }
+
   const swipeFlatListRef = useRef(null);
-
-  // State and callback for FlatList's internal layout readiness
-  // This is crucial for reliable scrollToIndex calls when the modal opens.
   const [isFlatListLayoutReady, setIsFlatListLayoutReady] = useState(false);
   const handleFlatListLayout = useCallback(() => {
     setIsFlatListLayoutReady(true);
   }, []);
 
   // --- Data Initialization and Memoized Filters ---
-
-  // 1. useEffect: Loads all recipes data into 'recipes' state once on component mount.
   useEffect(() => {
-    setRecipes(allRecipes); // Load all recipes into base state
-    // filteredRecipes will be set by the filtering useEffect below after recipes are loaded
+    setRecipes(allRecipes);
   }, []);
 
-  // 2. useMemo: Dynamically generates available filter options (price ranges, taste ranges)
-  // These are memoized to prevent unnecessary re-creation on every render.
   const priceRanges = useMemo(() => {
-    // Define your price tiers explicitly. Adjust values based on your game's price distribution.
     return ['All', 'Low (<$50)', 'Medium ($50-$200)', 'High (>$200)'].sort();
   }, []);
 
   const tasteRanges = useMemo(() => {
-    // Define your taste tiers explicitly. Adjust values based on your game's taste distribution.
-    return ['All', 'Low (<50)', 'Medium (50-200)', 'High (>200)'].sort(); // Simplified to one 'High' tier
+    return ['All', 'Low (<50)', 'Medium (50-200)', 'High (>200)'].sort();
   }, []);
 
-  // Memoized list of marine life names for checking clickable ingredients in detailed card
   const marineLifeNames = useMemo(() => {
-    const allMarineLife = getAllMarineLife(); // Assuming this function exists and returns an array of marine life objects
-    return new Set(allMarineLife.map(ml => ml.name.toLowerCase())); // Create a Set for efficient lookup
+    const allMarineLife = getAllMarineLife();
+    return new Set(allMarineLife.map(ml => ml.name.toLowerCase()));
   }, []);
 
   // --- Filtering Logic ---
+  const applyFilters = useCallback(() => {
+    let currentFiltered = recipes;
 
-  // 3. Function: applyFilters - Core logic to filter 'recipes' based on current filter states.
-  const applyFilters = useCallback(() => { // Using useCallback to memoize the function itself
-    let currentFiltered = recipes; // Always start filtering from the original, full 'recipes' list
-
-    // Apply search filter (if searchText has a value, e.g., from a future TextInput)
     if (searchText) {
       currentFiltered = currentFiltered.filter(item =>
         item.name.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -90,10 +92,9 @@ const RecipesScreen = () => {
       );
     }
 
-    // Apply Price filter
     if (activePriceFilter !== 'All') {
       currentFiltered = currentFiltered.filter(item => {
-        const currentPrice = (item.price_base + item.price_max) / 2; // Using average price for filtering logic
+        const currentPrice = (item.price_base + item.price_max) / 2;
         switch (activePriceFilter) {
           case 'Low (<$50)': return currentPrice < 50;
           case 'Medium ($50-$200)': return (currentPrice >= 50) && (currentPrice <= 200);
@@ -103,67 +104,53 @@ const RecipesScreen = () => {
       });
     }
 
-    // Apply Taste filter
     if (activeTasteFilter !== 'All') {
       currentFiltered = currentFiltered.filter(item => {
-        const currentTaste = (item.taste_base + item.taste_max) / 2; // Using average taste for filtering logic
+        const currentTaste = (item.taste_base + item.taste_max) / 2;
         switch (activeTasteFilter) {
           case 'Low (<50)': return currentTaste < 50;
           case 'Medium (50-200)': return currentTaste >= 50 && currentTaste <= 200;
-          case 'High (>200)': return currentTaste > 200; // Simplified to one 'High' tier for taste
+          case 'High (>200)': return currentTaste > 200;
           default: return true;
         }
       });
     }
 
-    // No filters for Dish Type, Servings, or Acquisition Method are implemented here, as per your request.
+    setFilteredRecipes(currentFiltered);
+  }, [recipes, searchText, activePriceFilter, activeTasteFilter]);
 
-    setFilteredRecipes(currentFiltered); // Update the state that drives the displayed FlatList
-  }, [recipes, searchText, activePriceFilter, activeTasteFilter]); // Dependencies for applyFilters
-
-  // 4. useEffect: Triggers 'applyFilters' whenever filter criteria or base recipes change.
   useEffect(() => {
     applyFilters();
-  }, [applyFilters]); // Dependency on applyFilters (wrapped in useCallback for stability)
+  }, [applyFilters]);
 
   // Handle navigation from other screens (e.g., Marine Life card)
   useEffect(() => {
     const recipeNameToSearch = route.params?.recipeName;
     if (recipeNameToSearch) {
       setSearchText(recipeNameToSearch);
-      // Clear the param to prevent re-triggering on screen focus
       navigation.setParams({ recipeName: undefined });
     }
   }, [route.params?.recipeName, navigation]);
 
   // --- Modal Scrolling Logic ---
-
-  // 5. useEffect: Handles scrolling the FlatList in the modal to the selected item on open.
-  // This is a robust approach for reliable initial scrolling when the modal opens.
   useEffect(() => {
-    // Only attempt scroll if modal is visible, an item is selected, FlatList ref is ready, and layout is complete.
     if (modalVisible && selectedRecipeIndex !== -1 && swipeFlatListRef.current && isFlatListLayoutReady) {
-      // Add a short timeout to give the FlatList's children a moment to render and measure
       const scrollTimeoutId = setTimeout(() => {
         try {
-          const itemFullWidth = (windowWidth * 0.9) + (4 * 2); // Calculate item's full width (content + margins)
+          const itemFullWidth = (windowWidth * 0.9) + (4 * 2);
           console.log('*** SCROLL DEBUG ***: Attempting scroll to index (onLayout + timeout). Target index:', selectedRecipeIndex, 'Item width:', itemFullWidth);
           swipeFlatListRef.current.scrollToIndex({
             index: selectedRecipeIndex,
-            animated: false, // Immediate jump to position
+            animated: false,
           });
           console.log('*** SCROLL DEBUG ***: Scroll command issued for index:', selectedRecipeIndex);
         } catch (e) {
           console.warn('*** SCROLL DEBUG ***: Failed to scroll to index (onLayout + timeout trigger):', e);
           console.error('*** SCROLL DEBUG ***: scrollToIndex error details:', { message: e.message, name: e.name, stack: e.stack });
-          // Fallback: Log error, but don't stop execution.
         }
-      }, 25); // Small delay (25ms) as a final safeguard against timing issues.
-
-      return () => clearTimeout(scrollTimeoutId); // Cleanup the timeout when the effect re-runs or component unmounts.
+      }, 25);
+      return () => clearTimeout(scrollTimeoutId);
     }
-
-    // Reset layout readiness when the modal closes, so it's fresh for the next open.
     if (!modalVisible) {
       console.log('*** SCROLL DEBUG ***: Modal closed. Resetting isFlatListLayoutReady: false.');
       setIsFlatListLayoutReady(false);
@@ -172,51 +159,119 @@ const RecipesScreen = () => {
 
 
   // --- Modal Control Functions ---
-
-  // Handler for opening the recipe detail modal when a card is clicked
   const openRecipeModal = (index) => {
     setSelectedRecipeIndex(index);
     setModalVisible(true);
   };
 
-  // Handler for closing the recipe detail modal
   const closeRecipeModal = useCallback(() => {
     setModalVisible(false);
-    setSelectedRecipeIndex(-1); // Reset selected index when modal is closed
+    setSelectedRecipeIndex(-1);
   }, []);
 
-  // Handler for navigating to an ingredient's detail page from the RecipeCard
   const handleSelectIngredient = useCallback((ingredientName) => {
     closeRecipeModal();
     navigation.navigate('Marine Life', { marineLifeName: ingredientName });
   }, [navigation, closeRecipeModal]);
+
+
+  // --- NEW: To Catch List Functions ---
+
+  // Function to add a single recipe to the To-Catch list
+  const addRecipeToToCatchList = useCallback((recipe) => {
+    dispatchToCatchList({ type: TO_CATCH_ACTIONS.ADD_RECIPE, payload: { recipe } });
+    // Optional: Provide visual feedback (e.g., a toast message)
+    // console.log(`Added ${recipe.name} to To Catch List`);
+  }, [dispatchToCatchList, TO_CATCH_ACTIONS]);
+
+  // Function to toggle multi-select mode
+  const toggleMultiSelectMode = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); // Smooth animation
+    setIsMultiSelectMode(prev => {
+      if (prev) { // If turning off multi-select, clear selections
+        setSelectedRecipesForBatch({});
+      }
+      return !prev;
+    });
+  };
+
+  // Function to toggle selection of a recipe in multi-select mode
+  const toggleRecipeSelection = useCallback((recipe) => {
+    setSelectedRecipesForBatch(prevSelected => {
+      const newSelected = { ...prevSelected };
+      if (newSelected[recipe.name]) {
+        delete newSelected[recipe.name]; // Deselect
+      } else {
+        newSelected[recipe.name] = recipe; // Select
+      }
+      return newSelected;
+    });
+  }, []);
+
+  // Function to add all currently selected recipes to the To-Catch list
+  const addSelectedToToCatchList = useCallback(() => {
+    Object.values(selectedRecipesForBatch).forEach(recipe => {
+      addRecipeToToCatchList(recipe);
+    });
+    setSelectedRecipesForBatch({}); // Clear selections after adding
+    setIsMultiSelectMode(false); // Exit multi-select mode
+  }, [selectedRecipesForBatch, addRecipeToToCatchList]);
+
+  // Function to clear all batch selections without adding
+  const clearBatchSelection = useCallback(() => {
+    setSelectedRecipesForBatch({});
+  }, []);
+
+
   // --- FlatList Item Renderers ---
 
   // Renders a single recipe card in the main grid view
-  const renderRecipeCard = ({ item, index }) => (
-    <TouchableOpacity
-      style={styles.recipeCard}
-      onPress={() => openRecipeModal(index)}
-    >
-      <Image
-        accessibilityIgnoresInvertColors={true}
-        source={item.local_thumbnail} //Source has been pre-required
-        style={styles.recipeImage}
-      />
-      <View style={styles.recipeInfo}>
-        <Text style={styles.recipeName}>{item.name}</Text>
-        <Text style={styles.recipePrice}>
-          ${item.price_base} - ${item.price_max}
-        </Text>
-        <Text style={styles.recipeTaste}>
-          Taste: {item.taste_base} - {item.taste_max}
-        </Text>
-        <Text style={styles.recipeServings}>
-          {item.dish_base}-{item.dish_max} servings
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
+  const renderRecipeCard = ({ item, index }) => {
+    const isSelected = selectedRecipesForBatch[item.name]; // Check if recipe is selected for batch add
+
+    return (
+      <TouchableOpacity
+        style={[styles.recipeCard, isSelected && styles.selectedRecipeCard]} // Apply selected style
+        onPress={() => isMultiSelectMode ? toggleRecipeSelection(item) : openRecipeModal(index)}
+        onLongPress={() => toggleMultiSelectMode()} // Long press to enter multi-select mode
+      >
+        {isMultiSelectMode && (
+          <View style={styles.checkboxContainer}>
+            <View style={[styles.checkbox, isSelected && styles.checkboxSelected]}>
+              {isSelected && <Text style={styles.checkboxCheck}>✓</Text>}
+            </View>
+          </View>
+        )}
+        <Image
+          accessibilityIgnoresInvertColors={true}
+          source={item.local_thumbnail}
+          style={styles.recipeImage}
+        />
+        <View style={styles.recipeInfo}>
+          <Text style={styles.recipeName}>{item.name}</Text>
+          <Text style={styles.recipePrice}>
+            ${item.price_base} - ${item.price_max}
+          </Text>
+          <Text style={styles.recipeTaste}>
+            Taste: {item.taste_base} - {item.taste_max}
+          </Text>
+          <Text style={styles.recipeServings}>
+            {item.dish_base}-{item.dish_max} servings
+          </Text>
+        </View>
+        {/* NEW: Individual "Add to List" button for single recipe */}
+        {!isMultiSelectMode && ( // Only show if not in multi-select mode
+          <TouchableOpacity
+            style={styles.addToListButton}
+            onPress={() => addRecipeToToCatchList(item)}
+          >
+            <Text style={styles.addToListButtonText}>Add to List</Text>
+          </TouchableOpacity>
+        )}
+      </TouchableOpacity>
+    );
+  };
+
   // Renders the detailed content for a single recipe card within the swipeable modal
   const renderDetailedRecipeCard = useCallback(({ item }) => {
     const cardWidth = windowWidth * 0.9;
@@ -227,7 +282,7 @@ const RecipesScreen = () => {
         style={{
           width: cardWidth,
           marginHorizontal: cardMargin,
-          height: windowHeight * 0.7, // Set a consistent height for the card area
+          height: windowHeight * 0.7,
         }}
       >
         <RecipeCard
@@ -235,10 +290,12 @@ const RecipesScreen = () => {
           onClose={closeRecipeModal}
           onSelectIngredient={handleSelectIngredient}
           marineLifeNames={marineLifeNames}
+          // NEW: Pass the addRecipeToToCatchList function to the RecipeCard for modal button
+          onAddRecipeToToCatchList={addRecipeToToCatchList}
         />
       </View>
     );
-  }, [closeRecipeModal, handleSelectIngredient, marineLifeNames]);
+  }, [closeRecipeModal, handleSelectIngredient, marineLifeNames, addRecipeToToCatchList]);
 
   return (
     <View style={styles.container}>
@@ -255,8 +312,41 @@ const RecipesScreen = () => {
         placeholderTextColor="#888"
         value={searchText}
         onChangeText={setSearchText}
-        clearButtonMode="while-editing" // iOS clear button
+        clearButtonMode="while-editing"
       />
+
+      {/* NEW: Multi-select toggle button */}
+      <View style={styles.actionButtonsContainer}>
+        <TouchableOpacity
+          style={styles.multiSelectToggleButton}
+          onPress={toggleMultiSelectMode}
+        >
+          <Text style={styles.multiSelectToggleButtonText}>
+            {isMultiSelectMode ? 'Exit Multi-Select' : 'Multi-Select'}
+          </Text>
+        </TouchableOpacity>
+
+        {isMultiSelectMode && (
+          <>
+            <TouchableOpacity
+              style={[styles.batchActionButton, Object.keys(selectedRecipesForBatch).length === 0 && styles.batchActionButtonDisabled]}
+              onPress={addSelectedToToCatchList}
+              disabled={Object.keys(selectedRecipesForBatch).length === 0}
+            >
+              <Text style={styles.batchActionButtonText}>
+                Add {Object.keys(selectedRecipesForBatch).length} Selected
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.batchActionButton}
+              onPress={clearBatchSelection}
+            >
+              <Text style={styles.batchActionButtonText}>Clear Selection</Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </View>
+
 
       <TouchableOpacity
         style={styles.filterHeader}
@@ -267,7 +357,6 @@ const RecipesScreen = () => {
         </Text>
       </TouchableOpacity>
 
-      {/* Filter Options UI, conditionally rendered based on showFilters state */}
       {showFilters && (
         <View style={styles.filterOptionsContainer}>
           {/* Price Range Filters */}
@@ -292,16 +381,15 @@ const RecipesScreen = () => {
             {tasteRanges.map(range => (
               <TouchableOpacity
                 key={range}
-                style={[styles.filterButton, activeTasteFilter === range && styles.activeFilterButton]}
+                style={[styles.filterButton, activeTasteFilter === range && styles.activeTasteFilterButton]}
                 onPress={() => setActiveTasteFilter(range)}
               >
-                <Text style={[styles.filterButtonText, activeTasteFilter === range && styles.activeFilterButtonText]}>
+                <Text style={[styles.filterButtonText, activeTasteFilter === range && styles.activeTasteFilterButtonText]}>
                   {range}
                 </Text>
               </TouchableOpacity>
             ))}
           </View>
-          {/* Note: Dish Type, Servings, and Acquisition filters are intentionally excluded as per your request */}
         </View>
       )}
       <FlatList
@@ -320,8 +408,6 @@ const RecipesScreen = () => {
         onRequestClose={closeRecipeModal}
       >
         <View style={styles.modalOverlay}>
-
-          {/* The swipeable FlatList for detailed recipe cards */}
           {modalVisible && filteredRecipes.length > 0 && selectedRecipeIndex !== -1 && (
             <FlatList
               ref={swipeFlatListRef}
@@ -337,7 +423,7 @@ const RecipesScreen = () => {
               showsHorizontalScrollIndicator={false}
               initialScrollIndex={selectedRecipeIndex}
               removeClippedSubviews={true}
-              initialNumToRender={5} // Changed from filteredRecipes.length to a small, fixed number for performance
+              initialNumToRender={5}
               getItemLayout={(data, index) => {
                 const itemFullWidth = (windowWidth * 0.9) + (4 * 2);
                 return {
@@ -363,7 +449,7 @@ const RecipesScreen = () => {
       </Modal>
     </View>
   );
-}; // Closing brace for RecipesScreen component
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -388,6 +474,50 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 4,
   },
+  searchInput: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginHorizontal: 16,
+    marginVertical: 10, // Added vertical margin for spacing
+    backgroundColor: 'white',
+  },
+  actionButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: 16,
+    paddingBottom: 10,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  multiSelectToggleButton: {
+    backgroundColor: '#6c757d', // Grey color for multi-select toggle
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    marginHorizontal: 4,
+  },
+  multiSelectToggleButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  batchActionButton: {
+    backgroundColor: '#28a745', // Green for add selected
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    marginHorizontal: 4,
+  },
+  batchActionButtonDisabled: {
+    backgroundColor: '#90ee90', // Lighter green when disabled
+  },
+  batchActionButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
   filterHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -403,8 +533,6 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   filterOptionsContainer: {
-    // Removed flexDirection: 'row' and horizontal ScrollView.
-    // This container will now lay out its children vertically by default.
     paddingHorizontal: 16,
     paddingVertical: 8,
     backgroundColor: '#f0f0f0',
@@ -415,21 +543,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#666',
-    marginTop: 10, // Add some top margin to separate categories
-    marginBottom: 5, // Space between label and its buttons
+    marginTop: 10,
+    marginBottom: 5,
   },
   filterButtonsRow: {
-    flexDirection: 'row', // Keep buttons within a category in a row
-    flexWrap: 'wrap', // Allow buttons to wrap to the next line
-    marginBottom: 10, // Space after each row of buttons
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 10,
   },
   filterButton: {
     backgroundColor: '#e0e0e0',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 15,
-    marginRight: 8, // Space between buttons in the same row
-    marginBottom: 8, // Space below each button if they wrap
+    marginRight: 8,
+    marginBottom: 8,
   },
   activeFilterButton: {
     backgroundColor: '#2196F3',
@@ -461,6 +589,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    position: 'relative', // Needed for absolute positioning of checkbox
+  },
+  selectedRecipeCard: {
+    borderColor: '#0066cc', // Highlight selected cards
+    borderWidth: 2,
   },
   recipeImage: {
     width: '100%',
@@ -493,6 +626,45 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#666',
   },
+  // NEW: Styles for the individual "Add to List" button on the card
+  addToListButton: {
+    backgroundColor: '#17a2b8', // Info blue color
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    marginTop: 8,
+    alignSelf: 'center', // Center the button
+  },
+  addToListButtonText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  // NEW: Styles for the multi-select checkbox
+  checkboxContainer: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    zIndex: 1, // Ensure it's above other content
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#0066cc',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  checkboxSelected: {
+    backgroundColor: '#0066cc',
+  },
+  checkboxCheck: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -504,19 +676,7 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.75,
   },
   modalFlatListContent: {
-    // This padding ensures the first and last items can be centered in the view
-    // It calculates the space on either side of the card to center it.
     paddingHorizontal: (windowWidth - (windowWidth * 0.9) - (4 * 2)) / 2,
-  },
-  searchInput: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginHorizontal: 16,
-    marginBottom: 10,
-    backgroundColor: 'white',
   },
 });
 
