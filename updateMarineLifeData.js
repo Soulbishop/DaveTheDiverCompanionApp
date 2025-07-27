@@ -1,5 +1,5 @@
 // FILE: updateMarineLifeData.js
-// CREATE THIS NEW FILE IN YOUR PROJECT ROOT
+// REPLACE THE EXISTING CONTENT WITH THIS
 
 const fs = require('fs');
 const path = require('path');
@@ -71,78 +71,67 @@ const GITHUB_BASE_URL = "https://github.com/Soulbishop/DaveTheDiverCompanionApp/
 const SOURCE_DATA_PATH = path.join(__dirname, 'src', 'data', 'allMarineLife.js' );
 const OUTPUT_DATA_PATH = path.join(__dirname, 'allMarineLife_UPDATED.js');
 
-// --- Helper Function ---
-// Normalizes fish name to the expected filename format, including the "PU_" prefix.
-function getExpectedFilename(fishName) {
-  // Special case for "Jayakar's Seahorse" which has an apostrophe
-  const sanitizedName = fishName.replace(/'/g, "\\'");
-  return `PU_${sanitizedName.replace(/ /g, '_')}.png`;
-}
-
 // --- Main Logic ---
 try {
-  console.log(`Reading data from: ${SOURCE_DATA_PATH}`);
-  let fileContent = fs.readFileSync(SOURCE_DATA_PATH, 'utf8');
-  
-  // Strip the JavaScript export/variable assignment to parse as JSON
-  const jsonString = fileContent
-    .substring(fileContent.indexOf('['), fileContent.lastIndexOf(']') + 1)
-    // This regex handles the `require(...)` statements which are not valid JSON
-    .replace(/require\((['"`]).*?\1\)/g, '""'); 
+    console.log(`Reading data from: ${SOURCE_DATA_PATH}`);
+    let fileContent = fs.readFileSync(SOURCE_DATA_PATH, 'utf8');
 
-  const allMarineLife = JSON.parse(jsonString);
-  console.log(`Successfully parsed ${allMarineLife.length} marine life entries.`);
+    // This is a safer way to get the array data from the JS file
+    // It evaluates the file content in a sandboxed environment
+    const allMarineLife = (() => {
+        const script = new (require('vm').Script)(fileContent.replace('export default allMarineLife;', 'allMarineLife;'));
+        const context = require('vm').createContext({});
+        return script.runInContext(context);
+    })();
 
-  let updatedCount = 0;
-  let notFound = [];
+    console.log(`Successfully parsed ${allMarineLife.length} marine life entries.`);
 
-  const filenameSet = new Set(imageFilenames);
+    let updatedCount = 0;
+    let notFound = [];
 
-  const updatedMarineLife = allMarineLife.map(fish => {
-    // Use the original `image_filename` from your data as the key for matching
-    const expectedFilename = `PU_${fish.image_filename}`;
-    
-    if (filenameSet.has(expectedFilename)) {
-      updatedCount++;
-      const newFish = { ...fish };
-      newFish.detailed_marine_life_art = `${GITHUB_BASE_URL}${expectedFilename}?raw=true`;
-      // We must also fix the local_thumbnail path to be a string literal for JSON.stringify
-      newFish.local_thumbnail = `require('../assets/marine_life_thumbs/${fish.image_filename}')`;
-      return newFish;
-    } else {
-      notFound.push({ name: fish.name, expectedFile: expectedFilename });
-      const originalFish = { ...fish };
-      originalFish.local_thumbnail = `require('../assets/marine_life_thumbs/${fish.image_filename}')`;
-      return originalFish;
-    }
-  });
+    const filenameSet = new Set(imageFilenames);
 
-  // --- Reporting ---
-  console.log("\n--- SCRIPT COMPLETE ---");
-  console.log(`Total fish processed: ${allMarineLife.length}`);
-  console.log(`Successfully matched and updated: ${updatedCount}`);
-  console.log(`Images not found: ${notFound.length}`);
+    const updatedMarineLife = allMarineLife.map(fish => {
+        // Use the original `image_filename` from your data as the key for matching
+        const expectedFilename = `PU_${fish.image_filename}`;
+        const newFish = { ...fish }; // Create a shallow copy
 
-  if (notFound.length > 0) {
-    console.log("\n--- DETAILS ON MISSING IMAGES ---");
-    console.log("The following fish could not be matched to a filename you provided:");
-    notFound.forEach(item => {
-      console.log(`  - Fish Name: "${item.name}" -> Expected File: "${item.expectedFile}"`);
+        if (filenameSet.has(expectedFilename)) {
+            updatedCount++;
+            newFish.detailed_marine_life_art = `${GITHUB_BASE_URL}${expectedFilename}?raw=true`;
+        } else {
+            notFound.push({ name: fish.name, expectedFile: expectedFilename });
+        }
+        return newFish;
     });
-    console.log("\nThis is not an error. These fish will continue to use their original thumbnail image in the detail view.");
-  }
 
-  // --- File Output ---
-  // Convert the updated array back into a string, then restore the `require` statements
-  let outputContent = `const allMarineLife = ${JSON.stringify(updatedMarineLife, null, 2)};\n\nexport default allMarineLife;`;
-  outputContent = outputContent.replace(/"require\((['"`]).*?\1\)"/g, (match) => match.substring(1, match.length - 1));
+    // --- Reporting ---
+    console.log("\n--- SCRIPT COMPLETE ---");
+    console.log(`Total fish processed: ${allMarineLife.length}`);
+    console.log(`Successfully matched and updated: ${updatedCount}`);
+    console.log(`Images not found: ${notFound.length}`);
 
-  fs.writeFileSync(OUTPUT_DATA_PATH, outputContent, 'utf8');
-  console.log(`\nSuccessfully generated updated file at: ${OUTPUT_DATA_PATH}`);
-  console.log("Please review the new file and then use it to replace your existing data file.");
+    if (notFound.length > 0) {
+        console.log("\n--- DETAILS ON MISSING IMAGES ---");
+        console.log("The following fish could not be matched to a filename you provided:");
+        notFound.forEach(item => {
+            console.log(`  - Fish Name: "${item.name}" -> Expected File: "${item.expectedFile}"`);
+        });
+        console.log("\nThis is not an error. These fish will continue to use their original thumbnail image in the detail view.");
+    }
+
+    // --- File Output ---
+    // Convert the updated array back into the original JavaScript file format
+    // We need to manually reconstruct the `require` calls as strings before replacing them
+    let outputContent = `const allMarineLife = ${JSON.stringify(updatedMarineLife, null, 2)};\n\nexport default allMarineLife;`;
+    outputContent = outputContent.replace(/"(require\([^)]+\))"/g, '$1');
+
+    fs.writeFileSync(OUTPUT_DATA_PATH, outputContent, 'utf8');
+    console.log(`\nSuccessfully generated updated file at: ${OUTPUT_DATA_PATH}`);
+    console.log("Please review the new file and then use it to replace your existing data file.");
 
 } catch (error) {
-  console.error("\n--- AN ERROR OCCURRED ---");
-  console.error(error);
-  console.error("\nPlease ensure the script is run from the project root and that the path to 'allMarineLife.js' is correct.");
+    console.error("\n--- AN ERROR OCCURRED ---");
+    console.error(error);
+    console.error("\nPlease ensure the script is run from the project root and that the path to 'allMarineLife.js' is correct.");
 }
