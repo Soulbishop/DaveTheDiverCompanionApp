@@ -32,6 +32,7 @@ const RecipesScreen = () => {
   const [filteredRecipes, setFilteredRecipes] = useState([]); // The list currently displayed after filters are applied
   const [modalVisible, setModalVisible] = useState(false); // Controls visibility of the detail modal
   const [selectedRecipeIndex, setSelectedRecipeIndex] = useState(-1); // Index of the recipe currently selected for the modal
+  const [showFilters, setShowFilters] = useState(false); // Controls visibility of the filter options dropdown
 
   // States for selected filter options (only Price and Taste, as per your request)
   const [activePriceFilter, setActivePriceFilter] = useState('All');
