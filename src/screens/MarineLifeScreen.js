@@ -14,6 +14,9 @@ import {
   TextInput,
   Dimensions,
   ScrollView,
+  LayoutAnimation, // <--- Import LayoutAnimation
+  Platform, // <--- Import Platform for LayoutAnimation
+  UIManager, // <--- Import UIManager for LayoutAnimation
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import {
@@ -26,6 +29,17 @@ import MarineLifeCard from '../components/MarineLifeCard';
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
+// Enable LayoutAnimation on Android
+// On Android, LayoutAnimation is an experimental feature and needs to be enabled manually.
+// This check ensures it only runs on Android to avoid issues on iOS where it's enabled by default.
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
+// FishThumbnail component (remains unchanged)
 const FishThumbnail = ({ item, imageStyle, containerStyle, placeholderTextStyle }) => (
   <View style={[styles.fishImageContainer, containerStyle]}>
     {item.image_url ? (
@@ -44,6 +58,7 @@ const FishThumbnail = ({ item, imageStyle, containerStyle, placeholderTextStyle 
   </View>
 );
 
+// Initial state for the reducer
 const initialState = {
   allMarineLife: [],
   filteredMarineLife: [],
@@ -53,8 +68,10 @@ const initialState = {
   searchText: '',
   filterType: 'all',
   sortType: 'name_asc',
+  filterExpanded: true, // <--- New state variable to control filter visibility
 };
 
+// Reducer function for managing state
 function marineLifeReducer(state, action) {
   switch (action.type) {
     case 'SET_DATA':
@@ -75,12 +92,16 @@ function marineLifeReducer(state, action) {
       return { ...state, selectedFishIndex: action.payload };
     case 'RESET_FILTERS':
       return { ...state, searchText: '', filterType: 'all' };
+    case 'TOGGLE_FILTER_EXPAND': // <--- New action to toggle filter visibility
+      return { ...state, filterExpanded: !state.filterExpanded };
     default:
       return state;
   }
 }
 
+// Main MarineLifeScreen component
 const MarineLifeScreen = ({ route, navigation }) => {
+  // Use useReducer to manage complex state logic
   const [state, dispatch] = useReducer(marineLifeReducer, initialState);
   const {
     allMarineLife,
@@ -91,10 +112,12 @@ const MarineLifeScreen = ({ route, navigation }) => {
     searchText,
     filterType,
     sortType,
+    filterExpanded, // <--- Destructure filterExpanded from state
   } = state;
 
   const swipeFlatListRef = useRef(null);
 
+  // Sorting options for the marine life list
   const sortOptions = [
     { key: 'name_asc', label: 'Name (A-Z)' },
     { key: 'name_desc', label: 'Name (Z-A)' },
@@ -103,10 +126,11 @@ const MarineLifeScreen = ({ route, navigation }) => {
     { key: 'difficulty_asc', label: 'Difficulty (Low-High)' },
   ];
 
-  // This effect handles scrolling the modal FlatList to the correct initial item.
+  // Effect to scroll the modal FlatList to the correct item when opened
   useEffect(() => {
     if (modalVisible && selectedFishIndex !== -1 && swipeFlatListRef.current) {
       // Using a timeout to ensure the list has had time to render before scrolling.
+      // This is a common pattern in React Native for ensuring UI updates before interaction.
       setTimeout(() => {
         swipeFlatListRef.current?.scrollToIndex({
           index: selectedFishIndex,
@@ -116,13 +140,13 @@ const MarineLifeScreen = ({ route, navigation }) => {
     }
   }, [modalVisible, selectedFishIndex]);
 
-  // Update filtered list when marineLifeList or filters change
+  // Effect to update the filtered list whenever the master list or filter/sort criteria change
   useEffect(() => {
     updateDisplayedData();
   }, [allMarineLife, searchText, filterType, sortType]);
 
-  // Handle navigation from other screens (e.g., Recipes)
-useEffect(() => {
+  // Effect to handle navigation from other screens (e.g., Recipes) that might pass a marineLifeName
+  useEffect(() => {
     const fishNameToOpen = route.params?.marineLifeName;
     // Exit early if no name is passed or data isn't ready
     if (!fishNameToOpen || allMarineLife.length === 0) {
@@ -135,40 +159,42 @@ useEffect(() => {
     );
 
     if (fishIndexInFiltered !== -1) {
-      // If visible, open the card and clear the navigation parameter
+      // If visible, open the card and clear the navigation parameter to prevent re-triggering
       openFishCard(fishIndexInFiltered);
       navigation.setParams({ marineLifeName: undefined });
     } else {
-      // If not visible, reset filters. The component will re-render,
-      // this effect will run again, and the condition above will be met.
+      // If not visible in the current filtered list, check if it exists in the master list.
+      // If it exists, reset filters to make it visible, which will re-trigger this effect.
+      // If it doesn't exist at all, clear the param to avoid infinite loops.
       const fishExistsInMasterList = allMarineLife.some(
         (fish) => fish.name.toLowerCase() === fishNameToOpen.toLowerCase()
       );
       if (fishExistsInMasterList) {
         dispatch({ type: 'RESET_FILTERS' });
       } else {
-        // Fish doesn't exist at all, clear param to avoid infinite loops
         navigation.setParams({ marineLifeName: undefined });
       }
     }
   }, [route.params?.marineLifeName, allMarineLife, filteredMarineLife, navigation]);
 
-  // useFocusEffect is like useEffect but runs when the screen comes into focus
+  // useFocusEffect is a hook from React Navigation that runs when the screen is focused.
+  // We use it here to refresh the marine life data and stats every time the screen becomes active.
   useFocusEffect(
     useCallback(() => {
       const refreshData = () => {
-        const data = getAllMarineLife();
-        const currentStats = getMarineLifeStats();
-        dispatch({ type: 'SET_DATA', payload: { data, stats: currentStats } });
+        const data = getAllMarineLife(); // Fetch all marine life data
+        const currentStats = getMarineLifeStats(); // Fetch current statistics
+        dispatch({ type: 'SET_DATA', payload: { data, stats: currentStats } }); // Update state
       };
       refreshData();
-    }, [])
+    }, []) // Empty dependency array means this effect runs once on mount and when screen gains focus
   );
 
+  // Function to apply search, filter, and sort logic to the marine life data
   const updateDisplayedData = () => {
-    let filtered = allMarineLife;
+    let filtered = allMarineLife; // Start with all marine life
 
-    // Apply search filter
+    // Apply search filter if search text is present
     if (searchText) {
       const lowercasedSearchText = searchText.toLowerCase();
       filtered = filtered.filter(item =>
@@ -177,7 +203,7 @@ useEffect(() => {
       );
     }
 
-    // Apply type filter
+    // Apply type filter (caught, uncaught, breeding, or all)
     switch (filterType) {
       case 'caught':
         filtered = filtered.filter(item => item.caught);
@@ -193,7 +219,7 @@ useEffect(() => {
         break;
     }
 
-    // Apply sorting
+    // Apply sorting based on the selected sort type
     switch (sortType) {
       case 'name_asc':
         filtered.sort((a, b) => a.name.localeCompare(b.name));
@@ -202,7 +228,7 @@ useEffect(() => {
         filtered.sort((a, b) => b.name.localeCompare(a.name));
         break;
       case 'zone_asc':
-        // Sort by zone, then by name for items in the same zone
+        // Sort primarily by zone, then by name for consistent ordering within zones
         filtered.sort((a, b) => {
           const zoneCompare = a.zone.localeCompare(b.zone);
           if (zoneCompare !== 0) return zoneCompare;
@@ -210,6 +236,7 @@ useEffect(() => {
         });
         break;
       case 'difficulty_asc':
+        // Sort primarily by difficulty (ascending), then by name
         filtered.sort((a, b) => {
           const diffCompare = a.difficulty - b.difficulty;
           if (diffCompare !== 0) return diffCompare;
@@ -217,6 +244,7 @@ useEffect(() => {
         });
         break;
       case 'difficulty_desc':
+        // Sort primarily by difficulty (descending), then by name
         filtered.sort((a, b) => {
           const diffCompare = b.difficulty - a.difficulty;
           if (diffCompare !== 0) return diffCompare;
@@ -225,42 +253,56 @@ useEffect(() => {
         break;
     }
 
-    dispatch({ type: 'SET_FILTERED_DATA', payload: filtered });
+    dispatch({ type: 'SET_FILTERED_DATA', payload: filtered }); // Update the filtered data in state
   };
 
+  // Callback to toggle the 'caught' status of a marine life item
   const handleToggleCaught = useCallback(async (fishName, newStatus) => {
-    await updateMarineLifeCaught(fishName, newStatus);
-    const updatedData = getAllMarineLife();
-    const updatedStats = getMarineLifeStats();
-    dispatch({ type: 'SET_DATA', payload: { data: updatedData, stats: updatedStats } });
-  }, []);
+    await updateMarineLifeCaught(fishName, newStatus); // Update in the database
+    const updatedData = getAllMarineLife(); // Get updated data
+    const updatedStats = getMarineLifeStats(); // Get updated stats
+    dispatch({ type: 'SET_DATA', payload: { data: updatedData, stats: updatedStats } }); // Update state
+  }, []); // Empty dependency array means this function is memoized and only re-created if dependencies change
 
+  // Callback to toggle the 'breeding pair' status of a marine life item
   const handleToggleBreedingPair = useCallback(async (fishName, newStatus) => {
-    await updateMarineLifeBreedingPair(fishName, newStatus);
-    const updatedData = getAllMarineLife();
-    const updatedStats = getMarineLifeStats();
-    dispatch({ type: 'SET_DATA', payload: { data: updatedData, stats: updatedStats } });
+    await updateMarineLifeBreedingPair(fishName, newStatus); // Update in the database
+    const updatedData = getAllMarineLife(); // Get updated data
+    const updatedStats = getMarineLifeStats(); // Get updated stats
+    dispatch({ type: 'SET_DATA', payload: { data: updatedData, stats: updatedStats } }); // Update state
   }, []);
 
+  // Function to open the detailed fish card modal
   const openFishCard = (index) => {
     dispatch({ type: 'OPEN_MODAL', payload: index });
   };
 
+  // Callback to close the detailed fish card modal
   const closeFishCard = useCallback(() => {
     dispatch({ type: 'CLOSE_MODAL' });
   }, []);
 
+  // Callback to navigate to the Recipes screen and open a specific recipe
   const handleSelectRecipe = useCallback((recipeName) => {
-    closeFishCard();
-    navigation.navigate('Recipes', { recipeName: recipeName });
+    closeFishCard(); // Close the current modal
+    navigation.navigate('Recipes', { recipeName: recipeName }); // Navigate to Recipes screen
   }, [navigation, closeFishCard]);
 
+  // Function to toggle the filter section's expanded state
+  const toggleFilterExpand = () => {
+    // LayoutAnimation.configureNext provides a smooth animation for layout changes.
+    // It's configured to ease in and out over a duration of 300 milliseconds.
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    dispatch({ type: 'TOGGLE_FILTER_EXPAND' }); // Dispatch the action to change state
+  };
+
+  // Render function for each item in the main grid list
   const renderGridItem = ({ item, index }) => (
     <TouchableOpacity
       style={styles.fishCard}
-      onPress={() => openFishCard(index)}
+      onPress={() => openFishCard(index)} // Open detailed card on press
     >
-      <FishThumbnail item={item} />
+      <FishThumbnail item={item} /> {/* Display fish image/thumbnail */}
 
       <View style={styles.fishInfo}>
         <Text style={styles.fishName} numberOfLines={2}>{item.name}</Text>
@@ -269,6 +311,7 @@ useEffect(() => {
       </View>
 
       <View style={styles.buttonContainer}>
+        {/* Toggle button for 'caught' status */}
         <TouchableOpacity
           style={[styles.toggleButton, item.caught ? styles.caughtButton : styles.uncaughtButton]}
           onPress={() => handleToggleCaught(item.name, !item.caught)}
@@ -278,6 +321,7 @@ useEffect(() => {
           </Text>
         </TouchableOpacity>
 
+        {/* Toggle button for 'breeding pair' status */}
         <TouchableOpacity
           style={[styles.toggleButton, item.breeding_pair ? styles.breedingButton : styles.noBreedingButton]}
           onPress={() => handleToggleBreedingPair(item.name, !item.breeding_pair)}
@@ -290,6 +334,7 @@ useEffect(() => {
     </TouchableOpacity>
   );
 
+  // Render function for the detailed fish card within the modal
   const renderDetailedFishCard = useCallback(({ item }) => {
     const cardWidth = windowWidth * 0.9;
     const cardMargin = 4;
@@ -329,45 +374,57 @@ useEffect(() => {
         </View>
       </View>
 
-      {/* Search and Filter Controls */}
+      {/* Collapsible Search and Filter Controls */}
       <View style={styles.controlsContainer}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search marine life..."
-          value={searchText}
-          onChangeText={(text) => dispatch({ type: 'SET_SEARCH_TEXT', payload: text })}
-          placeholderTextColor="#666"
-        />
+        {/* Button to toggle filter section visibility */}
+        <TouchableOpacity onPress={toggleFilterExpand} style={styles.collapseToggle}>
+          <Text style={styles.collapseToggleText}>
+            {filterExpanded ? 'Hide Filters ▲' : 'Show Filters ▼'}
+          </Text>
+        </TouchableOpacity>
 
-        <Text style={styles.controlLabel}>Filter by:</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
-          {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
-            <TouchableOpacity
-              key={filter}
-              style={[styles.filterButton, filterType === filter && styles.activeFilterButton]}
-              onPress={() => dispatch({ type: 'SET_FILTER_TYPE', payload: filter })}
-            >
-              <Text style={[styles.filterButtonText, filterType === filter && styles.activeFilterButtonText]}>
-                {filter.charAt(0).toUpperCase() + filter.slice(1)}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        {/* Conditionally render the filter and sort section */}
+        {filterExpanded && (
+          <View>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search marine life..."
+              value={searchText}
+              onChangeText={(text) => dispatch({ type: 'SET_SEARCH_TEXT', payload: text })}
+              placeholderTextColor="#666"
+            />
 
-        <Text style={styles.controlLabel}>Sort by:</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
-          {sortOptions.map((option) => (
-            <TouchableOpacity
-              key={option.key}
-              style={[styles.filterButton, sortType === option.key && styles.activeFilterButton]}
-              onPress={() => dispatch({ type: 'SET_SORT_TYPE', payload: option.key })}
-            >
-              <Text style={[styles.filterButtonText, sortType === option.key && styles.activeFilterButtonText]}>
-                {option.label}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+            <Text style={styles.controlLabel}>Filter by:</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
+              {['all', 'caught', 'uncaught', 'breeding'].map((filter) => (
+                <TouchableOpacity
+                  key={filter}
+                  style={[styles.filterButton, filterType === filter && styles.activeFilterButton]}
+                  onPress={() => dispatch({ type: 'SET_FILTER_TYPE', payload: filter })}
+                >
+                  <Text style={[styles.filterButtonText, filterType === filter && styles.activeFilterButtonText]}>
+                    {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+
+            <Text style={styles.controlLabel}>Sort by:</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
+              {sortOptions.map((option) => (
+                <TouchableOpacity
+                  key={option.key}
+                  style={[styles.filterButton, sortType === option.key && styles.activeFilterButton]}
+                  onPress={() => dispatch({ type: 'SET_SORT_TYPE', payload: option.key })}
+                >
+                  <Text style={[styles.filterButtonText, sortType === option.key && styles.activeFilterButtonText]}>
+                    {option.label}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
+        )}
       </View>
 
       {/* Marine Life Grid */}
@@ -453,6 +510,19 @@ const styles = StyleSheet.create({
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
+  },
+  // Style for the collapse toggle button
+  collapseToggle: {
+    alignItems: 'center', // Center the text horizontally
+    paddingVertical: 8,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  collapseToggleText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
   },
   controlLabel: {
     fontSize: 14,
