@@ -19,7 +19,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/American_Lobster.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/American_Lobster.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_American_Lobster.png?raw=true"
   },
   {
@@ -44,7 +44,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Barrel_Jellyfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Barrel_Jellyfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Barrel_Jellyfish.png?raw=true"
   },
   {
@@ -69,7 +69,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Big_Belly_Seahorse.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Big_Belly_Seahorse.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/1/15/Black_and_White_Snapper_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230727174907",
@@ -90,7 +90,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Black_and_White_Snapper.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Black_and_White_Snapper.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Black_and_White_Snapper.png?raw=true"
   },
   {
@@ -115,7 +115,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Blacktip_Reefshark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Blacktip_Reefshark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Blacktip_Reefshark.png?raw=true"
   },
   {
@@ -138,7 +138,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Blue_Lobster.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Blue_Lobster.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Blue_Lobster.png?raw=true"
   },
   {
@@ -161,7 +161,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Blue_Tang.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Blue_Tang.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Blue_Tang.png?raw=true"
   },
   {
@@ -193,7 +193,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Bluefin_Tuna.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Bluefin_Tuna.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Bluefin_Tuna.png?raw=true"
   },
   {
@@ -218,7 +218,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Box_Jellyfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Box_Jellyfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Box_Jellyfish.png?raw=true"
   },
   {
@@ -240,7 +240,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Cardinal_Fish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Cardinal_Fish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Cardinal_Fish.png?raw=true"
   },
   {
@@ -263,7 +263,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Clearfin_Lionfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Clearfin_Lionfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Clearfin_Lionfish.png?raw=true"
   },
   {
@@ -286,7 +286,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Clownfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Clownfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Clownfish.png?raw=true"
   },
   {
@@ -309,7 +309,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Comber.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Comber.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Comber.png?raw=true"
   },
   {
@@ -332,7 +332,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Copper_Shark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Copper_Shark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Copper_Shark.png?raw=true"
   },
   {
@@ -354,7 +354,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Emperor_Angelfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Emperor_Angelfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Emperor_Angelfish.png?raw=true"
   },
   {
@@ -377,7 +377,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/European_Lobster.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/European_Lobster.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/9/97/Flame_AngelFish_Thumbnail.png/revision/latest?cb=20230727180609",
@@ -398,7 +398,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Flame_Angelfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Flame_Angelfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Flame_Angelfish.png?raw=true"
   },
   {
@@ -421,7 +421,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Fried_Egg_Jellyfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Fried_Egg_Jellyfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Fried_Egg_Jellyfish.png?raw=true"
   },
   {
@@ -445,7 +445,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": true,
     "best_capture_method": "Special boss method",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Great_White_Shark_Klaus.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Great_White_Shark_Klaus.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Great_White_Shark_Klaus.png?raw=true"
   },
   {
@@ -468,7 +468,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Green_Humphead_Parrotfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Green_Humphead_Parrotfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Green_Humphead_Parrotfish.png?raw=true"
   },
   {
@@ -493,7 +493,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Green_Sea_Urchin.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Green_Sea_Urchin.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Green_Sea_Urchin.png?raw=true"
   },
   {
@@ -518,7 +518,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Jayakars_Seahorse.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Jayakars_Seahorse.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/7/72/Reef_Triggerfish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230727181019",
@@ -540,7 +540,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Lagoon_Triggerfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Lagoon_Triggerfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Lagoon_Triggerfish.png?raw=true"
   },
   {
@@ -565,7 +565,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Long_Snouted_Seahorse.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Long_Snouted_Seahorse.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/4/49/Longfin_BatFish_Thumbnail.png/revision/latest/scale-to-width-down/27?cb=20230727185334",
@@ -587,7 +587,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Longfin_Batfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Longfin_Batfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Longfin_Batfish.png?raw=true"
   },
   {
@@ -610,7 +610,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Longspine_Porcupinefish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Longspine_Porcupinefish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Longspine_Porcupinefish.png?raw=true"
   },
   {
@@ -633,7 +633,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Longspine_Squirrelfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Longspine_Squirrelfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Longspine_Squirrelfish.png?raw=true"
   },
   {
@@ -658,7 +658,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": true,
     "best_capture_method": "Special boss method",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Mantis_Shrimp.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Mantis_Shrimp.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/fc/Marbled_Electric_Ray_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230727185429",
@@ -683,7 +683,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Marbled_Electric_Ray.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Marbled_Electric_Ray.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Marbled_Electric_Ray.png?raw=true"
   },
   {
@@ -708,7 +708,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Marlin.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Marlin.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Marlin.png?raw=true"
   },
   {
@@ -731,7 +731,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Mediterranean_Parrotfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Mediterranean_Parrotfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Mediterranean_Parrotfish.png?raw=true"
   },
   {
@@ -756,7 +756,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Moray_Eel.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Moray_Eel.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Moray_Eel.png?raw=true"
   },
   {
@@ -779,7 +779,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Orbicular_Batfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Orbicular_Batfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Orbicular_Batfish.png?raw=true"
   },
   {
@@ -802,7 +802,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Ornate_Wrasse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Ornate_Wrasse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Ornate_Wrasse.png?raw=true"
   },
   {
@@ -827,7 +827,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Pacific_Seahorse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Pacific_Seahorse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Pacific_Seahorse.png?raw=true"
   },
   {
@@ -852,7 +852,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Purple_Sea_Urchin.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Purple_Sea_Urchin.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Purple_Sea_Urchin.png?raw=true"
   },
   {
@@ -875,7 +875,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Pyramid_Butterflyfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Pyramid_Butterflyfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Pyramid_Butterflyfish.png?raw=true"
   },
   {
@@ -898,7 +898,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Rainbow_Wrasse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Rainbow_Wrasse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Rainbow_Wrasse.png?raw=true"
   },
   {
@@ -923,7 +923,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Red_Lionfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Red_Lionfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Red_Lionfish.png?raw=true"
   },
   {
@@ -945,7 +945,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Red_banded_Lobster.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Red_banded_Lobster.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/c/c7/Redtoothed_Triggerfish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230727193701",
@@ -967,7 +967,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Redtoothed_Triggerfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Redtoothed_Triggerfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Redtoothed_Triggerfish.png?raw=true"
   },
   {
@@ -989,7 +989,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Salema_Porgy.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Salema_Porgy.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/9/9d/SquareSpot_Anthias_Thumbnail.png/revision/latest?cb=20230727194300",
@@ -1010,7 +1010,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Sea_Goldie.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Sea_Goldie.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Sea_Goldie.png?raw=true"
   },
   {
@@ -1035,7 +1035,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Sheepshead.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Sheepshead.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Sheepshead.png?raw=true"
   },
   {
@@ -1059,7 +1059,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Shortfin_Mako.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Shortfin_Mako.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Shortfin_Mako.png?raw=true"
   },
   {
@@ -1082,7 +1082,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Small_Spotted_Dart.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Small_Spotted_Dart.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Small_Spotted_Dart.png?raw=true"
   },
   {
@@ -1108,7 +1108,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Starry_Puffer.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Starry_Puffer.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Starry_Puffer.png?raw=true"
   },
   {
@@ -1133,7 +1133,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Stingray.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Stingray.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Stingray.png?raw=true"
   },
   {
@@ -1156,7 +1156,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Striped_Catfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Striped_Catfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Striped_Catfish.png?raw=true"
   },
   {
@@ -1181,7 +1181,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Thresher_Shark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Thresher_Shark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Thresher_Shark.png?raw=true"
   },
   {
@@ -1204,7 +1204,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Titan_Triggerfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Titan_Triggerfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Titan_Triggerfish.png?raw=true"
   },
   {
@@ -1229,7 +1229,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": true,
     "best_capture_method": "Special boss method",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Truck_Hermit_Crab.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Truck_Hermit_Crab.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Truck_Hermit_Crab.png?raw=true"
   },
   {
@@ -1254,7 +1254,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/White_Shrimp.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/White_Shrimp.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_White_Shrimp.png?raw=true"
   },
   {
@@ -1280,7 +1280,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Whiteleg_Shrimp.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Whiteleg_Shrimp.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Whiteleg_Shrimp.png?raw=true"
   },
   {
@@ -1307,7 +1307,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Whitetip_Reefshark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Whitetip_Reefshark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Whitetip_Reefshark.png?raw=true"
   },
   {
@@ -1329,7 +1329,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Yellow_Tang.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Yellow_Tang.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Yellow_Tang.png?raw=true"
   },
   {
@@ -1352,7 +1352,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Yellowback_Fusilier.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Yellowback_Fusilier.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Yellowback_Fusilier.png?raw=true"
   },
   {
@@ -1383,7 +1383,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Yellowfin_Tuna.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Yellowfin_Tuna.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Yellowfin_Tuna.png?raw=true"
   },
   {
@@ -1407,7 +1407,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Zebra_Shark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Zebra_Shark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Zebra_Shark.png?raw=true"
   },
   {
@@ -1430,7 +1430,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Atlantic_Anglerfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Atlantic_Anglerfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Atlantic_Anglerfish.png?raw=true"
   },
   {
@@ -1453,7 +1453,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Atlantic_Bonito.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Atlantic_Bonito.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Atlantic_Bonito.png?raw=true"
   },
   {
@@ -1477,7 +1477,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Atlantic_Mackerel.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Atlantic_Mackerel.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Atlantic_Mackerel.png?raw=true"
   },
   {
@@ -1500,7 +1500,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Bigeye_Scad.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Bigeye_Scad.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Bigeye_Scad.png?raw=true"
   },
   {
@@ -1523,7 +1523,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Bigeye_Trevally.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Bigeye_Trevally.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Bigeye_Trevally.png?raw=true"
   },
   {
@@ -1548,7 +1548,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Black_Tiger_Shrimp.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Black_Tiger_Shrimp.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Black_Tiger_Shrimp.png?raw=true"
   },
   {
@@ -1571,7 +1571,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Blackfin_Barracuda.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Blackfin_Barracuda.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Blackfin_Barracuda.png?raw=true"
   },
   {
@@ -1603,7 +1603,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Bluefin_Tuna.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Bluefin_Tuna.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Bluefin_Tuna.png?raw=true"
   },
   {
@@ -1625,7 +1625,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Bluehead_Tilefish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Bluehead_Tilefish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Bluehead_Tilefish.png?raw=true"
   },
   {
@@ -1648,7 +1648,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/California_Spiny_Lobster.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/California_Spiny_Lobster.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_California_Spiny_Lobster.png?raw=true"
   },
   {
@@ -1671,7 +1671,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Clown_Frogfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Clown_Frogfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Clown_Frogfish.png?raw=true"
   },
   {
@@ -1695,7 +1695,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Coral_Trout.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Coral_Trout.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Coral_Trout.png?raw=true"
   },
   {
@@ -1718,7 +1718,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Crystal_Lobster.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Crystal_Lobster.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Crystal_Lobster.png?raw=true"
   },
   {
@@ -1745,7 +1745,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Cuttlefish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Cuttlefish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Cuttlefish.png?raw=true"
   },
   {
@@ -1769,7 +1769,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Devil_Scorpionfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Devil_Scorpionfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Devil_Scorpionfish.png?raw=true"
   },
   {
@@ -1792,7 +1792,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Dusky_Grouper.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Dusky_Grouper.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Dusky_Grouper.png?raw=true"
   },
   {
@@ -1817,7 +1817,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Dwarf_Seahorse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Dwarf_Seahorse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Dwarf_Seahorse.png?raw=true"
   },
   {
@@ -1839,7 +1839,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Fan_Lobster.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Fan_Lobster.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Fan_Lobster.png?raw=true"
   },
   {
@@ -1861,7 +1861,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Giant_Squid.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Giant_Squid.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Giant_Squid.png?raw=true"
   },
   {
@@ -1887,7 +1887,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Giant_Trevally.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Giant_Trevally.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Giant_Trevally.png?raw=true"
   },
   {
@@ -1912,7 +1912,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Giraffe_Seahorse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Giraffe_Seahorse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Giraffe_Seahorse.png?raw=true"
   },
   {
@@ -1935,7 +1935,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Great_Barracuda.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Great_Barracuda.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Great_Barracuda.png?raw=true"
   },
   {
@@ -1958,7 +1958,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Grey_Triggerfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Grey_Triggerfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Grey_Triggerfish.png?raw=true"
   },
   {
@@ -1981,7 +1981,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Harlequin_Hind.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Harlequin_Hind.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Harlequin_Hind.png?raw=true"
   },
   {
@@ -2006,7 +2006,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Hedgehog_Seahorse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Hedgehog_Seahorse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Hedgehog_Seahorse.png?raw=true"
   },
   {
@@ -2031,7 +2031,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Humboldt_Squid.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Humboldt_Squid.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Humboldt_Squid.png?raw=true"
   },
   {
@@ -2055,7 +2055,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Longnose_Sawshark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Longnose_Sawshark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Longnose_Sawshark.png?raw=true"
   },
   {
@@ -2081,7 +2081,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Lusca.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Lusca.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Lusca.png?raw=true"
   },
   {
@@ -2104,7 +2104,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Mackerel_Scad.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Mackerel_Scad.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Mackerel_Scad.png?raw=true"
   },
   {
@@ -2127,7 +2127,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Narrow_Barred_Spanish_Mackerel.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Narrow_Barred_Spanish_Mackerel.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/0/01/Painted_Comber_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050831",
@@ -2149,7 +2149,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Painted_Comber.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Painted_Comber.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Painted_Comber.png?raw=true"
   },
   {
@@ -2176,7 +2176,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Sailfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Sailfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Sailfish.png?raw=true"
   },
   {
@@ -2199,7 +2199,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Sally_Lightfoot_Crab.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Sally_Lightfoot_Crab.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Sally_Lightfoot_Crab.png?raw=true"
   },
   {
@@ -2224,7 +2224,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Smooth_Hammerhead.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Smooth_Hammerhead.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Smooth_Hammerhead.png?raw=true"
   },
   {
@@ -2247,7 +2247,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Spear_Squid.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Spear_Squid.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Spear_Squid.png?raw=true"
   },
   {
@@ -2272,7 +2272,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Spiny_Seahorse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Spiny_Seahorse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Spiny_Seahorse.png?raw=true"
   },
   {
@@ -2295,7 +2295,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Striped_Red_Mullet.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Striped_Red_Mullet.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Striped_Red_Mullet.png?raw=true"
   },
   {
@@ -2320,7 +2320,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Tiger_Shark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Tiger_Shark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Tiger_Shark.png?raw=true"
   },
   {
@@ -2345,7 +2345,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Tiger_Tail_Seahorse.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Tiger_Tail_Seahorse.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/f9/Tropical_Rock_Lobster_Thumbnail.png/revision/latest/scale-to-width-down/44?cb=20240612163913",
@@ -2367,7 +2367,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Tropical_Rock_Lobster.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Tropical_Rock_Lobster.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Tropical_Rock_Lobster.png?raw=true"
   },
   {
@@ -2392,7 +2392,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/White_Shrimp.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/White_Shrimp.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_White_Shrimp.png?raw=true"
   },
   {
@@ -2417,7 +2417,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/White_Spotted_Jellyfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/White_Spotted_Jellyfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_White_Spotted_Jellyfish.png?raw=true"
   },
   {
@@ -2441,7 +2441,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/White_Trevally.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/White_Trevally.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_White_Trevally.png?raw=true"
   },
   {
@@ -2472,7 +2472,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Yellowfin_Tuna.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Yellowfin_Tuna.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Yellowfin_Tuna.png?raw=true"
   },
   {
@@ -2497,7 +2497,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Zebra_Seahorse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Zebra_Seahorse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Zebra_Seahorse.png?raw=true"
   },
   {
@@ -2519,7 +2519,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Blood_belly_Comb_Jellyfish.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Blood_belly_Comb_Jellyfish.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/6/60/BluespottedStargazer_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040614",
@@ -2543,7 +2543,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Bluespotted_Stargazer.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Bluespotted_Stargazer.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Bluespotted_Stargazer.png?raw=true"
   },
   {
@@ -2565,7 +2565,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Chambered_Nautilus.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Chambered_Nautilus.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Chambered_Nautilus.png?raw=true"
   },
   {
@@ -2587,7 +2587,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Clione.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Clione.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Clione.png?raw=true"
   },
   {
@@ -2612,7 +2612,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Clione_Queen.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Clione_Queen.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Clione_Queen.png?raw=true"
   },
   {
@@ -2637,7 +2637,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Comb_Jelly.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Comb_Jelly.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Comb_Jelly.png?raw=true"
   },
   {
@@ -2660,7 +2660,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Cookiecutter_Shark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Cookiecutter_Shark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Cookiecutter_Shark.png?raw=true"
   },
   {
@@ -2685,7 +2685,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Crowned_Seahorse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Crowned_Seahorse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Crowned_Seahorse.png?raw=true"
   },
   {
@@ -2708,7 +2708,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Eastern_Rock_Lobster.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Eastern_Rock_Lobster.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Eastern_Rock_Lobster.png?raw=true"
   },
   {
@@ -2731,7 +2731,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Fangtooth.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Fangtooth.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Fangtooth.png?raw=true"
   },
   {
@@ -2757,7 +2757,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Frilled_Shark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Frilled_Shark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Frilled_Shark.png?raw=true"
   },
   {
@@ -2782,7 +2782,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Giant_Wolf_Eel.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Giant_Wolf_Eel.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Giant_Wolf_Eel.png?raw=true"
   },
   {
@@ -2807,7 +2807,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Goblin_Shark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Goblin_Shark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Goblin_Shark.png?raw=true"
   },
   {
@@ -2832,7 +2832,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Lined_Seahorse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Lined_Seahorse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Lined_Seahorse.png?raw=true"
   },
   {
@@ -2858,7 +2858,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Megamouth_Shark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Megamouth_Shark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Megamouth_Shark.png?raw=true"
   },
   {
@@ -2881,7 +2881,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Norway_Lobster.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Norway_Lobster.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Norway_Lobster.png?raw=true"
   },
   {
@@ -2904,7 +2904,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Pacific_Fanfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Pacific_Fanfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Pacific_Fanfish.png?raw=true"
   },
   {
@@ -2927,7 +2927,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Red_Bream.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Red_Bream.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Red_Bream.png?raw=true"
   },
   {
@@ -2953,7 +2953,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Rhinochimaeridae.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Rhinochimaeridae.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Rhinochimaeridae.png?raw=true"
   },
   {
@@ -2976,7 +2976,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Salmon_Snailfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Salmon_Snailfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Salmon_Snailfish.png?raw=true"
   },
   {
@@ -2999,7 +2999,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Sea_Toad.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Sea_Toad.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Sea_Toad.png?raw=true"
   },
   {
@@ -3024,7 +3024,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Spider_Crab.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Spider_Crab.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Spider_Crab.png?raw=true"
   },
   {
@@ -3049,7 +3049,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Spotted_Seahorse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Spotted_Seahorse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Spotted_Seahorse.png?raw=true"
   },
   {
@@ -3071,7 +3071,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Threetooth_Puffer.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Threetooth_Puffer.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Threetooth_Puffer.png?raw=true"
   },
   {
@@ -3096,7 +3096,7 @@ const allMarineLife = [
     "is_dlc": false,
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/White_Seahorse.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/White_Seahorse.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_White_Seahorse.png?raw=true"
   },
   {
@@ -3119,7 +3119,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Barreleye.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Barreleye.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Barreleye.png?raw=true"
   },
   {
@@ -3142,7 +3142,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Blobfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Blobfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Blobfish.png?raw=true"
   },
   {
@@ -3165,7 +3165,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Dumbo_Octopus.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Dumbo_Octopus.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Dumbo_Octopus.png?raw=true"
   },
   {
@@ -3189,7 +3189,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Peacock_Squid.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Peacock_Squid.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Peacock_Squid.png?raw=true"
   },
   {
@@ -3214,7 +3214,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Pelican_Eel.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Pelican_Eel.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Pelican_Eel.png?raw=true"
   },
   {
@@ -3240,7 +3240,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Vampire_Squid.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Vampire_Squid.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Vampire_Squid.png?raw=true"
   },
   {
@@ -3262,7 +3262,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Alaska_Pollock.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Alaska_Pollock.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Alaska_Pollock.png?raw=true"
   },
   {
@@ -3288,7 +3288,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Antarctic_Octopus.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Antarctic_Octopus.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/3/30/Arctic_Cod_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040542",
@@ -3310,7 +3310,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Arctic_Cod.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Arctic_Cod.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/1/14/Arctic_TelescopeFish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040544",
@@ -3331,7 +3331,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Arctic_Telescope_Fish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Arctic_Telescope_Fish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Arctic_Telescope_Fish.png?raw=true"
   },
   {
@@ -3354,7 +3354,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Capelin.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Capelin.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/f8/Gelatinous_Snailfish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050235",
@@ -3376,7 +3376,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Gelatinous_Snailfish.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Gelatinous_Snailfish.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/e/ef/Golden_King_Crab_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20231226232621",
@@ -3398,7 +3398,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Golden_King_Crab.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Golden_King_Crab.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/6/6d/Greenland_Shark_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050511",
@@ -3422,7 +3422,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Greenland_Shark.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Greenland_Shark.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/7/7e/Haddock_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050513",
@@ -3444,7 +3444,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Haddock.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Haddock.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/d/d2/Horsehair_Crab_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20240612161653",
@@ -3466,7 +3466,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Horsehair_Crab.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Horsehair_Crab.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/1/1f/Ice_Fish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050520",
@@ -3488,7 +3488,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Ice_Fish.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Ice_Fish.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/4/42/Seahorse_22_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052753",
@@ -3509,7 +3509,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Leafy_Seadragon.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Leafy_Seadragon.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/9/9d/LumpFish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050800",
@@ -3530,7 +3530,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Lumpfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Lumpfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Lumpfish.png?raw=true"
   },
   {
@@ -3556,7 +3556,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Narwhal.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Narwhal.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/7/7a/Boss_Phantom_Jellyfish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052535",
@@ -3580,7 +3580,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Phantom_Jellyfish.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Phantom_Jellyfish.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/b/b6/Polar_Eelpout_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728051200",
@@ -3601,7 +3601,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Polar_Eelpout.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Polar_Eelpout.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/9/90/Porbeagle_Shark_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728051201",
@@ -3626,7 +3626,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Porbeagle_Shark.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Porbeagle_Shark.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/a/a9/Snow_Crab_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20231227231941",
@@ -3648,7 +3648,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Snow_Crab.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Snow_Crab.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/e/ea/SnubNosedSpiny_Eel_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728051521",
@@ -3671,7 +3671,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Snub_nosed_Spiny_Eel.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Snub_nosed_Spiny_Eel.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/b/b4/Antarctic_Starry_Skate_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230727051431",
@@ -3693,7 +3693,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Starry_Skate.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Starry_Skate.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/5/5d/Seahorse_21_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052750",
@@ -3714,7 +3714,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Weedy_Seadragon.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Weedy_Seadragon.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/ff/Allenypterus_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040530",
@@ -3735,7 +3735,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Allenypterus.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Allenypterus.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/c/cf/Baby_Anomalocaris_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040548",
@@ -3756,7 +3756,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Anomalocaris.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Anomalocaris.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/a/a6/Dollocaris_Ingens_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20240612162241",
@@ -3777,7 +3777,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Dollocaris_Ingens.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Dollocaris_Ingens.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Dollocaris_Ingens.png?raw=true"
   },
   {
@@ -3801,7 +3801,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Drepanaspis.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Drepanaspis.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/c/c8/Dunkleosteus_Thumbnail.png/revision/latest/scale-to-width-down/46?cb=20230728050109",
@@ -3825,7 +3825,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Dunkleosteus.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Dunkleosteus.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Dunkleosteus.png?raw=true"
   },
   {
@@ -3848,7 +3848,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Falcatus.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Falcatus.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/fa/Boss_Helicoprion_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052533",
@@ -3872,7 +3872,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Helicoprion.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Helicoprion.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/5/57/Boss_Kronosaurus_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052533",
@@ -3896,7 +3896,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Kronosaurus.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Kronosaurus.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Kronosaurus.png?raw=true"
   },
   {
@@ -3918,7 +3918,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Megalograptus.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Megalograptus.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Megalograptus.png?raw=true"
   },
   {
@@ -3941,7 +3941,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Pikaia.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Pikaia.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Pikaia.png?raw=true"
   },
   {
@@ -3963,7 +3963,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Qingmendous.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Qingmendous.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/b/b9/Seahorse_23_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052754",
@@ -3984,7 +3984,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Ruby_Seadragon.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Ruby_Seadragon.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/d/db/Tokummia_Katalepsis_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20240612163925",
@@ -4006,7 +4006,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Tokummia_Katalepsis.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Tokummia_Katalepsis.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Tokummia_Katalepsis.png?raw=true"
   },
   {
@@ -4029,7 +4029,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Waptia_Fieldensis.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Waptia_Fieldensis.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Waptia_Fieldensis.png?raw=true"
   },
   {
@@ -4053,7 +4053,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Xenacanthus.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Xenacanthus.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/4/40/Boss_Anomalocaris_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052525",
@@ -4076,7 +4076,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Yawie.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Yawie.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/fa/Aurora_Jellyfish_Thumbnail.png/revision/latest/scale-to-width-down/37?cb=20240614145940",
@@ -4097,7 +4097,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Aurora_Jellyfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Aurora_Jellyfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Aurora_Jellyfish.png?raw=true"
   },
   {
@@ -4119,7 +4119,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Barbed_Eel.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Barbed_Eel.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Barbed_Eel.png?raw=true"
   },
   {
@@ -4143,7 +4143,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Bloodskin_Shark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Bloodskin_Shark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Bloodskin_Shark.png?raw=true"
   },
   {
@@ -4165,7 +4165,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Bony_Wreckfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Bony_Wreckfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Bony_Wreckfish.png?raw=true"
   },
   {
@@ -4187,7 +4187,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Bursting_Anglerfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Bursting_Anglerfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Bursting_Anglerfish.png?raw=true"
   },
   {
@@ -4209,7 +4209,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Cerebral_Crab.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Cerebral_Crab.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Cerebral_Crab.png?raw=true"
   },
   {
@@ -4231,7 +4231,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Concertina_Barracuda.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Concertina_Barracuda.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Concertina_Barracuda.png?raw=true"
   },
   {
@@ -4253,7 +4253,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Cortex_Decorator.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Cortex_Decorator.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Cortex_Decorator.png?raw=true"
   },
   {
@@ -4275,7 +4275,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Entangled_Crab.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Entangled_Crab.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Entangled_Crab.png?raw=true"
   },
   {
@@ -4297,7 +4297,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Enthralled_Stonefish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Enthralled_Stonefish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Enthralled_Stonefish.png?raw=true"
   },
   {
@@ -4319,7 +4319,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Fanged_Cod.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Fanged_Cod.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Fanged_Cod.png?raw=true"
   },
   {
@@ -4343,7 +4343,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Gazing_Shark.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Gazing_Shark.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Gazing_Shark.png?raw=true"
   },
   {
@@ -4365,7 +4365,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Gelatinous_Stonefish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Gelatinous_Stonefish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Gelatinous_Stonefish.png?raw=true"
   },
   {
@@ -4387,7 +4387,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Gnashing_Perch.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Gnashing_Perch.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Gnashing_Perch.png?raw=true"
   },
   {
@@ -4409,7 +4409,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Grotesque_Mackerel.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Grotesque_Mackerel.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Grotesque_Mackerel.png?raw=true"
   },
   {
@@ -4431,7 +4431,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Host_Eel.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Host_Eel.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Host_Eel.png?raw=true"
   },
   {
@@ -4453,7 +4453,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Imperious_Lobster.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Imperious_Lobster.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Imperious_Lobster.png?raw=true"
   },
   {
@@ -4475,7 +4475,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Malignant_Pincer.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Malignant_Pincer.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Malignant_Pincer.png?raw=true"
   },
   {
@@ -4497,7 +4497,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Many_Eyed_Mackerel.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Many_Eyed_Mackerel.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Many_Eyed_Mackerel.png?raw=true"
   },
   {
@@ -4519,7 +4519,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Parhelion_Jellyfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Parhelion_Jellyfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Parhelion_Jellyfish.png?raw=true"
   },
   {
@@ -4541,7 +4541,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Perished_Loosejaw.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Perished_Loosejaw.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Perished_Loosejaw.png?raw=true"
   },
   {
@@ -4563,7 +4563,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Radiant_Squid.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Radiant_Squid.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Radiant_Squid.png?raw=true"
   },
   {
@@ -4585,7 +4585,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Sallow_Sailfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Sallow_Sailfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Sallow_Sailfish.png?raw=true"
   },
   {
@@ -4607,7 +4607,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Savage_Barracuda.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Savage_Barracuda.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Savage_Barracuda.png?raw=true"
   },
   {
@@ -4629,7 +4629,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Scouring_Bass.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Scouring_Bass.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Scouring_Bass.png?raw=true"
   },
   {
@@ -4651,7 +4651,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Seizing_Snailfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Seizing_Snailfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Seizing_Snailfish.png?raw=true"
   },
   {
@@ -4673,7 +4673,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Shattered_Wreckfish.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Shattered_Wreckfish.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Shattered_Wreckfish.png?raw=true"
   },
   {
@@ -4695,7 +4695,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Splintered_Crab.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Splintered_Crab.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Splintered_Crab.png?raw=true"
   },
   {
@@ -4717,7 +4717,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Sprouting_Eel.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Sprouting_Eel.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Sprouting_Eel.png?raw=true"
   },
   {
@@ -4739,7 +4739,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Three_Headed_Cod.png')
+    "local_thumbnail": require('../assets/marine_life_thumbs/Three_Headed_Cod.png')
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/3/34/Translucent_Sturgeon_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20240619153723",
@@ -4762,7 +4762,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Translucent_Sturgeon.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Translucent_Sturgeon.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Translucent_Sturgeon.png?raw=true"
   },
   {
@@ -4784,7 +4784,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Tusked_Grouper.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Tusked_Grouper.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Tusked_Grouper.png?raw=true"
   },
   {
@@ -4806,7 +4806,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Voltaic_Grouper.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Voltaic_Grouper.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Voltaic_Grouper.png?raw=true"
   },
   {
@@ -4828,7 +4828,7 @@ const allMarineLife = [
     "is_dlc": true,
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
-    "local_thumbnail": require('./src/assets/marine_life_thumbs/Withered_Ray.png'),
+    "local_thumbnail": require('../assets/marine_life_thumbs/Withered_Ray.png'),
     "detailed_marine_life_art": "https://github.com/Soulbishop/DaveTheDiverCompanionApp/blob/Ui-Edits/assets/detailed_marine_life_art/PU_Withered_Ray.png?raw=true"
   }
 ];
