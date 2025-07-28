@@ -29,12 +29,7 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding, onSel
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           {imageUrl ? (
-            <Image 
-              source={fish.detailed_marine_life_art || fish.local_thumbnail} 
-              style={styles.fishImage}
-              resizeMode="contain"
-            />
-
+            <Image source={{ uri: imageUrl }} style={styles.fishImage} />
           ) : (
             <View style={styles.placeholderImage}>
               <Text style={styles.placeholderText}>🐟</Text>
@@ -107,7 +102,6 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding, onSel
             />
           </View>
         </View>
-
       </ScrollView>
     </View>
   );
@@ -152,16 +146,20 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   imageContainer: {
-    height: 150,
+    width: '100%',
+    height: 180,
+    backgroundColor: '#f8f8f8',
+    borderRadius: 12,
+    overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-    backgroundColor: '#f8f8f8',
-    borderRadius: 12,
   },
   fishImage: {
-    width: 120,
-    height: 120,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 12, // Ensures image corners match container (extra safety)
   },
   placeholderImage: {
     width: 120,
