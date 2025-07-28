@@ -486,6 +486,7 @@ const styles = StyleSheet.create({
   },
   actionButtonsContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap', // <-- Add this line
     justifyContent: 'space-around',
     paddingHorizontal: 16,
     paddingBottom: 10,
