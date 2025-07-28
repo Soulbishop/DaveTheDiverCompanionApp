@@ -379,7 +379,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/European_Lobster.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_European_Lobster.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/European_Lobster.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/9/97/Flame_AngelFish_Thumbnail.png/revision/latest?cb=20230727180609",
@@ -521,7 +521,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Jayakars_Seahorse.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Jayakars_Seahorse.png'),
+    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Jayakar's_Seahorse.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/7/72/Reef_Triggerfish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230727181019",
@@ -663,7 +663,7 @@ const allMarineLife = [
     "is_event_locked": true,
     "best_capture_method": "Special boss method",
     "local_thumbnail": require('../assets/marine_life_thumbs/Mantis_Shrimp.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Mantis_Shrimp.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Mantis_Shrimp.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/fc/Marbled_Electric_Ray_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230727185429",
@@ -996,7 +996,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Salema_Porgy.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Salema_Porgy.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Salema_Porgy.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/9/9d/SquareSpot_Anthias_Thumbnail.png/revision/latest?cb=20230727194300",
@@ -2135,7 +2135,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Narrow_Barred_Spanish_Mackerel.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Narrow_Barred_Spanish_Mackerel.png'),
+    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Narrow-Barred_Spanish_Mackerel.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/0/01/Painted_Comber_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050831",
@@ -2529,7 +2529,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Blood_belly_Comb_Jellyfish.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Blood_belly_Comb_Jellyfish.png'),
+    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Blood-belly_Comb_Jellyfish.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/6/60/BluespottedStargazer_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040614",
@@ -3299,7 +3299,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Antarctic_Octopus.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Antarctic_Octopus.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Antarctic_Octopus.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/3/30/Arctic_Cod_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040542",
@@ -3322,7 +3322,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Arctic_Cod.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Arctic_Cod.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Arctic_Cod.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/1/14/Arctic_TelescopeFish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040544",
@@ -3367,7 +3367,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Capelin.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Capelin.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Capelin.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/f8/Gelatinous_Snailfish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050235",
@@ -3390,7 +3390,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Gelatinous_Snailfish.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Gelatinous_Snailfish.png'),
+    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Gelatinous_Stonefish.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/e/ef/Golden_King_Crab_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20231226232621",
@@ -3413,7 +3413,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Golden_King_Crab.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Golden_King_Crab.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Golden_King_Crab.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/6/6d/Greenland_Shark_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050511",
@@ -3438,7 +3438,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Greenland_Shark.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Greenland_Shark.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Greenland_Shark.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/7/7e/Haddock_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050513",
@@ -3461,7 +3461,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Haddock.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Haddock.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Haddock.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/d/d2/Horsehair_Crab_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20240612161653",
@@ -3484,7 +3484,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Horsehair_Crab.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Horsehair_Crab.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Horsehair_Crab.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/1/1f/Ice_Fish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050520",
@@ -3507,7 +3507,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Ice_Fish.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Ice_Fish.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Ice_Fish.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/4/42/Seahorse_22_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052753",
@@ -3529,7 +3529,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Leafy_Seadragon.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Leafy_Seadragon.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Leafy_Seadragon.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/9/9d/LumpFish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728050800",
@@ -3577,7 +3577,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Narwhal.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Narwhal.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Narwhal.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/7/7a/Boss_Phantom_Jellyfish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052535",
@@ -3602,7 +3602,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Phantom_Jellyfish.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Phantom_Jellyfish.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Phantom_Jellyfish.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/b/b6/Polar_Eelpout_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728051200",
@@ -3624,7 +3624,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Polar_Eelpout.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Polar_Eelpout.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Polar_Eelpout.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/9/90/Porbeagle_Shark_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728051201",
@@ -3650,7 +3650,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Porbeagle_Shark.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Porbeagle_Shark.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Porbeagle_Shark.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/a/a9/Snow_Crab_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20231227231941",
@@ -3673,7 +3673,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Snow_Crab.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Snow_Crab.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Snow_Crab.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/e/ea/SnubNosedSpiny_Eel_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728051521",
@@ -3720,7 +3720,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Starry_Skate.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Starry_Skate.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Starry_Skate.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/5/5d/Seahorse_21_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052750",
@@ -3742,7 +3742,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Weedy_Seadragon.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Weedy_Seadragon.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Weedy_Seadragon.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/ff/Allenypterus_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040530",
@@ -3764,7 +3764,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Allenypterus.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Allenypterus.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Allenypterus.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/c/cf/Baby_Anomalocaris_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728040548",
@@ -3786,7 +3786,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Anomalocaris.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Anomalocaris.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Anomalocaris.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/a/a6/Dollocaris_Ingens_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20240612162241",
@@ -3832,7 +3832,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Drepanaspis.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Drepanaspis.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Drepanaspis.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/c/c8/Dunkleosteus_Thumbnail.png/revision/latest/scale-to-width-down/46?cb=20230728050109",
@@ -3880,7 +3880,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Falcatus.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Falcatus.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Falcatus.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/fa/Boss_Helicoprion_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052533",
@@ -3905,7 +3905,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Helicoprion.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Helicoprion.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Helicoprion.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/5/57/Boss_Kronosaurus_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052533",
@@ -3997,7 +3997,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Qingmendous.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Qingmendous.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Qingmendous.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/b/b9/Seahorse_23_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052754",
@@ -4019,7 +4019,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Ruby_Seadragon.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Ruby_Seadragon.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Ruby_Seadragon.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/d/db/Tokummia_Katalepsis_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20240612163925",
@@ -4089,7 +4089,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Xenacanthus.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Xenacanthus.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Xenacanthus.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/4/40/Boss_Anomalocaris_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230728052525",
@@ -4113,7 +4113,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Tranquilizer/Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Yawie.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Yawie.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Yawie.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/f/fa/Aurora_Jellyfish_Thumbnail.png/revision/latest/scale-to-width-down/37?cb=20240614145940",
@@ -4777,7 +4777,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Harpoon (2-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Three_Headed_Cod.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Three_Headed_Cod.png'),
+    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Three-Headed_Cod.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/3/34/Translucent_Sturgeon_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20240619153723",
