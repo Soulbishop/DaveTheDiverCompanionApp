@@ -521,7 +521,7 @@ const allMarineLife = [
     "is_event_locked": false,
     "best_capture_method": "Bug Net (3-star)",
     "local_thumbnail": require('../assets/marine_life_thumbs/Jayakars_Seahorse.png'),
-    "detailed_marine_life_art": require('../assets/detailed_marine_life_art/PU_Jayakar's_Seahorse.png'),
+    "detailed_marine_life_art": require('../assets/marine_life_thumbs/Jayakars_Seahorse.png'),
   },
   {
     "image_url": "https://static.wikia.nocookie.net/dave-the-diver/images/7/72/Reef_Triggerfish_Thumbnail.png/revision/latest/scale-to-width-down/48?cb=20230727181019",
