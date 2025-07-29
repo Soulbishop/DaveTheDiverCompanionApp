@@ -29,7 +29,11 @@ const MarineLifeCard = ({ fish, onClose, onToggleCaught, onToggleBreeding, onSel
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           {imageUrl ? (
-            <Image source={{ uri: imageUrl }} style={styles.fishImage} />
+            typeof imageUrl === 'string' ? (
+              <Image source={{ uri: imageUrl }} style={styles.fishImage} accessibilityIgnoresInvertColors={true} />
+            ) : (
+              <Image source={imageUrl} style={styles.fishImage} accessibilityIgnoresInvertColors={true} />
+            )
           ) : (
             <View style={styles.placeholderImage}>
               <Text style={styles.placeholderText}>🐟</Text>
