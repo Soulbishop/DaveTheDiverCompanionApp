@@ -35,3 +35,19 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+source_files_audit.zip
+_audit_temp_files/
+audit_structure.sh
+audit_non_images.sh
+project_structure.txt
+fix_marine_life_data.py
+allMarineLife_LOCAL.js
+allMarineLife_UPDATED.js
+allRecipes_LOCAL.js
+allMarineLife.js.bak
+convertPathsToLocal.js
+fixAssetPaths.js
+updateMarineLifeData.js
+dave_diver_fish_complete.csv
+test.txt
+src/assets/README.md
