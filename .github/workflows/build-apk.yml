@@ -2,9 +2,9 @@ name: Build APK without Expo Queue
 
 on:
   push:
-    branches: [ main, Add-sushi, Table-tuning, buildchange ]
+    branches: [ main, Add-sushi, Table-tuning, buildchange, Release-v1.0.0 ]
   pull_request:
-    branches: [ main, buildchange ]
+    branches: [ main, buildchange, Release-v1.0.0 ]
   workflow_dispatch:
 
 jobs:
