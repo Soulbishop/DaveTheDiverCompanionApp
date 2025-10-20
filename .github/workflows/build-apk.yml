@@ -56,7 +56,7 @@ jobs:
         retention-days: 30
 
     - name: Create Release (on main or buildchange branch)
-      if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/buildchange') && github.event_name == 'push'
+      if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/buildchange' || github.ref == 'refs/heads/Release-v1.0.0') && github.event_name == 'push'
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{ github.run_number }}-${{ github.ref_name }}
